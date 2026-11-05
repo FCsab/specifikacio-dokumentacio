@@ -358,3 +358,7 @@ a:hover { text-decoration: underline; }
     .hero-bg, #typed .cursor { animation: none; }
     .btn, .card, .tab { transition: none; }
 }
+@media (max-width: 520px) {
+    .brand-text { display: none; }
+    .nav nav { gap: 0.9rem; flex-wrap: nowrap; }
+}

@@ -28,6 +28,14 @@
         });
         var t = document.querySelector('[data-title-' + l + ']');
         if (t) { document.title = t.getAttribute('data-title-' + l); }
+        // the reader's language gets the primary button
+        var en = document.getElementById('cta-en'), hu = document.getElementById('cta-hu');
+        if (en && hu) {
+            var first = l === 'hu' ? hu : en, second = l === 'hu' ? en : hu;
+            first.className = 'btn primary';
+            second.className = 'btn ghost';
+            first.parentNode.insertBefore(first, first.parentNode.firstChild);
+        }
         var btn = document.getElementById('lang-toggle');
         if (btn) { btn.textContent = l === 'hu' ? 'EN' : 'HU'; }
         try { localStorage.setItem(KEY, l); } catch (e) { /* ignore */ }
@@ -63,12 +71,21 @@
     // ---------------------------------------------------------------- hero: typing editor
     var pre = document.getElementById('typed');
     if (!pre) { return; }
-    var lines = [
-        [['kw', 'In: '], ['', 'n'], ['op', '∈'], ['ty', 'N'], ['', ', nums'], ['op', '∈'], ['ty', 'N'], ['', '[1..n]']],
-        [['kw', 'Out: '], ['', 'cnt'], ['op', '∈'], ['ty', 'N']],
-        [['kw', 'Pre: '], ['', '-']],
-        [['kw', 'Post: '], ['', 'cnt='], ['mc', 'COUNT'], ['', '(i=1..n,'], ['', '\n      nums[i] '], ['op', 'mod'], ['', ' 2 = 1)']]
-    ];
+    var LINES = {
+        en: [
+            [['kw', 'In: '], ['', 'n'], ['op', '∈'], ['ty', 'N'], ['', ', nums'], ['op', '∈'], ['ty', 'N'], ['', '[1..n]']],
+            [['kw', 'Out: '], ['', 'cnt'], ['op', '∈'], ['ty', 'N']],
+            [['kw', 'Pre: '], ['', '-']],
+            [['kw', 'Post: '], ['', 'cnt='], ['mc', 'COUNT'], ['', '(i=1..n,'], ['', '\n      nums[i] '], ['op', 'mod'], ['', ' 2 = 1)']]
+        ],
+        hu: [
+            [['kw', 'Be: '], ['', 'n'], ['op', '∈'], ['ty', 'N'], ['', ', szamok'], ['op', '∈'], ['ty', 'N'], ['', '[1..n]']],
+            [['kw', 'Ki: '], ['', 'db'], ['op', '∈'], ['ty', 'N']],
+            [['kw', 'Ef: '], ['', '-']],
+            [['kw', 'Uf: '], ['', 'db='], ['mc', 'DARAB'], ['', '(i=1..n,'], ['', '\n    szamok[i] '], ['op', 'mod'], ['', ' 2 = 1)']]
+        ]
+    };
+    var lines = LINES[lang];
     var tabs = document.querySelectorAll('.tab');
     var verdict = document.getElementById('verdict');
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -87,9 +104,12 @@
         }
         return html;
     }
-    var total = lines.reduce(function (a, l) {
-        return a + l.reduce(function (b, s) { return b + s[1].length; }, 0);
-    }, 0) + lines.length - 1;
+    function count() {
+        return lines.reduce(function (a, l) {
+            return a + l.reduce(function (b, s) { return b + s[1].length; }, 0);
+        }, 0) + lines.length - 1;
+    }
+    var total = count();
 
     function finish() {
         pre.innerHTML = render(total) + '<span class="cursor"></span>';
@@ -103,6 +123,10 @@
         if (!reduce) { setTimeout(restart, 7000); }
     }
     function restart() {
+        lines = LINES[lang];
+        total = count();
+        var t = document.getElementById('editor-title');
+        if (t) { t.textContent = lang === 'hu' ? 'paratlan-db.sp' : 'odd-count.sp'; }
         tabs.forEach(function (t) { t.classList.remove('pass'); });
         verdict.classList.remove('show');
         type(0);
@@ -112,5 +136,6 @@
         pre.innerHTML = render(n) + '<span class="cursor"></span>';
         setTimeout(function () { type(n + 1); }, 28 + Math.random() * 40);
     }
-    if (reduce) { finish(); } else { type(0); }
+    if (toggle) { toggle.addEventListener('click', function () { if (reduce) { lines = LINES[lang]; total = count(); finish(); } }); }
+    if (reduce) { finish(); } else { restart(); }
 })();

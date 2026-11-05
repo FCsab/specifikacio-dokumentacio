@@ -17,6 +17,43 @@
         }
     }[lang];
 
+    // mdBook's own interface strings are English only; translate them for the HU book
+    if (lang === 'hu') {
+        var titles = { Note: 'Megjegyzés', Tip: 'Tipp', Important: 'Fontos', Warning: 'Figyelem', Caution: 'Vigyázat' };
+        document.querySelectorAll('.blockquote-tag-title').forEach(function (p) {
+            var t = p.lastChild;
+            if (t && t.nodeType === 3 && titles[t.textContent.trim()]) { t.textContent = titles[t.textContent.trim()]; }
+        });
+        var ui = {
+            'Search this book ...': 'Keresés a könyvben…',
+            'Change theme': 'Téma váltása',
+            'Git repository': 'Forráskód',
+            'Next chapter': 'Következő fejezet',
+            'Previous chapter': 'Előző fejezet',
+            'Print this book': 'A könyv nyomtatása',
+            'Search (`/`)': 'Keresés (`/`)',
+            'Suggest an edit': 'Javítás javaslata',
+            'Toggle Table of Contents': 'Tartalomjegyzék'
+        };
+        var header = document.getElementById('mdbook-searchresults-header');
+        if (header && window.MutationObserver) {
+            new MutationObserver(function () {
+                var t = header.textContent, m;
+                if ((m = t.match(/^(\d+) search results? for '(.*)':$/))) {
+                    header.textContent = m[1] + ' találat erre: „' + m[2] + '”';
+                } else if ((m = t.match(/^No search results for '(.*)'\.?$/))) {
+                    header.textContent = 'Nincs találat erre: „' + m[1] + '”';
+                }
+            }).observe(header, { childList: true, characterData: true, subtree: true });
+        }
+        document.querySelectorAll('[title], [placeholder], [aria-label]').forEach(function (e) {
+            ['title', 'placeholder', 'aria-label'].forEach(function (a) {
+                var v = e.getAttribute(a);
+                if (v && ui[v]) { e.setAttribute(a, ui[v]); }
+            });
+        });
+    }
+
     // path_to_root is set by mdBook's template; the site root is one level higher
     var toRoot = (typeof path_to_root === 'string' ? path_to_root : '') + '../';
 

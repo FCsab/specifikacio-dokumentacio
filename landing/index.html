@@ -14,7 +14,7 @@
 <header class="nav">
   <a class="brand" href="./">
     <span class="brand-mark" aria-hidden="true">∀</span>
-    <span data-en="Specification Editor Book" data-hu="Specifikációszerkesztő könyv">Specification Editor Book</span>
+    <span class="brand-text" data-en="Specification Editor Book" data-hu="Specifikációszerkesztő könyv">Specification Editor Book</span>
   </a>
   <nav>
     <a href="en/index.html" data-en="Book" data-hu="Könyv (EN)">Book</a>
@@ -37,15 +37,15 @@
       <p class="lead" data-en="The complete guide to the ELTE Specification Editor: every block, every type, every programming theorem, with more than a hundred examples checked by machine. In English and Hungarian."
          data-hu="Teljes útmutató az ELTE Specifikációszerkesztőhöz: minden blokk, minden típus, minden programozási tétel, több mint száz géppel ellenőrzött példával. Angolul és magyarul.">The complete guide to the ELTE Specification Editor: every block, every type, every programming theorem, with more than a hundred examples checked by machine. In English and Hungarian.</p>
       <div class="cta">
-        <a class="btn primary" href="en/index.html">Read in English <span aria-hidden="true">→</span></a>
-        <a class="btn ghost" href="hu/index.html">Olvasd magyarul <span aria-hidden="true">→</span></a>
+        <a class="btn primary" id="cta-en" href="en/index.html">Read in English <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" id="cta-hu" href="hu/index.html">Olvasd magyarul <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
     <div class="editor" aria-hidden="true">
       <div class="editor-bar">
         <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="editor-title">odd-count.sp</span>
+        <span class="editor-title" id="editor-title">odd-count.sp</span>
       </div>
       <div class="editor-body">
         <pre id="typed"></pre>
