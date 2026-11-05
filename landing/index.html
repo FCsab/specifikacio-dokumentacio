@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Specification Editor Book</title>
+<meta name="description" content="A complete, unofficial guide to the ELTE Specification Editor (progalap.elte.hu/specifikacio) and the offline editor speci-local. In English and Hungarian.">
+<meta name="theme-color" content="#0b1b2b">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="./">
+    <span class="brand-mark" aria-hidden="true">∀</span>
+    <span data-en="Specification Editor Book" data-hu="Specifikációszerkesztő könyv">Specification Editor Book</span>
+  </a>
+  <nav>
+    <a href="en/index.html" data-en="Book" data-hu="Könyv (EN)">Book</a>
+    <a href="hu/index.html" data-en="Könyv (HU)" data-hu="Könyv">Könyv (HU)</a>
+    <a href="https://github.com/FCsab/speci-local">speci-local</a>
+    <a href="https://github.com/FCsab/specifikacio-dokumentacio" data-en="Source" data-hu="Forrás">Source</a>
+    <button class="lang" type="button" id="lang-toggle" aria-label="Switch language">HU</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow" data-en="ELTE IK · PROGRAMMING · IP-18fPROGEG" data-hu="ELTE IK · Programozás alapjai · IP-18fPROGEG">ELTE IK · PROGRAMMING · IP-18fPROGEG</p>
+      <h1>
+        <span data-en="Specifications that" data-hu="Specifikációk, amelyek">Specifications that</span>
+        <span class="grad" data-en="actually pass." data-hu="tényleg átmennek.">actually pass.</span>
+      </h1>
+      <p class="lead" data-en="The complete guide to the ELTE Specification Editor: every block, every type, every programming theorem, with more than a hundred examples checked by machine. In English and Hungarian."
+         data-hu="Teljes útmutató az ELTE Specifikációszerkesztőhöz: minden blokk, minden típus, minden programozási tétel, több mint száz géppel ellenőrzött példával. Angolul és magyarul.">The complete guide to the ELTE Specification Editor: every block, every type, every programming theorem, with more than a hundred examples checked by machine. In English and Hungarian.</p>
+      <div class="cta">
+        <a class="btn primary" href="en/index.html">Read in English <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="hu/index.html">Olvasd magyarul <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="editor" aria-hidden="true">
+      <div class="editor-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="editor-title">odd-count.sp</span>
+      </div>
+      <div class="editor-body">
+        <pre id="typed"></pre>
+        <div class="tests">
+          <span class="tab" data-i="0">1</span><span class="tab" data-i="1">2</span><span class="tab" data-i="2">3</span>
+          <span class="verdict" id="verdict"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="speci-local">
+  <div class="sl-card">
+    <div class="sl-text">
+      <p class="eyebrow" data-en="Recommended tool" data-hu="Ajánlott eszköz">Recommended tool</p>
+      <h2 data-en="Use speci-local, the offline Specification Editor" data-hu="Használd a speci-localt, az offline Specifikációszerkesztőt">Use speci-local, the offline Specification Editor</h2>
+      <p data-en="A single native program for Linux and Windows that accepts the same specifications as the ELTE editor. No login and no network needed, and it keeps working when the university server doesn't."
+         data-hu="Egyetlen natív program Linuxra és Windowsra, amely ugyanazokat a specifikációkat fogadja el, mint az ELTE-s szerkesztő. Nem kell hozzá bejelentkezés és hálózat, és akkor is működik, amikor az egyetemi szerver nem.">A single native program for Linux and Windows that accepts the same specifications as the ELTE editor. No login and no network needed, and it keeps working when the university server doesn't.</p>
+      <ul class="sl-list">
+        <li data-en="Evaluates as you type: every test tab turns green or red instantly" data-hu="Gépelés közben értékel: minden teszt füle azonnal zöld vagy piros lesz">Evaluates as you type: every test tab turns green or red instantly</li>
+        <li data-en="Error messages that point at the problem and suggest a fix" data-hu="Hibaüzenetek, amelyek megmutatják a hibát, és javítást javasolnak">Error messages that point at the problem and suggest a fix</li>
+        <li data-en="Tells you which part of the postcondition failed and what it computes" data-hu="Megmondja, az utófeltétel melyik része hamis, és mit számol ki">Tells you which part of the postcondition failed and what it computes</li>
+        <li data-en="Stepper, completion, .sp files and one-line project sharing" data-hu="Léptető, kódkiegészítés, .sp fájlok és egysoros projektmegosztás">Stepper, completion, .sp files and one-line project sharing</li>
+      </ul>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/FCsab/speci-local/releases" data-en="Download speci-local" data-hu="speci-local letöltése">Download speci-local</a>
+        <a class="btn ghost" href="https://github.com/FCsab/speci-local" data-en="View on GitHub" data-hu="Megnézem a GitHubon">View on GitHub</a>
+      </div>
+    </div>
+    <pre class="sl-error" aria-hidden="true"><span class="e-head">Specification, line 4, column 7:</span> The postcondition (Post) is false
+ 4 | Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+   |       <span class="caret">^</span>
+Values used: cnt = 2, n = 5, nums = [3, 72, 81, 4, 5].
+<span class="e-why">`cnt`: the test case says 2, the specification gives 3</span>
+<span class="e-fix">Fix:</span> Either the expected output in the test case is wrong,
+or the postcondition does not describe the task.</pre>
+  </div>
+</section>
+
+<section class="features">
+  <h2 data-en="What's inside" data-hu="Mi van benne?">What's inside</h2>
+  <div class="grid">
+    <a class="card" href="en/ch01-02-first-spec.html" data-href-hu="hu/ch01-02-first-spec.html">
+      <span class="ico">①</span>
+      <h3 data-en="A first spec in 5 minutes" data-hu="Első specifikáció 5 perc alatt">A first spec in 5 minutes</h3>
+      <p data-en="From an empty editor to a green test, step by step." data-hu="Az üres szerkesztőtől a zöld tesztig, lépésről lépésre.">From an empty editor to a green test, step by step.</p>
+    </a>
+    <a class="card" href="en/ch03-00-types.html" data-href-hu="hu/ch03-00-types.html">
+      <span class="ico">∈</span>
+      <h3 data-en="The whole language" data-hu="A teljes nyelv">The whole language</h3>
+      <p data-en="Blocks, sets, arrays, matrices, records, quantifiers, functions." data-hu="Blokkok, halmazok, tömbök, mátrixok, rekordok, kvantorok, függvények.">Blocks, sets, arrays, matrices, records, quantifiers, functions.</p>
+    </a>
+    <a class="card" href="en/ch06-00-theorems.html" data-href-hu="hu/ch06-00-theorems.html">
+      <span class="ico">Σ</span>
+      <h3 data-en="Every programming theorem" data-hu="Minden programozási tétel">Every programming theorem</h3>
+      <p data-en="SUM, COUNT, MAX, SEARCH, MIS, CONDMAX… and a tree for choosing between them." data-hu="SUM, COUNT, MAX, SEARCH, MIS, CONDMAX… és egy döntési fa a választáshoz.">SUM, COUNT, MAX, SEARCH, MIS, CONDMAX… and a tree for choosing between them.</p>
+    </a>
+    <a class="card" href="en/ch09-00-examples.html" data-href-hu="hu/ch09-00-examples.html">
+      <span class="ico">✓</span>
+      <h3 data-en="Worked course tasks" data-hu="Kidolgozott feladatok">Worked course tasks</h3>
+      <p data-en="Real tasks solved from the statement to a full, green test suite." data-hu="Valódi feladatok a szövegtől a teljes, zöld tesztkészletig.">Real tasks solved from the statement to a full, green test suite.</p>
+    </a>
+    <a class="card" href="en/ch08-02-errors.html" data-href-hu="hu/ch08-02-errors.html">
+      <span class="ico">!</span>
+      <h3 data-en="Errors, decoded" data-hu="Hibaüzenetek magyarázata">Errors, decoded</h3>
+      <p data-en="What the messages mean, and the mistakes everybody makes once." data-hu="Mit jelentenek az üzenetek, és a hibák, amiket mindenki elkövet egyszer.">What the messages mean, and the mistakes everybody makes once.</p>
+    </a>
+    <a class="card" href="en/appendix-03-glossary.html" data-href-hu="hu/appendix-03-glossary.html">
+      <span class="ico">⇄</span>
+      <h3 data-en="English ⇄ Hungarian" data-hu="Magyar ⇄ angol">English ⇄ Hungarian</h3>
+      <p data-en="Be/Ki/Ef/Uf or In/Out/Pre/Post: both, side by side, everywhere." data-hu="Be/Ki/Ef/Uf vagy In/Out/Pre/Post: mindkettő, egymás mellett, mindenhol.">Be/Ki/Ef/Uf or In/Out/Pre/Post: both, side by side, everywhere.</p>
+    </a>
+  </div>
+</section>
+
+<section class="verified">
+  <div class="stat"><b id="stat-specs">110+</b><span data-en="example specifications" data-hu="példa specifikáció">example specifications</span></div>
+  <div class="stat"><b>12</b><span data-en="programming theorems" data-hu="programozási tétel">programming theorems</span></div>
+  <div class="stat"><b>2</b><span data-en="complete languages" data-hu="teljes nyelvi változat">complete languages</span></div>
+  <p data-en="Every example is run through speci-local automatically before the site is built, so what you copy is what passes."
+     data-hu="A webhely építése előtt minden példát automatikusan lefuttatunk a speci-localon, így amit kimásolsz, az át is megy.">Every example is run through speci-local automatically before the site is built, so what you copy is what passes.</p>
+</section>
+
+<footer class="foot">
+  <div>
+    <span data-en="Documentation by" data-hu="A dokumentációt készítette:">Documentation by</span>
+    <a href="https://csabi.zip">csabi.zip</a>
+    · <a href="https://github.com/FCsab/specifikacio-dokumentacio" data-en="Source on GitHub" data-hu="Forráskód a GitHubon">Source on GitHub</a>
+    · <a href="https://github.com/FCsab/speci-local">speci-local</a>
+  </div>
+  <a class="donate" href="donate.html"><span class="xmr-dot" aria-hidden="true"></span><span data-en="Support with XMR" data-hu="Támogatás XMR-rel">Support with XMR</span></a>
+  <p class="disclaimer" data-en="An unofficial, community-made guide. Not affiliated with or endorsed by ELTE. The Specification Editor itself is the work of its authors at ELTE IK."
+     data-hu="Nem hivatalos, közösségi útmutató. Nem kapcsolódik az ELTE-hez, és az ELTE nem hagyta jóvá. Magát a Specifikációszerkesztőt az ELTE IK-n készítették a szerzői.">An unofficial, community-made guide. Not affiliated with or endorsed by ELTE. The Specification Editor itself is the work of its authors at ELTE IK.</p>
+</footer>
+
+<script src="landing.js"></script>
+</body>
+</html>

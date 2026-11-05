@@ -1,0 +1,30 @@
+[book]
+title = "The Specification Editor Book"
+description = "A complete guide to the ELTE Specification Editor and speci-local"
+authors = ["csabi.zip"]
+language = "en"
+
+[build]
+build-dir = "../public/en"
+create-missing = false
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+smart-punctuation = true
+git-repository-url = "https://github.com/FCsab/specifikacio-dokumentacio"
+git-repository-icon = "fab-github"
+edit-url-template = "https://github.com/FCsab/specifikacio-dokumentacio/edit/main/book-en/{path}"
+additional-css = ["theme/custom.css"]
+additional-js = ["theme/speci-hl.js", "theme/site.js"]
+site-url = "/en/"
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 30
+use-boolean-and = true
+boost-title = 2
