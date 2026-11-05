@@ -1,0 +1,66 @@
+/* The landing and donation pages reuse the books' stylesheets (mdBook's CSS and
+   theme/custom.css). This file only adds the few pieces those pages need. */
+
+html[lang="en"] [data-lang="hu"],
+html[lang="hu"] [data-lang="en"] { display: none; }
+
+/* no sidebar on these pages */
+.page-wrapper { margin-inline-start: 0 !important; }
+.menu-bar .left-buttons { min-width: 2rem; display: flex; align-items: center; }
+
+.right-buttons button.lang-switch {
+    background: none;
+    cursor: pointer;
+}
+
+/* the two editions */
+.editions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.8em 0;
+}
+.content a.edition {
+    display: block;
+    padding: 1em 1.2em;
+    border: 1px solid var(--quote-border);
+    border-radius: 6px;
+    color: var(--fg);
+    text-decoration: none;
+}
+.content a.edition:hover { border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+.edition-lang { display: block; font-weight: 700; font-size: 1.15em; }
+.edition-desc { display: block; color: var(--links); }
+.edition-desc::after { content: " →"; }
+
+.disclaimer { font-size: 0.78em; opacity: 0.65; margin-top: 0.6em; }
+
+/* donation page */
+figure.qr img {
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: none;
+}
+pre.addr code { white-space: pre-wrap; word-break: break-all; }
+.donate-actions { display: flex; gap: 1.2em; align-items: center; flex-wrap: wrap; }
+.copy-addr {
+    font: inherit;
+    font-weight: 600;
+    padding: 0.4em 0.9em;
+    color: var(--fg);
+    background: var(--quote-bg);
+    border: 1px solid var(--quote-border);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.copy-addr:hover { border-color: var(--accent); }
+
+@media (max-width: 560px) {
+    .editions { grid-template-columns: 1fr; }
+}
+
+.content main h1 { hyphens: auto; overflow-wrap: break-word; }
+@media (max-width: 560px) {
+    .content main > div > h1:first-child { font-size: 1.9em; }
+}

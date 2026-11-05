@@ -1,22 +1,19 @@
 #!/usr/bin/env bash
-# Builds the whole site into public/:
-#   public/index.html, donate.html   landing and donation pages
-#   public/en/, public/hu/           the two books
-# Upload the contents of public/ to the web root (e.g. <name>.web.elte.hu).
+# Builds the two books into en/ and hu/ next to index.html.
+# The repository root is the website: upload index.html, donate.html,
+# assets/, en/ and hu/ (or just the whole folder) to the web root.
 set -euo pipefail
 cd "$(dirname "$0")"
 
 if [[ "${1:-}" != "--no-check" ]]; then
     echo "==> checking examples with speci-local"
-    cargo run --quiet --release --manifest-path tools/check-examples/Cargo.toml -- book-en/src book-hu/src
+    cargo run --quiet --release --manifest-path source/tools/check-examples/Cargo.toml -- \
+        source/book-en/src source/book-hu/src
 fi
 
 echo "==> building the books"
-mdbook build book-en
-mdbook build book-hu
+mdbook build source/book-en
+mdbook build source/book-hu
 
-echo "==> copying the landing pages"
-cp landing/index.html landing/donate.html landing/landing.css landing/landing.js landing/xmr-qr.svg public/
-cp theme/favicon.svg public/favicon.svg
-
-echo "==> done: $(find public -type f | wc -l) files in public/"
+echo "==> checking links"
+python3 source/tools/check-links.py .

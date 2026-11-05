@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<title>The Specification Editor Book</title>
+<meta name="description" content="An unofficial, complete guide to the ELTE Specification Editor (progalap.elte.hu/specifikacio) and the offline editor speci-local, in English and Hungarian.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="en/favicon.svg">
+<!-- the books' own stylesheets, so this page looks like the rest of the site -->
+<link rel="stylesheet" href="en/css/variables.css">
+<link rel="stylesheet" href="en/css/general.css">
+<link rel="stylesheet" href="en/css/chrome.css">
+<link rel="stylesheet" href="en/fonts/fonts.css">
+<link rel="stylesheet" id="mdbook-highlight-css" href="en/highlight.css">
+<link rel="stylesheet" id="mdbook-tomorrow-night-css" href="en/tomorrow-night.css">
+<link rel="stylesheet" id="mdbook-ayu-highlight-css" href="en/ayu-highlight.css">
+<link rel="stylesheet" href="en/theme/custom.css">
+<link rel="stylesheet" href="assets/home.css">
+<script src="assets/theme.js"></script>
+</head>
+<body>
+<div id="mdbook-body-container">
+<div class="page-wrapper">
+<div class="page">
+
+<div id="mdbook-menu-bar-hover-placeholder"></div>
+<div id="mdbook-menu-bar" class="menu-bar sticky">
+  <div class="left-buttons"></div>
+  <h1 class="menu-title" data-en="The Specification Editor Book" data-hu="A Specifikációszerkesztő könyve">The Specification Editor Book</h1>
+  <div class="right-buttons">
+    <button type="button" class="lang-switch" id="lang-toggle" title="Magyar változat">HU</button>
+    <a href="https://github.com/FCsab/specifikacio-dokumentacio" title="Source" aria-label="Source"><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span></a>
+  </div>
+</div>
+
+<div class="content">
+<main>
+
+<!-- ======================================================== English -->
+<div data-lang="en">
+
+<h1>The Specification Editor Book</h1>
+
+<p>A complete guide to the <strong>ELTE Specification Editor</strong>
+(<a href="https://progalap.elte.hu/specifikacio/">progalap.elte.hu/specifikacio</a>),
+the tool used for specifications in the course PROGRAMMING (<code>IP-18fPROGEG</code>).
+It covers every block, type and programming theorem, and has worked course tasks.
+Every example is checked automatically, so you can copy it and expect the same result.</p>
+
+<div class="editions">
+  <a class="edition" href="en/index.html" hreflang="en">
+    <span class="edition-lang">English</span>
+    <span class="edition-desc">Read the book</span>
+  </a>
+  <a class="edition" href="hu/index.html" hreflang="hu">
+    <span class="edition-lang">Magyar</span>
+    <span class="edition-desc">Olvasd magyarul</span>
+  </a>
+</div>
+
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Use speci-local</p>
+<p><a href="https://github.com/FCsab/speci-local">speci-local</a> is an offline
+Specification Editor for Linux and Windows. It accepts the same specifications as the
+ELTE editor and needs no login or network. It evaluates as you type, and its error
+messages say what is wrong and how to fix it.
+<a href="https://github.com/FCsab/speci-local/releases">Download it</a> or read
+<a href="en/ch10-00-speci-local.html">how to use it</a>.</p>
+</blockquote>
+
+<h2 id="example">An example</h2>
+
+<p>A specification, and a test case that the editor evaluates against it:</p>
+
+<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
+Out: cnt∈N
+Pre: -
+Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)</code></pre>
+
+<pre><code class="language-yaml">n: 5
+nums: [3, 72, 81, 4, 5]
+cnt: 3</code></pre>
+
+<p>The book starts from <a href="en/ch01-02-first-spec.html">exactly this example</a>
+and works up to compound tasks.</p>
+
+<h2 id="contents">Contents</h2>
+
+<table>
+<thead><tr><th>Part</th><th>What it covers</th></tr></thead>
+<tbody>
+<tr><td><a href="en/ch01-00-getting-started.html">Getting started</a></td><td>the interface, a first specification, saving and sharing</td></tr>
+<tr><td><a href="en/ch02-00-structure.html">The specification language</a></td><td>blocks, types, arrays, records, operators, quantifiers, functions</td></tr>
+<tr><td><a href="en/ch06-00-theorems.html">Programming theorems</a></td><td><code>SUM</code>, <code>COUNT</code>, <code>MAX</code>, <code>SEARCH</code>, <code>MIS</code>, <code>CONDMAX</code> and the rest, with a guide to choosing between them</td></tr>
+<tr><td><a href="en/ch07-00-tests.html">Testing and evaluation</a></td><td>the test data format, the stepper, error messages</td></tr>
+<tr><td><a href="en/ch09-00-examples.html">Worked examples</a></td><td>course tasks solved from the statement to a green test suite</td></tr>
+<tr><td><a href="en/ch10-00-speci-local.html">speci-local</a></td><td>installing and using the offline editor</td></tr>
+<tr><td><a href="en/appendix-01-grammar.html">Appendices</a></td><td>grammar, symbols and shortcuts, glossary, FAQ</td></tr>
+</tbody>
+</table>
+
+<footer class="site-footer">
+  <span>Documentation by <a href="https://csabi.zip">csabi.zip</a></span>
+  <span class="sep">·</span>
+  <a href="https://github.com/FCsab/specifikacio-dokumentacio">Source</a>
+  <span class="sep">·</span>
+  <a href="https://github.com/FCsab/speci-local">speci-local</a>
+  <span class="sep">·</span>
+  <a class="donate-link" href="donate.html"><span class="xmr-dot" aria-hidden="true"></span>Support with XMR</a>
+</footer>
+<p class="disclaimer">An unofficial guide. Not affiliated with or endorsed by ELTE. The
+Specification Editor is the work of its authors at ELTE IK.</p>
+
+</div>
+
+<!-- ======================================================== Magyar -->
+<div data-lang="hu">
+
+<h1>A Specifikációszerkesztő könyve</h1>
+
+<p>Teljes útmutató az <strong>ELTE Specifikációszerkesztőhöz</strong>
+(<a href="https://progalap.elte.hu/specifikacio/">progalap.elte.hu/specifikacio</a>),
+amellyel a Programozás alapjai (<code>IP-18fPROGEG</code>) tárgyban a specifikációkat
+írjuk. Minden blokkot, típust és programozási tételt bemutat, és kidolgozott tárgyi
+feladatokat is tartalmaz. Minden példát automatikusan ellenőrzünk, így bemásolhatod, és
+ugyanazt az eredményt kapod.</p>
+
+<div class="editions">
+  <a class="edition" href="hu/index.html" hreflang="hu">
+    <span class="edition-lang">Magyar</span>
+    <span class="edition-desc">Olvasd a könyvet</span>
+  </a>
+  <a class="edition" href="en/index.html" hreflang="en">
+    <span class="edition-lang">English</span>
+    <span class="edition-desc">Read in English</span>
+  </a>
+</div>
+
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Használd a speci-localt</p>
+<p>A <a href="https://github.com/FCsab/speci-local">speci-local</a> offline
+Specifikációszerkesztő Linuxra és Windowsra. Ugyanazokat a specifikációkat fogadja el,
+mint az ELTE-s szerkesztő, és nem kell hozzá se bejelentkezés, se hálózat. Gépelés közben
+értékel, a hibaüzenetei pedig megmondják, mi a hiba, és hogyan javítsd.
+<a href="https://github.com/FCsab/speci-local/releases">Töltsd le</a>, vagy olvasd el,
+<a href="hu/ch10-00-speci-local.html">hogyan kell használni</a>.</p>
+</blockquote>
+
+<h2 id="pelda">Egy példa</h2>
+
+<p>Egy specifikáció, és egy teszteset, amelyre a szerkesztő kiértékeli:</p>
+
+<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
+Ki: db∈N
+Ef: -
+Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)</code></pre>
+
+<pre><code class="language-yaml">n: 5
+szamok: [3, 72, 81, 4, 5]
+db: 3</code></pre>
+
+<p>A könyv <a href="hu/ch01-02-first-spec.html">pontosan ezzel a példával</a> indul, és
+eljut az összetett feladatokig.</p>
+
+<h2 id="tartalom">Tartalom</h2>
+
+<table>
+<thead><tr><th>Rész</th><th>Miről szól?</th></tr></thead>
+<tbody>
+<tr><td><a href="hu/ch01-00-getting-started.html">Első lépések</a></td><td>a felület, az első specifikáció, mentés és megosztás</td></tr>
+<tr><td><a href="hu/ch02-00-structure.html">A specifikációs nyelv</a></td><td>blokkok, típusok, tömbök, rekordok, műveletek, kvantorok, függvények</td></tr>
+<tr><td><a href="hu/ch06-00-theorems.html">Programozási tételek</a></td><td><code>SUM</code>, <code>DARAB</code>, <code>MAX</code>, <code>SEARCH</code>, <code>MIS</code>, <code>CONDMAX</code> és a többi, a választást segítő útmutatóval</td></tr>
+<tr><td><a href="hu/ch07-00-tests.html">Tesztelés és kiértékelés</a></td><td>a tesztadatok formátuma, a léptető, a hibaüzenetek</td></tr>
+<tr><td><a href="hu/ch09-00-examples.html">Kidolgozott példák</a></td><td>tárgyi feladatok a szövegtől a zöld tesztkészletig</td></tr>
+<tr><td><a href="hu/ch10-00-speci-local.html">speci-local</a></td><td>az offline szerkesztő telepítése és használata</td></tr>
+<tr><td><a href="hu/appendix-01-grammar.html">Függelékek</a></td><td>nyelvtan, jelek és billentyűparancsok, szójegyzék, GYIK</td></tr>
+</tbody>
+</table>
+
+<footer class="site-footer">
+  <span>A dokumentációt készítette: <a href="https://csabi.zip">csabi.zip</a></span>
+  <span class="sep">·</span>
+  <a href="https://github.com/FCsab/specifikacio-dokumentacio">Forráskód</a>
+  <span class="sep">·</span>
+  <a href="https://github.com/FCsab/speci-local">speci-local</a>
+  <span class="sep">·</span>
+  <a class="donate-link" href="donate.html?lang=hu"><span class="xmr-dot" aria-hidden="true"></span>Támogatás XMR-rel</a>
+</footer>
+<p class="disclaimer">Nem hivatalos útmutató. Nem kapcsolódik az ELTE-hez, és az ELTE nem
+hagyta jóvá. A Specifikációszerkesztőt az ELTE IK-n készítették a szerzői.</p>
+
+</div>
+
+</main>
+</div>
+
+</div>
+</div>
+</div>
+
+<script src="en/highlight.js"></script>
+<script src="en/theme/speci-hl.js"></script>
+<script src="assets/home.js"></script>
+</body>
+</html>
