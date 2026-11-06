@@ -16,7 +16,7 @@ every element of a range.
 In: n∈N, numbers∈Z[1..n]
 Out: target∈N[1..n]
 Pre: -
-Post: target=COPY(i=1..n, ABS(numbers[i]))
+Post: target=COPY(i=1..n, abs(numbers[i]))
 ```
 
 ```yaml

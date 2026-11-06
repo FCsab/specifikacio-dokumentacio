@@ -214,7 +214,7 @@ postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</
 <tr><td><a href="ch06-03-max-min.html">Minimum selection</a></td><td>minimumkiválasztás</td><td><code>(ind,val)=MIN(i=b..e, f(i))</code></td><td>(index, value)</td></tr>
 <tr><td><a href="ch06-04-decision.html">Decision</a></td><td>eldöntés</td><td><code>l=EXISTS(i=b..e, β(i))</code></td><td>logical</td></tr>
 <tr><td><a href="ch06-04-decision.html">Decision (all)</a></td><td>eldöntés (mind)</td><td><code>l=FORALL(i=b..e, β(i))</code></td><td>logical</td></tr>
-<tr><td><a href="ch06-05-select.html">Selection</a></td><td>kiválasztás</td><td><code>ind=SELECT(i≥b, β(i))</code></td><td>index</td></tr>
+<tr><td><a href="ch06-05-select.html">Selection</a></td><td>kiválasztás</td><td><code>ind=SELECT(i&gt;=b, β(i))</code></td><td>index</td></tr>
 <tr><td><a href="ch06-06-search.html">Search</a></td><td>keresés</td><td><code>(found,ind)=SEARCH(i=b..e, β(i))</code></td><td>(logical, index)</td></tr>
 <tr><td><a href="ch06-07-copy.html">Copy</a></td><td>másolás</td><td><code>y=COPY(i=b..e, f(i))</code></td><td>array</td></tr>
 <tr><td><a href="ch06-08-mis.html">Multiple item selection</a></td><td>kiválogatás</td><td><code>(c,y)=MIS(i=b..e, β(i))</code><br><code>(c,y)=MIS(i=b..e, β(i), f(i))</code></td><td>(count, array)</td></tr>
@@ -226,7 +226,7 @@ postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</
 <p>All macros share the same first argument, the <strong>loop range</strong> <code>i=b..e</code>. It
 names the loop variable (any lowercase name: <code>i</code>, <code>j</code>, <code>p</code>, …) and the
 interval it runs through. <code>SELECT</code> is the exception: it only has a starting
-point, <code>i≥b</code>.</p>
+point, <code>i&gt;=b</code>.</p>
 <h2 id="which-theorem-do-i-need"><a class="header" href="#which-theorem-do-i-need">Which theorem do I need?</a></h2>
 <p>Start from the question the task asks. What kind of answer does it want?</p>
 <div class="decision-tree">

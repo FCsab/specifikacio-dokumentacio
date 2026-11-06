@@ -47,7 +47,7 @@ or `van`, everywhere: in the declaration, the postcondition and the test cases.
 | 6 | comparing neighbours up to `n` | `x[i+1]` out of range | loop to `n-1` |
 | 7 | `SELECT` without an existence guarantee | wrong results or errors | add `∃…` to `Pre:`, or use `SEARCH` |
 | 8 | wrong tuple shape | type mismatch | `(ind,)=MAX(…)`, `(found,,val)=CONDMAX(…)` |
-| 9 | Unicode `→` in a function signature | syntax error in `Fn:` | use `->` |
+| 9 | Unicode `→` (signature or implication) | syntax error | use `->` |
 | 10 | backward search without negating everything | wrong index | `(found,-ind)=SEARCH(i=-n..-1, β(-i))` |
 | 11 | YAML indentation or tabs | data can't be read | 2 spaces, or the compact `{…}` form |
 | 12 | field names with different case | field "missing" | match the declaration exactly |
@@ -56,7 +56,7 @@ or `van`, everywhere: in the declaration, the postcondition and the test cases.
 | 15 | a missing filter condition in `SUM`/`COUNT` | wrong numbers on some inputs | put *every* restriction into the condition |
 | 16 | a variable named `exists` / an invented keyword | "incomplite type…" / "Expected …" | rename / use `Sa:` |
 | 17 | a −1 result declared as `N` | the "not found" test fails | declare it `Z` and produce the −1 in `Post:` |
-| 18 | an implication without parentheses | wrong data still passes | `… and (found → …)` |
+| 18 | an implication without parentheses | wrong data still passes | `… and (found -> …)` |
 
 ## speci-local's messages
 

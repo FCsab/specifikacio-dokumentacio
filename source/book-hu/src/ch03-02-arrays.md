@@ -116,10 +116,13 @@ Uf: d=napok[h]
 ```
 
 ```yaml
-napok: [31,28,31,30,31,30,31,31,30,31,30,31]
 h: 4
 d: 30
 ```
+
+Az érték a deklarációból jön, ezért a tesztadat **nem tartalmazza a `napok`-at**.
+Ha a teszt megismétli, piros lesz: „data cannot contain item with the same
+name: napok”.
 
 A [Kártyaértékek](ch09-08-cards.md) kidolgozott példa ugyanezt a technikát
 szövegekkel használja.

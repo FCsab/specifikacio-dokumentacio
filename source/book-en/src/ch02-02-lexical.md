@@ -35,7 +35,7 @@ variable names:
 | `and`, `or`, `not` | logical operators |
 | `és`, `vagy`, `nem` | the same in Hungarian |
 | `mod` | remainder |
-| `element` | the word form of `∈` |
+| `in` | the word form of `∈` |
 | `exists`, `forall` | the word forms of `∃` and `∀` |
 | `true`, `false` | logical constants |
 

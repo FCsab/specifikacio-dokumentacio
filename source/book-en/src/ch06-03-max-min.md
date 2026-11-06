@@ -70,7 +70,7 @@ previous day?*
 In: n∈N, t∈Z[1..n]
 Out: day∈N
 Pre: n≥2
-Post: (day,)=MAX(i=2..n, ABS(t[i]-t[i-1]))
+Post: (day,)=MAX(i=2..n, abs(t[i]-t[i-1]))
 ```
 
 ```yaml

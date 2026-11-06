@@ -5,11 +5,15 @@ point, at which a condition holds, **when such an index is known to exist**.
 
 <div class="syntax-card">
 
-**Form:** `ind=SELECT(i≥b, β(i))`<br>
+**Form:** `ind=SELECT(i>=b, β(i))`<br>
 **Result:** the smallest `i ≥ b` for which `β(i)` holds<br>
 **Requirement:** the precondition must guarantee that such an `i` exists
 
 </div>
+
+> [!WARNING]
+> Inside `SELECT` the start must be written `>=`. `SELECT(i≥1, …)` is a syntax
+> error ("Expected ">=" but "≥" found"), even though `≥` works everywhere else.
 
 Unlike the other theorems, `SELECT` has **no upper bound**. It only says where
 to start. That is exactly why existence must be guaranteed: without it, the
@@ -24,7 +28,7 @@ This is the official course example
 In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i>=1, nums[i] mod 2 = 1) and n=n
 ```
 
 ```yaml
@@ -65,7 +69,7 @@ than 1* (for n ≥ 2, n itself is always a divisor):
 In: n∈N
 Out: d∈N
 Pre: n≥2
-Post: d=SELECT(i≥2, i|n)
+Post: d=SELECT(i>=2, i|n)
 ```
 
 ```yaml
@@ -83,7 +87,7 @@ d: 13
 | | `SELECT` | `SEARCH` |
 |-|----------|----------|
 | Is a match guaranteed? | **yes**, by the precondition | no |
-| Range | only a start: `i≥b` | `i=b..e` |
+| Range | only a start: `i>=b` | `i=b..e` |
 | Result | the index | (found?, index) |
 
 If you can't prove in the precondition that a match exists, use

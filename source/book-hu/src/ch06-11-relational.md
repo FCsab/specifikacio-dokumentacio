@@ -2,7 +2,7 @@
 
 Az utófeltételnek nem *kell* tételmakrókat használnia. A bemenetről és a
 kimenetről szóló bármilyen logikai állítás érvényes, és a szerkesztő
-közvetlenül kiértékeli. Ez a `∀`, `∃`, `és`, `vagy`, `→` elemekből építkező
+közvetlenül kiértékeli. Ez a `∀`, `∃`, `és`, `vagy`, `->` elemekből építkező
 **relációs** stílus az előadások jelölése, és egyes feladatok kifejezetten ezt
 kérik.
 

@@ -123,26 +123,8 @@ The indentation of the continuation lines is only for readability.
 
 ## Several functions
 
-One `Fn:` block can define several functions, separated by commas. Each
+Each function gets its own `Fn:` header (`Fv:` and `Def:` work too). Each
 definition is a signature followed by the body:
-
-```speci
-In: n∈N, x∈N[1..n]
-Out: s∈N
-Fn: sq:N->N, sq(a)=a*a,
-    even:N->L, even(a)=a mod 2 = 0
-Pre: -
-Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
-```
-
-```yaml
-n: 4
-x: [1, 2, 3, 4]
-s: 20
-```
-
-The online editor also accepts a separate `Fn:` header for each function. Its
-built-in documentation is written that way:
 
 ```speci,online
 In: n∈N, x∈N[1..n]
@@ -153,7 +135,14 @@ Pre: -
 Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
 ```
 
-speci-local insists on a single `Fn:` block, so the comma form is the one that
-works everywhere.
+```yaml
+n: 4
+x: [1, 2, 3, 4]
+s: 20
+```
+
+Listing several functions in one `Fn:` block, separated by commas, is a
+syntax error in the online editor. (speci-local works the other way round: it
+wants the comma form, see [Differences](ch10-04-differences.md).)
 
 Chapter [Functions](ch05-00-functions.md) explains functions in detail.

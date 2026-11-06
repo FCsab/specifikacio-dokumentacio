@@ -4,14 +4,15 @@
 
 | Jel | Neve | Online szerkesztő | speci-local | ASCII / szóalak |
 |:---:|------|-------------------|-------------|-----------------|
-| `∈` | eleme | Insert gomb | <kbd>Alt</kbd>+<kbd>1</kbd> | `element`, `eleme`* |
+| `∈` | eleme | Insert gomb | <kbd>Alt</kbd>+<kbd>1</kbd> | `in`*, `eleme`* |
 | `∀` | minden | Insert gomb | <kbd>Alt</kbd>+<kbd>2</kbd> | `forall`, `minden`* |
 | `∃` | létezik | Insert gomb | <kbd>Alt</kbd>+<kbd>3</kbd> | `exists`, `létezik`* |
-| `≠` | nem egyenlő | Insert gomb | <kbd>Alt</kbd>+<kbd>4</kbd> | `!=` |
+| `≠` | nem egyenlő | Insert gomb | <kbd>Alt</kbd>+<kbd>4</kbd> | `!=`, `<>`* |
 | `≤` | kisebb vagy egyenlő | Insert gomb | <kbd>Alt</kbd>+<kbd>5</kbd> | `<=` |
 | `≥` | nagyobb vagy egyenlő | Insert gomb | <kbd>Alt</kbd>+<kbd>6</kbd> | `>=` |
-| `→` | implikáció | | | `->` |
-| `¬` `∧` `∨` | nem, és, vagy | | | `nem`, `és`, `vagy` |
+| `->` | implikáció | | | (nincs jele; a `→`-t nem fogadja el) |
+| `¬` | nem | | | `not`, `nem` |
+| | és, vagy | | | `and`, `or`, `és`, `vagy` (a `∧`-t és a `∨`-t nem fogadja el) |
 
 \* csak az online szerkesztőben.
 

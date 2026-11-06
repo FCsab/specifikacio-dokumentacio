@@ -68,13 +68,13 @@ A jelek szóval is írhatók:
 |:---:|-----------|------------|
 | `∀` | `forall` | `minden` |
 | `∃` | `exists` | `létezik` |
-| `∈` | `element` | `eleme` |
+| `∈` | `in` | `eleme` |
 
-```speci
+```speci,online
 Be: n∈N, x∈N[1..n]
 Ki: jo∈L
 Ef: -
-Uf: jo=forall i element [1..n]:(x[i]>0)
+Uf: jo=forall i in [1..n]:(x[i]>0)
 ```
 
 ```yaml

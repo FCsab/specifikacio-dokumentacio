@@ -78,5 +78,5 @@ A derült párok közül a legnagyobb változás 6 (i = 7-nél).
 > Ez a specifikáció a változást `adat[i]-adat[i+1]`-ként, *előjeles*
 > különbségként méri, pontosan úgy, mint a hivatalos megoldás. Ha a „változás”
 > bármelyik irányú változás nagyságát jelenti, használd az
-> `ABS(adat[i]-adat[i+1])` alakot. Az első tesztre a válasz így is 6, de az
+> `abs(adat[i]-adat[i+1])` alakot. Az első tesztre a válasz így is 6, de az
 > `adat: [20, 45]` esetén −25 helyett 25 lenne.

@@ -274,10 +274,12 @@ Out: d∈N
 Pre: -
 Post: d=days[m]
 </code></pre>
-<pre><code class="language-yaml">days: [31,28,31,30,31,30,31,31,30,31,30,31]
-m: 4
+<pre><code class="language-yaml">m: 4
 d: 30
 </code></pre>
+<p>The value comes from the declaration, so the test data <strong>leaves <code>days</code> out</strong>.
+A test that repeats it is red: “data cannot contain item with the same name:
+days”.</p>
 <p>The worked example <a href="ch09-08-cards.html">Card values</a> uses the same technique with
 strings.</p>
 <h2 id="array-literals"><a class="header" href="#array-literals">Array literals</a></h2>

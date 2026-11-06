@@ -100,4 +100,4 @@ test case passes. Writing 0 is a common convention.
 > If the task wants a specific "no answer" value, produce it in the
 > postcondition with implications, as in
 > [Search](ch06-06-search.md#a-sentinel-value-instead-of-a-flag):
-> `(found → res=val) and (not found → res=-1)`.
+> `(found -> res=val) and (not found -> res=-1)`.

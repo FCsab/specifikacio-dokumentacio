@@ -217,30 +217,24 @@ mindig teljesíthető.</li>
 <li>Nem kell sem <code>Sa:</code>, sem <code>Fv:</code>: a hozzárendelés adat, nem logika.</li>
 </ul>
 <h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>A konstans tömbök a deklarált bemenet részei, ezért a tesztadatban is
-szerepelnek:</p>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "asz"
+<p>A konstans tömbök a deklarációból kapják az értéküket, ezért a tesztadat csak
+a <code>lap</code>-ot és az <code>ertek</code>-et adja meg:</p>
+<pre><code class="language-yaml">lap: "asz"
 ertek: 11
 </code></pre>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "also"
+<pre><code class="language-yaml">lap: "also"
 ertek: 2
 </code></pre>
 <p>Nem létező lap megsérti az előfeltételt:</p>
-<pre><code class="language-yaml red">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "joker"
+<pre><code class="language-yaml red">lap: "joker"
 ertek: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>A <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> által generált sablon
-minden bemenetet felsorol, a konstans tömböket is. Ha a szerkesztőd
-verziója a deklarációból tölti ki őket, és panaszkodik a duplikátumokra,
-töröld azt a két sort a tesztből.</p>
+a konstans tömböket is felsorolhatja. Töröld azt a két sort: az a teszt, amely
+megismétli őket, piros lesz („data cannot contain item with the same name:
+lapok”).</p>
 </blockquote>
 
                     </main>

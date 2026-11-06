@@ -279,21 +279,8 @@ neg: 2
 </code></pre>
 <p>The indentation of the continuation lines is only for readability.</p>
 <h2 id="several-functions"><a class="header" href="#several-functions">Several functions</a></h2>
-<p>One <code>Fn:</code> block can define several functions, separated by commas. Each
+<p>Each function gets its own <code>Fn:</code> header (<code>Fv:</code> and <code>Def:</code> work too). Each
 definition is a signature followed by the body:</p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
-Out: s∈N
-Fn: sq:N-&gt;N, sq(a)=a*a,
-    even:N-&gt;L, even(a)=a mod 2 = 0
-Pre: -
-Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
-</code></pre>
-<pre><code class="language-yaml">n: 4
-x: [1, 2, 3, 4]
-s: 20
-</code></pre>
-<p>The online editor also accepts a separate <code>Fn:</code> header for each function. Its
-built-in documentation is written that way:</p>
 <pre><code class="language-speci online">In: n∈N, x∈N[1..n]
 Out: s∈N
 Fn: sq:N-&gt;N, sq(a)=a*a
@@ -301,8 +288,13 @@ Fn: even:N-&gt;L, even(a)=a mod 2 = 0
 Pre: -
 Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
 </code></pre>
-<p>speci-local insists on a single <code>Fn:</code> block, so the comma form is the one that
-works everywhere.</p>
+<pre><code class="language-yaml">n: 4
+x: [1, 2, 3, 4]
+s: 20
+</code></pre>
+<p>Listing several functions in one <code>Fn:</code> block, separated by commas, is a
+syntax error in the online editor. (speci-local works the other way round: it
+wants the comma form, see <a href="ch10-04-differences.html">Differences</a>.)</p>
 <p>Chapter <a href="ch05-00-functions.html">Functions</a> explains functions in detail.</p>
 
                     </main>

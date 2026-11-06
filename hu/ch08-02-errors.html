@@ -218,7 +218,7 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">6</td><td>szomszédok összehasonlítása <code>n</code>-ig</td><td>az <code>x[i+1]</code> kilóg a tartományból</td><td>menj <code>n-1</code>-ig</td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> létezési garancia nélkül</td><td>hibás eredmény vagy hiba</td><td>írj <code>∃…</code>-t az <code>Ef:</code>-be, vagy használj <code>SEARCH</code>-et</td></tr>
 <tr><td style="text-align: right">8</td><td>rossz alakú tuple</td><td>típushiba</td><td><code>(ind,)=MAX(…)</code>, <code>(van,,ert)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> a függvényszignatúrában</td><td>szintaktikai hiba az <code>Fv:</code>-ben</td><td>használd a <code>-&gt;</code> alakot</td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> (szignatúrában vagy implikációban)</td><td>szintaktikai hiba</td><td>használd a <code>-&gt;</code> alakot</td></tr>
 <tr><td style="text-align: right">10</td><td>visszafelé keresés, de nem minden van negálva</td><td>rossz index</td><td><code>(van,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML-behúzás vagy tabulátor</td><td>nem olvasható az adat</td><td>2 szóköz, vagy a tömör <code>{…}</code> alak</td></tr>
 <tr><td style="text-align: right">12</td><td>eltérő kis- és nagybetűs mezőnevek</td><td>„hiányzó” mező</td><td>pontosan egyezzen a deklarációval</td></tr>
@@ -227,7 +227,7 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">15</td><td>hiányzó szűrőfeltétel a <code>SUM</code>/<code>DARAB</code>-ban</td><td>egyes bemenetekre rossz számok</td><td><em>minden</em> megszorítást tegyél a feltételbe</td></tr>
 <tr><td style="text-align: right">16</td><td><code>exists</code> nevű változó / kitalált kulcsszó</td><td>„incomplite type…” / „Expected …”</td><td>nevezd át / használd a <code>Sa:</code>-t</td></tr>
 <tr><td style="text-align: right">17</td><td><code>N</code>-ként deklarált −1-es eredmény</td><td>a „nincs találat” teszt elbukik</td><td>deklaráld <code>Z</code>-ként, és az <code>Uf:</code>-ben állítsd elő a −1-et</td></tr>
-<tr><td style="text-align: right">18</td><td>zárójel nélküli implikáció</td><td>a rossz adat is átmegy</td><td><code>… és (van → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>zárójel nélküli implikáció</td><td>a rossz adat is átmegy</td><td><code>… és (van -&gt; …)</code></td></tr>
 </tbody>
 </table>
 </div>

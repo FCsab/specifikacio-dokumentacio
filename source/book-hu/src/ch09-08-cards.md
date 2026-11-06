@@ -41,19 +41,15 @@ Uf:
 
 ## Tesztek
 
-A konstans tömbök a deklarált bemenet részei, ezért a tesztadatban is
-szerepelnek:
+A konstans tömbök a deklarációból kapják az értéküket, ezért a tesztadat csak
+a `lap`-ot és az `ertek`-et adja meg:
 
 ```yaml
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "asz"
 ertek: 11
 ```
 
 ```yaml
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "also"
 ertek: 2
 ```
@@ -61,14 +57,12 @@ ertek: 2
 Nem létező lap megsérti az előfeltételt:
 
 ```yaml,red
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "joker"
 ertek: 0
 ```
 
 > [!NOTE]
 > A <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> által generált sablon
-> minden bemenetet felsorol, a konstans tömböket is. Ha a szerkesztőd
-> verziója a deklarációból tölti ki őket, és panaszkodik a duplikátumokra,
-> töröld azt a két sort a tesztből.
+> a konstans tömböket is felsorolhatja. Töröld azt a két sort: az a teszt, amely
+> megismétli őket, piros lesz („data cannot contain item with the same name:
+> lapok”).

@@ -79,5 +79,5 @@ The largest change among the clear pairs is 6 (at i = 7).
 > This specification measures the change as `data[i]-data[i+1]`, a *signed*
 > difference, exactly like the official solution. If "change" should mean
 > the size of the change in either direction, use
-> `ABS(data[i]-data[i+1])`. Then the answer for the first test is still 6,
+> `abs(data[i]-data[i+1])`. Then the answer for the first test is still 6,
 > but for `data: [20, 45]` it would be 25 instead of −25.

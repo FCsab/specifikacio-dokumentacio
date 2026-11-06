@@ -4,14 +4,15 @@
 
 | Symbol | Name | Online editor | speci-local | ASCII / word form |
 |:------:|------|---------------|-------------|-------------------|
-| `∈` | element of | Insert button | <kbd>Alt</kbd>+<kbd>1</kbd> | `element`, `eleme`* |
+| `∈` | element of | Insert button | <kbd>Alt</kbd>+<kbd>1</kbd> | `in`*, `eleme`* |
 | `∀` | for all | Insert button | <kbd>Alt</kbd>+<kbd>2</kbd> | `forall`, `minden`* |
 | `∃` | there exists | Insert button | <kbd>Alt</kbd>+<kbd>3</kbd> | `exists`, `létezik`* |
-| `≠` | not equal | Insert button | <kbd>Alt</kbd>+<kbd>4</kbd> | `!=` |
+| `≠` | not equal | Insert button | <kbd>Alt</kbd>+<kbd>4</kbd> | `!=`, `<>`* |
 | `≤` | less or equal | Insert button | <kbd>Alt</kbd>+<kbd>5</kbd> | `<=` |
 | `≥` | greater or equal | Insert button | <kbd>Alt</kbd>+<kbd>6</kbd> | `>=` |
-| `→` | implies | | | `->` |
-| `¬` `∧` `∨` | not, and, or | | | `not`, `and`, `or` |
+| `->` | implies | | | (no symbol; `→` is rejected) |
+| `¬` | not | | | `not`, `nem` |
+| | and, or | | | `and`, `or`, `és`, `vagy` (`∧` and `∨` are rejected) |
 
 \* only in the online editor.
 

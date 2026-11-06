@@ -6,12 +6,12 @@ Follow the links for explanations and examples.
 ## Structure
 
 ```text
-specification  =  In-block [Aux-block] Out-block [Fn-block] Pre-block Post-block
+specification  =  In-block [Aux-block] Out-block { Fn-block } Pre-block Post-block
 
 In-block       =  ("In:"  | "Be:") declarations
 Aux-block      =  ("Aux:" | "Sa:") declarations
 Out-block      =  ("Out:" | "Ki:") declarations
-Fn-block       =  ("Fn:"  | "Fv:") function { "," function }
+Fn-block       =  ("Fn:"  | "Fv:" | "Def:") function       (one per function)
 Pre-block      =  ("Pre:" | "Ef:") condition | "-"
 Post-block     =  ("Post:"| "Uf:") condition
 
@@ -20,7 +20,7 @@ item           =  name "∈" set  [ "=" literal ]   |   SetName "=" set
 function       =  name ":" set "->" set "," name "(" params ")" "=" expression
 ```
 
-`∈` can be written `element`. Comments, `// …` and `/* … */`, may appear anywhere.
+`∈` can be written `in` or `eleme`. Comments, `// …` and `/* … */`, may appear anywhere.
 [More →](ch02-01-blocks.md)
 
 ## Sets
@@ -42,16 +42,16 @@ function       =  name ":" set "->" set "," name "(" params ")" "=" expression
 |----------|--------|
 | constants | `5`, `-3`, `2.5`, `"text"`, `true`, `false` |
 | access | `x[i]`, `m[i,j]`, `a[i][j]`, `r.field`, `t.1`, `MAX(…).maxval` |
-| arithmetic | `+ - * /`, `mod` or `%`, `ABS(e)` |
+| arithmetic | `+ - * /`, `mod` or `%`, `abs(e)` |
 | comparison | `=`, `≠`/`!=`, `<`, `>`, `≤`/`<=`, `≥`/`>=`, chained `a≤b≤c` |
 | divisibility | `a\|b` (a divides b) |
-| logic | `and`/`és`, `or`/`vagy`, `not`/`nem`, `→`/`->` |
+| logic | `and`/`és`, `or`/`vagy`, `not`/`nem`, `->`/`->` |
 | membership | `e∈[a..b]` |
 | quantifiers | `∀i∈[a..b]:(…)`, `∃i∈[a..b]:(…)`; words `forall`, `exists` |
 | built-ins | `length(x)`, `from(x)`, `to(x)` |
 | tuples | `(a, b)`, tuple targets `(a,b)=…`, `(a,)=…`, `(,b)=…`, `(a,,c)=…` |
 
-Precedence, from weakest to strongest: `→`, `or`, `and`, `not`, comparisons,
+Precedence, from weakest to strongest: `->`, `or`, `and`, `not`, comparisons,
 `+ -`, `* / mod`, unary minus, access. [More →](ch04-01-operators.md)
 
 ## Theorem macros
@@ -62,7 +62,7 @@ Precedence, from weakest to strongest: `→`, `or`, `and`, `not`, comparisons,
 | `COUNT(i=b..e, β(i))`, `DARAB(…)` | count |
 | `MAX(i=b..e, f(i))`, `MIN(…)` | (index, value) |
 | `EXISTS(i=b..e, β(i))`, `FORALL(…)` | logical |
-| `SELECT(i≥b, β(i))` | index |
+| `SELECT(i>=b, β(i))` | index |
 | `SEARCH(i=b..e, β(i))` | (logical, index) |
 | `COPY(i=b..e, f(i))` | array |
 | `MIS(i=b..e, β(i))`, `MIS(i=b..e, β(i), f(i))` | (count, array) |
@@ -75,7 +75,7 @@ Precedence, from weakest to strongest: `→`, `or`, `and`, `not`, comparisons,
 1. Headers are case-sensitive and spelled exactly as above.
 2. Declarations come before conditions: `In`, `Aux`, `Out`, `Fn`, then `Pre`, `Post`.
 3. Variables start lowercase, and sets start uppercase.
-4. Reserved words (`and`, `or`, `not`, `mod`, `element`, `exists`, `forall`,
+4. Reserved words (`and`, `or`, `not`, `mod`, `in`, `exists`, `forall`,
    `true`, `false`, and the Hungarian `és`, `vagy`, `nem`) are not names.
 5. Every input variable appears in the postcondition.
 6. Test data matches the declared types: lengths, ranges, fields.

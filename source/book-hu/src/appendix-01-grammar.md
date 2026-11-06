@@ -6,12 +6,12 @@ magyarázatokat és a példákat a linkek mögött találod.
 ## Szerkezet
 
 ```text
-specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk [Fv-blokk] Ef-blokk Uf-blokk
+specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk { Fv-blokk } Ef-blokk Uf-blokk
 
 Be-blokk       =  ("Be:" | "In:")   deklarációk
 Sa-blokk       =  ("Sa:" | "Aux:")  deklarációk
 Ki-blokk       =  ("Ki:" | "Out:")  deklarációk
-Fv-blokk       =  ("Fv:" | "Fn:")   függvény { "," függvény }
+Fv-blokk       =  ("Fv:" | "Fn:" | "Def:")  függvény    (függvényenként egy)
 Ef-blokk       =  ("Ef:" | "Pre:")  feltétel | "-"
 Uf-blokk       =  ("Uf:" | "Post:") feltétel
 
@@ -20,7 +20,7 @@ elem           =  név "∈" halmaz [ "=" literál ]   |   Halmaznév "=" halmaz
 függvény       =  név ":" halmaz "->" halmaz "," név "(" paraméterek ")" "=" kifejezés
 ```
 
-A `∈` helyett `element` is írható. Megjegyzés (`// …` és `/* … */`) bárhol
+A `∈` helyett `eleme` vagy `in` is írható. Megjegyzés (`// …` és `/* … */`) bárhol
 állhat. [Bővebben →](ch02-01-blocks.md)
 
 ## Halmazok
@@ -42,16 +42,16 @@ A `∈` helyett `element` is írható. Megjegyzés (`// …` és `/* … */`) b�
 |-----------|-----------|
 | konstansok | `5`, `-3`, `2.5`, `"szöveg"`, `true`, `false` |
 | elérés | `x[i]`, `m[i,j]`, `a[i][j]`, `r.mezo`, `t.1`, `MAX(…).maxval` |
-| aritmetika | `+ - * /`, `mod` vagy `%`, `ABS(e)` |
+| aritmetika | `+ - * /`, `mod` vagy `%`, `abs(e)` |
 | összehasonlítás | `=`, `≠`/`!=`, `<`, `>`, `≤`/`<=`, `≥`/`>=`, láncolva `a≤b≤c` |
 | oszthatóság | `a\|b` (a osztója b-nek) |
-| logika | `és`/`and`, `vagy`/`or`, `nem`/`not`, `→`/`->` |
+| logika | `és`/`and`, `vagy`/`or`, `nem`/`not`, `->`/`->` |
 | tartalmazás | `e∈[a..b]` |
 | kvantorok | `∀i∈[a..b]:(…)`, `∃i∈[a..b]:(…)`; szóval `forall`, `exists` |
 | beépítettek | `length(x)`, `from(x)`, `to(x)` |
 | tuple-ök | `(a, b)`, tuple-célok `(a,b)=…`, `(a,)=…`, `(,b)=…`, `(a,,c)=…` |
 
-Precedencia a leggyengébbtől a legerősebbig: `→`, `vagy`, `és`, `nem`,
+Precedencia a leggyengébbtől a legerősebbig: `->`, `vagy`, `és`, `nem`,
 összehasonlítások, `+ -`, `* / mod`, előjel, elérés. [Bővebben →](ch04-01-operators.md)
 
 ## Tételmakrók
@@ -62,7 +62,7 @@ Precedencia a leggyengébbtől a legerősebbig: `→`, `vagy`, `és`, `nem`,
 | `DARAB(i=e..u, β(i))`, `COUNT(…)` | darabszám |
 | `MAX(i=e..u, f(i))`, `MIN(…)` | (index, érték) |
 | `EXISTS(i=e..u, β(i))`, `FORALL(…)` | logikai |
-| `SELECT(i≥e, β(i))` | index |
+| `SELECT(i>=e, β(i))` | index |
 | `SEARCH(i=e..u, β(i))` | (logikai, index) |
 | `COPY(i=e..u, f(i))` | tömb |
 | `MIS(i=e..u, β(i))`, `MIS(i=e..u, β(i), f(i))` | (darabszám, tömb) |
@@ -75,7 +75,7 @@ Precedencia a leggyengébbtől a legerősebbig: `→`, `vagy`, `és`, `nem`,
 1. A fejlécek kis- és nagybetű-érzékenyek, és pontosan a fenti módon írandók.
 2. A deklarációk megelőzik a feltételeket: `Be`, `Sa`, `Ki`, `Fv`, aztán `Ef`, `Uf`.
 3. A változók kisbetűvel, a halmazok nagybetűvel kezdődnek.
-4. A foglalt szavak (`és`, `vagy`, `nem`, `and`, `or`, `not`, `mod`, `element`,
+4. A foglalt szavak (`és`, `vagy`, `nem`, `and`, `or`, `not`, `mod`, `in`,
    `exists`, `forall`, `true`, `false`) nem lehetnek nevek.
 5. Minden bemeneti változó szerepel az utófeltételben.
 6. A tesztadat illeszkedik a deklarált típusokra: hossz, tartományok, mezők.

@@ -206,7 +206,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: ∀i∈[1..n]:(kt[i].x≥0 és kt[i].y≥0)
 Uf: (van,ind)=SEARCH(i=1..n-1, kt[i].y&lt;kt[i+1].y) és
-    (van → nev=kt[ind].nev)
+    (van -&gt; nev=kt[ind].nev)
 </code></pre>
 <h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
 <p>A feladat példája, ahol az L4-et (y = 4) az L5 (y = 47) követi:</p>
@@ -273,10 +273,10 @@ megköveteli, hogy <code>nev = kt[4].nev = "L4"</code>.</p>
 <h2 id="a-zárójelekről"><a class="header" href="#a-zárójelekről">A zárójelekről</a></h2>
 <p>A hivatalos megoldás az utolsó sort zárójel nélkül írja:</p>
 <pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -&gt; lib=pl[ind].name
 </code></pre>
-<p>Mivel a <code>→</code> gyengébben köt, mint az <code>and</code>, ez azt jelenti:
-<code>(SEARCH… and exists) → lib=…</code>. Ha egy tesztesetben rossz az <code>exists</code> vagy az
+<p>Mivel a <code>-&gt;</code> gyengébben köt, mint az <code>and</code>, ez azt jelenti:
+<code>(SEARCH… and exists) -&gt; lib=…</code>. Ha egy tesztesetben rossz az <code>exists</code> vagy az
 <code>ind</code> értéke, a bal oldal hamis, és az egész állítás <em>igaz</em>, így a hiba
 észrevétlen marad. A fenti zárójelezéssel a piros teszt helyesen piros. (A
 hivatalos megoldás a jelzőt is <code>exists</code>-nek nevezi, amit a mostani szerkesztő

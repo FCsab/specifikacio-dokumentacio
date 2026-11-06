@@ -113,7 +113,7 @@ Sa: van∈L, ind∈N
 Ki: gyoztes∈S
 Ef: n>0
 Uf: (van,ind)=SEARCH(i=1..n, versenyek[i].ido<hatar) és
-    (van → gyoztes=versenyek[ind].nev)
+    (van -> gyoztes=versenyek[ind].nev)
 ```
 
 ```yaml

@@ -30,9 +30,8 @@ Fn: name:Domain->Range, name(parameters)=expression
 
 > [!TIP]
 > Write the arrow as ASCII `->`. The Insert bar has no arrow button, and the
-> Unicode `→` has been reported to fail in signatures. The arrows you see in
-> screenshots are most likely `->` drawn by the editor's font. `->` always
-> works.
+> Unicode `→` is a syntax error everywhere: in signatures and as implication
+> alike. The arrows you see in screenshots are `->` drawn by the editor's font.
 
 ## Examples
 
@@ -107,14 +106,14 @@ d: 3
 
 ## Several functions
 
-Separate several definitions in one `Fn:` block with commas. Each one may use
-the ones before it:
+Give every definition its own `Fn:` header. A comma-separated list in one
+block is a syntax error. Each function may use the ones before it:
 
-```speci
+```speci,online
 In: n∈N, x∈N[1..n]
 Out: c∈N
-Fn: even:N->L, even(v)=v mod 2 = 0,
-    good:N->L, good(i)=even(x[i]) and x[i]>0
+Fn: even:N->L, even(v)=v mod 2 = 0
+Fn: good:N->L, good(i)=even(x[i]) and x[i]>0
 Pre: -
 Post: c=COUNT(i=1..n, good(i))
 ```

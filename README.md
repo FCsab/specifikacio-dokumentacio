@@ -28,6 +28,7 @@ Inside `source/`:
 | `book-en/`, `book-hu/` | [mdBook](https://rust-lang.github.io/mdBook/) sources; same file names in both |
 | `theme/` | shared look: CSS, spec-language highlighting, language switch, footer |
 | `tools/check-examples/` | runs every example of both books through speci-local |
+| `tools/check-online.mjs` | runs every example of both books through the online editor's evaluator (`node source/tools/check-online.mjs`) |
 | `tools/check-links.py` | checks every internal link and anchor of the site |
 | `SKILL.md`, `onsite.txt` | source material: the collected reference, and the editor's built-in documentation |
 

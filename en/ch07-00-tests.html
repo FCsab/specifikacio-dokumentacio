@@ -186,12 +186,14 @@ example satisfies the specification.</p>
 <ul>
 <li>a value for <strong>every input</strong> variable,</li>
 <li>the expected value of the <strong>output</strong> variables,</li>
-<li>the expected value of the <strong>auxiliary</strong> variables (when the postcondition
-binds them).</li>
+<li>a value for <strong>every auxiliary</strong> variable, even one whose value doesn’t
+matter (for example <code>ind</code> when <code>SEARCH</code> found nothing; any valid value will do).</li>
 </ul>
-<p>If you leave out an output or auxiliary value, the editor can’t compare it.
-speci-local fills in such values and shows them. Write them out anyway: a
-test with no expectation tests nothing.</p>
+<p>Constant arrays declared with a value (<code>x∈N[]=[…]</code>) are the exception: leave
+them out, a test that repeats them is red.</p>
+<p>If an output or auxiliary value is missing, the test is red with an
+“incomplite type for …: undefined is not …” message. (speci-local instead fills
+in such values and shows them.)</p>
 <h2 id="the-status-of-a-test"><a class="header" href="#the-status-of-a-test">The status of a test</a></h2>
 <p>After <strong>Evaluate</strong>, every test tab is coloured:</p>
 <div class="table-wrapper">

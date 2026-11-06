@@ -10,11 +10,11 @@ This reads "*a* is one element of the set of natural numbers". The set
 plays the role of the type. The editor uses it to check the test data, and it
 restricts which values the variable may take.
 
-You can type `∈` with the **Insert** button, or write the word `element`
+You can type `∈` with the **Insert** button, or write the word `in`
 (Hungarian: `eleme`) instead:
 
-```speci
-In: a element N, b∈Z
+```speci,online
+In: a in N, b∈Z
 Out: c∈Z
 Pre: -
 Post: c=a+b

@@ -65,7 +65,7 @@ true identity to the postcondition:
 In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i>=1, nums[i] mod 2 = 1) and n=n
 ```
 
 ```yaml

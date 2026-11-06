@@ -71,7 +71,7 @@ változás az előző naphoz képest?*
 Be: n∈N, t∈Z[1..n]
 Ki: nap∈N
 Ef: n≥2
-Uf: (nap,)=MAX(i=2..n, ABS(t[i]-t[i-1]))
+Uf: (nap,)=MAX(i=2..n, abs(t[i]-t[i-1]))
 ```
 
 ```yaml

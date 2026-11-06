@@ -116,10 +116,13 @@ Post: d=days[m]
 ```
 
 ```yaml
-days: [31,28,31,30,31,30,31,31,30,31,30,31]
 m: 4
 d: 30
 ```
+
+The value comes from the declaration, so the test data **leaves `days` out**.
+A test that repeats it is red: "data cannot contain item with the same name:
+days".
 
 The worked example [Card values](ch09-08-cards.md) uses the same technique with
 strings.

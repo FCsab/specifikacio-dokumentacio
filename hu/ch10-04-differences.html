@@ -178,32 +178,63 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="eltérések-az-online-szerkesztőtől"><a class="header" href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a></h1>
-<p>A speci-local célja, hogy pontosan azt fogadja el, amit az ELTE-s szerkesztő,
-és minden tesztet ugyanúgy ítéljen meg. Néhány eltérés azért maradt. Ezek a
-könyv példáinak ellenőrzése közben derültek ki.</p>
+<p>Ez a könyv az online szerkesztőt dokumentálja. A speci-local célja, hogy
+pontosan azt fogadja el, amit az online szerkesztő, és minden tesztet ugyanúgy
+ítéljen meg, de néhány eltérés maradt. Ezek úgy derültek ki, hogy a könyv
+összes példáját és kis tesztspecifikációkat mindkét szerkesztőben lefuttattunk
+(2026. november, az online szerkesztő 1.5.2-es verziója).</p>
 <h2 id="csak-az-online-szerkesztő-fogadja-el"><a class="header" href="#csak-az-online-szerkesztő-fogadja-el">Csak az online szerkesztő fogadja el</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Lehetőség</th><th>Példa</th><th>A speci-localban</th></tr>
+<tr><th>Lehetőség</th><th>Online szerkesztő</th><th>A speci-localban</th></tr>
 </thead>
 <tbody>
 <tr><td>magyar logikai konstansok</td><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td></tr>
-<tr><td>magyar kvantor- és tartalmazás-szavak</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>∈</code>, vagy <code>forall</code>, <code>exists</code>, <code>element</code></td></tr>
+<tr><td>magyar kvantorszavak</td><td><code>minden</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>forall</code>, <code>exists</code></td></tr>
+<tr><td>tartalmazás-szavak</td><td><code>eleme</code>, <code>in</code> (<code>∀i in [1..n]</code>)</td><td>csak <code>∈</code></td></tr>
 <tr><td>magyar tömbfüggvények</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td><code>length</code>, <code>from</code>, <code>to</code></td></tr>
+<tr><td>további beépített függvények</td><td><code>sqrt(x)</code>, <code>round(x)</code> / <code>kerekít(x)</code></td><td>nincsenek</td></tr>
+<tr><td>további műveletek</td><td><code>&lt;&gt;</code> (nem egyenlő), <code>∤</code> (nem osztója)</td><td><code>≠</code> vagy <code>!=</code>; <code>nem (a|b)</code></td></tr>
 <tr><td>indextartományos tömbliterálok</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>sima literálok</td></tr>
-<tr><td>külön <code>Fv:</code> fejléc minden függvénynek</td><td><code>Fv: f…</code> <code>Fv: g…</code></td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel</td></tr>
+<tr><td>függvényblokkok</td><td>függvényenként egy fejléc: <code>Fv: f…</code> <code>Fv: g…</code>; a <code>Def:</code> az <code>Fv:</code>/<code>Fn:</code> harmadik neve</td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel; a második fejléc hiba</td></tr>
+<tr><td>a minták további nevei</td><td><code>SZUMMA</code>/<code>SZUM</code>, <code>MEGSZÁMOL</code>, <code>ELDÖNT</code>/<code>DECISION</code>/<code>VAN</code>/<code>LÉTEZIK</code>, <code>MIND</code>/<code>EVERY</code>, <code>KERES</code>, <code>KIVÁLASZT</code>, <code>MÁSOL</code>/<code>MAP</code>, <code>KIVÁLOGAT</code>/<code>FILTER</code>, <code>MAXHA</code>/<code>MAXIF</code>/<code>FELTMAX</code>, <code>MINHA</code>/<code>MINIF</code>/<code>FELTMIN</code></td><td><code>SUM</code>, <code>COUNT</code>/<code>DARAB</code>, <code>EXISTS</code>, <code>FORALL</code>, <code>SEARCH</code>, <code>SELECT</code>, <code>COPY</code>, <code>MIS</code>, <code>CONDMAX</code>, <code>CONDMIN</code></td></tr>
 </tbody>
 </table>
 </div>
-<p>Az ilyen lehetőségeket használó példákat a könyvben <strong>CSAK ONLINE</strong> felirat
-jelöli.</p>
-<h2 id="ismert-hibák"><a class="header" href="#ismert-hibák">Ismert hibák</a></h2>
-<ul>
-<li>Egy <strong>kezdőértékkel megadott, nem 1-től indexelt mátrixot</strong>, például az
-<code>m5∈Z[-1..1,-1..1]=[[2,1,2],[1,0,1],[2,1,1]]</code>-t, a speci-local 1-től
-indexel. Az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi.</li>
-</ul>
+<p>A függvényblokkok szabálya miatt <strong>két vagy több függvényt nem lehet úgy
+megírni, hogy mindkét szerkesztő elfogadja</strong>. Az online alakokat használó
+példákat a könyvben <strong>CSAK ONLINE</strong> felirat jelöli.</p>
+<h2 id="csak-a-speci-local-fogadja-el"><a class="header" href="#csak-a-speci-local-fogadja-el">Csak a speci-local fogadja el</a></h2>
+<p>Ezek az online szerkesztőben hibák. Beadandó specifikációban ne használd őket.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>A speci-local elfogadja</th><th>Az online szerkesztő üzenete</th><th>Helyette</th></tr>
+</thead>
+<tbody>
+<tr><td>Unicode nyíl: <code>a → b</code></td><td>szintaktikai hiba</td><td><code>a -&gt; b</code></td></tr>
+<tr><td><code>SELECT(i≥1, …)</code></td><td>Expected “&gt;=” but “≥” found</td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
+<tr><td><code>ABS(x)</code></td><td>szintaktikai hiba (csak a kisbetűs függvény)</td><td><code>abs(x)</code></td></tr>
+<tr><td>az <code>element</code> szó (<code>a element N</code>)</td><td>szintaktikai hiba</td><td><code>∈</code>, <code>eleme</code> vagy <code>in</code></td></tr>
+<tr><td>több függvény egy <code>Fv:</code> blokkban, vesszővel elválasztva</td><td>szintaktikai hiba</td><td>függvényenként egy <code>Fv:</code> fejléc</td></tr>
+<tr><td>kimeneti változó az előfeltételben (<code>Ef: m&gt;0</code>, ahol <code>m</code> a <code>Ki:</code>-ben van)</td><td>Output data m is in the precondition!</td><td>a kimenetre vonatkozó feltétel az utófeltételbe való</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="másként-megítélt-tesztek"><a class="header" href="#másként-megítélt-tesztek">Másként megítélt tesztek</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tesztadat</th><th>Online szerkesztő</th><th>speci-local</th></tr>
+</thead>
+<tbody>
+<tr><td>megismétel egy kezdőértékkel deklarált konstans tömböt (<code>napok∈N[1..12]=[…]</code>, és a tesztben <code>napok: […]</code>)</td><td>piros: „data cannot contain item with the same name”</td><td>zöld</td></tr>
+<tr><td>kihagy egy segéd- vagy kimeneti értéket, akár egy mellékeset is, például az <code>ind</code>-et, amikor a <code>SEARCH</code> nem talált semmit</td><td>piros: „incomplite type for ind: undefined is not natural”</td><td>zöld; a hiányzó értéket kiszámolja és megmutatja</td></tr>
+<tr><td>egy kezdőértékkel megadott, nem 1-től indexelt mátrixot indexel, például az <code>m5∈Z[-1..1,-1..1]=[[2,1,2],[1,0,1],[2,1,1]]</code> mátrixot <code>m5[-1,-1]</code>-gyel</td><td>zöld</td><td>piros: a speci-local 1-től indexel, és az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="ami-csak-a-speci-localban-van"><a class="header" href="#ami-csak-a-speci-localban-van">Ami csak a speci-localban van</a></h2>
 <ul>
 <li>Sokkal részletesebb hibaüzenetek, javítási javaslattal.</li>
@@ -212,7 +243,6 @@ indexel. Az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi.</li>
 <li>Kiegészítés és sablonok.</li>
 <li>Felismeri a fejlécek néhány gyakori elírását (például <code>Segéd:</code> vagy
 <code>Bemenet:</code>), és javasolja a helyeset.</li>
-<li><code>CONDMIN</code>, a <code>CONDMAX</code> minimumos párja.</li>
 <li>Helyi <code>.sp</code> fájlok és egysoros projektmegosztás (<code>SPECI1:</code>).</li>
 </ul>
 <h2 id="ami-hiányzik"><a class="header" href="#ami-hiányzik">Ami hiányzik</a></h2>
@@ -221,6 +251,12 @@ indexel. Az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi.</li>
 <li>Szerveroldali mentés és állandó linkek. Helyettük <code>.sp</code> fájlokat és
 <code>SPECI1:</code> sorokat használj.</li>
 </ul>
+<h2 id="a-könyv-ellenőrzése-az-online-szerkesztővel"><a class="header" href="#a-könyv-ellenőrzése-az-online-szerkesztővel">A könyv ellenőrzése az online szerkesztővel</a></h2>
+<p>A <code>source/tools/check-online.mjs</code> letölti az online szerkesztő kiértékelőjét, és
+mindkét könyv összes példáját lefuttatja vele, ahogy a <code>check-examples</code> a
+speci-locallal:</p>
+<pre><code class="language-sh">node source/tools/check-online.mjs
+</code></pre>
 
                     </main>
 

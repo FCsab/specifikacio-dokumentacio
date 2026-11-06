@@ -6,7 +6,7 @@ whose value is `true` or `false`. They are built from
 - **values**: variables, constants (`3`, `-1`, `2.5`, `"text"`, `true`), array
   elements (`x[i]`), fields (`r.name`), tuples (`(3,5)`),
 - **operators**: arithmetic (`+ - * / mod`), comparison
-  (`= ≠ < > ≤ ≥`) and logic (`and or not →`),
+  (`= ≠ < > ≤ ≥`) and logic (`and or not ->`),
 - **quantifiers**: `∀` (for all) and `∃` (there exists),
 - **function calls**: built-in (`length(x)`) or your own (`f(i)`),
 - **theorem macros**: `SUM`, `COUNT`, `MAX`, … (in

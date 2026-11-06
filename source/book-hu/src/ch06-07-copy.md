@@ -16,7 +16,7 @@ alkalmaz egy átalakítást.
 Be: n∈N, szamok∈Z[1..n]
 Ki: cel∈N[1..n]
 Ef: -
-Uf: cel=COPY(i=1..n, ABS(szamok[i]))
+Uf: cel=COPY(i=1..n, abs(szamok[i]))
 ```
 
 ```yaml

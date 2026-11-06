@@ -67,13 +67,13 @@ The symbols can be typed as words too:
 |:------:|--------------|----------------|
 | `∀` | `forall` | `minden` |
 | `∃` | `exists` | `létezik` |
-| `∈` | `element` | `eleme` |
+| `∈` | `in` | `eleme` |
 
-```speci
+```speci,online
 In: n∈N, x∈N[1..n]
 Out: ok∈L
 Pre: -
-Post: ok=forall i element [1..n]:(x[i]>0)
+Post: ok=forall i in [1..n]:(x[i]>0)
 ```
 
 ```yaml

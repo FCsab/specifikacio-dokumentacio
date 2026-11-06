@@ -185,8 +185,11 @@ szerzője által írt összefoglalója mindannak, amit a szerkesztő elfogad.</p
 <a href="../en/appendix-05-builtin.html">angol kiadás</a> a megjegyzések angol fordítását
 tartalmazza.</p>
 <p>A dokumentum a magyar szóalakokat (<code>igaz</code>, <code>minden</code>, <code>eleme</code>, <code>hossz</code>, …) és több
-<code>Fv:</code> fejlécet használ, ezért csak az online szerkesztőben fut.</p>
-<pre><code class="language-speci online">/** Dokumentáció */
+<code>Fv:</code> fejlécet használ. Olvasásra szolgál, nem futtatásra: egészében még az
+online szerkesztő is elutasítja („a is missing from the post condition!”),
+mert az <code>Uf: igaz</code> nem említi a deklarált adatokat. A szükséges részeket másold
+át a saját specifikációdba.</p>
+<pre><code class="language-speci fragment">/** Dokumentáció */
 
 /** Bemeneti adatok leírása */
 Be: /** Elemi halmazok */

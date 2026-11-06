@@ -112,7 +112,7 @@ Aux: found∈L, ind∈N
 Out: winner∈S
 Pre: n>0
 Post: (found,ind)=SEARCH(i=1..n, races[i].time<limit) and
-      (found → winner=races[ind].name)
+      (found -> winner=races[ind].name)
 ```
 
 ```yaml

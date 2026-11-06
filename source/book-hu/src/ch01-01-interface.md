@@ -42,7 +42,7 @@ beírhatod:
 
 | Jel | Gomb | Helyette írható |
 |:---:|:----:|-----------------|
-| `∈` | ∈ | `eleme` (angolul `element`) |
+| `∈` | ∈ | `eleme` (angolul `in`) |
 | `∀` | ∀ | `minden` (angolul `forall`) |
 | `∃` | ∃ | `létezik` (angolul `exists`) |
 | `≠` | ≠ | `!=` |

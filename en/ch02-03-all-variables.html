@@ -228,7 +228,7 @@ true identity to the postcondition:</p>
 <pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 nums: [23, 25, 26, 28, 29]

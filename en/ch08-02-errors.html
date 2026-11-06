@@ -217,7 +217,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">6</td><td>comparing neighbours up to <code>n</code></td><td><code>x[i+1]</code> out of range</td><td>loop to <code>n-1</code></td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> without an existence guarantee</td><td>wrong results or errors</td><td>add <code>∃…</code> to <code>Pre:</code>, or use <code>SEARCH</code></td></tr>
 <tr><td style="text-align: right">8</td><td>wrong tuple shape</td><td>type mismatch</td><td><code>(ind,)=MAX(…)</code>, <code>(found,,val)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> in a function signature</td><td>syntax error in <code>Fn:</code></td><td>use <code>-&gt;</code></td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> (signature or implication)</td><td>syntax error</td><td>use <code>-&gt;</code></td></tr>
 <tr><td style="text-align: right">10</td><td>backward search without negating everything</td><td>wrong index</td><td><code>(found,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML indentation or tabs</td><td>data can’t be read</td><td>2 spaces, or the compact <code>{…}</code> form</td></tr>
 <tr><td style="text-align: right">12</td><td>field names with different case</td><td>field “missing”</td><td>match the declaration exactly</td></tr>
@@ -226,7 +226,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">15</td><td>a missing filter condition in <code>SUM</code>/<code>COUNT</code></td><td>wrong numbers on some inputs</td><td>put <em>every</em> restriction into the condition</td></tr>
 <tr><td style="text-align: right">16</td><td>a variable named <code>exists</code> / an invented keyword</td><td>“incomplite type…” / “Expected …”</td><td>rename / use <code>Sa:</code></td></tr>
 <tr><td style="text-align: right">17</td><td>a −1 result declared as <code>N</code></td><td>the “not found” test fails</td><td>declare it <code>Z</code> and produce the −1 in <code>Post:</code></td></tr>
-<tr><td style="text-align: right">18</td><td>an implication without parentheses</td><td>wrong data still passes</td><td><code>… and (found → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>an implication without parentheses</td><td>wrong data still passes</td><td><code>… and (found -&gt; …)</code></td></tr>
 </tbody>
 </table>
 </div>

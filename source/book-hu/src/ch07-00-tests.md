@@ -9,11 +9,15 @@ Egy teszteset tartalma:
 
 - **minden bemeneti** változó értéke,
 - a **kimeneti** változók elvárt értéke,
-- a **segédváltozók** elvárt értéke (ha az utófeltétel megköti őket).
+- **minden segédváltozó** értéke, akkor is, ha mindegy, mi az (például az
+  `ind`, amikor a `SEARCH` nem talált semmit; bármilyen érvényes érték jó).
 
-Ha egy kimeneti vagy segédértéket kihagysz, a szerkesztő nem tudja
-összehasonlítani. A speci-local kiszámolja és megmutatja az ilyen értékeket.
-Ettől még írd ki őket: az elvárás nélküli teszt semmit sem tesztel.
+Kivételek a kezdőértékkel deklarált konstans tömbök (`x∈N[]=[…]`): ezeket hagyd
+ki, az a teszt, amely megismétli őket, piros.
+
+Ha egy kimeneti vagy segédérték hiányzik, a teszt piros, „incomplite type for
+…: undefined is not …” üzenettel. (A speci-local ehelyett kiszámolja és
+megmutatja az ilyen értékeket.)
 
 ## A teszt állapota
 

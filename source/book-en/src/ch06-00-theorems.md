@@ -41,7 +41,7 @@ In the table, `β(i)` is a logical condition on `i`, and `f(i)` is a value compu
 | [Minimum selection](ch06-03-max-min.md) | minimumkiválasztás | `(ind,val)=MIN(i=b..e, f(i))` | (index, value) |
 | [Decision](ch06-04-decision.md) | eldöntés | `l=EXISTS(i=b..e, β(i))` | logical |
 | [Decision (all)](ch06-04-decision.md) | eldöntés (mind) | `l=FORALL(i=b..e, β(i))` | logical |
-| [Selection](ch06-05-select.md) | kiválasztás | `ind=SELECT(i≥b, β(i))` | index |
+| [Selection](ch06-05-select.md) | kiválasztás | `ind=SELECT(i>=b, β(i))` | index |
 | [Search](ch06-06-search.md) | keresés | `(found,ind)=SEARCH(i=b..e, β(i))` | (logical, index) |
 | [Copy](ch06-07-copy.md) | másolás | `y=COPY(i=b..e, f(i))` | array |
 | [Multiple item selection](ch06-08-mis.md) | kiválogatás | `(c,y)=MIS(i=b..e, β(i))`<br>`(c,y)=MIS(i=b..e, β(i), f(i))` | (count, array) |
@@ -51,7 +51,7 @@ In the table, `β(i)` is a logical condition on `i`, and `f(i)` is a value compu
 All macros share the same first argument, the **loop range** `i=b..e`. It
 names the loop variable (any lowercase name: `i`, `j`, `p`, …) and the
 interval it runs through. `SELECT` is the exception: it only has a starting
-point, `i≥b`.
+point, `i>=b`.
 
 ## Which theorem do I need?
 

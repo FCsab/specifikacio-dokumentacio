@@ -8,7 +8,7 @@
 | `/` | division | `s/n` |
 | `mod` or `%` | remainder | `x mod 2 = 1`, `i%2=1` |
 | `-` (prefix) | negation | `-x[i]` |
-| `ABS(…)` | absolute value | `ABS(x[i])` |
+| `abs(…)` | absolute value | `abs(x[i])` |
 
 The usual precedence applies (`*` before `+`), and parentheses can be added
 freely.
@@ -68,7 +68,7 @@ d: 6
 | `and` | `és` | both are true |
 | `or` | `vagy` | at least one is true |
 | `not` | `nem` | negation |
-| `→` or `->` | | implication |
+| `->` | | implication (the Unicode arrow `→` is rejected) |
 | `true`, `false` | `igaz`, `hamis` | constants |
 
 > [!NOTE]
@@ -78,9 +78,9 @@ d: 6
 
 ### Implication
 
-`A → B` ("if A then B") is false only when A is true and B is false:
+`A -> B` ("if A then B") is false only when A is true and B is false:
 
-| A | B | A → B |
+| A | B | A -> B |
 |:-:|:-:|:-----:|
 | true | true | true |
 | true | false | **false** |
@@ -97,7 +97,7 @@ Aux: found∈L, ind∈N
 Out: neg∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, x[i]<0) and
-      (found → neg=x[ind])
+      (found -> neg=x[ind])
 ```
 
 ```yaml
@@ -112,6 +112,7 @@ neg: -2
 n: 2
 x: [5, 2]
 found: false
+ind: 1
 neg: 0
 ```
 
@@ -121,7 +122,7 @@ In the second test nothing was found, so `neg` may be anything. Chapter
 ### Precedence
 
 From strongest to weakest: arithmetic, then comparisons, then `not`, `and`,
-`or`, `→`. When in doubt, add parentheses. They cost nothing:
+`or`, `->`. When in doubt, add parentheses. They cost nothing:
 
 ```speci,fragment
 Pre: n>0 and (3<4 or ((3)>4))

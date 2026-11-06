@@ -48,7 +48,7 @@ tesztesetekben.
 | 6 | szomszédok összehasonlítása `n`-ig | az `x[i+1]` kilóg a tartományból | menj `n-1`-ig |
 | 7 | `SELECT` létezési garancia nélkül | hibás eredmény vagy hiba | írj `∃…`-t az `Ef:`-be, vagy használj `SEARCH`-et |
 | 8 | rossz alakú tuple | típushiba | `(ind,)=MAX(…)`, `(van,,ert)=CONDMAX(…)` |
-| 9 | Unicode `→` a függvényszignatúrában | szintaktikai hiba az `Fv:`-ben | használd a `->` alakot |
+| 9 | Unicode `→` (szignatúrában vagy implikációban) | szintaktikai hiba | használd a `->` alakot |
 | 10 | visszafelé keresés, de nem minden van negálva | rossz index | `(van,-ind)=SEARCH(i=-n..-1, β(-i))` |
 | 11 | YAML-behúzás vagy tabulátor | nem olvasható az adat | 2 szóköz, vagy a tömör `{…}` alak |
 | 12 | eltérő kis- és nagybetűs mezőnevek | „hiányzó” mező | pontosan egyezzen a deklarációval |
@@ -57,7 +57,7 @@ tesztesetekben.
 | 15 | hiányzó szűrőfeltétel a `SUM`/`DARAB`-ban | egyes bemenetekre rossz számok | *minden* megszorítást tegyél a feltételbe |
 | 16 | `exists` nevű változó / kitalált kulcsszó | „incomplite type…” / „Expected …” | nevezd át / használd a `Sa:`-t |
 | 17 | `N`-ként deklarált −1-es eredmény | a „nincs találat” teszt elbukik | deklaráld `Z`-ként, és az `Uf:`-ben állítsd elő a −1-et |
-| 18 | zárójel nélküli implikáció | a rossz adat is átmegy | `… és (van → …)` |
+| 18 | zárójel nélküli implikáció | a rossz adat is átmegy | `… és (van -> …)` |
 
 ## A speci-local üzenetei
 

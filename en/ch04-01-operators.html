@@ -189,7 +189,7 @@
 <tr><td><code>/</code></td><td>division</td><td><code>s/n</code></td></tr>
 <tr><td><code>mod</code> or <code>%</code></td><td>remainder</td><td><code>x mod 2 = 1</code>, <code>i%2=1</code></td></tr>
 <tr><td><code>-</code> (prefix)</td><td>negation</td><td><code>-x[i]</code></td></tr>
-<tr><td><code>ABS(…)</code></td><td>absolute value</td><td><code>ABS(x[i])</code></td></tr>
+<tr><td><code>abs(…)</code></td><td>absolute value</td><td><code>abs(x[i])</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -245,7 +245,7 @@ d: 6
 <tr><td><code>and</code></td><td><code>és</code></td><td>both are true</td></tr>
 <tr><td><code>or</code></td><td><code>vagy</code></td><td>at least one is true</td></tr>
 <tr><td><code>not</code></td><td><code>nem</code></td><td>negation</td></tr>
-<tr><td><code>→</code> or <code>-&gt;</code></td><td></td><td>implication</td></tr>
+<tr><td><code>-&gt;</code></td><td></td><td>implication (the Unicode arrow <code>→</code> is rejected)</td></tr>
 <tr><td><code>true</code>, <code>false</code></td><td><code>igaz</code>, <code>hamis</code></td><td>constants</td></tr>
 </tbody>
 </table>
@@ -257,11 +257,11 @@ documentation. speci-local doesn’t accept them. Use <code>true</code>/<code>fa
 want your specification to work in both.</p>
 </blockquote>
 <h3 id="implication"><a class="header" href="#implication">Implication</a></h3>
-<p><code>A → B</code> (“if A then B”) is false only when A is true and B is false:</p>
+<p><code>A -&gt; B</code> (“if A then B”) is false only when A is true and B is false:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: center">A</th><th style="text-align: center">B</th><th style="text-align: center">A → B</th></tr>
+<tr><th style="text-align: center">A</th><th style="text-align: center">B</th><th style="text-align: center">A -&gt; B</th></tr>
 </thead>
 <tbody>
 <tr><td style="text-align: center">true</td><td style="text-align: center">true</td><td style="text-align: center">true</td></tr>
@@ -279,7 +279,7 @@ Aux: found∈L, ind∈N
 Out: neg∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, x[i]&lt;0) and
-      (found → neg=x[ind])
+      (found -&gt; neg=x[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 x: [5, -2, -8]
@@ -290,13 +290,14 @@ neg: -2
 <pre><code class="language-yaml">n: 2
 x: [5, 2]
 found: false
+ind: 1
 neg: 0
 </code></pre>
 <p>In the second test nothing was found, so <code>neg</code> may be anything. Chapter
 <a href="ch06-06-search.html">Search</a> has more on this.</p>
 <h3 id="precedence"><a class="header" href="#precedence">Precedence</a></h3>
 <p>From strongest to weakest: arithmetic, then comparisons, then <code>not</code>, <code>and</code>,
-<code>or</code>, <code>→</code>. When in doubt, add parentheses. They cost nothing:</p>
+<code>or</code>, <code>-&gt;</code>. When in doubt, add parentheses. They cost nothing:</p>
 <pre><code class="language-speci fragment">Pre: n&gt;0 and (3&lt;4 or ((3)&gt;4))
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">

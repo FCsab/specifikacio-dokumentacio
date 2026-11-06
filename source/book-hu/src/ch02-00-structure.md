@@ -44,6 +44,7 @@ n: 2
 k: 10
 arak: [250, 90]
 van: false
+ind: 1
 elso: -1
 ```
 

@@ -125,26 +125,8 @@ A folytatósorok behúzása csak az olvashatóságot szolgálja.
 
 ## Több függvény
 
-Egy `Fv:` blokk több függvényt is definiálhat, vesszővel elválasztva. Minden
+Minden függvény külön `Fv:` fejlécet kap (az `Fn:` és a `Def:` is jó). Minden
 definíció egy szignatúrából és a törzsből áll:
-
-```speci
-Be: n∈N, x∈N[1..n]
-Ki: s∈N
-Fv: negyzet:N->N, negyzet(a)=a*a,
-    paros:N->L, paros(a)=a mod 2 = 0
-Ef: -
-Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
-```
-
-```yaml
-n: 4
-x: [1, 2, 3, 4]
-s: 20
-```
-
-Az online szerkesztő minden függvénynek külön `Fv:` fejlécet is elfogad. A
-beépített dokumentációja is így van megírva:
 
 ```speci,online
 Be: n∈N, x∈N[1..n]
@@ -155,7 +137,14 @@ Ef: -
 Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
 ```
 
-A speci-local egyetlen `Fv:` blokkot enged, ezért a vesszős alak az, ami
-mindenhol működik.
+```yaml
+n: 4
+x: [1, 2, 3, 4]
+s: 20
+```
+
+Ha egy `Fv:` blokkban több függvényt sorolsz fel vesszővel elválasztva, az az
+online szerkesztőben szintaktikai hiba. (A speci-local épp fordítva működik: ott
+a vesszős alak kell, lásd az [Eltéréseket](ch10-04-differences.md).)
 
 A függvényekről részletesen a [Függvények](ch05-00-functions.md) fejezet szól.

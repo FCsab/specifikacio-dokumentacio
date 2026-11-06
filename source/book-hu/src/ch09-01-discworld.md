@@ -30,7 +30,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: ∀i∈[1..n]:(kt[i].x≥0 és kt[i].y≥0)
 Uf: (van,ind)=SEARCH(i=1..n-1, kt[i].y<kt[i+1].y) és
-    (van → nev=kt[ind].nev)
+    (van -> nev=kt[ind].nev)
 ```
 
 ## Tesztek
@@ -110,11 +110,11 @@ A hivatalos megoldás az utolsó sort zárójel nélkül írja:
 
 ```speci,fragment
 Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y<pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -> lib=pl[ind].name
 ```
 
-Mivel a `→` gyengébben köt, mint az `and`, ez azt jelenti:
-`(SEARCH… and exists) → lib=…`. Ha egy tesztesetben rossz az `exists` vagy az
+Mivel a `->` gyengébben köt, mint az `and`, ez azt jelenti:
+`(SEARCH… and exists) -> lib=…`. Ha egy tesztesetben rossz az `exists` vagy az
 `ind` értéke, a bal oldal hamis, és az egész állítás *igaz*, így a hiba
 észrevétlen marad. A fenti zárójelezéssel a piros teszt helyesen piros. (A
 hivatalos megoldás a jelzőt is `exists`-nek nevezi, amit a mostani szerkesztő

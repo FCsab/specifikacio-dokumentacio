@@ -186,11 +186,14 @@ hogy a példa megfelel-e a specifikációnak.</p>
 <ul>
 <li><strong>minden bemeneti</strong> változó értéke,</li>
 <li>a <strong>kimeneti</strong> változók elvárt értéke,</li>
-<li>a <strong>segédváltozók</strong> elvárt értéke (ha az utófeltétel megköti őket).</li>
+<li><strong>minden segédváltozó</strong> értéke, akkor is, ha mindegy, mi az (például az
+<code>ind</code>, amikor a <code>SEARCH</code> nem talált semmit; bármilyen érvényes érték jó).</li>
 </ul>
-<p>Ha egy kimeneti vagy segédértéket kihagysz, a szerkesztő nem tudja
-összehasonlítani. A speci-local kiszámolja és megmutatja az ilyen értékeket.
-Ettől még írd ki őket: az elvárás nélküli teszt semmit sem tesztel.</p>
+<p>Kivételek a kezdőértékkel deklarált konstans tömbök (<code>x∈N[]=[…]</code>): ezeket hagyd
+ki, az a teszt, amely megismétli őket, piros.</p>
+<p>Ha egy kimeneti vagy segédérték hiányzik, a teszt piros, „incomplite type for
+…: undefined is not …” üzenettel. (A speci-local ehelyett kiszámolja és
+megmutatja az ilyen értékeket.)</p>
 <h2 id="a-teszt-állapota"><a class="header" href="#a-teszt-állapota">A teszt állapota</a></h2>
 <p>Az <strong>Evaluate</strong> után minden teszt füle színt kap:</p>
 <div class="table-wrapper">

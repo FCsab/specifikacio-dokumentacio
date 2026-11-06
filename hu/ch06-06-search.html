@@ -235,7 +235,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, korok[i]&lt;18) és
-    (van → nev=nevek[ind])
+    (van -&gt; nev=nevek[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 nevek: [Anna, Bence, Cili]
@@ -248,15 +248,16 @@ nev: Bence
 nevek: [Anna, Dani]
 korok: [21, 30]
 van: false
+ind: 1
 nev: ""
 </code></pre>
-<p>Ha nincs találat, a <code>van → …</code> igaz, bármi is a <code>nev</code>.</p>
+<p>Ha nincs találat, a <code>van -&gt; …</code> igaz, bármi is a <code>nev</code>.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>A <code>→</code> a leggyengébb művelet. Zárójel nélkül a
-<code>(van,ind)=SEARCH(…) és van → nev=nevek[ind]</code> jelentése
-<code>((van,ind)=SEARCH(…) és van) → nev=…</code>, ami igaz, valahányszor a keresés része
-hibás. Így rossz adatú teszt is átmehet. Mindig <code>és (van → …)</code> alakban írd.</p>
+<p>A <code>-&gt;</code> a leggyengébb művelet. Zárójel nélkül a
+<code>(van,ind)=SEARCH(…) és van -&gt; nev=nevek[ind]</code> jelentése
+<code>((van,ind)=SEARCH(…) és van) -&gt; nev=…</code>, ami igaz, valahányszor a keresés része
+hibás. Így rossz adatú teszt is átmehet. Mindig <code>és (van -&gt; …)</code> alakban írd.</p>
 </blockquote>
 <h2 id="különleges-érték-jelző-helyett"><a class="header" href="#különleges-érték-jelző-helyett">Különleges érték jelző helyett</a></h2>
 <p>Egyes feladatok nem logikai értéket kérnek, hanem egy különleges kimenetet,
@@ -271,8 +272,8 @@ Sa: van∈L, ind∈N
 Ki: sorszam∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, ar[i]&lt;k) és
-    (van → sorszam=ind) és
-    (nem van → sorszam=-1)
+    (van -&gt; sorszam=ind) és
+    (nem van -&gt; sorszam=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 6
 k: 2000
@@ -285,6 +286,7 @@ sorszam: 3
 k: 100
 ar: [2500, 5300, 1900]
 van: false
+ind: 1
 sorszam: -1
 </code></pre>
 <p>A <a href="ch09-09-trees.html">Karácsonyfák</a> kidolgozott példa ugyanezt a feladatot

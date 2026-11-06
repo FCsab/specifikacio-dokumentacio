@@ -34,7 +34,7 @@ Néhány kisbetűs szó a nyelv része, ezért nem lehet változónév:
 | `és`, `vagy`, `nem` | logikai műveletek |
 | `and`, `or`, `not` | ugyanezek angolul |
 | `mod` | maradékos osztás |
-| `element` | a `∈` szóalakja |
+| `in` | a `∈` szóalakja |
 | `exists`, `forall` | a `∃` és a `∀` szóalakja |
 | `true`, `false` | logikai konstansok |
 

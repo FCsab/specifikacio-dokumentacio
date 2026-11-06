@@ -41,7 +41,7 @@ A táblázatban a `β(i)` egy `i`-től függő logikai feltétel, az `f(i)` pedi
 | [Minimumkiválasztás](ch06-03-max-min.md) | minimum selection | `(ind,ert)=MIN(i=e..u, f(i))` | (index, érték) |
 | [Eldöntés](ch06-04-decision.md) | decision | `l=EXISTS(i=e..u, β(i))` | logikai |
 | [Eldöntés (mind)](ch06-04-decision.md) | decision (all) | `l=FORALL(i=e..u, β(i))` | logikai |
-| [Kiválasztás](ch06-05-select.md) | selection | `ind=SELECT(i≥e, β(i))` | index |
+| [Kiválasztás](ch06-05-select.md) | selection | `ind=SELECT(i>=e, β(i))` | index |
 | [Keresés](ch06-06-search.md) | search | `(van,ind)=SEARCH(i=e..u, β(i))` | (logikai, index) |
 | [Másolás](ch06-07-copy.md) | copy | `y=COPY(i=e..u, f(i))` | tömb |
 | [Kiválogatás](ch06-08-mis.md) | multiple item selection | `(db,y)=MIS(i=e..u, β(i))`<br>`(db,y)=MIS(i=e..u, β(i), f(i))` | (darabszám, tömb) |
@@ -51,7 +51,7 @@ A táblázatban a `β(i)` egy `i`-től függő logikai feltétel, az `f(i)` pedi
 Minden makró első argumentuma ugyanaz: a **ciklustartomány**, `i=e..u`. Ez
 megnevezi a ciklusváltozót (bármilyen kisbetűs név: `i`, `j`, `p`, …), és
 megadja az intervallumot, amelyet bejár. Kivétel a `SELECT`: annak csak
-kezdőpontja van, `i≥e`.
+kezdőpontja van, `i>=e`.
 
 ## Melyik tétel kell?
 

@@ -41,19 +41,15 @@ Uf:
 
 ## Tests
 
-The constant arrays are part of the declared input, so they also appear in the
-test data:
+The constant arrays get their values from the declaration, so the test data
+gives only `lap` and `ertek`:
 
 ```yaml
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "asz"
 ertek: 11
 ```
 
 ```yaml
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "also"
 ertek: 2
 ```
@@ -61,14 +57,11 @@ ertek: 2
 A card that doesn't exist violates the precondition:
 
 ```yaml,red
-lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
 lap: "joker"
 ertek: 0
 ```
 
 > [!NOTE]
 > The template that <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> generates
-> lists every input, the constant arrays included. If your editor version fills
-> them in from the declaration and complains about the duplicates, delete those
-> two lines from the test.
+> may list the constant arrays too. Delete those two lines: a test that repeats
+> them is red with "data cannot contain item with the same name: lapok".

@@ -2,7 +2,7 @@
 
 A postcondition doesn't *have* to use theorem macros. Any logical statement
 over the input and output is valid, and the editor evaluates it directly. This
-**relational** style, built from `∀`, `∃`, `and`, `or` and `→`, is the
+**relational** style, built from `∀`, `∃`, `and`, `or` and `->`, is the
 notation of the lectures, and some assignments ask for it explicitly.
 
 ## The same task in both styles

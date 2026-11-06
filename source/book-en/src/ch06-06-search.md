@@ -73,7 +73,7 @@ Aux: found∈L, ind∈N
 Out: name∈S
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, ages[i]<18) and
-      (found → name=names[ind])
+      (found -> name=names[ind])
 ```
 
 ```yaml
@@ -90,17 +90,18 @@ n: 2
 names: [Anna, Dani]
 ages: [21, 30]
 found: false
+ind: 1
 name: ""
 ```
 
-When nothing is found, `found → …` is true no matter what `name` is.
+When nothing is found, `found -> …` is true no matter what `name` is.
 
 > [!WARNING]
-> `→` is the weakest operator. Without the parentheses,
-> `(found,ind)=SEARCH(…) and found → name=names[ind]` parses as
-> `((found,ind)=SEARCH(…) and found) → name=…`, which is true whenever the
+> `->` is the weakest operator. Without the parentheses,
+> `(found,ind)=SEARCH(…) and found -> name=names[ind]` parses as
+> `((found,ind)=SEARCH(…) and found) -> name=…`, which is true whenever the
 > search part is wrong, so a test with wrong data can still pass. Always
-> write `and (found → …)`.
+> write `and (found -> …)`.
 
 ## A sentinel value instead of a flag
 
@@ -119,8 +120,8 @@ Aux: found∈L, ind∈N
 Out: res∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, price[i]<k) and
-      (found → res=ind) and
-      (not found → res=-1)
+      (found -> res=ind) and
+      (not found -> res=-1)
 ```
 
 ```yaml
@@ -137,6 +138,7 @@ n: 3
 k: 100
 price: [2500, 5300, 1900]
 found: false
+ind: 1
 res: -1
 ```
 

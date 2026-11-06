@@ -29,7 +29,7 @@ Aux: found∈L, ind∈N
 Out: lib∈S
 Pre: ∀i∈[1..n]:(pl[i].x≥0 and pl[i].y≥0)
 Post: (found,ind)=SEARCH(i=1..n-1, pl[i].y<pl[i+1].y) and
-      (found → lib=pl[ind].name)
+      (found -> lib=pl[ind].name)
 ```
 
 ## Tests
@@ -109,11 +109,11 @@ The official solution writes the last line without parentheses:
 
 ```speci,fragment
 Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y<pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -> lib=pl[ind].name
 ```
 
-Because `→` binds more weakly than `and`, this means
-`(SEARCH… and exists) → lib=…`. If a test case has wrong values for `exists` or
+Because `->` binds more weakly than `and`, this means
+`(SEARCH… and exists) -> lib=…`. If a test case has wrong values for `exists` or
 `ind`, the left side is false and the whole statement is *true*, so
 the error goes unnoticed. With the parentheses, as above, the red test is
 correctly red. (The official solution also names the flag `exists`, which the

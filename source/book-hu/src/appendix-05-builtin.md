@@ -9,9 +9,12 @@ Alább az eredeti szöveg olvasható, változtatás nélkül. Az
 tartalmazza.
 
 A dokumentum a magyar szóalakokat (`igaz`, `minden`, `eleme`, `hossz`, …) és több
-`Fv:` fejlécet használ, ezért csak az online szerkesztőben fut.
+`Fv:` fejlécet használ. Olvasásra szolgál, nem futtatásra: egészében még az
+online szerkesztő is elutasítja („a is missing from the post condition!”),
+mert az `Uf: igaz` nem említi a deklarált adatokat. A szükséges részeket másold
+át a saját specifikációdba.
 
-```speci,online
+```speci,fragment
 /** Dokumentáció */
 
 /** Bemeneti adatok leírása */

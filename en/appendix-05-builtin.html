@@ -186,8 +186,11 @@ is unchanged, so names such as <code>név</code> (name) and <code>jegy</code> (g
 Hungarian. The <a href="../hu/appendix-05-builtin.html">Hungarian edition</a> of this book
 shows the original text.</p>
 <p>The document uses the Hungarian word forms (<code>igaz</code>, <code>minden</code>, <code>eleme</code>,
-<code>hossz</code>, …) and several <code>Fv:</code> headers, so it runs only in the online editor.</p>
-<pre><code class="language-speci online">/** Documentation */
+<code>hossz</code>, …) and several <code>Fv:</code> headers. It is a reference to read, not a
+specification to run: even the online editor rejects it as a whole with
+“a is missing from the post condition!”, because its <code>Uf: igaz</code> doesn’t mention
+the declared data. Copy the parts you need into your own specification.</p>
+<pre><code class="language-speci fragment">/** Documentation */
 
 /** Description of the input data */
 Be: /** Elementary sets */

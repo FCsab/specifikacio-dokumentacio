@@ -73,7 +73,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, korok[i]<18) és
-    (van → nev=nevek[ind])
+    (van -> nev=nevek[ind])
 ```
 
 ```yaml
@@ -90,16 +90,17 @@ n: 2
 nevek: [Anna, Dani]
 korok: [21, 30]
 van: false
+ind: 1
 nev: ""
 ```
 
-Ha nincs találat, a `van → …` igaz, bármi is a `nev`.
+Ha nincs találat, a `van -> …` igaz, bármi is a `nev`.
 
 > [!WARNING]
-> A `→` a leggyengébb művelet. Zárójel nélkül a
-> `(van,ind)=SEARCH(…) és van → nev=nevek[ind]` jelentése
-> `((van,ind)=SEARCH(…) és van) → nev=…`, ami igaz, valahányszor a keresés része
-> hibás. Így rossz adatú teszt is átmehet. Mindig `és (van → …)` alakban írd.
+> A `->` a leggyengébb művelet. Zárójel nélkül a
+> `(van,ind)=SEARCH(…) és van -> nev=nevek[ind]` jelentése
+> `((van,ind)=SEARCH(…) és van) -> nev=…`, ami igaz, valahányszor a keresés része
+> hibás. Így rossz adatú teszt is átmehet. Mindig `és (van -> …)` alakban írd.
 
 ## Különleges érték jelző helyett
 
@@ -117,8 +118,8 @@ Sa: van∈L, ind∈N
 Ki: sorszam∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, ar[i]<k) és
-    (van → sorszam=ind) és
-    (nem van → sorszam=-1)
+    (van -> sorszam=ind) és
+    (nem van -> sorszam=-1)
 ```
 
 ```yaml
@@ -135,6 +136,7 @@ n: 3
 k: 100
 ar: [2500, 5300, 1900]
 van: false
+ind: 1
 sorszam: -1
 ```
 

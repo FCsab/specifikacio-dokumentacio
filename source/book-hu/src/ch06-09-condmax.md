@@ -99,4 +99,4 @@ bármilyen értékük átmegy. A 0 megadása a bevett szokás.
 > Ha a feladat egy konkrét „nincs válasz” értéket kér, azt implikációkkal
 > állítsd elő az utófeltételben, ahogy a
 > [Keresés](ch06-06-search.md#különleges-érték-jelző-helyett) fejezetben:
-> `(van → ki=ert) és (nem van → ki=-1)`.
+> `(van -> ki=ert) és (nem van -> ki=-1)`.

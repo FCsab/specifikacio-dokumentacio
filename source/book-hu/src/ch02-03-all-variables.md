@@ -66,7 +66,7 @@ mindig igaz azonosságot az utófeltételbe:
 Be: n∈N, szamok∈Z[1..n]
 Ki: ind∈N
 Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i≥1, szamok[i] mod 2 = 1) és n=n
+Uf: ind=SELECT(i>=1, szamok[i] mod 2 = 1) és n=n
 ```
 
 ```yaml

@@ -14,7 +14,7 @@
 | `vagy` | `or` | vagy |
 | `nem` | `not` | nem |
 | `igaz` / `hamis`* | `true` / `false` | igaz / hamis |
-| `eleme`* | `element` (`∈`) | eleme |
+| `eleme`* | `in`* (`∈`) | eleme |
 | `minden`* | `forall` (`∀`) | minden |
 | `létezik`* | `exists` (`∃`) | létezik |
 | `hossz`* | `length` | egy tömb hossza |

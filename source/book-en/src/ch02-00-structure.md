@@ -44,6 +44,7 @@ n: 2
 k: 10
 prices: [250, 90]
 found: false
+ind: 1
 first: -1
 ```
 

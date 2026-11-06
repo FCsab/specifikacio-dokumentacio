@@ -42,7 +42,7 @@ You can also type their ASCII equivalents:
 
 | Symbol | Button | You can also type |
 |:------:|:------:|-------------------|
-| `∈` | ∈ | `element` (Hungarian: `eleme`) |
+| `∈` | ∈ | `in` (Hungarian: `eleme`) |
 | `∀` | ∀ | `forall` (Hungarian: `minden`) |
 | `∃` | ∃ | `exists` (Hungarian: `létezik`) |
 | `≠` | ≠ | `!=` |

@@ -11,10 +11,10 @@ szerepét tölti be. A szerkesztő ez alapján ellenőrzi a tesztadatokat, és e
 korlátozza, milyen értéket vehet fel a változó.
 
 A `∈` jelet az **Insert** gombbal szúrhatod be, vagy írhatod helyette az
-`element` szót (az online szerkesztőben az `eleme` szót is):
+`eleme` vagy az `in` szót:
 
-```speci
-Be: a element N, b∈Z
+```speci,online
+Be: a eleme N, b∈Z
 Ki: c∈Z
 Ef: -
 Uf: c=a+b

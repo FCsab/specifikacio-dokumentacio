@@ -6,7 +6,7 @@ Az előfeltétel és az utófeltétel **logikai állítás**: olyan kifejezés, 
 - **értékek**: változók, konstansok (`3`, `-1`, `2.5`, `"szöveg"`, `true`),
   tömbelemek (`x[i]`), mezők (`r.nev`), tuple-ök (`(3,5)`),
 - **műveletek**: aritmetikai (`+ - * / mod`), összehasonlító
-  (`= ≠ < > ≤ ≥`) és logikai (`és vagy nem →`),
+  (`= ≠ < > ≤ ≥`) és logikai (`és vagy nem ->`),
 - **kvantorok**: `∀` (minden) és `∃` (létezik),
 - **függvényhívások**: beépített (`length(x)`) vagy saját (`f(i)`),
 - **tételmakrók**: `SUM`, `COUNT`, `MAX`, … (a [III. részben](ch06-00-theorems.md)).

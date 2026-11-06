@@ -8,7 +8,7 @@
 | `/` | osztás | `s/n` |
 | `mod` vagy `%` | maradékos osztás | `x mod 2 = 1`, `i%2=1` |
 | `-` (előjel) | ellentett | `-x[i]` |
-| `ABS(…)` | abszolút érték | `ABS(x[i])` |
+| `abs(…)` | abszolút érték | `abs(x[i])` |
 
 A szokásos precedencia érvényes (`*` előbb, mint `+`), és a zárójelek
 szabadon használhatók.
@@ -69,7 +69,7 @@ d: 6
 | `és` | `and` | mindkettő igaz |
 | `vagy` | `or` | legalább az egyik igaz |
 | `nem` | `not` | tagadás |
-| `→` vagy `->` | | implikáció (következtetés) |
+| `->` | | implikáció (következtetés; a Unicode `→` nyilat nem fogadja el) |
 | `igaz`, `hamis` | `true`, `false` | konstansok |
 
 > [!NOTE]
@@ -80,9 +80,9 @@ d: 6
 
 ### Implikáció
 
-Az `A → B` („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:
+Az `A -> B` („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:
 
-| A | B | A → B |
+| A | B | A -> B |
 |:-:|:-:|:-----:|
 | igaz | igaz | igaz |
 | igaz | hamis | **hamis** |
@@ -99,7 +99,7 @@ Sa: van∈L, ind∈N
 Ki: neg∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, x[i]<0) és
-    (van → neg=x[ind])
+    (van -> neg=x[ind])
 ```
 
 ```yaml
@@ -114,6 +114,7 @@ neg: -2
 n: 2
 x: [5, 2]
 van: false
+ind: 1
 neg: 0
 ```
 
@@ -123,7 +124,7 @@ A második tesztben nem találtunk semmit, így a `neg` bármi lehet. Erről a
 ### Precedencia
 
 A legerősebbtől a leggyengébbig: aritmetika, összehasonlítások, `nem`, `és`,
-`vagy`, `→`. Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:
+`vagy`, `->`. Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:
 
 ```speci,fragment
 Ef: n>0 és (3<4 vagy ((3)>4))

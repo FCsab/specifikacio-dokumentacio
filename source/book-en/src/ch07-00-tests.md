@@ -9,12 +9,15 @@ What a test case contains:
 
 - a value for **every input** variable,
 - the expected value of the **output** variables,
-- the expected value of the **auxiliary** variables (when the postcondition
-  binds them).
+- a value for **every auxiliary** variable, even one whose value doesn't
+  matter (for example `ind` when `SEARCH` found nothing; any valid value will do).
 
-If you leave out an output or auxiliary value, the editor can't compare it.
-speci-local fills in such values and shows them. Write them out anyway: a
-test with no expectation tests nothing.
+Constant arrays declared with a value (`x∈N[]=[…]`) are the exception: leave
+them out, a test that repeats them is red.
+
+If an output or auxiliary value is missing, the test is red with an
+"incomplite type for …: undefined is not …" message. (speci-local instead fills
+in such values and shows them.)
 
 ## The status of a test
 

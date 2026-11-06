@@ -5,11 +5,15 @@ egy feltétel teljesül, **ha tudjuk, hogy ilyen index létezik**.
 
 <div class="syntax-card">
 
-**Alak:** `ind=SELECT(i≥e, β(i))`<br>
+**Alak:** `ind=SELECT(i>=e, β(i))`<br>
 **Eredmény:** a legkisebb `i ≥ e`, amelyre `β(i)` teljesül<br>
 **Követelmény:** az előfeltételnek garantálnia kell, hogy ilyen `i` létezik
 
 </div>
+
+> [!WARNING]
+> A `SELECT`-ben a kezdetet `>=` alakban kell írni. A `SELECT(i≥1, …)`
+> szintaktikai hiba („Expected ">=" but "≥" found”), pedig máshol a `≥` működik.
 
 A többi tétellel ellentétben a `SELECT`-nek **nincs felső határa**, csak azt
 mondja meg, honnan induljon. Éppen ezért kell garantálni a létezést: nélküle a
@@ -24,7 +28,7 @@ Ez a hivatalos tárgyi példa
 Be: n∈N, szamok∈Z[1..n]
 Ki: ind∈N
 Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i≥1, szamok[i] mod 2 = 1) és n=n
+Uf: ind=SELECT(i>=1, szamok[i] mod 2 = 1) és n=n
 ```
 
 ```yaml
@@ -65,7 +69,7 @@ ha a válasz matematikailag garantált. *n legkisebb 1-nél nagyobb osztója*
 Be: n∈N
 Ki: d∈N
 Ef: n≥2
-Uf: d=SELECT(i≥2, i|n)
+Uf: d=SELECT(i>=2, i|n)
 ```
 
 ```yaml
@@ -83,7 +87,7 @@ d: 13
 | | `SELECT` | `SEARCH` |
 |-|----------|----------|
 | Garantált a találat? | **igen**, az előfeltétel szerint | nem |
-| Tartomány | csak kezdőpont: `i≥e` | `i=e..u` |
+| Tartomány | csak kezdőpont: `i>=e` | `i=e..u` |
 | Eredmény | az index | (van-e?, index) |
 
 Ha az előfeltételben nem tudod igazolni, hogy van találat, használd a

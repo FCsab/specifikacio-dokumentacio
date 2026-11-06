@@ -30,9 +30,9 @@ Fv: név:Értelmezési_tartomány->Értékkészlet, név(paraméterek)=kifejezé
 
 > [!TIP]
 > A nyilat ASCII alakban, `->`-ként írd. Az Insert sávon nincs nyíl gomb, és a
-> Unicode `→`-ról volt olyan jelzés, hogy a szignatúrában hibát okoz. A
-> képernyőképeken látható nyilak valószínűleg a szerkesztő betűtípusa által
-> rajzolt `->` jelek. A `->` mindig működik.
+> Unicode `→` mindenhol szintaktikai hiba: a szignatúrában és implikációként is.
+> A képernyőképeken látható nyilak a szerkesztő betűtípusa által rajzolt `->`
+> jelek.
 
 ## Példák
 
@@ -107,14 +107,14 @@ d: 3
 
 ## Több függvény
 
-Egy `Fv:` blokkban több definíciót vesszővel választhatsz el. Mindegyik
-használhatja az előtte állókat:
+Minden definíció kapjon saját `Fv:` fejlécet. Ha egy blokkban vesszővel
+sorolod fel őket, az szintaktikai hiba. Mindegyik használhatja az előtte állókat:
 
-```speci
+```speci,online
 Be: n∈N, x∈N[1..n]
 Ki: c∈N
-Fv: paros:N->L, paros(v)=v mod 2 = 0,
-    jo:N->L, jo(i)=paros(x[i]) és x[i]>0
+Fv: paros:N->L, paros(v)=v mod 2 = 0
+Fv: jo:N->L, jo(i)=paros(x[i]) és x[i]>0
 Ef: -
 Uf: c=DARAB(i=1..n, jo(i))
 ```

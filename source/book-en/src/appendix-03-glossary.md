@@ -14,7 +14,7 @@
 | `or` | `vagy` | or |
 | `not` | `nem` | not |
 | `true` / `false` | `igaz` / `hamis`* | true / false |
-| `element` (`∈`) | `eleme`* | element of |
+| `in`* (`∈`) | `eleme`* | element of |
 | `forall` (`∀`) | `minden`* | for all |
 | `exists` (`∃`) | `létezik`* | there exists |
 | `length` | `hossz`* | length of an array |

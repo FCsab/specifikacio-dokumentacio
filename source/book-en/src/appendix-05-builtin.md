@@ -10,9 +10,12 @@ Hungarian. The [Hungarian edition](../hu/appendix-05-builtin.html) of this book
 shows the original text.
 
 The document uses the Hungarian word forms (`igaz`, `minden`, `eleme`,
-`hossz`, …) and several `Fv:` headers, so it runs only in the online editor.
+`hossz`, …) and several `Fv:` headers. It is a reference to read, not a
+specification to run: even the online editor rejects it as a whole with
+"a is missing from the post condition!", because its `Uf: igaz` doesn't mention
+the declared data. Copy the parts you need into your own specification.
 
-```speci,online
+```speci,fragment
 /** Documentation */
 
 /** Description of the input data */
