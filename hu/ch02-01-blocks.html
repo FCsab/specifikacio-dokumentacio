@@ -283,7 +283,7 @@ neg: 2
 <h2 id="több-függvény"><a class="header" href="#több-függvény">Több függvény</a></h2>
 <p>Minden függvény külön <code>Fv:</code> fejlécet kap (az <code>Fn:</code> és a <code>Def:</code> is jó). Minden
 definíció egy szignatúrából és a törzsből áll:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: s∈N
 Fv: negyzet:N-&gt;N, negyzet(a)=a*a
 Fv: paros:N-&gt;L, paros(a)=a mod 2 = 0
@@ -294,9 +294,8 @@ Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
 x: [1, 2, 3, 4]
 s: 20
 </code></pre>
-<p>Ha egy <code>Fv:</code> blokkban több függvényt sorolsz fel vesszővel elválasztva, az az
-online szerkesztőben szintaktikai hiba. (A speci-local épp fordítva működik: ott
-a vesszős alak kell, lásd az <a href="ch10-04-differences.html">Eltéréseket</a>.)</p>
+<p>Ha egy <code>Fv:</code> blokkban több függvényt sorolsz fel vesszővel elválasztva, az
+szintaktikai hiba.</p>
 <p>A függvényekről részletesen a <a href="ch05-00-functions.html">Függvények</a> fejezet szól.</p>
 
                     </main>

@@ -197,8 +197,8 @@ only a comma or another declaration block can come. The fix is <code>Sa:</code>.
 <li><code>:=</code> instead of <code>=</code>.</li>
 </ul>
 <h3 id="x-is-missing-from-the-post-condition"><a class="header" href="#x-is-missing-from-the-post-condition"><code>X is missing from the post condition!</code></a></h3>
-<p>The <a href="ch02-03-all-variables.html">all-variables rule</a>: input <code>X</code> doesn’t appear in
-the postcondition. Use it, or add <code>and X=X</code>.</p>
+<p>The <a href="ch02-03-all-variables.html">all-variables rule</a>: the declared variable <code>X</code>
+doesn’t appear in the postcondition. Use it, or add <code>and X=X</code>.</p>
 <h3 id="incomplite-type-for-exists-undefined-is-not-boolean"><a class="header" href="#incomplite-type-for-exists-undefined-is-not-boolean"><code>incomplite type for exists: undefined is not boolean</code></a></h3>
 <p>A variable is named <code>exists</code> (a reserved word). Rename it, for example to <code>found</code>
 or <code>van</code>, everywhere: in the declaration, the postcondition and the test cases.</p>
@@ -210,7 +210,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 </thead>
 <tbody>
 <tr><td style="text-align: right">1</td><td>no space after a header on the same line (<code>In:n∈N</code>)</td><td>syntax error on line 1</td><td><code>In: n∈N</code>, or put the header on its own line</td></tr>
-<tr><td style="text-align: right">2</td><td>an input not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
+<tr><td style="text-align: right">2</td><td>a declared variable not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
 <tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Student=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>matrix vs. array of arrays</td><td>indexing errors</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>index range off by one (<code>0..</code> vs <code>1..</code>)</td><td>out-of-range index</td><td>check <code>from</code>/<code>to</code>, or loop over <code>from(x)..to(x)</code></td></tr>

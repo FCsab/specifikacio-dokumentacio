@@ -11,70 +11,46 @@ Documentation by [csabi.zip](https://csabi.zip). If it helped you, you can
 
 ## Structure
 
-The repository root is the website:
+The repository is the website, as plain static files. There is no build step:
+edit the HTML directly.
 
 | Path | Contents |
 |------|----------|
 | `index.html` | landing page (the entry point) |
 | `donate.html` | XMR donation page |
-| `en/`, `hu/` | the two books (generated) |
+| `en/`, `hu/` | the two books; same file names in both, so the EN/HU switch lands on the matching page |
 | `assets/` | the landing pages' script, stylesheet and QR code |
-| `source/` | everything the books are built from (not needed on the server) |
-
-Inside `source/`:
-
-| Path | Contents |
-|------|----------|
-| `book-en/`, `book-hu/` | [mdBook](https://rust-lang.github.io/mdBook/) sources; same file names in both |
-| `theme/` | shared look: CSS, spec-language highlighting, language switch, footer |
-| `tools/check-examples/` | runs every example of both books through speci-local |
-| `tools/check-online.mjs` | runs every example of both books through the online editor's evaluator (`node source/tools/check-online.mjs`) |
-| `tools/check-links.py` | checks every internal link and anchor of the site |
-| `SKILL.md`, `onsite.txt` | source material: the collected reference, and the editor's built-in documentation |
+| `source/` | not needed on the server: `SKILL.md` and `onsite.txt` (source material: the collected reference, and the editor's built-in documentation) and `tools/check-links.py` |
 
 The landing and donation pages use the books' own stylesheets (`en/css`,
 `en/theme/custom.css`) and follow the theme chosen in the books.
 
-## Building
+Each book page exists twice: as its own file and inside `print.html`. The
+search index (`searchindex.js`) is not updated by hand, so new text is not
+searchable until it is regenerated.
 
-Requirements: [Rust](https://rustup.rs) and mdBook (`cargo install mdbook`).
+## Checking
 
 ```sh
-./build.sh              # check all examples, build en/ and hu/, check links
-./build.sh --no-check   # skip the example check
+python3 source/tools/check-links.py .   # every internal link and anchor
 ```
 
-To preview it locally, run `python3 -m http.server` in the repository root and
-open <http://localhost:8000>.
+Every example was last checked in the online editor
+([progalap.elte.hu/specifikacio](https://progalap.elte.hu/specifikacio/),
+version 1.5.2) in November 2026: paste the specification, paste each test into
+the Data tab, and the tab number turns green or red.
+
+To preview the site locally, run `python3 -m http.server` in the repository
+root and open <http://localhost:8000>.
 
 ## Publishing
 
-The site is plain static files with relative links and no external
-dependencies. Copy `index.html`, `donate.html`, `assets/`, `en/` and `hu/` to the
-web root, for example:
+Copy `index.html`, `donate.html`, `assets/`, `en/` and `hu/` to the web root,
+for example:
 
 ```sh
 rsync -av --delete --exclude source --exclude .git ./ <name>@caesar.elte.hu:public_html/
 ```
-
-## Writing examples
-
-Every code block tagged `speci` is a complete specification. The `yaml` blocks
-after it are its test cases, and `build.sh` runs them all through speci-local.
-Flags after a comma change what is checked:
-
-| Fence | Meaning |
-|-------|---------|
-| ```` ```speci ```` | complete specification; must parse |
-| ```` ```speci,fragment ```` | partial snippet, not checked |
-| ```` ```speci,online ```` | uses syntax only the online editor knows, not checked (shown with an "online editor" label) |
-| ```` ```speci,error ```` | must be **rejected** |
-| ```` ```yaml ```` | test case; must be green |
-| ```` ```yaml,red ```` | test case that must be **red** (shown with a "✗ red" label) |
-| ```` ```yaml,fragment ```` | data snippet, not checked |
-
-Keep `book-en` and `book-hu` in sync: same file names, same examples
-(translated), so the EN/HU switch lands on the matching page.
 
 ## Credits
 

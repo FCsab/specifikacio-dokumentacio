@@ -261,10 +261,9 @@ is. A <a href="#c-függelék-magyarangol-szójegyzék">C függelék</a> minden p
 <p>A szerkesztő által kikényszerített szabály. Ha megszeged, hibát kapsz.</p>
 </blockquote>
 <p>A könyv minden teljes példáját (specifikáció és a hozzá tartozó tesztesetek)
-automatikusan ellenőrizzük a <a href="#speci-local-az-offline-szerkesztő">speci-locallal</a>, így
-bemásolhatod a szerkesztőbe, és ugyanazt az eredményt kapod. Néhány példa olyan
-szintaxist használ, amelyet csak az online szerkesztő ismer. Ezeket <strong>CSAK ONLINE</strong>
-felirat jelöli.</p>
+kipróbáltuk az online szerkesztőben, így bemásolhatod a szerkesztőbe, és
+ugyanazt az eredményt kapod. A <a href="#speci-local-az-offline-szerkesztő">speci-local</a> is ugyanezt
+az eredményt adja.</p>
 <h2 id="források"><a class="header" href="#források">Források</a></h2>
 <p>A könyv mindazt összegyűjti, ami az eszközről tudható. Forrásai a hivatalos
 tárgyi segédlet (<em>Manual for the Specification Editor tool</em>, 3. kiadás), a
@@ -556,7 +555,8 @@ az aktuálisat, előbb mentsd el.</p>
 <p>Ha a saját gépeden is szeretnél másolatot, vagy ELTE-s bejelentkezés nélkül
 osztanál meg egy specifikációt, használd a <a href="#fájlok-és-megosztás">speci-localt</a>.
 Sima <code>.sp</code> fájlokba ment, és egy egész projektet a tesztekkel együtt egyetlen
-szövegsorként tud kimásolni.</p>
+szövegsorként tud kimásolni. Mindkettő csak a speci-localban működik: az
+online szerkesztő nem tudja megnyitni, importálni vagy beilleszteni őket.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="a-specifikáció-felépítése"><a class="header" href="#a-specifikáció-felépítése">A specifikáció felépítése</a></h1>
@@ -724,7 +724,7 @@ neg: 2
 <h2 id="több-függvény"><a class="header" href="#több-függvény">Több függvény</a></h2>
 <p>Minden függvény külön <code>Fv:</code> fejlécet kap (az <code>Fn:</code> és a <code>Def:</code> is jó). Minden
 definíció egy szignatúrából és a törzsből áll:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: s∈N
 Fv: negyzet:N-&gt;N, negyzet(a)=a*a
 Fv: paros:N-&gt;L, paros(a)=a mod 2 = 0
@@ -735,9 +735,8 @@ Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
 x: [1, 2, 3, 4]
 s: 20
 </code></pre>
-<p>Ha egy <code>Fv:</code> blokkban több függvényt sorolsz fel vesszővel elválasztva, az az
-online szerkesztőben szintaktikai hiba. (A speci-local épp fordítva működik: ott
-a vesszős alak kell, lásd az <a href="#eltérések-az-online-szerkesztőtől">Eltéréseket</a>.)</p>
+<p>Ha egy <code>Fv:</code> blokkban több függvényt sorolsz fel vesszővel elválasztva, az
+szintaktikai hiba.</p>
 <p>A függvényekről részletesen a <a href="#függvények">Függvények</a> fejezet szól.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="nevek-megjegyzések-foglalt-szavak"><a class="header" href="#nevek-megjegyzések-foglalt-szavak">Nevek, megjegyzések, foglalt szavak</a></h1>
@@ -842,7 +841,7 @@ blokkmegjegyzés.</p>
 <h1 id="a-minden-változó-szabály"><a class="header" href="#a-minden-változó-szabály">A minden-változó szabály</a></h1>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p><strong>Minden bemeneti változónak szerepelnie kell az utófeltételben.</strong> A
+<p><strong>Minden deklarált változónak szerepelnie kell az utófeltételben.</strong> A
 szerkesztő ellenőrzi ezt, és ha nem teljesül, elutasítja a specifikációt.</p>
 </blockquote>
 <p>A szabály mögötti gondolat: ha egy bemenet nem befolyásolja az eredményt, akkor
@@ -902,8 +901,10 @@ az utófeltételben. Ha több változó is kimarad, fűzd őket egymás után:
 <code>… és n=n és k=k</code>.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A szabály a <strong>bemeneti</strong> változókra vonatkozik. A segéd- és kimeneti
-változókat az utófeltétel amúgy is megköti, hiszen éppen arra valók.</p>
+<p>A szabály <strong>minden</strong> deklarált változóra vonatkozik: a bemeneti, a segéd- és
+a kimeneti változókra, és a kezdőértékkel deklarált konstansokra is. A
+bemenetek miatt szokás belefutni, mert a segéd- és kimeneti változókat az
+utófeltétel amúgy is megköti.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="típusok-és-adatok"><a class="header" href="#típusok-és-adatok">Típusok és adatok</a></h1>
@@ -915,7 +916,7 @@ szerepét tölti be. A szerkesztő ez alapján ellenőrzi a tesztadatokat, és e
 korlátozza, milyen értéket vehet fel a változó.</p>
 <p>A <code>∈</code> jelet az <strong>Insert</strong> gombbal szúrhatod be, vagy írhatod helyette az
 <code>eleme</code> vagy az <code>in</code> szót:</p>
-<pre><code class="language-speci online">Be: a eleme N, b∈Z
+<pre><code class="language-speci">Be: a eleme N, b∈Z
 Ki: c∈Z
 Ef: -
 Uf: c=a+b
@@ -1086,8 +1087,8 @@ s: 60
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A <code>hossz</code>, <code>tól</code>, <code>ig</code> magyar nevek a szerkesztő beépített dokumentációjában
-szerepelnek. A speci-local csak az angol neveket ismeri.</p>
+<p>A <code>hossz</code>, <code>tól</code>, <code>ig</code> magyar nevek (a szerkesztő beépített dokumentációjából)
+is működnek.</p>
 </blockquote>
 <h2 id="indexelés"><a class="header" href="#indexelés">Indexelés</a></h2>
 <p>Az <code>x[i]</code> az <code>i</code> indexű elem. Az index tetszőleges kifejezés lehet: <code>x[i+1]</code>,
@@ -1119,7 +1120,7 @@ szövegekkel használja.</p>
 <pre><code class="language-speci fragment">[1, 2, 3]=[1, 2, 3]
 [0..:1, 2, 3]       // literál megadott indextartománnyal: 0..2 indexek
 </code></pre>
-<p>A második alakot, az indextartományos literált, csak az online szerkesztő érti.</p>
+<p>Két literál csak akkor egyenlő, ha az indextartományuk is megegyezik.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="mátrixok-és-tömbök-tömbjei"><a class="header" href="#mátrixok-és-tömbök-tömbjei">Mátrixok és tömbök tömbjei</a></h1>
 <h2 id="mátrixok"><a class="header" href="#mátrixok">Mátrixok</a></h2>
@@ -1474,9 +1475,7 @@ d: 6
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>Az <code>igaz</code> és a <code>hamis</code> magyar konstans a szerkesztő beépített
-dokumentációjából származik. A speci-local nem fogadja el őket. Ha azt
-szeretnéd, hogy a specifikációd mindkettőben működjön, használd a
-<code>true</code>/<code>false</code> alakot.</p>
+dokumentációjából származik. A tesztadatban csak a <code>true</code> és a <code>false</code> működik.</p>
 </blockquote>
 <h3 id="implikáció"><a class="header" href="#implikáció">Implikáció</a></h3>
 <p>Az <code>A -&gt; B</code> („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:</p>
@@ -1593,7 +1592,7 @@ vanKicsi: true
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: jo∈L
 Ef: -
 Uf: jo=forall i in [1..n]:(x[i]&gt;0)
@@ -1602,9 +1601,8 @@ Uf: jo=forall i in [1..n]:(x[i]&gt;0)
 x: [1, 2]
 jo: true
 </code></pre>
-<p>A magyar szóalakok a beépített dokumentációból származnak, és csak az online
-szerkesztő ismeri őket:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<p>A beépített dokumentációból származó magyar szóalakok is működnek:</p>
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: jo∈L
 Ef: igaz
 Uf: jo=minden i eleme [1..n]:(x[i]&gt;0) és létezik i eleme [1..n]:(x[i]=1)
@@ -1829,7 +1827,7 @@ d: 3
 <h2 id="több-függvény-1"><a class="header" href="#több-függvény-1">Több függvény</a></h2>
 <p>Minden definíció kapjon saját <code>Fv:</code> fejlécet. Ha egy blokkban vesszővel
 sorolod fel őket, az szintaktikai hiba. Mindegyik használhatja az előtte állókat:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: c∈N
 Fv: paros:N-&gt;L, paros(v)=v mod 2 = 0
 Fv: jo:N-&gt;L, jo(i)=paros(x[i]) és x[i]&gt;0
@@ -3094,8 +3092,7 @@ hogy a példa megfelel-e a specifikációnak.</p>
 <p>Kivételek a kezdőértékkel deklarált konstans tömbök (<code>x∈N[]=[…]</code>): ezeket hagyd
 ki, az a teszt, amely megismétli őket, piros.</p>
 <p>Ha egy kimeneti vagy segédérték hiányzik, a teszt piros, „incomplite type for
-…: undefined is not …” üzenettel. (A speci-local ehelyett kiszámolja és
-megmutatja az ilyen értékeket.)</p>
+…: undefined is not …” üzenettel.</p>
 <h2 id="a-teszt-állapota"><a class="header" href="#a-teszt-állapota">A teszt állapota</a></h2>
 <p>Az <strong>Evaluate</strong> után minden teszt füle színt kap:</p>
 <div class="table-wrapper">
@@ -3321,10 +3318,10 @@ nem, a specifikáció nem köti meg azt a kimenetet.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>A speci-local kiszámolja és megmutatja azokat a kimeneti értékeket, amelyeket
-kihagysz egy tesztből. Ez tesztkészlet <em>építésekor</em> hasznos. Töröld az
-elvárt kimenetet, nézd meg, mit számol a specifikáció, és vesd össze a feladat
-szövegével. Aztán írd vissza a helyes értéket.</p>
+<p>Ha egy teszt piros, a speci-local megmutatja, mit számol helyette a
+specifikáció. Ez tesztkészlet <em>építésekor</em> hasznos: írj be bármilyen elvárt
+kimenetet, olvasd ki az üzenetből a kiszámoltat, és vesd össze a feladat
+szövegével. Aztán írd be a helyes értéket.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiértékelés"><a class="header" href="#kiértékelés">Kiértékelés</a></h1>
@@ -3449,8 +3446,8 @@ vessző vagy újabb deklarációs blokk jöhet. A javítás: <code>Sa:</code>.</
 <li><code>:=</code> az <code>=</code> helyett.</li>
 </ul>
 <h3 id="x-is-missing-from-the-post-condition"><a class="header" href="#x-is-missing-from-the-post-condition"><code>X is missing from the post condition!</code></a></h3>
-<p>A <a href="#a-minden-változó-szabály">minden-változó szabály</a>: az <code>X</code> bemenet nem
-szerepel az utófeltételben. Használd, vagy írd hozzá: <code>és X=X</code>.</p>
+<p>A <a href="#a-minden-változó-szabály">minden-változó szabály</a>: az <code>X</code> deklarált változó
+nem szerepel az utófeltételben. Használd, vagy írd hozzá: <code>és X=X</code>.</p>
 <h3 id="incomplite-type-for-exists-undefined-is-not-boolean"><a class="header" href="#incomplite-type-for-exists-undefined-is-not-boolean"><code>incomplite type for exists: undefined is not boolean</code></a></h3>
 <p>Egy változó neve <code>exists</code> (foglalt szó). Nevezd át, például <code>van</code>-ra vagy
 <code>talalt</code>-ra, mindenhol: a deklarációban, az utófeltételben és a
@@ -3463,7 +3460,7 @@ tesztesetekben.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: right">1</td><td>nincs szóköz a fejléc után ugyanabban a sorban (<code>Be:n∈N</code>)</td><td>szintaktikai hiba az 1. sorban</td><td><code>Be: n∈N</code>, vagy tedd a fejlécet külön sorba</td></tr>
-<tr><td style="text-align: right">2</td><td>egy bemenet nincs az <code>Uf:</code>-ben</td><td>„… is missing from the post condition!”</td><td>használd, vagy <code>és n=n</code></td></tr>
+<tr><td style="text-align: right">2</td><td>egy deklarált változó nincs az <code>Uf:</code>-ben</td><td>„… is missing from the post condition!”</td><td>használd, vagy <code>és n=n</code></td></tr>
 <tr><td style="text-align: right">3</td><td><code>:=</code> az <code>=</code> helyett</td><td>szintaktikai hiba az <code>Fv:</code>-ben vagy halmazdefinícióban</td><td><code>f(x)=x*2</code>, <code>Hallgato=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>mátrix és tömbök tömbje</td><td>indexelési hibák</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>eggyel elcsúszott indextartomány (<code>0..</code> vagy <code>1..</code>)</td><td>tartományon kívüli index</td><td>ellenőrizd a <code>from</code>/<code>to</code> értékét, vagy járd be a <code>from(x)..to(x)</code> tartományt</td></tr>
@@ -4562,20 +4559,20 @@ specifikáció, például: „<code>cnt</code>: the test case says 2, the specif
 minden-változó szabályt, a foglalt neveket (pl. <code>exists</code>), a blokkok
 sorrendjét és a fejlécek írásmódját. Ami itt zöld, annak ott is zöldnek kell
 lennie.</li>
-<li><strong>Kitölti a hiányzó kimeneteket.</strong> A tesztesetből kihagyott értékeket
-kiszámolja és megmutatja, ami tesztíráskor hasznos.</li>
+<li><strong>Elmagyarázza a piros teszteket.</strong> Ha egy teszteset elbukik, megmutatja,
+milyen értékeket adna helyette a specifikáció.</li>
 <li><strong>Gépelés közben kiegészít</strong>: fejléceket, halmazneveket, a saját
 változóidat és függvényeidet, valamint tételsablonokat.</li>
-<li><strong>A munkád sima fájlokban van.</strong> A <code>.sp</code> fájlok változtatás nélkül
-bemásolhatók az ELTE-s szerkesztőbe.</li>
+<li><strong>A munkád sima fájlokban van.</strong> A speci-local <code>.sp</code> fájlokba ment, és egy
+egész projektet egyetlen <code>SPECI1:</code> sorként a vágólapra tud másolni. Mindkettő
+csak a speci-localban működik: az online szerkesztő nem tudja megnyitni,
+importálni vagy beilleszteni őket.</li>
 </ul>
-<p>A könyv minden példáját automatikusan ellenőrizzük a speci-locallal.</p>
 <h2 id="a-fejezet-tartalma-5"><a class="header" href="#a-fejezet-tartalma-5">A fejezet tartalma</a></h2>
 <ul>
 <li><a href="#telepítés">Telepítés</a></li>
 <li><a href="#a-szerkesztő-használata">A szerkesztő használata</a></li>
 <li><a href="#fájlok-és-megosztás">Fájlok és megosztás</a></li>
-<li><a href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telepítés"><a class="header" href="#telepítés">Telepítés</a></h1>
@@ -4699,6 +4696,13 @@ a 0xProto betűtípust használja, a <code>∈ ∀ ∃</code> jelekhez a Noto Sa
 tartalék. Mindkettő be van építve a programba.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="fájlok-és-megosztás"><a class="header" href="#fájlok-és-megosztás">Fájlok és megosztás</a></h1>
+<blockquote class="blockquote-tag blockquote-tag-important">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>Ezen az oldalon minden <strong>csak a speci-localban</strong> működik. Az online
+szerkesztőben nincsenek <code>.sp</code> fájlok és nincs projektmásolás: nem tudja
+megnyitni, importálni vagy beilleszteni őket. Ott a <strong>Save</strong> gombbal kapott
+link a megosztás módja, lásd <a href="#mentés-és-megosztás">Mentés és megosztás</a>.</p>
+</blockquote>
 <h2 id="sp-fájlok"><a class="header" href="#sp-fájlok"><code>.sp</code> fájlok</a></h2>
 <p>Menteni a <kbd>Ctrl</kbd>+<kbd>S</kbd> (<em>Mentés másként</em>:
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>), megnyitni a
@@ -4727,17 +4731,19 @@ szamok: []
 db: 0
 ---*/
 </code></pre>
-<p>Mivel a tesztesetek megjegyzések, <strong>a teljes fájl továbbra is érvényes
-specifikáció</strong>. Változtatás nélkül bemásolhatod az ELTE-s szerkesztőbe. (Az
-online szerkesztő viszont nem olvassa ki a teszteket a megjegyzésekből, azokat
-külön kell a Data panelbe másolni.)</p>
+<p>A <code>.sp</code> fájl és a <code>SPECI1:</code> sor a speci-local saját formátuma: <strong>csak a
+speci-local nyitja meg őket</strong>. Az online szerkesztő nem tudja importálni őket.
+Ha oda vinnéd át a projektet, másold át a szövegét, ahogy
+<a href="#munka-átvitele-az-online-szerkesztőbe">lejjebb</a> olvasható.</p>
 <p>A munkamenet kilépéskor automatikusan is mentődik.</p>
 <h2 id="egy-teljes-projekt-másolása-és-beillesztése"><a class="header" href="#egy-teljes-projekt-másolása-és-beillesztése">Egy teljes projekt másolása és beillesztése</a></h2>
-<p>A másolás gomb (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>) a specifikációt
-<strong>az összes tesztesettel együtt</strong> egyetlen tömör sorként teszi a vágólapra:</p>
+<p>Ez a speci-local funkciója; az online szerkesztőben nincs ilyen, és ha oda
+illesztesz be egy <code>SPECI1:</code> sort, az nem működik. A másolás gomb
+(<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>) a specifikációt <strong>az összes
+tesztesettel együtt</strong> egyetlen tömör sorként teszi a vágólapra:</p>
 <pre><code class="language-text">SPECI1:…néhány száz betű, számjegy, - és _…
 </code></pre>
-<p>Ez chaten keresztüli küldéshez hasznos. A csevegőprogramok és levelezők által
+<p>Ez akkor hasznos, ha chaten küldenél projektet egy másik speci-local-felhasználónak. A csevegőprogramok és levelezők által
 beszúrt sortörések visszaolvasáskor nem számítanak.</p>
 <p>A beillesztés gomb (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>) egy ilyen sort,
 vagy sima specifikációs szöveget, visszaalakít projektté. Ha a rendszer
@@ -4758,87 +4764,6 @@ tartalmát.</li>
 speci-localban is volt.</li>
 <li><strong>Save</strong>, aztán másold ki a linket.</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="eltérések-az-online-szerkesztőtől"><a class="header" href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a></h1>
-<p>Ez a könyv az online szerkesztőt dokumentálja. A speci-local célja, hogy
-pontosan azt fogadja el, amit az online szerkesztő, és minden tesztet ugyanúgy
-ítéljen meg, de néhány eltérés maradt. Ezek úgy derültek ki, hogy a könyv
-összes példáját és kis tesztspecifikációkat mindkét szerkesztőben lefuttattunk
-(2026. november, az online szerkesztő 1.5.2-es verziója).</p>
-<h2 id="csak-az-online-szerkesztő-fogadja-el"><a class="header" href="#csak-az-online-szerkesztő-fogadja-el">Csak az online szerkesztő fogadja el</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Lehetőség</th><th>Online szerkesztő</th><th>A speci-localban</th></tr>
-</thead>
-<tbody>
-<tr><td>magyar logikai konstansok</td><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td></tr>
-<tr><td>magyar kvantorszavak</td><td><code>minden</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>forall</code>, <code>exists</code></td></tr>
-<tr><td>tartalmazás-szavak</td><td><code>eleme</code>, <code>in</code> (<code>∀i in [1..n]</code>)</td><td>csak <code>∈</code></td></tr>
-<tr><td>magyar tömbfüggvények</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td><code>length</code>, <code>from</code>, <code>to</code></td></tr>
-<tr><td>további beépített függvények</td><td><code>sqrt(x)</code>, <code>round(x)</code> / <code>kerekít(x)</code></td><td>nincsenek</td></tr>
-<tr><td>további műveletek</td><td><code>&lt;&gt;</code> (nem egyenlő), <code>∤</code> (nem osztója)</td><td><code>≠</code> vagy <code>!=</code>; <code>nem (a|b)</code></td></tr>
-<tr><td>indextartományos tömbliterálok</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>sima literálok</td></tr>
-<tr><td>függvényblokkok</td><td>függvényenként egy fejléc: <code>Fv: f…</code> <code>Fv: g…</code>; a <code>Def:</code> az <code>Fv:</code>/<code>Fn:</code> harmadik neve</td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel; a második fejléc hiba</td></tr>
-<tr><td>a minták további nevei</td><td><code>SZUMMA</code>/<code>SZUM</code>, <code>MEGSZÁMOL</code>, <code>ELDÖNT</code>/<code>DECISION</code>/<code>VAN</code>/<code>LÉTEZIK</code>, <code>MIND</code>/<code>EVERY</code>, <code>KERES</code>, <code>KIVÁLASZT</code>, <code>MÁSOL</code>/<code>MAP</code>, <code>KIVÁLOGAT</code>/<code>FILTER</code>, <code>MAXHA</code>/<code>MAXIF</code>/<code>FELTMAX</code>, <code>MINHA</code>/<code>MINIF</code>/<code>FELTMIN</code></td><td><code>SUM</code>, <code>COUNT</code>/<code>DARAB</code>, <code>EXISTS</code>, <code>FORALL</code>, <code>SEARCH</code>, <code>SELECT</code>, <code>COPY</code>, <code>MIS</code>, <code>CONDMAX</code>, <code>CONDMIN</code></td></tr>
-</tbody>
-</table>
-</div>
-<p>A függvényblokkok szabálya miatt <strong>két vagy több függvényt nem lehet úgy
-megírni, hogy mindkét szerkesztő elfogadja</strong>. Az online alakokat használó
-példákat a könyvben <strong>CSAK ONLINE</strong> felirat jelöli.</p>
-<h2 id="csak-a-speci-local-fogadja-el"><a class="header" href="#csak-a-speci-local-fogadja-el">Csak a speci-local fogadja el</a></h2>
-<p>Ezek az online szerkesztőben hibák. Beadandó specifikációban ne használd őket.</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>A speci-local elfogadja</th><th>Az online szerkesztő üzenete</th><th>Helyette</th></tr>
-</thead>
-<tbody>
-<tr><td>Unicode nyíl: <code>a → b</code></td><td>szintaktikai hiba</td><td><code>a -&gt; b</code></td></tr>
-<tr><td><code>SELECT(i≥1, …)</code></td><td>Expected “&gt;=” but “≥” found</td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
-<tr><td><code>ABS(x)</code></td><td>szintaktikai hiba (csak a kisbetűs függvény)</td><td><code>abs(x)</code></td></tr>
-<tr><td>az <code>element</code> szó (<code>a element N</code>)</td><td>szintaktikai hiba</td><td><code>∈</code>, <code>eleme</code> vagy <code>in</code></td></tr>
-<tr><td>több függvény egy <code>Fv:</code> blokkban, vesszővel elválasztva</td><td>szintaktikai hiba</td><td>függvényenként egy <code>Fv:</code> fejléc</td></tr>
-<tr><td>kimeneti változó az előfeltételben (<code>Ef: m&gt;0</code>, ahol <code>m</code> a <code>Ki:</code>-ben van)</td><td>Output data m is in the precondition!</td><td>a kimenetre vonatkozó feltétel az utófeltételbe való</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="másként-megítélt-tesztek"><a class="header" href="#másként-megítélt-tesztek">Másként megítélt tesztek</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Tesztadat</th><th>Online szerkesztő</th><th>speci-local</th></tr>
-</thead>
-<tbody>
-<tr><td>megismétel egy kezdőértékkel deklarált konstans tömböt (<code>napok∈N[1..12]=[…]</code>, és a tesztben <code>napok: […]</code>)</td><td>piros: „data cannot contain item with the same name”</td><td>zöld</td></tr>
-<tr><td>kihagy egy segéd- vagy kimeneti értéket, akár egy mellékeset is, például az <code>ind</code>-et, amikor a <code>SEARCH</code> nem talált semmit</td><td>piros: „incomplite type for ind: undefined is not natural”</td><td>zöld; a hiányzó értéket kiszámolja és megmutatja</td></tr>
-<tr><td>egy kezdőértékkel megadott, nem 1-től indexelt mátrixot indexel, például az <code>m5∈Z[-1..1,-1..1]=[[2,1,2],[1,0,1],[2,1,1]]</code> mátrixot <code>m5[-1,-1]</code>-gyel</td><td>zöld</td><td>piros: a speci-local 1-től indexel, és az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="ami-csak-a-speci-localban-van"><a class="header" href="#ami-csak-a-speci-localban-van">Ami csak a speci-localban van</a></h2>
-<ul>
-<li>Sokkal részletesebb hibaüzenetek, javítási javaslattal.</li>
-<li>A tesztből hiányzó kimeneti értékeket kiszámolja és megmutatja.</li>
-<li>Automatikus kiértékelés gépelés közben.</li>
-<li>Kiegészítés és sablonok.</li>
-<li>Felismeri a fejlécek néhány gyakori elírását (például <code>Segéd:</code> vagy
-<code>Bemenet:</code>), és javasolja a helyeset.</li>
-<li>Helyi <code>.sp</code> fájlok és egysoros projektmegosztás (<code>SPECI1:</code>).</li>
-</ul>
-<h2 id="ami-hiányzik"><a class="header" href="#ami-hiányzik">Ami hiányzik</a></h2>
-<ul>
-<li>Az előzmények (History) panel.</li>
-<li>Szerveroldali mentés és állandó linkek. Helyettük <code>.sp</code> fájlokat és
-<code>SPECI1:</code> sorokat használj.</li>
-</ul>
-<h2 id="a-könyv-ellenőrzése-az-online-szerkesztővel"><a class="header" href="#a-könyv-ellenőrzése-az-online-szerkesztővel">A könyv ellenőrzése az online szerkesztővel</a></h2>
-<p>A <code>source/tools/check-online.mjs</code> letölti az online szerkesztő kiértékelőjét, és
-mindkét könyv összes példáját lefuttatja vele, ahogy a <code>check-examples</code> a
-speci-locallal:</p>
-<pre><code class="language-sh">node source/tools/check-online.mjs
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="a-függelék-nyelvtani-összefoglaló"><a class="header" href="#a-függelék-nyelvtani-összefoglaló">A. függelék: Nyelvtani összefoglaló</a></h1>
 <p>Ez a függelék egy oldalon foglalja össze a teljes specifikációs nyelvet. A
@@ -4938,10 +4863,10 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tr><th style="text-align: center">Jel</th><th>Neve</th><th>Online szerkesztő</th><th>speci-local</th><th>ASCII / szóalak</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td>eleme</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>in</code><em>, <code>eleme</code></em></td></tr>
-<tr><td style="text-align: center"><code>∀</code></td><td>minden</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
-<tr><td style="text-align: center"><code>∃</code></td><td>létezik</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td>nem egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code>, <code>&lt;&gt;</code>*</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td>eleme</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>in</code>, <code>eleme</code></td></tr>
+<tr><td style="text-align: center"><code>∀</code></td><td>minden</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code></td></tr>
+<tr><td style="text-align: center"><code>∃</code></td><td>létezik</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code></td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td>nem egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code>, <code>&lt;&gt;</code></td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td>kisebb vagy egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td>nagyobb vagy egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
 <tr><td style="text-align: center"><code>-&gt;</code></td><td>implikáció</td><td></td><td></td><td>(nincs jele; a <code>→</code>-t nem fogadja el)</td></tr>
@@ -4950,7 +4875,6 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 </tbody>
 </table>
 </div>
-<p>* csak az online szerkesztőben.</p>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>Linuxon compose billentyűvel is beírhatod ezeket a jeleket, és bármilyen
@@ -5020,18 +4944,17 @@ alakok a leggyorsabbak, és mindenhol elfogadottak.</p>
 <tr><td><code>és</code></td><td><code>and</code></td><td>és</td></tr>
 <tr><td><code>vagy</code></td><td><code>or</code></td><td>vagy</td></tr>
 <tr><td><code>nem</code></td><td><code>not</code></td><td>nem</td></tr>
-<tr><td><code>igaz</code> / <code>hamis</code>*</td><td><code>true</code> / <code>false</code></td><td>igaz / hamis</td></tr>
-<tr><td><code>eleme</code>*</td><td><code>in</code>* (<code>∈</code>)</td><td>eleme</td></tr>
-<tr><td><code>minden</code>*</td><td><code>forall</code> (<code>∀</code>)</td><td>minden</td></tr>
-<tr><td><code>létezik</code>*</td><td><code>exists</code> (<code>∃</code>)</td><td>létezik</td></tr>
-<tr><td><code>hossz</code>*</td><td><code>length</code></td><td>egy tömb hossza</td></tr>
-<tr><td><code>tól</code> / <code>ig</code>*</td><td><code>from</code> / <code>to</code></td><td>első / utolsó index</td></tr>
+<tr><td><code>igaz</code> / <code>hamis</code></td><td><code>true</code> / <code>false</code></td><td>igaz / hamis</td></tr>
+<tr><td><code>eleme</code></td><td><code>in</code> (<code>∈</code>)</td><td>eleme</td></tr>
+<tr><td><code>minden</code></td><td><code>forall</code> (<code>∀</code>)</td><td>minden</td></tr>
+<tr><td><code>létezik</code></td><td><code>exists</code> (<code>∃</code>)</td><td>létezik</td></tr>
+<tr><td><code>hossz</code></td><td><code>length</code></td><td>egy tömb hossza</td></tr>
+<tr><td><code>tól</code> / <code>ig</code></td><td><code>from</code> / <code>to</code></td><td>első / utolsó index</td></tr>
 <tr><td><code>DARAB</code></td><td><code>COUNT</code></td><td>megszámolás</td></tr>
 <tr><td><code>K</code></td><td><code>C</code></td><td>karakterek</td></tr>
 </tbody>
 </table>
 </div>
-<p>* csak az online szerkesztőben.</p>
 <h2 id="fogalmak"><a class="header" href="#fogalmak">Fogalmak</a></h2>
 <div class="table-wrapper">
 <table>
@@ -5138,7 +5061,8 @@ másold át az eredményt az online szerkesztőbe.</p>
 <h3 id="hogyan-osszak-meg-egy-specifikációt"><a class="header" href="#hogyan-osszak-meg-egy-specifikációt">Hogyan osszak meg egy specifikációt?</a></h3>
 <p>Mentsd el, aztán másold ki a címet (tartalmazza a <code>?uuid=…</code> részt). Lásd
 <a href="#mentés-és-megosztás">Mentés és megosztás</a>. A speci-localból a <code>.sp</code> fájlt
-vagy a <code>SPECI1:</code> sort küldd el.</p>
+vagy a <code>SPECI1:</code> sort küldd el. Ezeket csak a speci-local nyitja meg, az online
+szerkesztő nem.</p>
 <h3 id="hibát-találtam-a-könyvben"><a class="header" href="#hibát-találtam-a-könyvben">Hibát találtam a könyvben.</a></h3>
 <p>Nyiss egy issue-t a <a href="https://github.com/FCsab/specifikacio-dokumentacio/issues">GitHubon</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>

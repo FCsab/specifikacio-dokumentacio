@@ -197,8 +197,8 @@ vessző vagy újabb deklarációs blokk jöhet. A javítás: <code>Sa:</code>.</
 <li><code>:=</code> az <code>=</code> helyett.</li>
 </ul>
 <h3 id="x-is-missing-from-the-post-condition"><a class="header" href="#x-is-missing-from-the-post-condition"><code>X is missing from the post condition!</code></a></h3>
-<p>A <a href="ch02-03-all-variables.html">minden-változó szabály</a>: az <code>X</code> bemenet nem
-szerepel az utófeltételben. Használd, vagy írd hozzá: <code>és X=X</code>.</p>
+<p>A <a href="ch02-03-all-variables.html">minden-változó szabály</a>: az <code>X</code> deklarált változó
+nem szerepel az utófeltételben. Használd, vagy írd hozzá: <code>és X=X</code>.</p>
 <h3 id="incomplite-type-for-exists-undefined-is-not-boolean"><a class="header" href="#incomplite-type-for-exists-undefined-is-not-boolean"><code>incomplite type for exists: undefined is not boolean</code></a></h3>
 <p>Egy változó neve <code>exists</code> (foglalt szó). Nevezd át, például <code>van</code>-ra vagy
 <code>talalt</code>-ra, mindenhol: a deklarációban, az utófeltételben és a
@@ -211,7 +211,7 @@ tesztesetekben.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: right">1</td><td>nincs szóköz a fejléc után ugyanabban a sorban (<code>Be:n∈N</code>)</td><td>szintaktikai hiba az 1. sorban</td><td><code>Be: n∈N</code>, vagy tedd a fejlécet külön sorba</td></tr>
-<tr><td style="text-align: right">2</td><td>egy bemenet nincs az <code>Uf:</code>-ben</td><td>„… is missing from the post condition!”</td><td>használd, vagy <code>és n=n</code></td></tr>
+<tr><td style="text-align: right">2</td><td>egy deklarált változó nincs az <code>Uf:</code>-ben</td><td>„… is missing from the post condition!”</td><td>használd, vagy <code>és n=n</code></td></tr>
 <tr><td style="text-align: right">3</td><td><code>:=</code> az <code>=</code> helyett</td><td>szintaktikai hiba az <code>Fv:</code>-ben vagy halmazdefinícióban</td><td><code>f(x)=x*2</code>, <code>Hallgato=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>mátrix és tömbök tömbje</td><td>indexelési hibák</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>eggyel elcsúszott indextartomány (<code>0..</code> vagy <code>1..</code>)</td><td>tartományon kívüli index</td><td>ellenőrizd a <code>from</code>/<code>to</code> értékét, vagy járd be a <code>from(x)..to(x)</code> tartományt</td></tr>

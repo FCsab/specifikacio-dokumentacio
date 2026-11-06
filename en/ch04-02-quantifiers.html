@@ -229,7 +229,7 @@ hasSmall: true
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
+<pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: ok∈L
 Pre: -
 Post: ok=forall i in [1..n]:(x[i]&gt;0)
@@ -238,9 +238,8 @@ Post: ok=forall i in [1..n]:(x[i]&gt;0)
 x: [1, 2]
 ok: true
 </code></pre>
-<p>The Hungarian word forms are from the built-in documentation, and only the online
-editor knows them:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<p>The Hungarian word forms from the built-in documentation work too:</p>
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: ok∈L
 Ef: igaz
 Uf: ok=minden i eleme [1..n]:(x[i]&gt;0) és létezik i eleme [1..n]:(x[i]=1)

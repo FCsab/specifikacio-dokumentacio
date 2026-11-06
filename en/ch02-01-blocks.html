@@ -281,7 +281,7 @@ neg: 2
 <h2 id="several-functions"><a class="header" href="#several-functions">Several functions</a></h2>
 <p>Each function gets its own <code>Fn:</code> header (<code>Fv:</code> and <code>Def:</code> work too). Each
 definition is a signature followed by the body:</p>
-<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
+<pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: s∈N
 Fn: sq:N-&gt;N, sq(a)=a*a
 Fn: even:N-&gt;L, even(a)=a mod 2 = 0
@@ -293,8 +293,7 @@ x: [1, 2, 3, 4]
 s: 20
 </code></pre>
 <p>Listing several functions in one <code>Fn:</code> block, separated by commas, is a
-syntax error in the online editor. (speci-local works the other way round: it
-wants the comma form, see <a href="ch10-04-differences.html">Differences</a>.)</p>
+syntax error.</p>
 <p>Chapter <a href="ch05-00-functions.html">Functions</a> explains functions in detail.</p>
 
                     </main>

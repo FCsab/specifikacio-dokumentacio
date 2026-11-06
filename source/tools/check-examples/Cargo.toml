@@ -1,9 +1,0 @@
-[package]
-name = "check-examples"
-version = "0.1.0"
-edition = "2024"
-publish = false
-
-# Runs every example in the books through speci-local's evaluator.
-[dependencies]
-speci-local = { git = "https://github.com/FCsab/speci-local" }

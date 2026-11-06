@@ -260,10 +260,9 @@ alongside. Appendix <a href="#appendix-c-englishhungarian-glossary">C</a> lists 
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
 <p>A rule the editor enforces. If you break it, you get an error.</p>
 </blockquote>
-<p>Every complete example in this book (a specification followed by test cases) is
-checked automatically with <a href="#speci-local-the-offline-editor">speci-local</a>, so you can
-copy it into the editor and expect the same result. A few examples use
-syntax only the online editor supports. Those are labelled <strong>ONLINE EDITOR</strong>.</p>
+<p>Every complete example in this book (a specification followed by test cases) was
+checked in the online editor, so you can copy it into the editor and expect the
+same result. <a href="#speci-local-the-offline-editor">speci-local</a> gives the same results too.</p>
 <h2 id="sources"><a class="header" href="#sources">Sources</a></h2>
 <p>This book brings together everything known about the tool. Its sources are the
 official course manual (<em>Manual for the Specification Editor tool</em>, 3rd
@@ -554,7 +553,9 @@ want to keep it.</p>
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>To keep a copy on your own computer, or to share a specification without
 the ELTE login, use <a href="#files-and-sharing">speci-local</a>. It saves to plain <code>.sp</code>
-files and can copy a whole project, tests included, as a single line of text.</p>
+files and can copy a whole project, tests included, as a single line of text.
+Both work only in speci-local: the online editor can’t open, import or paste
+them.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="anatomy-of-a-specification"><a class="header" href="#anatomy-of-a-specification">Anatomy of a specification</a></h1>
@@ -720,7 +721,7 @@ neg: 2
 <h2 id="several-functions"><a class="header" href="#several-functions">Several functions</a></h2>
 <p>Each function gets its own <code>Fn:</code> header (<code>Fv:</code> and <code>Def:</code> work too). Each
 definition is a signature followed by the body:</p>
-<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
+<pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: s∈N
 Fn: sq:N-&gt;N, sq(a)=a*a
 Fn: even:N-&gt;L, even(a)=a mod 2 = 0
@@ -732,8 +733,7 @@ x: [1, 2, 3, 4]
 s: 20
 </code></pre>
 <p>Listing several functions in one <code>Fn:</code> block, separated by commas, is a
-syntax error in the online editor. (speci-local works the other way round: it
-wants the comma form, see <a href="#differences-from-the-online-editor">Differences</a>.)</p>
+syntax error.</p>
 <p>Chapter <a href="#functions">Functions</a> explains functions in detail.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="names-comments-and-reserved-words"><a class="header" href="#names-comments-and-reserved-words">Names, comments and reserved words</a></h1>
@@ -839,7 +839,7 @@ signatures), which needs a space on both sides: <code>Z x Z</code>.</p>
 <h1 id="the-all-variables-rule"><a class="header" href="#the-all-variables-rule">The all-variables rule</a></h1>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p><strong>Every input variable must appear in the postcondition.</strong> The editor
+<p><strong>Every declared variable must appear in the postcondition.</strong> The editor
 checks this and rejects the specification otherwise.</p>
 </blockquote>
 <p>The idea behind the rule is that if an input doesn’t influence the result,
@@ -898,8 +898,10 @@ the postcondition. If several variables are unused, chain them:
 <code>… and n=n and k=k</code>.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The rule covers the <strong>input</strong> variables. Auxiliary and output variables are
-constrained by the postcondition anyway, because that’s their whole point.</p>
+<p>The rule covers <strong>every</strong> declared variable: inputs, auxiliary and output
+variables, and constants declared with a value. Inputs are the ones you
+usually trip over, because auxiliary and output variables are constrained by
+the postcondition anyway.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="types-and-data"><a class="header" href="#types-and-data">Types and data</a></h1>
@@ -911,7 +913,7 @@ plays the role of the type. The editor uses it to check the test data, and it
 restricts which values the variable may take.</p>
 <p>You can type <code>∈</code> with the <strong>Insert</strong> button, or write the word <code>in</code>
 (Hungarian: <code>eleme</code>) instead:</p>
-<pre><code class="language-speci online">In: a in N, b∈Z
+<pre><code class="language-speci">In: a in N, b∈Z
 Out: c∈Z
 Pre: -
 Post: c=a+b
@@ -1081,8 +1083,8 @@ s: 60
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The Hungarian names <code>hossz</code>, <code>tól</code>, <code>ig</code> appear in the editor’s built-in
-documentation. speci-local only understands the English ones.</p>
+<p>The Hungarian names <code>hossz</code>, <code>tól</code>, <code>ig</code> (from the editor’s built-in
+documentation) work too.</p>
 </blockquote>
 <h2 id="indexing"><a class="header" href="#indexing">Indexing</a></h2>
 <p><code>x[i]</code> is the element at index <code>i</code>. The index can be any expression:
@@ -1114,8 +1116,7 @@ strings.</p>
 <pre><code class="language-speci fragment">[1, 2, 3]=[1, 2, 3]
 [0..:1, 2, 3]       // literal with an explicit index range: indices 0..2
 </code></pre>
-<p>The second form, a literal with an index range, is only understood by the online
-editor.</p>
+<p>Two literals are equal only if their index ranges match too.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="matrices-and-arrays-of-arrays"><a class="header" href="#matrices-and-arrays-of-arrays">Matrices and arrays of arrays</a></h1>
 <h2 id="matrices"><a class="header" href="#matrices">Matrices</a></h2>
@@ -1471,8 +1472,7 @@ d: 6
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>The Hungarian constants <code>igaz</code> and <code>hamis</code> come from the editor’s built-in
-documentation. speci-local doesn’t accept them. Use <code>true</code>/<code>false</code> if you
-want your specification to work in both.</p>
+documentation. In test data, only <code>true</code> and <code>false</code> work.</p>
 </blockquote>
 <h3 id="implication"><a class="header" href="#implication">Implication</a></h3>
 <p><code>A -&gt; B</code> (“if A then B”) is false only when A is true and B is false:</p>
@@ -1588,7 +1588,7 @@ hasSmall: true
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
+<pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: ok∈L
 Pre: -
 Post: ok=forall i in [1..n]:(x[i]&gt;0)
@@ -1597,9 +1597,8 @@ Post: ok=forall i in [1..n]:(x[i]&gt;0)
 x: [1, 2]
 ok: true
 </code></pre>
-<p>The Hungarian word forms are from the built-in documentation, and only the online
-editor knows them:</p>
-<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
+<p>The Hungarian word forms from the built-in documentation work too:</p>
+<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: ok∈L
 Ef: igaz
 Uf: ok=minden i eleme [1..n]:(x[i]&gt;0) és létezik i eleme [1..n]:(x[i]=1)
@@ -1823,7 +1822,7 @@ d: 3
 <h2 id="several-functions-1"><a class="header" href="#several-functions-1">Several functions</a></h2>
 <p>Give every definition its own <code>Fn:</code> header. A comma-separated list in one
 block is a syntax error. Each function may use the ones before it:</p>
-<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
+<pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: c∈N
 Fn: even:N-&gt;L, even(v)=v mod 2 = 0
 Fn: good:N-&gt;L, good(i)=even(x[i]) and x[i]&gt;0
@@ -3080,8 +3079,7 @@ matter (for example <code>ind</code> when <code>SEARCH</code> found nothing; any
 <p>Constant arrays declared with a value (<code>x∈N[]=[…]</code>) are the exception: leave
 them out, a test that repeats them is red.</p>
 <p>If an output or auxiliary value is missing, the test is red with an
-“incomplite type for …: undefined is not …” message. (speci-local instead fills
-in such values and shows them.)</p>
+“incomplite type for …: undefined is not …” message.</p>
 <h2 id="the-status-of-a-test"><a class="header" href="#the-status-of-a-test">The status of a test</a></h2>
 <p>After <strong>Evaluate</strong>, every test tab is coloured:</p>
 <div class="table-wrapper">
@@ -3306,10 +3304,10 @@ mistakes, which are among the most common errors.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>speci-local computes and shows output values you leave out of a test. That
-is handy when <em>building</em> a test suite. Delete the expected output, see what
-the specification computes, and check it against the task statement. Then
-write the correct value back in.</p>
+<p>When a test is red, speci-local shows what the specification computes
+instead. That is handy when <em>building</em> a test suite: write any value as the
+expected output, read the computed one from the message, and check it against
+the task statement. Then write the correct value in.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h1>
@@ -3430,8 +3428,8 @@ only a comma or another declaration block can come. The fix is <code>Sa:</code>.
 <li><code>:=</code> instead of <code>=</code>.</li>
 </ul>
 <h3 id="x-is-missing-from-the-post-condition"><a class="header" href="#x-is-missing-from-the-post-condition"><code>X is missing from the post condition!</code></a></h3>
-<p>The <a href="#the-all-variables-rule">all-variables rule</a>: input <code>X</code> doesn’t appear in
-the postcondition. Use it, or add <code>and X=X</code>.</p>
+<p>The <a href="#the-all-variables-rule">all-variables rule</a>: the declared variable <code>X</code>
+doesn’t appear in the postcondition. Use it, or add <code>and X=X</code>.</p>
 <h3 id="incomplite-type-for-exists-undefined-is-not-boolean"><a class="header" href="#incomplite-type-for-exists-undefined-is-not-boolean"><code>incomplite type for exists: undefined is not boolean</code></a></h3>
 <p>A variable is named <code>exists</code> (a reserved word). Rename it, for example to <code>found</code>
 or <code>van</code>, everywhere: in the declaration, the postcondition and the test cases.</p>
@@ -3443,7 +3441,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 </thead>
 <tbody>
 <tr><td style="text-align: right">1</td><td>no space after a header on the same line (<code>In:n∈N</code>)</td><td>syntax error on line 1</td><td><code>In: n∈N</code>, or put the header on its own line</td></tr>
-<tr><td style="text-align: right">2</td><td>an input not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
+<tr><td style="text-align: right">2</td><td>a declared variable not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
 <tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Student=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>matrix vs. array of arrays</td><td>indexing errors</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>index range off by one (<code>0..</code> vs <code>1..</code>)</td><td>out-of-range index</td><td>check <code>from</code>/<code>to</code>, or loop over <code>from(x)..to(x)</code></td></tr>
@@ -4536,20 +4534,19 @@ for example “<code>cnt</code>: the test case says 2, the specification gives 3
 <li><strong>It checks the same rules as the ELTE editor</strong>: the all-variables rule,
 reserved names such as <code>exists</code>, block order, header spelling. A
 specification that is green here should also be green there.</li>
-<li><strong>It fills in missing outputs.</strong> Values you leave out of a test case are
-computed and shown, which helps when you’re writing tests.</li>
+<li><strong>It explains red tests.</strong> When a test case fails, it shows the values the
+specification would give instead.</li>
 <li><strong>It completes as you type</strong>: headers, set names, your variables and
 functions, and theorem snippets.</li>
-<li><strong>Your work is plain files.</strong> <code>.sp</code> files can be pasted into the ELTE editor
-as-is.</li>
+<li><strong>Your work is plain files.</strong> speci-local saves <code>.sp</code> files, and can copy a
+whole project to the clipboard as one <code>SPECI1:</code> line. Both are speci-local
+only: the online editor can’t open, import or paste them.</li>
 </ul>
-<p>Every example in this book is checked automatically with speci-local.</p>
 <h2 id="in-this-chapter-5"><a class="header" href="#in-this-chapter-5">In this chapter</a></h2>
 <ul>
 <li><a href="#installing">Installing</a></li>
 <li><a href="#using-the-editor">Using the editor</a></li>
 <li><a href="#files-and-sharing">Files and sharing</a></li>
-<li><a href="#differences-from-the-online-editor">Differences from the online editor</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="installing"><a class="header" href="#installing">Installing</a></h1>
@@ -4666,6 +4663,13 @@ the 0xProto font, with Noto Sans Math as the fallback for <code>∈ ∀ ∃</cod
 embedded in the program.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="files-and-sharing"><a class="header" href="#files-and-sharing">Files and sharing</a></h1>
+<blockquote class="blockquote-tag blockquote-tag-important">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>Everything on this page works <strong>only in speci-local</strong>. The online editor has
+no <code>.sp</code> files and no project copy/paste: it can’t open, import or paste
+them. Its own way of sharing is the <strong>Save</strong> link, see
+<a href="#saving-and-sharing">Saving and sharing</a>.</p>
+</blockquote>
 <h2 id="sp-files"><a class="header" href="#sp-files"><code>.sp</code> files</a></h2>
 <p>Save with <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>
 for <em>Save as</em>) and open with <kbd>Ctrl</kbd>+<kbd>O</kbd>. You can also drag a file
@@ -4693,17 +4697,18 @@ szamok: []
 db: 0
 ---*/
 </code></pre>
-<p>Because the test cases are comments, <strong>the whole file is still a valid
-specification</strong>. You can paste it into the ELTE editor as-is. (The online
-editor doesn’t read the tests back out of the comments, though. Paste those into
-its Data pane separately.)</p>
+<p><code>.sp</code> files and <code>SPECI1:</code> lines are speci-local’s own formats: <strong>only
+speci-local opens them</strong>. The online editor can’t import them. To move a
+project there, copy its text over, as described <a href="#moving-work-to-the-online-editor">below</a>.</p>
 <p>Your session is also saved automatically when you quit.</p>
 <h2 id="copy-and-paste-a-whole-project"><a class="header" href="#copy-and-paste-a-whole-project">Copy and paste a whole project</a></h2>
-<p>The copy button (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>) puts the
-specification <strong>and all test cases</strong> on the clipboard as one compact line:</p>
+<p>This is a speci-local feature; the online editor has nothing like it, and
+pasting a <code>SPECI1:</code> line into it doesn’t work. The copy button
+(<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>) puts the specification <strong>and
+all test cases</strong> on the clipboard as one compact line:</p>
 <pre><code class="language-text">SPECI1:…a few hundred letters, digits, - and _…
 </code></pre>
-<p>This is handy for sending a project through chat. Line breaks added by chat
+<p>This is handy for sending a project to another speci-local user through chat. Line breaks added by chat
 apps and mail clients are ignored when it’s read back.</p>
 <p>The paste button (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>) turns such a line,
 or plain specification text, back into a project. If the system clipboard
@@ -4722,87 +4727,6 @@ and paste it into the Specification pane.</li>
 <li>Press <strong>Evaluate</strong>. Everything should be green, as it was in speci-local.</li>
 <li><strong>Save</strong> and copy the link.</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="differences-from-the-online-editor"><a class="header" href="#differences-from-the-online-editor">Differences from the online editor</a></h1>
-<p>This book documents the online editor. speci-local aims to accept exactly what
-the online editor accepts and to judge every test the same way, but some
-differences remain. They were found by running every example of this book, and
-small test specifications, through both editors (November 2026, online editor
-version 1.5.2).</p>
-<h2 id="accepted-only-by-the-online-editor"><a class="header" href="#accepted-only-by-the-online-editor">Accepted only by the online editor</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Feature</th><th>Online editor</th><th>In speci-local</th></tr>
-</thead>
-<tbody>
-<tr><td>Hungarian logical constants</td><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td></tr>
-<tr><td>Hungarian quantifier words</td><td><code>minden</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>forall</code>, <code>exists</code></td></tr>
-<tr><td>Membership words</td><td><code>eleme</code>, <code>in</code> (<code>∀i in [1..n]</code>)</td><td><code>∈</code> only</td></tr>
-<tr><td>Hungarian array functions</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td><code>length</code>, <code>from</code>, <code>to</code></td></tr>
-<tr><td>Further built-in functions</td><td><code>sqrt(x)</code>, <code>round(x)</code> / <code>kerekít(x)</code></td><td>not available</td></tr>
-<tr><td>Further operators</td><td><code>&lt;&gt;</code> (not equal), <code>∤</code> (does not divide)</td><td><code>≠</code> or <code>!=</code>; <code>not (a|b)</code></td></tr>
-<tr><td>Array literals with an index range</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>plain literals</td></tr>
-<tr><td>Function blocks</td><td>one header per function: <code>Fn: f…</code> <code>Fn: g…</code>; <code>Def:</code> is a third name for <code>Fn:</code>/<code>Fv:</code></td><td>one <code>Fn:</code> block, functions separated by commas; a second header is an error</td></tr>
-<tr><td>Other names of the patterns</td><td><code>SZUMMA</code>/<code>SZUM</code>, <code>MEGSZÁMOL</code>, <code>ELDÖNT</code>/<code>DECISION</code>/<code>VAN</code>/<code>LÉTEZIK</code>, <code>MIND</code>/<code>EVERY</code>, <code>KERES</code>, <code>KIVÁLASZT</code>, <code>MÁSOL</code>/<code>MAP</code>, <code>KIVÁLOGAT</code>/<code>FILTER</code>, <code>MAXHA</code>/<code>MAXIF</code>/<code>FELTMAX</code>, <code>MINHA</code>/<code>MINIF</code>/<code>FELTMIN</code></td><td><code>SUM</code>, <code>COUNT</code>/<code>DARAB</code>, <code>EXISTS</code>, <code>FORALL</code>, <code>SEARCH</code>, <code>SELECT</code>, <code>COPY</code>, <code>MIS</code>, <code>CONDMAX</code>, <code>CONDMIN</code></td></tr>
-</tbody>
-</table>
-</div>
-<p>The rule for function blocks means there is <strong>no way to write two or more
-functions that both editors accept</strong>. Examples that use the online-only forms
-are marked <strong>ONLINE EDITOR</strong> in this book.</p>
-<h2 id="accepted-only-by-speci-local"><a class="header" href="#accepted-only-by-speci-local">Accepted only by speci-local</a></h2>
-<p>These are errors in the online editor. Don’t use them in specifications you
-hand in.</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>speci-local accepts</th><th>Online editor says</th><th>Write instead</th></tr>
-</thead>
-<tbody>
-<tr><td>Unicode arrow <code>a → b</code></td><td>syntax error</td><td><code>a -&gt; b</code></td></tr>
-<tr><td><code>SELECT(i≥1, …)</code></td><td>Expected “&gt;=” but “≥” found</td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
-<tr><td><code>ABS(x)</code></td><td>syntax error (only lowercase is a function)</td><td><code>abs(x)</code></td></tr>
-<tr><td>the word <code>element</code> (<code>a element N</code>)</td><td>syntax error</td><td><code>∈</code>, <code>in</code> or <code>eleme</code></td></tr>
-<tr><td>several functions in one <code>Fn:</code> block, separated by commas</td><td>syntax error</td><td>one <code>Fn:</code> header per function</td></tr>
-<tr><td>an output variable in the precondition (<code>Pre: m&gt;0</code> with <code>m</code> in <code>Out:</code>)</td><td>Output data m is in the precondition!</td><td>conditions on outputs belong in the postcondition</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="tests-judged-differently"><a class="header" href="#tests-judged-differently">Tests judged differently</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Test data</th><th>Online editor</th><th>speci-local</th></tr>
-</thead>
-<tbody>
-<tr><td>repeats a constant array declared with a value (<code>days∈N[1..12]=[…]</code> and <code>days: […]</code> in the test)</td><td>red: “data cannot contain item with the same name”</td><td>green</td></tr>
-<tr><td>leaves out an auxiliary or output value, even an irrelevant one such as <code>ind</code> when <code>SEARCH</code> found nothing</td><td>red: “incomplite type for ind: undefined is not natural”</td><td>green; the missing value is computed and shown</td></tr>
-<tr><td>indexes a matrix with an initial value and a range not starting at 1, such as <code>m5∈Z[-1..1,-1..1]=[[2,1,2],[1,0,1],[2,1,1]]</code> with <code>m5[-1,-1]</code></td><td>green</td><td>red: speci-local indexes it from 1 and reports <code>m5[-1,-1]</code> out of range</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="extras-in-speci-local"><a class="header" href="#extras-in-speci-local">Extras in speci-local</a></h2>
-<ul>
-<li>Much more detailed error messages, with a suggested fix.</li>
-<li>Output values missing from a test are computed and shown.</li>
-<li>Automatic evaluation as you type.</li>
-<li>Completion and snippets.</li>
-<li>Recognises a few common misspellings of headers (for example <code>Segéd:</code> or
-<code>Input:</code>) and suggests the right one.</li>
-<li>Local <code>.sp</code> files, and one-line project sharing (<code>SPECI1:</code>).</li>
-</ul>
-<h2 id="not-included"><a class="header" href="#not-included">Not included</a></h2>
-<ul>
-<li>The history pane.</li>
-<li>Server-side saving and permalinks. Use <code>.sp</code> files and <code>SPECI1:</code> lines instead.</li>
-</ul>
-<h2 id="checking-the-book-against-the-online-editor"><a class="header" href="#checking-the-book-against-the-online-editor">Checking the book against the online editor</a></h2>
-<p><code>source/tools/check-online.mjs</code> downloads the online editor’s evaluator and runs
-every example of both books through it, the way <code>check-examples</code> does with
-speci-local:</p>
-<pre><code class="language-sh">node source/tools/check-online.mjs
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="appendix-a-grammar-reference"><a class="header" href="#appendix-a-grammar-reference">Appendix A: Grammar reference</a></h1>
 <p>This appendix summarises the whole specification language on one page.
@@ -4902,10 +4826,10 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tr><th style="text-align: center">Symbol</th><th>Name</th><th>Online editor</th><th>speci-local</th><th>ASCII / word form</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td>element of</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>in</code><em>, <code>eleme</code></em></td></tr>
-<tr><td style="text-align: center"><code>∀</code></td><td>for all</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
-<tr><td style="text-align: center"><code>∃</code></td><td>there exists</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td>not equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code>, <code>&lt;&gt;</code>*</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td>element of</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>in</code>, <code>eleme</code></td></tr>
+<tr><td style="text-align: center"><code>∀</code></td><td>for all</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code></td></tr>
+<tr><td style="text-align: center"><code>∃</code></td><td>there exists</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code></td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td>not equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code>, <code>&lt;&gt;</code></td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td>less or equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td>greater or equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
 <tr><td style="text-align: center"><code>-&gt;</code></td><td>implies</td><td></td><td></td><td>(no symbol; <code>→</code> is rejected)</td></tr>
@@ -4914,7 +4838,6 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 </tbody>
 </table>
 </div>
-<p>* only in the online editor.</p>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>On Linux you can also type these symbols with a compose key, and on any
@@ -4984,18 +4907,17 @@ the fastest to type, and they are accepted everywhere.</p>
 <tr><td><code>and</code></td><td><code>és</code></td><td>and</td></tr>
 <tr><td><code>or</code></td><td><code>vagy</code></td><td>or</td></tr>
 <tr><td><code>not</code></td><td><code>nem</code></td><td>not</td></tr>
-<tr><td><code>true</code> / <code>false</code></td><td><code>igaz</code> / <code>hamis</code>*</td><td>true / false</td></tr>
-<tr><td><code>in</code>* (<code>∈</code>)</td><td><code>eleme</code>*</td><td>element of</td></tr>
-<tr><td><code>forall</code> (<code>∀</code>)</td><td><code>minden</code>*</td><td>for all</td></tr>
-<tr><td><code>exists</code> (<code>∃</code>)</td><td><code>létezik</code>*</td><td>there exists</td></tr>
-<tr><td><code>length</code></td><td><code>hossz</code>*</td><td>length of an array</td></tr>
-<tr><td><code>from</code> / <code>to</code></td><td><code>tól</code> / <code>ig</code>*</td><td>first / last index</td></tr>
+<tr><td><code>true</code> / <code>false</code></td><td><code>igaz</code> / <code>hamis</code></td><td>true / false</td></tr>
+<tr><td><code>in</code> (<code>∈</code>)</td><td><code>eleme</code></td><td>element of</td></tr>
+<tr><td><code>forall</code> (<code>∀</code>)</td><td><code>minden</code></td><td>for all</td></tr>
+<tr><td><code>exists</code> (<code>∃</code>)</td><td><code>létezik</code></td><td>there exists</td></tr>
+<tr><td><code>length</code></td><td><code>hossz</code></td><td>length of an array</td></tr>
+<tr><td><code>from</code> / <code>to</code></td><td><code>tól</code> / <code>ig</code></td><td>first / last index</td></tr>
 <tr><td><code>COUNT</code></td><td><code>DARAB</code></td><td>counting</td></tr>
 <tr><td><code>C</code></td><td><code>K</code></td><td>characters (<em>karakter</em>)</td></tr>
 </tbody>
 </table>
 </div>
-<p>* only in the online editor.</p>
 <h2 id="concepts"><a class="header" href="#concepts">Concepts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -5101,7 +5023,8 @@ the online editor when it’s back.</p>
 <h3 id="how-do-i-share-a-specification"><a class="header" href="#how-do-i-share-a-specification">How do I share a specification?</a></h3>
 <p>Save it, then copy the address (it contains <code>?uuid=…</code>). See
 <a href="#saving-and-sharing">Saving and sharing</a>. With speci-local, send the <code>.sp</code>
-file or the <code>SPECI1:</code> line.</p>
+file or the <code>SPECI1:</code> line. They open only in speci-local, not in the online
+editor.</p>
 <h3 id="i-found-a-mistake-in-this-book"><a class="header" href="#i-found-a-mistake-in-this-book">I found a mistake in this book.</a></h3>
 <p>Open an issue on <a href="https://github.com/FCsab/specifikacio-dokumentacio/issues">GitHub</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
