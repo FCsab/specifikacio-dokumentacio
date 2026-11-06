@@ -218,7 +218,7 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">6</td><td>szomszédok összehasonlítása <code>n</code>-ig</td><td>az <code>x[i+1]</code> kilóg a tartományból</td><td>menj <code>n-1</code>-ig</td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> létezési garancia nélkül</td><td>hibás eredmény vagy hiba</td><td>írj <code>∃…</code>-t az <code>Ef:</code>-be, vagy használj <code>SEARCH</code>-et</td></tr>
 <tr><td style="text-align: right">8</td><td>rossz alakú tuple</td><td>típushiba</td><td><code>(ind,)=MAX(…)</code>, <code>(van,,ert)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> a függvényszignatúrában</td><td>szintaktikai hiba az <code>Fv:</code>-ben</td><td>használd a <code>-&gt;</code> alakot</td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> bárhol (szignatúrában vagy implikációként)</td><td><code>Expected … but "→" found.</code></td><td>használd a <code>-&gt;</code> alakot</td></tr>
 <tr><td style="text-align: right">10</td><td>visszafelé keresés, de nem minden van negálva</td><td>rossz index</td><td><code>(van,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML-behúzás vagy tabulátor</td><td>nem olvasható az adat</td><td>2 szóköz, vagy a tömör <code>{…}</code> alak</td></tr>
 <tr><td style="text-align: right">12</td><td>eltérő kis- és nagybetűs mezőnevek</td><td>„hiányzó” mező</td><td>pontosan egyezzen a deklarációval</td></tr>
@@ -227,7 +227,15 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">15</td><td>hiányzó szűrőfeltétel a <code>SUM</code>/<code>DARAB</code>-ban</td><td>egyes bemenetekre rossz számok</td><td><em>minden</em> megszorítást tegyél a feltételbe</td></tr>
 <tr><td style="text-align: right">16</td><td><code>exists</code> nevű változó / kitalált kulcsszó</td><td>„incomplite type…” / „Expected …”</td><td>nevezd át / használd a <code>Sa:</code>-t</td></tr>
 <tr><td style="text-align: right">17</td><td><code>N</code>-ként deklarált −1-es eredmény</td><td>a „nincs találat” teszt elbukik</td><td>deklaráld <code>Z</code>-ként, és az <code>Uf:</code>-ben állítsd elő a −1-et</td></tr>
-<tr><td style="text-align: right">18</td><td>zárójel nélküli implikáció</td><td>a rossz adat is átmegy</td><td><code>… és (van → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>zárójel nélküli összetett feltétel a <code>-&gt;</code> előtt</td><td>az <code>a és b -&gt; c</code> jelentése <code>a és (b -&gt; c)</code></td><td><code>(a és b) -&gt; c</code></td></tr>
+<tr><td style="text-align: right">19</td><td>hiányzó érték a tesztesetben (gyakran az <code>ind</code>, ha nincs találat)</td><td><code>incomplite type for ind: undefined is not natural</code></td><td>minden deklarált változónak adj értéket, pl. <code>ind: 0</code></td></tr>
+<tr><td style="text-align: right">20</td><td>konstans (<code>=[…]</code> kezdőértékkel) az adatok között is</td><td><code>data cannot contain item with the same name: napok</code></td><td>töröld az adatok közül</td></tr>
+<tr><td style="text-align: right">21</td><td>használt, de nem deklarált név</td><td><code>Identifier: no data found in context: […], q</code></td><td>deklaráld</td></tr>
+<tr><td style="text-align: right">22</td><td>nem deklarált tömb indexelése, pl. <code>nev[i]</code></td><td><code>Cannot read properties of undefined (reading 'toString')</code></td><td>deklaráld (<code>nev∈S[1..n]</code>)</td></tr>
+<tr><td style="text-align: right">23</td><td>az angol <code>element</code> szó a <code>∈</code> helyett</td><td><code>Expected halmaz or white space but "n" found.</code></td><td><code>∈</code> vagy <code>eleme</code></td></tr>
+<tr><td style="text-align: right">24</td><td>több függvény egy <code>Fv:</code> blokkban</td><td><code>Expected … but "," found.</code></td><td>függvényenként külön <code>Fv:</code> fejléc</td></tr>
+<tr><td style="text-align: right">25</td><td><code>ABS(…)</code></td><td><code>Expected … but "A" found.</code></td><td><code>abs(…)</code></td></tr>
+<tr><td style="text-align: right">26</td><td><code>≥</code> a <code>SELECT(i≥1, …)</code>-ben</td><td><code>Expected "&gt;=" but "≥" found.</code></td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
 </tbody>
 </table>
 </div>

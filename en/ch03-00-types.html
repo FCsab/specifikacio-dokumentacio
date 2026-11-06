@@ -184,9 +184,9 @@
 <p>This reads “<em>a</em> is one element of the set of natural numbers”. The set
 plays the role of the type. The editor uses it to check the test data, and it
 restricts which values the variable may take.</p>
-<p>You can type <code>∈</code> with the <strong>Insert</strong> button, or write the word <code>element</code>
-(Hungarian: <code>eleme</code>) instead:</p>
-<pre><code class="language-speci">In: a element N, b∈Z
+<p>You can type <code>∈</code> with the <strong>Insert</strong> button (or <kbd>Alt</kbd>+<kbd>1</kbd>), or write the
+Hungarian word <code>eleme</code> instead:</p>
+<pre><code class="language-speci">In: a eleme N, b∈Z
 Out: c∈Z
 Pre: -
 Post: c=a+b
@@ -195,6 +195,9 @@ Post: c=a+b
 b: -5
 c: -2
 </code></pre>
+<p>The English word <code>element</code> is <strong>not</strong> accepted by the online editor. It reads
+<code>eleme</code>, then stops at the rest of the word:
+<code>Expected halmaz or white space but "n" found</code>. Only speci-local accepts <code>element</code>.</p>
 <p>The sets you can use are built from a few simple pieces:</p>
 <div class="table-wrapper">
 <table>

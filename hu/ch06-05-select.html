@@ -181,7 +181,7 @@
 <p>A <strong>kiválasztás</strong> megkeresi az első olyan indexet egy adott kezdőponttól, ahol
 egy feltétel teljesül, <strong>ha tudjuk, hogy ilyen index létezik</strong>.</p>
 <div class="syntax-card">
-<p><strong>Alak:</strong> <code>ind=SELECT(i≥e, β(i))</code><br>
+<p><strong>Alak:</strong> <code>ind=SELECT(i&gt;=e, β(i))</code><br>
 <strong>Eredmény:</strong> a legkisebb <code>i ≥ e</code>, amelyre <code>β(i)</code> teljesül<br>
 <strong>Követelmény:</strong> az előfeltételnek garantálnia kell, hogy ilyen <code>i</code> létezik</p>
 </div>
@@ -195,7 +195,7 @@ keresés soha nem érne véget.</p>
 <pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
 Ki: ind∈N
 Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i≥1, szamok[i] mod 2 = 1) és n=n
+Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 szamok: [23, 25, 26, 28, 29]
@@ -225,7 +225,7 @@ ha a válasz matematikailag garantált. <em>n legkisebb 1-nél nagyobb osztója<
 <pre><code class="language-speci">Be: n∈N
 Ki: d∈N
 Ef: n≥2
-Uf: d=SELECT(i≥2, i|n)
+Uf: d=SELECT(i&gt;=2, i|n)
 </code></pre>
 <pre><code class="language-yaml">n: 35
 d: 5

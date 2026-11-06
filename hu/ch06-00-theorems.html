@@ -214,7 +214,7 @@ osszeg: 12
 <tr><td><a href="ch06-03-max-min.html">Minimumkiválasztás</a></td><td>minimum selection</td><td><code>(ind,ert)=MIN(i=e..u, f(i))</code></td><td>(index, érték)</td></tr>
 <tr><td><a href="ch06-04-decision.html">Eldöntés</a></td><td>decision</td><td><code>l=EXISTS(i=e..u, β(i))</code></td><td>logikai</td></tr>
 <tr><td><a href="ch06-04-decision.html">Eldöntés (mind)</a></td><td>decision (all)</td><td><code>l=FORALL(i=e..u, β(i))</code></td><td>logikai</td></tr>
-<tr><td><a href="ch06-05-select.html">Kiválasztás</a></td><td>selection</td><td><code>ind=SELECT(i≥e, β(i))</code></td><td>index</td></tr>
+<tr><td><a href="ch06-05-select.html">Kiválasztás</a></td><td>selection</td><td><code>ind=SELECT(i&gt;=e, β(i))</code></td><td>index</td></tr>
 <tr><td><a href="ch06-06-search.html">Keresés</a></td><td>search</td><td><code>(van,ind)=SEARCH(i=e..u, β(i))</code></td><td>(logikai, index)</td></tr>
 <tr><td><a href="ch06-07-copy.html">Másolás</a></td><td>copy</td><td><code>y=COPY(i=e..u, f(i))</code></td><td>tömb</td></tr>
 <tr><td><a href="ch06-08-mis.html">Kiválogatás</a></td><td>multiple item selection</td><td><code>(db,y)=MIS(i=e..u, β(i))</code><br><code>(db,y)=MIS(i=e..u, β(i), f(i))</code></td><td>(darabszám, tömb)</td></tr>
@@ -226,7 +226,60 @@ osszeg: 12
 <p>Minden makró első argumentuma ugyanaz: a <strong>ciklustartomány</strong>, <code>i=e..u</code>. Ez
 megnevezi a ciklusváltozót (bármilyen kisbetűs név: <code>i</code>, <code>j</code>, <code>p</code>, …), és
 megadja az intervallumot, amelyet bejár. Kivétel a <code>SELECT</code>: annak csak
-kezdőpontja van, <code>i≥e</code>.</p>
+kezdőpontja van, <code>i&gt;=e</code>. Ezt <code>&gt;=</code> jellel írd: ezen a helyen az online szerkesztő a
+<code>≥</code> jelet elutasítja (<code>Expected "&gt;=" but "≥" found</code>), máshol viszont a <code>≥</code> is jó.</p>
+<h2 id="a-makrók-más-nevei"><a class="header" href="#a-makrók-más-nevei">A makrók más nevei</a></h2>
+<p>Az online szerkesztő az alábbi neveket is elfogadja. A ✓ jelűeket
+ellenőriztük: ugyanarra az adatra ugyanazt adják, mint az angol makró. A
+többi szerepel a szerkesztő által elfogadott szavak listájában, és a jelentésük
+a névből egyértelmű, de ezeket nem ellenőriztük egyenként.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Makró</th><th>Ezek is elfogadottak</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>A speci-local csak az angol neveket és a <code>DARAB</code>-ot ismeri. Ha a
+specifikációnak mindkét szerkesztőben működnie kell, ezeket használd.</p>
+<h2 id="a-makrók-más-nevei"><a class="header" href="#a-makrók-más-nevei">A makrók más nevei</a></h2>
+<p>Az online szerkesztő az alábbi neveket is elfogadja. A ✓ jelűeket
+ellenőriztük: ugyanarra az adatra ugyanazt adják, mint az angol makró. A
+többi szerepel a szerkesztő által elfogadott szavak listájában, és a jelentésük
+a névből egyértelmű, de ezeket nem ellenőriztük egyenként.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Makró</th><th>Ezek is elfogadottak</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>A speci-local csak az angol neveket és a <code>DARAB</code>-ot ismeri. Ha a
+specifikációnak mindkét szerkesztőben működnie kell, ezeket használd.</p>
 <h2 id="melyik-tétel-kell"><a class="header" href="#melyik-tétel-kell">Melyik tétel kell?</a></h2>
 <p>Abból indulj ki, mit kérdez a feladat. Milyen választ vár?</p>
 <div class="decision-tree">

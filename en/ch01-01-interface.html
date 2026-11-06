@@ -197,35 +197,36 @@ numbers in the screenshot match the list below.</p>
 <tr><td style="text-align: right">5</td><td><kbd>S</kbd></td><td>Shows/hides the Specification pane.</td></tr>
 <tr><td style="text-align: right">6</td><td><kbd>D</kbd></td><td>Shows/hides the Data pane.</td></tr>
 <tr><td style="text-align: right">7</td><td><kbd>V</kbd></td><td>Shows/hides the Visualization pane.</td></tr>
-<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Shows/hides the History pane (earlier saved versions).</td></tr>
+<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Shows/hides the History pane: every specification you have saved, newest first, each with an <em>Open</em> link (entries with ▶ expand to their earlier versions).</td></tr>
 <tr><td style="text-align: right">9</td><td><strong>New</strong></td><td>Starts a new, empty specification.</td></tr>
 <tr><td style="text-align: right">10</td><td><strong>Save</strong></td><td>Saves the current specification on the server (see <a href="ch01-03-save-share.html">Saving and sharing</a>).</td></tr>
 <tr><td style="text-align: right">11</td><td><strong>Documentation</strong></td><td>Opens the built-in documentation, in Hungarian (see <a href="appendix-05-builtin.html">Appendix E</a>).</td></tr>
 <tr><td style="text-align: right">12</td><td><strong>Usage</strong></td><td>Opens the usage manual, in Hungarian.</td></tr>
-<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>Buttons that insert the special characters <code>∈ ∀ ∃ ≠ ≤ ≥</code>.</td></tr>
-<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Evaluates the specification on every test case.</td></tr>
-<tr><td style="text-align: right">15</td><td><strong>Test case tabs</strong></td><td>One tab per test case. <code>+</code> adds one, <code>-</code> removes the selected one. After evaluation a tab turns green (passed) or red (failed).</td></tr>
+<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>Buttons that insert the special characters <code>∈ ∀ ∃ ≠ ≤ ≥</code>. Shortcuts: <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (<kbd>Cmd</kbd> on a Mac), in this order.</td></tr>
+<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Fills the Visualization pane with the evaluation trace. (Pass/fail is checked automatically while you type; see below.)</td></tr>
+<tr><td style="text-align: right">15</td><td><strong>Test case tabs</strong></td><td>One tab per test case. <code>+</code> adds one, <code>-</code> removes the selected one. The tabs turn green (passed) or red (failed) <strong>automatically</strong>, about a second after you stop typing; you don’t need to press Evaluate for that.</td></tr>
 <tr><td style="text-align: right">16</td><td>Current user</td><td>Your name and login, with a <em>Logout</em> link.</td></tr>
 <tr><td style="text-align: right">17</td><td>Copyright</td><td>Author and version information.</td></tr>
 <tr><td style="text-align: right">18</td><td><strong>Task name</strong></td><td>The title of the specification. Give every specification a name before you save it.</td></tr>
 </tbody>
 </table>
 </div>
-<p>The green buttons <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd> are toggles: green means
-the pane is visible. If the screen is small, hide what you don’t need. For
+<p>The buttons <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd>, <kbd>H</kbd> are toggles: green means
+the pane is visible. In version 1.5.2 only <kbd>S</kbd> and <kbd>D</kbd> are on when the
+editor opens; switch on <kbd>V</kbd> to see the Visualization pane. If the screen is small, hide what you don’t need. For
 example, hide the Data pane while you work on the specification.</p>
 <h2 id="the-specification-pane"><a class="header" href="#the-specification-pane">The Specification pane</a></h2>
 <p>This is an ordinary text editor with syntax highlighting. Type the
 specification here, block by block (<code>In:</code>, <code>Out:</code>, <code>Pre:</code>, <code>Post:</code>, …). The
-<strong>Insert</strong> buttons above it (13) put the mathematical symbols at the cursor.
-You can also type their ASCII equivalents:</p>
+<strong>Insert</strong> buttons above it (13), or <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd>, put the
+mathematical symbols at the cursor. You can also type their ASCII equivalents:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th style="text-align: center">Symbol</th><th style="text-align: center">Button</th><th>You can also type</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>element</code> (Hungarian: <code>eleme</code>)</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (the English <code>element</code> is <strong>not</strong> accepted online, only by speci-local)</td></tr>
 <tr><td style="text-align: center"><code>∀</code></td><td style="text-align: center">∀</td><td><code>forall</code> (Hungarian: <code>minden</code>)</td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td style="text-align: center">∃</td><td><code>exists</code> (Hungarian: <code>létezik</code>)</td></tr>
 <tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center">≠</td><td><code>!=</code></td></tr>
@@ -258,7 +259,7 @@ so you only have to fill in the values.</p>
 multi-line record format.</figcaption>
 </figure>
 <h2 id="the-visualization-pane"><a class="header" href="#the-visualization-pane">The Visualization pane</a></h2>
-<p>After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
+<p>Switch it on with <kbd>V</kbd>. After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
 evaluated for the selected test case. It has two views:</p>
 <ul>
 <li><strong>Stepper</strong>: one evaluation step at a time. Step with the <kbd>←</kbd> and

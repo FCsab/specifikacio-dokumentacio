@@ -187,9 +187,13 @@
 <tbody>
 <tr><td><code>+</code> <code>-</code> <code>*</code></td><td>addition, subtraction, multiplication</td><td><code>a+b*2</code></td></tr>
 <tr><td><code>/</code></td><td>division</td><td><code>s/n</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
 <tr><td><code>mod</code> or <code>%</code></td><td>remainder</td><td><code>x mod 2 = 1</code>, <code>i%2=1</code></td></tr>
 <tr><td><code>-</code> (prefix)</td><td>negation</td><td><code>-x[i]</code></td></tr>
-<tr><td><code>ABS(…)</code></td><td>absolute value</td><td><code>ABS(x[i])</code></td></tr>
+<tr><td><code>abs(…)</code></td><td>absolute value (lowercase only: <code>ABS(…)</code> is a syntax error online)</td><td><code>abs(x[i])</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -203,12 +207,16 @@ freely.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: center"><code>=</code></td><td style="text-align: center"><code>=</code></td><td>equal</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code></td><td>not equal</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code> or <code>&lt;&gt;</code></td><td>not equal</td></tr>
 <tr><td style="text-align: center"><code>&lt;</code></td><td style="text-align: center"><code>&lt;</code></td><td>less than</td></tr>
 <tr><td style="text-align: center"><code>&gt;</code></td><td style="text-align: center"><code>&gt;</code></td><td>greater than</td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td style="text-align: center"><code>&lt;=</code></td><td>less than or equal</td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td style="text-align: center"><code>&gt;=</code></td><td>greater than or equal</td></tr>
 <tr><td style="text-align: center"><code>|</code></td><td style="text-align: center"></td><td>divides: <code>a|b</code> means <em>b mod a = 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
 </tbody>
 </table>
 </div>
@@ -245,7 +253,7 @@ d: 6
 <tr><td><code>and</code></td><td><code>és</code></td><td>both are true</td></tr>
 <tr><td><code>or</code></td><td><code>vagy</code></td><td>at least one is true</td></tr>
 <tr><td><code>not</code></td><td><code>nem</code></td><td>negation</td></tr>
-<tr><td><code>→</code> or <code>-&gt;</code></td><td></td><td>implication</td></tr>
+<tr><td><code>-&gt;</code></td><td></td><td>implication</td></tr>
 <tr><td><code>true</code>, <code>false</code></td><td><code>igaz</code>, <code>hamis</code></td><td>constants</td></tr>
 </tbody>
 </table>
@@ -257,7 +265,7 @@ documentation. speci-local doesn’t accept them. Use <code>true</code>/<code>fa
 want your specification to work in both.</p>
 </blockquote>
 <h3 id="implication"><a class="header" href="#implication">Implication</a></h3>
-<p><code>A → B</code> (“if A then B”) is false only when A is true and B is false:</p>
+<p><code>A -&gt; B</code> (“if A then B”) is false only when A is true and B is false:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -279,7 +287,7 @@ Aux: found∈L, ind∈N
 Out: neg∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, x[i]&lt;0) and
-      (found → neg=x[ind])
+      (found -&gt; neg=x[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 x: [5, -2, -8]
@@ -290,13 +298,34 @@ neg: -2
 <pre><code class="language-yaml">n: 2
 x: [5, 2]
 found: false
+ind: 0
 neg: 0
 </code></pre>
 <p>In the second test nothing was found, so <code>neg</code> may be anything. Chapter
 <a href="ch06-06-search.html">Search</a> has more on this.</p>
 <h3 id="precedence"><a class="header" href="#precedence">Precedence</a></h3>
-<p>From strongest to weakest: arithmetic, then comparisons, then <code>not</code>, <code>and</code>,
-<code>or</code>, <code>→</code>. When in doubt, add parentheses. They cost nothing:</p>
+<p>From strongest to weakest: arithmetic, then comparisons, then <code>not</code>, then
+<strong><code>-&gt;</code></strong>, then <code>and</code>, then <code>or</code>. Implication binds <em>more tightly</em> than <code>and</code>
+and <code>or</code>, and it groups to the right:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>You write</th><th>The editor reads</th></tr>
+</thead>
+<tbody>
+<tr><td><code>a and b -&gt; c</code></td><td><code>a and (b -&gt; c)</code></td></tr>
+<tr><td><code>a or b -&gt; c</code></td><td><code>a or (b -&gt; c)</code></td></tr>
+<tr><td><code>not a -&gt; b</code></td><td><code>(not a) -&gt; b</code></td></tr>
+<tr><td><code>a -&gt; b = c</code></td><td><code>a -&gt; (b = c)</code></td></tr>
+<tr><td><code>a -&gt; b -&gt; c</code></td><td><code>a -&gt; (b -&gt; c)</code></td></tr>
+<tr><td><code>A -&gt; x=1 and B -&gt; x=2</code></td><td><code>(A -&gt; x=1) and (B -&gt; x=2)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>The last row is why a list of cases chained with <code>and</code> works without parentheses.
+The trap is a compound condition on the left: <code>x&gt;0 and y&gt;0 -&gt; s=1</code> means
+<code>x&gt;0 and (y&gt;0 -&gt; s=1)</code>. Put the condition in parentheses:
+<code>(x&gt;0 and y&gt;0) -&gt; s=1</code>. When in doubt, add parentheses. They cost nothing:</p>
 <pre><code class="language-speci fragment">Pre: n&gt;0 and (3&lt;4 or ((3)&gt;4))
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">

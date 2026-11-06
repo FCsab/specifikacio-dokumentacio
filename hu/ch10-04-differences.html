@@ -179,8 +179,9 @@
                     <main>
                         <h1 id="eltérések-az-online-szerkesztőtől"><a class="header" href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a></h1>
 <p>A speci-local célja, hogy pontosan azt fogadja el, amit az ELTE-s szerkesztő,
-és minden tesztet ugyanúgy ítéljen meg. Néhány eltérés azért maradt. Ezek a
-könyv példáinak ellenőrzése közben derültek ki.</p>
+és minden tesztet ugyanúgy ítéljen meg. Néhány eltérés azért maradt. Ezek úgy
+derültek ki, hogy a könyv összes példáját lefuttattuk az online szerkesztőben
+(1.5.2-es változat, 2026 novembere).</p>
 <h2 id="csak-az-online-szerkesztő-fogadja-el"><a class="header" href="#csak-az-online-szerkesztő-fogadja-el">Csak az online szerkesztő fogadja el</a></h2>
 <div class="table-wrapper">
 <table>
@@ -189,15 +190,50 @@ könyv példáinak ellenőrzése közben derültek ki.</p>
 </thead>
 <tbody>
 <tr><td>magyar logikai konstansok</td><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td></tr>
-<tr><td>magyar kvantor- és tartalmazás-szavak</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>∈</code>, vagy <code>forall</code>, <code>exists</code>, <code>element</code></td></tr>
+<tr><td>magyar kvantor- és tartalmazás-szavak</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>∈</code>, vagy <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>magyar tömbfüggvények</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td><code>length</code>, <code>from</code>, <code>to</code></td></tr>
 <tr><td>indextartományos tömbliterálok</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>sima literálok</td></tr>
-<tr><td>külön <code>Fv:</code> fejléc minden függvénynek</td><td><code>Fv: f…</code> <code>Fv: g…</code></td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel</td></tr>
+<tr><td>külön <code>Fv:</code> fejléc minden függvénynek (az online szerkesztő <strong>csak</strong> ezt fogadja el)</td><td><code>Fv: f…</code> <code>Fv: g…</code></td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel</td></tr>
+<tr><td><code>Def:</code> függvényfejlécként</td><td><code>Def: f:N-&gt;N, f(a)=a*2</code></td><td><code>Fv:</code></td></tr>
+<tr><td>esetszétválasztásos függvénytörzs</td><td><code>{p, ha p&gt;=q; q egyébként}</code></td><td>nem támogatott; implikációkkal írd</td></tr>
+<tr><td>a <code>&lt;&gt;</code>, <code>div</code>, <code>∤</code> műveletek</td><td><code>a &lt;&gt; b</code>, <code>7 div 2</code>, <code>a ∤ b</code></td><td><code>!=</code>; a többi nem támogatott</td></tr>
+<tr><td>a makrók más nevei</td><td><code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …</td><td>az angol nevek (lásd <a href="ch06-00-theorems.html#a-makrók-más-nevei">A makrók más nevei</a>)</td></tr>
 </tbody>
 </table>
 </div>
 <p>Az ilyen lehetőségeket használó példákat a könyvben <strong>CSAK ONLINE</strong> felirat
 jelöli.</p>
+<h2 id="csak-a-speci-local-fogadja-el"><a class="header" href="#csak-a-speci-local-fogadja-el">Csak a speci-local fogadja el</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Lehetőség</th><th>Példa</th><th>Az online szerkesztőben</th></tr>
+</thead>
+<tbody>
+<tr><td>Unicode nyíl</td><td><code>van → x=1</code></td><td>szintaktikai hiba; írd így: <code>-&gt;</code></td></tr>
+<tr><td>az <code>element</code> szó</td><td><code>a element N</code></td><td>szintaktikai hiba; <code>∈</code> vagy <code>eleme</code></td></tr>
+<tr><td>nagybetűs <code>ABS</code></td><td><code>ABS(x)</code></td><td>szintaktikai hiba; <code>abs(x)</code></td></tr>
+<tr><td>több függvény egy <code>Fv:</code> blokkban</td><td><code>Fv: f…, g…</code></td><td>szintaktikai hiba a vesszőnél; függvényenként egy fejléc</td></tr>
+<tr><td><code>≥</code> a <code>SELECT</code>-ben</td><td><code>SELECT(i≥1, …)</code></td><td>szintaktikai hiba; <code>i&gt;=1</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="eltérő-ítélet"><a class="header" href="#eltérő-ítélet">Eltérő ítélet</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Helyzet</th><th>Online szerkesztő</th><th>speci-local</th></tr>
+</thead>
+<tbody>
+<tr><td>a <code>-&gt;</code> precedenciája</td><td>a <code>nem</code> és az <code>és</code> között: az <code>a és b -&gt; c</code> jelentése <code>a és (b -&gt; c)</code></td><td>leggyengébb: <code>(a és b) -&gt; c</code></td></tr>
+<tr><td>deklarált változó hiányzik a tesztesetből</td><td>piros: <code>incomplite type for x: …</code></td><td>kiszámolja és megmutatja</td></tr>
+<tr><td>konstans (<code>=[…]</code> kezdőértékkel) az adatok között is</td><td>piros: <code>data cannot contain item with the same name</code></td><td>az adatokbeli értéket használja</td></tr>
+</tbody>
+</table>
+</div>
+<p>Zárójelezz minden összetett feltételt a <code>-&gt;</code> előtt, minden tesztesetben adj
+értéket minden változónak, és hagyd ki a konstansokat az adatokból. Így a
+specifikáció mindkét szerkesztőben ugyanúgy viselkedik.</p>
 <h2 id="ismert-hibák"><a class="header" href="#ismert-hibák">Ismert hibák</a></h2>
 <ul>
 <li>Egy <strong>kezdőértékkel megadott, nem 1-től indexelt mátrixot</strong>, például az
@@ -208,19 +244,19 @@ indexel. Az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi.</li>
 <ul>
 <li>Sokkal részletesebb hibaüzenetek, javítási javaslattal.</li>
 <li>A tesztből hiányzó kimeneti értékeket kiszámolja és megmutatja.</li>
-<li>Automatikus kiértékelés gépelés közben.</li>
 <li>Kiegészítés és sablonok.</li>
 <li>Felismeri a fejlécek néhány gyakori elírását (például <code>Segéd:</code> vagy
 <code>Bemenet:</code>), és javasolja a helyeset.</li>
-<li><code>CONDMIN</code>, a <code>CONDMAX</code> minimumos párja.</li>
 <li>Helyi <code>.sp</code> fájlok és egysoros projektmegosztás (<code>SPECI1:</code>).</li>
 </ul>
+<p>Gépelés közben mindkét szerkesztő automatikusan kiértékel, és mindkettőben van <code>CONDMIN</code>.</p>
 <h2 id="ami-hiányzik"><a class="header" href="#ami-hiányzik">Ami hiányzik</a></h2>
 <ul>
 <li>Az előzmények (History) panel.</li>
 <li>Szerveroldali mentés és állandó linkek. Helyettük <code>.sp</code> fájlokat és
 <code>SPECI1:</code> sorokat használj.</li>
 </ul>
+
 
                     </main>
 

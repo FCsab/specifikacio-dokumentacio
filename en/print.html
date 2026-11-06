@@ -337,35 +337,36 @@ numbers in the screenshot match the list below.</p>
 <tr><td style="text-align: right">5</td><td><kbd>S</kbd></td><td>Shows/hides the Specification pane.</td></tr>
 <tr><td style="text-align: right">6</td><td><kbd>D</kbd></td><td>Shows/hides the Data pane.</td></tr>
 <tr><td style="text-align: right">7</td><td><kbd>V</kbd></td><td>Shows/hides the Visualization pane.</td></tr>
-<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Shows/hides the History pane (earlier saved versions).</td></tr>
+<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Shows/hides the History pane: every specification you have saved, newest first, each with an <em>Open</em> link (entries with ▶ expand to their earlier versions).</td></tr>
 <tr><td style="text-align: right">9</td><td><strong>New</strong></td><td>Starts a new, empty specification.</td></tr>
 <tr><td style="text-align: right">10</td><td><strong>Save</strong></td><td>Saves the current specification on the server (see <a href="#saving-and-sharing">Saving and sharing</a>).</td></tr>
 <tr><td style="text-align: right">11</td><td><strong>Documentation</strong></td><td>Opens the built-in documentation, in Hungarian (see <a href="#appendix-e-the-built-in-documentation">Appendix E</a>).</td></tr>
 <tr><td style="text-align: right">12</td><td><strong>Usage</strong></td><td>Opens the usage manual, in Hungarian.</td></tr>
-<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>Buttons that insert the special characters <code>∈ ∀ ∃ ≠ ≤ ≥</code>.</td></tr>
-<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Evaluates the specification on every test case.</td></tr>
-<tr><td style="text-align: right">15</td><td><strong>Test case tabs</strong></td><td>One tab per test case. <code>+</code> adds one, <code>-</code> removes the selected one. After evaluation a tab turns green (passed) or red (failed).</td></tr>
+<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>Buttons that insert the special characters <code>∈ ∀ ∃ ≠ ≤ ≥</code>. Shortcuts: <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (<kbd>Cmd</kbd> on a Mac), in this order.</td></tr>
+<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Fills the Visualization pane with the evaluation trace. (Pass/fail is checked automatically while you type; see below.)</td></tr>
+<tr><td style="text-align: right">15</td><td><strong>Test case tabs</strong></td><td>One tab per test case. <code>+</code> adds one, <code>-</code> removes the selected one. The tabs turn green (passed) or red (failed) <strong>automatically</strong>, about a second after you stop typing; you don’t need to press Evaluate for that.</td></tr>
 <tr><td style="text-align: right">16</td><td>Current user</td><td>Your name and login, with a <em>Logout</em> link.</td></tr>
 <tr><td style="text-align: right">17</td><td>Copyright</td><td>Author and version information.</td></tr>
 <tr><td style="text-align: right">18</td><td><strong>Task name</strong></td><td>The title of the specification. Give every specification a name before you save it.</td></tr>
 </tbody>
 </table>
 </div>
-<p>The green buttons <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd> are toggles: green means
-the pane is visible. If the screen is small, hide what you don’t need. For
+<p>The buttons <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd>, <kbd>H</kbd> are toggles: green means
+the pane is visible. In version 1.5.2 only <kbd>S</kbd> and <kbd>D</kbd> are on when the
+editor opens; switch on <kbd>V</kbd> to see the Visualization pane. If the screen is small, hide what you don’t need. For
 example, hide the Data pane while you work on the specification.</p>
 <h2 id="the-specification-pane"><a class="header" href="#the-specification-pane">The Specification pane</a></h2>
 <p>This is an ordinary text editor with syntax highlighting. Type the
 specification here, block by block (<code>In:</code>, <code>Out:</code>, <code>Pre:</code>, <code>Post:</code>, …). The
-<strong>Insert</strong> buttons above it (13) put the mathematical symbols at the cursor.
-You can also type their ASCII equivalents:</p>
+<strong>Insert</strong> buttons above it (13), or <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd>, put the
+mathematical symbols at the cursor. You can also type their ASCII equivalents:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th style="text-align: center">Symbol</th><th style="text-align: center">Button</th><th>You can also type</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>element</code> (Hungarian: <code>eleme</code>)</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (the English <code>element</code> is <strong>not</strong> accepted online, only by speci-local)</td></tr>
 <tr><td style="text-align: center"><code>∀</code></td><td style="text-align: center">∀</td><td><code>forall</code> (Hungarian: <code>minden</code>)</td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td style="text-align: center">∃</td><td><code>exists</code> (Hungarian: <code>létezik</code>)</td></tr>
 <tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center">≠</td><td><code>!=</code></td></tr>
@@ -398,7 +399,7 @@ so you only have to fill in the values.</p>
 multi-line record format.</figcaption>
 </figure>
 <h2 id="the-visualization-pane"><a class="header" href="#the-visualization-pane">The Visualization pane</a></h2>
-<p>After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
+<p>Switch it on with <kbd>V</kbd>. After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
 evaluated for the selected test case. It has two views:</p>
 <ul>
 <li><strong>Stepper</strong>: one evaluation step at a time. Step with the <kbd>←</kbd> and
@@ -600,6 +601,7 @@ first: 2
 k: 10
 prices: [250, 90]
 found: false
+ind: 0
 first: -1
 </code></pre>
 <p>Read it like this: <em>given n, k and n prices, where n is at least 1, the output
@@ -627,7 +629,7 @@ surprises everyone once.</li>
 <tr><td><code>In:</code></td><td><code>Be:</code></td><td><em>Bemenet</em>: input</td></tr>
 <tr><td><code>Aux:</code></td><td><code>Sa:</code></td><td><em>Segédadat</em>: auxiliary data</td></tr>
 <tr><td><code>Out:</code></td><td><code>Ki:</code></td><td><em>Kimenet</em>: output</td></tr>
-<tr><td><code>Fn:</code></td><td><code>Fv:</code></td><td><em>Függvény</em>: function</td></tr>
+<tr><td><code>Fn:</code> or <code>Def:</code></td><td><code>Fv:</code></td><td><em>Függvény</em>: function</td></tr>
 <tr><td><code>Pre:</code></td><td><code>Ef:</code></td><td><em>Előfeltétel</em>: precondition</td></tr>
 <tr><td><code>Post:</code></td><td><code>Uf:</code></td><td><em>Utófeltétel</em>: postcondition</td></tr>
 </tbody>
@@ -717,21 +719,8 @@ neg: 2
 </code></pre>
 <p>The indentation of the continuation lines is only for readability.</p>
 <h2 id="several-functions"><a class="header" href="#several-functions">Several functions</a></h2>
-<p>One <code>Fn:</code> block can define several functions, separated by commas. Each
+<p>In the online editor every function gets <strong>its own <code>Fn:</code> header</strong>. Each
 definition is a signature followed by the body:</p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
-Out: s∈N
-Fn: sq:N-&gt;N, sq(a)=a*a,
-    even:N-&gt;L, even(a)=a mod 2 = 0
-Pre: -
-Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
-</code></pre>
-<pre><code class="language-yaml">n: 4
-x: [1, 2, 3, 4]
-s: 20
-</code></pre>
-<p>The online editor also accepts a separate <code>Fn:</code> header for each function. Its
-built-in documentation is written that way:</p>
 <pre><code class="language-speci online">In: n∈N, x∈N[1..n]
 Out: s∈N
 Fn: sq:N-&gt;N, sq(a)=a*a
@@ -739,8 +728,14 @@ Fn: even:N-&gt;L, even(a)=a mod 2 = 0
 Pre: -
 Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
 </code></pre>
-<p>speci-local insists on a single <code>Fn:</code> block, so the comma form is the one that
-works everywhere.</p>
+<pre><code class="language-yaml">n: 4
+x: [1, 2, 3, 4]
+s: 20
+</code></pre>
+<p>Several functions separated by commas in <em>one</em> <code>Fn:</code> block are
+<strong>rejected</strong> by the online editor. The error points at the comma after the first
+body: <code>Expected … but "," found</code>. (speci-local, for now, expects exactly that comma
+form; see <a href="#differences-from-the-online-editor">Differences from the online editor</a>.)</p>
 <p>Chapter <a href="#functions">Functions</a> explains functions in detail.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="names-comments-and-reserved-words"><a class="header" href="#names-comments-and-reserved-words">Names, comments and reserved words</a></h1>
@@ -783,7 +778,7 @@ variable names:</p>
 <tr><td><code>and</code>, <code>or</code>, <code>not</code></td><td>logical operators</td></tr>
 <tr><td><code>és</code>, <code>vagy</code>, <code>nem</code></td><td>the same in Hungarian</td></tr>
 <tr><td><code>mod</code></td><td>remainder</td></tr>
-<tr><td><code>element</code></td><td>the word form of <code>∈</code></td></tr>
+<tr><td><code>eleme</code>, <code>element</code></td><td>the word forms of <code>∈</code> (the online editor accepts only <code>eleme</code>)</td></tr>
 <tr><td><code>exists</code>, <code>forall</code></td><td>the word forms of <code>∃</code> and <code>∀</code></td></tr>
 <tr><td><code>true</code>, <code>false</code></td><td>logical constants</td></tr>
 </tbody>
@@ -894,7 +889,7 @@ true identity to the postcondition:</p>
 <pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 nums: [23, 25, 26, 28, 29]
@@ -916,9 +911,9 @@ constrained by the postcondition anyway, because that’s their whole point.</p>
 <p>This reads “<em>a</em> is one element of the set of natural numbers”. The set
 plays the role of the type. The editor uses it to check the test data, and it
 restricts which values the variable may take.</p>
-<p>You can type <code>∈</code> with the <strong>Insert</strong> button, or write the word <code>element</code>
-(Hungarian: <code>eleme</code>) instead:</p>
-<pre><code class="language-speci">In: a element N, b∈Z
+<p>You can type <code>∈</code> with the <strong>Insert</strong> button (or <kbd>Alt</kbd>+<kbd>1</kbd>), or write the
+Hungarian word <code>eleme</code> instead:</p>
+<pre><code class="language-speci">In: a eleme N, b∈Z
 Out: c∈Z
 Pre: -
 Post: c=a+b
@@ -927,6 +922,9 @@ Post: c=a+b
 b: -5
 c: -2
 </code></pre>
+<p>The English word <code>element</code> is <strong>not</strong> accepted by the online editor. It reads
+<code>eleme</code>, then stops at the rest of the word:
+<code>Expected halmaz or white space but "n" found</code>. Only speci-local accepts <code>element</code>.</p>
 <p>The sets you can use are built from a few simple pieces:</p>
 <div class="table-wrapper">
 <table>
@@ -1108,11 +1106,12 @@ Out: d∈N
 Pre: -
 Post: d=days[m]
 </code></pre>
-<pre><code class="language-yaml">days: [31,28,31,30,31,30,31,31,30,31,30,31]
-m: 4
+<pre><code class="language-yaml">m: 4
 d: 30
 </code></pre>
-<p>The worked example <a href="#card-values">Card values</a> uses the same technique with
+<p>Such an array is a constant: leave it <strong>out</strong> of the test data. Repeating it there
+makes the test red (<code>data cannot contain item with the same name: days</code>). The
+worked example <a href="#card-values">Card values</a> uses the same technique with
 strings.</p>
 <h2 id="array-literals"><a class="header" href="#array-literals">Array literals</a></h2>
 <p>In conditions you can also write arrays directly, but that’s rarely needed:</p>
@@ -1372,7 +1371,7 @@ whose value is <code>true</code> or <code>false</code>. They are built from</p>
 <li><strong>values</strong>: variables, constants (<code>3</code>, <code>-1</code>, <code>2.5</code>, <code>"text"</code>, <code>true</code>), array
 elements (<code>x[i]</code>), fields (<code>r.name</code>), tuples (<code>(3,5)</code>),</li>
 <li><strong>operators</strong>: arithmetic (<code>+ - * / mod</code>), comparison
-(<code>= ≠ &lt; &gt; ≤ ≥</code>) and logic (<code>and or not →</code>),</li>
+(<code>= ≠ &lt; &gt; ≤ ≥</code>) and logic (<code>and or not -&gt;</code>),</li>
 <li><strong>quantifiers</strong>: <code>∀</code> (for all) and <code>∃</code> (there exists),</li>
 <li><strong>function calls</strong>: built-in (<code>length(x)</code>) or your own (<code>f(i)</code>),</li>
 <li><strong>theorem macros</strong>: <code>SUM</code>, <code>COUNT</code>, <code>MAX</code>, … (in
@@ -1410,9 +1409,13 @@ elements at once.</li>
 <tbody>
 <tr><td><code>+</code> <code>-</code> <code>*</code></td><td>addition, subtraction, multiplication</td><td><code>a+b*2</code></td></tr>
 <tr><td><code>/</code></td><td>division</td><td><code>s/n</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>integer division</td><td><code>7 div 2 = 3</code></td></tr>
 <tr><td><code>mod</code> or <code>%</code></td><td>remainder</td><td><code>x mod 2 = 1</code>, <code>i%2=1</code></td></tr>
 <tr><td><code>-</code> (prefix)</td><td>negation</td><td><code>-x[i]</code></td></tr>
-<tr><td><code>ABS(…)</code></td><td>absolute value</td><td><code>ABS(x[i])</code></td></tr>
+<tr><td><code>abs(…)</code></td><td>absolute value (lowercase only: <code>ABS(…)</code> is a syntax error online)</td><td><code>abs(x[i])</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -1426,12 +1429,16 @@ freely.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: center"><code>=</code></td><td style="text-align: center"><code>=</code></td><td>equal</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code></td><td>not equal</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code> or <code>&lt;&gt;</code></td><td>not equal</td></tr>
 <tr><td style="text-align: center"><code>&lt;</code></td><td style="text-align: center"><code>&lt;</code></td><td>less than</td></tr>
 <tr><td style="text-align: center"><code>&gt;</code></td><td style="text-align: center"><code>&gt;</code></td><td>greater than</td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td style="text-align: center"><code>&lt;=</code></td><td>less than or equal</td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td style="text-align: center"><code>&gt;=</code></td><td>greater than or equal</td></tr>
 <tr><td style="text-align: center"><code>|</code></td><td style="text-align: center"></td><td>divides: <code>a|b</code> means <em>b mod a = 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>does not divide: <code>a ∤ b</code> means <em>b mod a ≠ 0</em></td></tr>
 </tbody>
 </table>
 </div>
@@ -1468,7 +1475,7 @@ d: 6
 <tr><td><code>and</code></td><td><code>és</code></td><td>both are true</td></tr>
 <tr><td><code>or</code></td><td><code>vagy</code></td><td>at least one is true</td></tr>
 <tr><td><code>not</code></td><td><code>nem</code></td><td>negation</td></tr>
-<tr><td><code>→</code> or <code>-&gt;</code></td><td></td><td>implication</td></tr>
+<tr><td><code>-&gt;</code></td><td></td><td>implication</td></tr>
 <tr><td><code>true</code>, <code>false</code></td><td><code>igaz</code>, <code>hamis</code></td><td>constants</td></tr>
 </tbody>
 </table>
@@ -1480,7 +1487,7 @@ documentation. speci-local doesn’t accept them. Use <code>true</code>/<code>fa
 want your specification to work in both.</p>
 </blockquote>
 <h3 id="implication"><a class="header" href="#implication">Implication</a></h3>
-<p><code>A → B</code> (“if A then B”) is false only when A is true and B is false:</p>
+<p><code>A -&gt; B</code> (“if A then B”) is false only when A is true and B is false:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1502,7 +1509,7 @@ Aux: found∈L, ind∈N
 Out: neg∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, x[i]&lt;0) and
-      (found → neg=x[ind])
+      (found -&gt; neg=x[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 x: [5, -2, -8]
@@ -1513,13 +1520,34 @@ neg: -2
 <pre><code class="language-yaml">n: 2
 x: [5, 2]
 found: false
+ind: 0
 neg: 0
 </code></pre>
 <p>In the second test nothing was found, so <code>neg</code> may be anything. Chapter
 <a href="#search-search">Search</a> has more on this.</p>
 <h3 id="precedence"><a class="header" href="#precedence">Precedence</a></h3>
-<p>From strongest to weakest: arithmetic, then comparisons, then <code>not</code>, <code>and</code>,
-<code>or</code>, <code>→</code>. When in doubt, add parentheses. They cost nothing:</p>
+<p>From strongest to weakest: arithmetic, then comparisons, then <code>not</code>, then
+<strong><code>-&gt;</code></strong>, then <code>and</code>, then <code>or</code>. Implication binds <em>more tightly</em> than <code>and</code>
+and <code>or</code>, and it groups to the right:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>You write</th><th>The editor reads</th></tr>
+</thead>
+<tbody>
+<tr><td><code>a and b -&gt; c</code></td><td><code>a and (b -&gt; c)</code></td></tr>
+<tr><td><code>a or b -&gt; c</code></td><td><code>a or (b -&gt; c)</code></td></tr>
+<tr><td><code>not a -&gt; b</code></td><td><code>(not a) -&gt; b</code></td></tr>
+<tr><td><code>a -&gt; b = c</code></td><td><code>a -&gt; (b = c)</code></td></tr>
+<tr><td><code>a -&gt; b -&gt; c</code></td><td><code>a -&gt; (b -&gt; c)</code></td></tr>
+<tr><td><code>A -&gt; x=1 and B -&gt; x=2</code></td><td><code>(A -&gt; x=1) and (B -&gt; x=2)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>The last row is why a list of cases chained with <code>and</code> works without parentheses.
+The trap is a compound condition on the left: <code>x&gt;0 and y&gt;0 -&gt; s=1</code> means
+<code>x&gt;0 and (y&gt;0 -&gt; s=1)</code>. Put the condition in parentheses:
+<code>(x&gt;0 and y&gt;0) -&gt; s=1</code>. When in doubt, add parentheses. They cost nothing:</p>
 <pre><code class="language-speci fragment">Pre: n&gt;0 and (3&lt;4 or ((3)&gt;4))
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
@@ -1588,14 +1616,14 @@ hasSmall: true
 <tbody>
 <tr><td style="text-align: center"><code>∀</code></td><td><code>forall</code></td><td><code>minden</code></td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td><code>exists</code></td><td><code>létezik</code></td></tr>
-<tr><td style="text-align: center"><code>∈</code></td><td><code>element</code></td><td><code>eleme</code></td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td><code>element</code> (speci-local only)</td><td><code>eleme</code></td></tr>
 </tbody>
 </table>
 </div>
 <pre><code class="language-speci">In: n∈N, x∈N[1..n]
 Out: ok∈L
 Pre: -
-Post: ok=forall i element [1..n]:(x[i]&gt;0)
+Post: ok=forall i ∈ [1..n]:(x[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 2
 x: [1, 2]
@@ -1761,10 +1789,10 @@ tuple.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>Write the arrow as ASCII <code>-&gt;</code>. The Insert bar has no arrow button, and the
-Unicode <code>→</code> has been reported to fail in signatures. The arrows you see in
-screenshots are most likely <code>-&gt;</code> drawn by the editor’s font. <code>-&gt;</code> always
-works.</p>
+<p>Write the arrow as ASCII <code>-&gt;</code>. The online editor does not accept the Unicode
+arrow <code>→</code> anywhere, neither in signatures nor as the implication operator (error:
+<code>Expected … but "→" found</code>). The arrows you see in the editor and in screenshots
+are <code>-&gt;</code> drawn as a single glyph by the editor’s font.</p>
 </blockquote>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <div class="table-wrapper">
@@ -1826,18 +1854,38 @@ c: 8
 d: 3
 </code></pre>
 <h2 id="several-functions-1"><a class="header" href="#several-functions-1">Several functions</a></h2>
-<p>Separate several definitions in one <code>Fn:</code> block with commas. Each one may use
-the ones before it:</p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
+<p>Write each definition under its own <code>Fn:</code> header. Each one may use the ones
+before it. (One <code>Fn:</code> block with comma-separated definitions is rejected by the
+online editor.)</p>
+<pre><code class="language-speci online">In: n∈N, x∈N[1..n]
 Out: c∈N
-Fn: even:N-&gt;L, even(v)=v mod 2 = 0,
-    good:N-&gt;L, good(i)=even(x[i]) and x[i]&gt;0
+Fn: even:N-&gt;L, even(v)=v mod 2 = 0
+Fn: good:N-&gt;L, good(i)=even(x[i]) and x[i]&gt;0
 Pre: -
 Post: c=COUNT(i=1..n, good(i))
 </code></pre>
 <pre><code class="language-yaml">n: 5
 x: [0, 2, 3, 8, 7]
 c: 2
+</code></pre>
+<h2 id="piecewise-definitions"><a class="header" href="#piecewise-definitions">Piecewise definitions</a></h2>
+<p>A function body can list cases in braces, the way a piecewise function is
+written in mathematics. Each case is a value, then <code>ha</code> (“if”) and a condition;
+the cases are separated by <code>;</code>, and the last one may be <code>egyébként</code>
+(“otherwise”). This form comes from the course material:</p>
+<pre><code class="language-speci online">In: a∈Z, b∈Z
+Out: m∈Z
+Fn: bigger:Z x Z-&gt;Z, bigger(p,q)={p, ha p&gt;=q; q egyébként}
+Pre: -
+Post: m=bigger(a,b)
+</code></pre>
+<pre><code class="language-yaml">a: 3
+b: 8
+m: 8
+</code></pre>
+<pre><code class="language-yaml">a: 5
+b: 2
+m: 5
 </code></pre>
 <h2 id="record-parameters"><a class="header" href="#record-parameters">Record parameters</a></h2>
 <pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
@@ -1970,7 +2018,7 @@ postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</
 <tr><td><a href="#maximum-and-minimum-max-min">Minimum selection</a></td><td>minimumkiválasztás</td><td><code>(ind,val)=MIN(i=b..e, f(i))</code></td><td>(index, value)</td></tr>
 <tr><td><a href="#decision-exists-forall">Decision</a></td><td>eldöntés</td><td><code>l=EXISTS(i=b..e, β(i))</code></td><td>logical</td></tr>
 <tr><td><a href="#decision-exists-forall">Decision (all)</a></td><td>eldöntés (mind)</td><td><code>l=FORALL(i=b..e, β(i))</code></td><td>logical</td></tr>
-<tr><td><a href="#selection-select">Selection</a></td><td>kiválasztás</td><td><code>ind=SELECT(i≥b, β(i))</code></td><td>index</td></tr>
+<tr><td><a href="#selection-select">Selection</a></td><td>kiválasztás</td><td><code>ind=SELECT(i&gt;=b, β(i))</code></td><td>index</td></tr>
 <tr><td><a href="#search-search">Search</a></td><td>keresés</td><td><code>(found,ind)=SEARCH(i=b..e, β(i))</code></td><td>(logical, index)</td></tr>
 <tr><td><a href="#copy-copy">Copy</a></td><td>másolás</td><td><code>y=COPY(i=b..e, f(i))</code></td><td>array</td></tr>
 <tr><td><a href="#multiple-item-selection-mis">Multiple item selection</a></td><td>kiválogatás</td><td><code>(c,y)=MIS(i=b..e, β(i))</code><br><code>(c,y)=MIS(i=b..e, β(i), f(i))</code></td><td>(count, array)</td></tr>
@@ -1982,7 +2030,60 @@ postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</
 <p>All macros share the same first argument, the <strong>loop range</strong> <code>i=b..e</code>. It
 names the loop variable (any lowercase name: <code>i</code>, <code>j</code>, <code>p</code>, …) and the
 interval it runs through. <code>SELECT</code> is the exception: it only has a starting
-point, <code>i≥b</code>.</p>
+point, <code>i&gt;=b</code>. Write it with <code>&gt;=</code>: the online editor rejects <code>≥</code> in this
+position (<code>Expected "&gt;=" but "≥" found</code>), although <code>≥</code> works everywhere else.</p>
+<h2 id="other-names-for-the-macros"><a class="header" href="#other-names-for-the-macros">Other names for the macros</a></h2>
+<p>The online editor also accepts the names below. The ones marked ✓ were
+checked: they give the same result as the English macro on the same data. The
+others appear in the editor’s list of accepted words and their meaning is clear
+from the name, but they were not checked one by one.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Macro</th><th>Also accepted</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>speci-local knows only the English names and <code>DARAB</code>. Use those if the
+specification has to work in both editors.</p>
+<h2 id="other-names-for-the-macros"><a class="header" href="#other-names-for-the-macros">Other names for the macros</a></h2>
+<p>The online editor also accepts the names below. The ones marked ✓ were
+checked: they give the same result as the English macro on the same data. The
+others appear in the editor’s list of accepted words and their meaning is clear
+from the name, but they were not checked one by one.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Macro</th><th>Also accepted</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>speci-local knows only the English names and <code>DARAB</code>. Use those if the
+specification has to work in both editors.</p>
 <h2 id="which-theorem-do-i-need"><a class="header" href="#which-theorem-do-i-need">Which theorem do I need?</a></h2>
 <p>Start from the question the task asks. What kind of answer does it want?</p>
 <div class="decision-tree">
@@ -2322,7 +2423,7 @@ previous day?</em></p>
 <pre><code class="language-speci">In: n∈N, t∈Z[1..n]
 Out: day∈N
 Pre: n≥2
-Post: (day,)=MAX(i=2..n, ABS(t[i]-t[i-1]))
+Post: (day,)=MAX(i=2..n, abs(t[i]-t[i-1]))
 </code></pre>
 <pre><code class="language-yaml">n: 5
 t: [10, 12, 4, 6, 7]
@@ -2438,7 +2539,7 @@ someDay: true
 <p><strong>Selection</strong> (<em>kiválasztás</em>) finds the first index, starting from a given
 point, at which a condition holds, <strong>when such an index is known to exist</strong>.</p>
 <div class="syntax-card">
-<p><strong>Form:</strong> <code>ind=SELECT(i≥b, β(i))</code><br>
+<p><strong>Form:</strong> <code>ind=SELECT(i&gt;=b, β(i))</code><br>
 <strong>Result:</strong> the smallest <code>i ≥ b</code> for which <code>β(i)</code> holds<br>
 <strong>Requirement:</strong> the precondition must guarantee that such an <code>i</code> exists</p>
 </div>
@@ -2452,7 +2553,7 @@ search could run forever.</p>
 <pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 nums: [23, 25, 26, 28, 29]
@@ -2482,7 +2583,7 @@ than 1</em> (for n ≥ 2, n itself is always a divisor):</p>
 <pre><code class="language-speci">In: n∈N
 Out: d∈N
 Pre: n≥2
-Post: d=SELECT(i≥2, i|n)
+Post: d=SELECT(i&gt;=2, i|n)
 </code></pre>
 <pre><code class="language-yaml">n: 35
 d: 5
@@ -2564,7 +2665,7 @@ Aux: found∈L, ind∈N
 Out: name∈S
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, ages[i]&lt;18) and
-      (found → name=names[ind])
+      (found -&gt; name=names[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 names: [Anna, Bence, Cili]
@@ -2577,16 +2678,18 @@ name: Bence
 names: [Anna, Dani]
 ages: [21, 30]
 found: false
+ind: 0
 name: ""
 </code></pre>
-<p>When nothing is found, <code>found → …</code> is true no matter what <code>name</code> is.</p>
+<p>When nothing is found, <code>found -&gt; …</code> is true no matter what <code>name</code> is.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><code>→</code> is the weakest operator. Without the parentheses,
-<code>(found,ind)=SEARCH(…) and found → name=names[ind]</code> parses as
-<code>((found,ind)=SEARCH(…) and found) → name=…</code>, which is true whenever the
-search part is wrong, so a test with wrong data can still pass. Always
-write <code>and (found → …)</code>.</p>
+<p><code>-&gt;</code> binds more tightly than <code>and</code>, so
+<code>(found,ind)=SEARCH(…) and found -&gt; name=names[ind]</code> already means
+<code>(found,ind)=SEARCH(…) and (found -&gt; name=…)</code>. The parentheses are not required
+here, but write them anyway: they make the intent obvious. They <em>are</em> required when
+the condition is compound: <code>found and ok -&gt; …</code> means <code>found and (ok -&gt; …)</code>, so
+write <code>(found and ok) -&gt; …</code>. See <a href="#precedence">Precedence</a>.</p>
 </blockquote>
 <h2 id="a-sentinel-value-instead-of-a-flag"><a class="header" href="#a-sentinel-value-instead-of-a-flag">A sentinel value instead of a flag</a></h2>
 <p>Some tasks don’t want a logical value. They want a special output, usually −1,
@@ -2602,8 +2705,8 @@ Aux: found∈L, ind∈N
 Out: res∈Z
 Pre: -
 Post: (found,ind)=SEARCH(i=1..n, price[i]&lt;k) and
-      (found → res=ind) and
-      (not found → res=-1)
+      (found -&gt; res=ind) and
+      (not found -&gt; res=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 6
 k: 2000
@@ -2616,6 +2719,7 @@ res: 3
 k: 100
 price: [2500, 5300, 1900]
 found: false
+ind: 0
 res: -1
 </code></pre>
 <p>The worked example <a href="#christmas-trees">Christmas trees</a> solves the same task
@@ -2668,7 +2772,7 @@ every element of a range.</p>
 <pre><code class="language-speci">In: n∈N, numbers∈Z[1..n]
 Out: target∈N[1..n]
 Pre: -
-Post: target=COPY(i=1..n, ABS(numbers[i]))
+Post: target=COPY(i=1..n, abs(numbers[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 4
 numbers: [3, -5, 0, -1]
@@ -2890,7 +2994,7 @@ test case passes. Writing 0 is a common convention.</p>
 <p>If the task wants a specific “no answer” value, produce it in the
 postcondition with implications, as in
 <a href="#a-sentinel-value-instead-of-a-flag">Search</a>:
-<code>(found → res=val) and (not found → res=-1)</code>.</p>
+<code>(found -&gt; res=val) and (not found -&gt; res=-1)</code>.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="combining-theorems"><a class="header" href="#combining-theorems">Combining theorems</a></h1>
@@ -2980,7 +3084,7 @@ fails only the inner check, one that passes it, and an empty input.</li>
 <h1 id="postconditions-without-theorems"><a class="header" href="#postconditions-without-theorems">Postconditions without theorems</a></h1>
 <p>A postcondition doesn’t <em>have</em> to use theorem macros. Any logical statement
 over the input and output is valid, and the editor evaluates it directly. This
-<strong>relational</strong> style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>→</code>, is the
+<strong>relational</strong> style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>-&gt;</code>, is the
 notation of the lectures, and some assignments ask for it explicitly.</p>
 <h2 id="the-same-task-in-both-styles"><a class="header" href="#the-same-task-in-both-styles">The same task in both styles</a></h2>
 <blockquote>
@@ -3195,7 +3299,7 @@ Aux: found∈L, ind∈N
 Out: winner∈S
 Pre: n&gt;0
 Post: (found,ind)=SEARCH(i=1..n, races[i].time&lt;limit) and
-      (found → winner=races[ind].name)
+      (found -&gt; winner=races[ind].name)
 </code></pre>
 <pre><code class="language-yaml">n: 3
 races:
@@ -3229,9 +3333,24 @@ winner: ""
 <tr><td>a field is “missing”</td><td>the field name is misspelled, or has different capitalisation</td></tr>
 <tr><td>the record is read wrongly</td><td>indentation is off by one space</td></tr>
 <tr><td><code>exists</code> causes trouble</td><td>it’s a reserved word; rename the variable (see <a href="#search-search">Search</a>)</td></tr>
+<tr><td><code>incomplite type for x: undefined is not natural</code> (or <code>… not float</code>)</td><td><code>x</code> is missing from the test case</td></tr>
+<tr><td><code>data cannot contain item with the same name: x</code></td><td><code>x</code> has an initial value in the declaration (<code>x∈N[1..3]=[…]</code>), so it must <strong>not</strong> appear in the data</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="which-variables-go-into-a-test-case"><a class="header" href="#which-variables-go-into-a-test-case">Which variables go into a test case</a></h2>
+<ul>
+<li><strong>Every</strong> declared input, auxiliary and output variable needs a value in
+<strong>every</strong> test case, even one the postcondition ignores in that case. For example,
+when <code>SEARCH</code> finds nothing, <code>ind</code> is irrelevant, but it still has to be given
+(write <code>ind: 0</code>). A missing value makes the test red with
+<code>incomplite type for ind: undefined is not natural</code>.</li>
+<li>A variable with an <strong>initial value</strong> in its declaration is a constant. Leave it
+<strong>out</strong> of the data: <code>data cannot contain item with the same name</code>.</li>
+<li>Extra keys are not an error. A name that is used in the specification but
+never declared is even taken from the data, so a typo in a declaration can go
+unnoticed. Declare everything you use.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="writing-a-good-test-suite"><a class="header" href="#writing-a-good-test-suite">Writing a good test suite</a></h1>
 <p>A green test shows that the specification fits <em>one</em> example. A good test
@@ -3309,8 +3428,11 @@ write the correct value back in.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h1>
-<p>Once the specification is written and there is at least one test case, press
-<strong>Evaluate</strong>. The editor then processes every test case:</p>
+<p>You don’t have to press anything to get the result: about a second after you
+stop typing, the editor processes every test case and colours its tab green or
+red. (With no test case at all there is nothing to show, so add one first.)
+<strong>Evaluate</strong> is only needed for the trace in the Visualization pane. Each test case
+goes through these steps:</p>
 <ol>
 <li><strong>Parsing.</strong> The specification is read. A syntax error stops everything
 and is shown in the Specification pane.</li>
@@ -3446,7 +3568,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">6</td><td>comparing neighbours up to <code>n</code></td><td><code>x[i+1]</code> out of range</td><td>loop to <code>n-1</code></td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> without an existence guarantee</td><td>wrong results or errors</td><td>add <code>∃…</code> to <code>Pre:</code>, or use <code>SEARCH</code></td></tr>
 <tr><td style="text-align: right">8</td><td>wrong tuple shape</td><td>type mismatch</td><td><code>(ind,)=MAX(…)</code>, <code>(found,,val)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> in a function signature</td><td>syntax error in <code>Fn:</code></td><td>use <code>-&gt;</code></td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> anywhere (signature or implication)</td><td><code>Expected … but "→" found.</code></td><td>use <code>-&gt;</code></td></tr>
 <tr><td style="text-align: right">10</td><td>backward search without negating everything</td><td>wrong index</td><td><code>(found,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML indentation or tabs</td><td>data can’t be read</td><td>2 spaces, or the compact <code>{…}</code> form</td></tr>
 <tr><td style="text-align: right">12</td><td>field names with different case</td><td>field “missing”</td><td>match the declaration exactly</td></tr>
@@ -3455,7 +3577,15 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">15</td><td>a missing filter condition in <code>SUM</code>/<code>COUNT</code></td><td>wrong numbers on some inputs</td><td>put <em>every</em> restriction into the condition</td></tr>
 <tr><td style="text-align: right">16</td><td>a variable named <code>exists</code> / an invented keyword</td><td>“incomplite type…” / “Expected …”</td><td>rename / use <code>Sa:</code></td></tr>
 <tr><td style="text-align: right">17</td><td>a −1 result declared as <code>N</code></td><td>the “not found” test fails</td><td>declare it <code>Z</code> and produce the −1 in <code>Post:</code></td></tr>
-<tr><td style="text-align: right">18</td><td>an implication without parentheses</td><td>wrong data still passes</td><td><code>… and (found → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>a compound condition before <code>-&gt;</code> without parentheses</td><td><code>a and b -&gt; c</code> means <code>a and (b -&gt; c)</code></td><td><code>(a and b) -&gt; c</code></td></tr>
+<tr><td style="text-align: right">19</td><td>a value missing from a test case (often <code>ind</code> when nothing is found)</td><td><code>incomplite type for ind: undefined is not natural</code></td><td>give every declared variable a value, e.g. <code>ind: 0</code></td></tr>
+<tr><td style="text-align: right">20</td><td>a constant (declared with <code>=[…]</code>) repeated in the data</td><td><code>data cannot contain item with the same name: days</code></td><td>remove it from the data</td></tr>
+<tr><td style="text-align: right">21</td><td>a name used but never declared</td><td><code>Identifier: no data found in context: […], q</code></td><td>declare it</td></tr>
+<tr><td style="text-align: right">22</td><td>an undeclared array indexed, e.g. <code>nev[i]</code></td><td><code>Cannot read properties of undefined (reading 'toString')</code></td><td>declare it (<code>nev∈S[1..n]</code>)</td></tr>
+<tr><td style="text-align: right">23</td><td>the English word <code>element</code> for <code>∈</code></td><td><code>Expected halmaz or white space but "n" found.</code></td><td>use <code>∈</code> or <code>eleme</code></td></tr>
+<tr><td style="text-align: right">24</td><td>several functions in one <code>Fn:</code> block</td><td><code>Expected … but "," found.</code></td><td>one <code>Fn:</code> header per function</td></tr>
+<tr><td style="text-align: right">25</td><td><code>ABS(…)</code></td><td><code>Expected … but "A" found.</code></td><td><code>abs(…)</code></td></tr>
+<tr><td style="text-align: right">26</td><td><code>≥</code> in <code>SELECT(i≥1, …)</code></td><td><code>Expected "&gt;=" but "≥" found.</code></td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -3553,7 +3683,7 @@ Aux: found∈L, ind∈N
 Out: lib∈S
 Pre: ∀i∈[1..n]:(pl[i].x≥0 and pl[i].y≥0)
 Post: (found,ind)=SEARCH(i=1..n-1, pl[i].y&lt;pl[i+1].y) and
-      (found → lib=pl[ind].name)
+      (found -&gt; lib=pl[ind].name)
 </code></pre>
 <h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
 <p>The statement’s example, where L4 (y = 4) is followed by L5 (y = 47):</p>
@@ -3620,14 +3750,12 @@ implication requires <code>lib = pl[4].name = "L4"</code>.</p>
 <h2 id="about-the-parentheses"><a class="header" href="#about-the-parentheses">About the parentheses</a></h2>
 <p>The official solution writes the last line without parentheses:</p>
 <pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -&gt; lib=pl[ind].name
 </code></pre>
-<p>Because <code>→</code> binds more weakly than <code>and</code>, this means
-<code>(SEARCH… and exists) → lib=…</code>. If a test case has wrong values for <code>exists</code> or
-<code>ind</code>, the left side is false and the whole statement is <em>true</em>, so
-the error goes unnoticed. With the parentheses, as above, the red test is
-correctly red. (The official solution also names the flag <code>exists</code>, which the
-current editor rejects. See <a href="#search-search">Search</a>.)</p>
+<p>Because <code>-&gt;</code> binds more tightly than <code>and</code>, this means
+<code>SEARCH… and (exists -&gt; lib=…)</code>, the same as the parenthesised version above.
+The parentheses only make the intent visible. (The official solution also names the
+flag <code>exists</code>, which the current editor rejects. See <a href="#search-search">Search</a>.)</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="yossarians-map"><a class="header" href="#yossarians-map">Yossarian’s map</a></h1>
 <blockquote>
@@ -3949,7 +4077,7 @@ maxval: 25
 <p>This specification measures the change as <code>data[i]-data[i+1]</code>, a <em>signed</em>
 difference, exactly like the official solution. If “change” should mean
 the size of the change in either direction, use
-<code>ABS(data[i]-data[i+1])</code>. Then the answer for the first test is still 6,
+<code>abs(data[i]-data[i+1])</code>. Then the answer for the first test is still 6,
 but for <code>data: [20, 45]</code> it would be 25 instead of −25.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -4200,30 +4328,23 @@ always be satisfied.</li>
 <li>No <code>Sa:</code> and no <code>Fv:</code> are needed: the mapping is data, not logic.</li>
 </ul>
 <h2 id="tests-6"><a class="header" href="#tests-6">Tests</a></h2>
-<p>The constant arrays are part of the declared input, so they also appear in the
-test data:</p>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "asz"
+<p>The constant arrays already have their values, so they must <strong>not</strong> appear in the
+test data. Only <code>lap</code> and the expected <code>ertek</code> are given:</p>
+<pre><code class="language-yaml">lap: "asz"
 ertek: 11
 </code></pre>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "also"
+<pre><code class="language-yaml">lap: "also"
 ertek: 2
 </code></pre>
 <p>A card that doesn’t exist violates the precondition:</p>
-<pre><code class="language-yaml red">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "joker"
+<pre><code class="language-yaml red">lap: "joker"
 ertek: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The template that <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> generates
-lists every input, the constant arrays included. If your editor version fills
-them in from the declaration and complains about the duplicates, delete those
-two lines from the test.</p>
+<p>If you repeat them in the data, the test is red with
+<code>data cannot contain item with the same name: lapok</code>. (The course’s own solution
+gives only <code>lap</code> and <code>ertek</code> too.)</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="christmas-trees"><a class="header" href="#christmas-trees">Christmas trees</a></h1>
@@ -4728,8 +4849,8 @@ and paste it into the Specification pane.</li>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="differences-from-the-online-editor"><a class="header" href="#differences-from-the-online-editor">Differences from the online editor</a></h1>
 <p>speci-local aims to accept exactly what the ELTE editor accepts and to judge
-every test the same way. A few differences remain. They were found while
-checking the examples of this book.</p>
+every test the same way. A few differences remain. They were found by running
+every example of this book in the online editor (version 1.5.2, November 2026).</p>
 <h2 id="accepted-only-by-the-online-editor"><a class="header" href="#accepted-only-by-the-online-editor">Accepted only by the online editor</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4738,14 +4859,49 @@ checking the examples of this book.</p>
 </thead>
 <tbody>
 <tr><td>Hungarian logical constants</td><td><code>igaz</code>, <code>hamis</code></td><td>use <code>true</code>, <code>false</code></td></tr>
-<tr><td>Hungarian quantifier and membership words</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td>use <code>∀</code>, <code>∃</code>, <code>∈</code> or <code>forall</code>, <code>exists</code>, <code>element</code></td></tr>
+<tr><td>Hungarian quantifier and membership words</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td>use <code>∀</code>, <code>∃</code>, <code>∈</code> or <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>Hungarian array functions</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td>use <code>length</code>, <code>from</code>, <code>to</code></td></tr>
 <tr><td>Array literals with an index range</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>write plain literals</td></tr>
-<tr><td>A separate <code>Fn:</code> header for each function</td><td><code>Fn: f…</code> <code>Fn: g…</code></td><td>one <code>Fn:</code> block, functions separated by commas</td></tr>
+<tr><td>A separate <code>Fn:</code> header for each function (the <strong>only</strong> form the online editor accepts)</td><td><code>Fn: f…</code> <code>Fn: g…</code></td><td>one <code>Fn:</code> block, functions separated by commas</td></tr>
+<tr><td><code>Def:</code> as a function header</td><td><code>Def: f:N-&gt;N, f(a)=a*2</code></td><td>use <code>Fn:</code></td></tr>
+<tr><td>Piecewise function bodies</td><td><code>{p, ha p&gt;=q; q egyébként}</code></td><td>not supported; use implications</td></tr>
+<tr><td>Operators <code>&lt;&gt;</code>, <code>div</code>, <code>∤</code></td><td><code>a &lt;&gt; b</code>, <code>7 div 2</code>, <code>a ∤ b</code></td><td>use <code>!=</code>; the others are not supported</td></tr>
+<tr><td>Other macro names</td><td><code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …</td><td>use the English names (see <a href="#other-names-for-the-macros">Other names for the macros</a>)</td></tr>
 </tbody>
 </table>
 </div>
 <p>Examples using these features are marked <strong>ONLINE EDITOR</strong> in this book.</p>
+<h2 id="accepted-only-by-speci-local"><a class="header" href="#accepted-only-by-speci-local">Accepted only by speci-local</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Example</th><th>In the online editor</th></tr>
+</thead>
+<tbody>
+<tr><td>Unicode arrow</td><td><code>found → x=1</code></td><td>syntax error; write <code>-&gt;</code></td></tr>
+<tr><td>The word <code>element</code></td><td><code>a element N</code></td><td>syntax error; write <code>∈</code> or <code>eleme</code></td></tr>
+<tr><td>Upper-case <code>ABS</code></td><td><code>ABS(x)</code></td><td>syntax error; write <code>abs(x)</code></td></tr>
+<tr><td>Several functions in one <code>Fn:</code> block</td><td><code>Fn: f…, g…</code></td><td>syntax error at the comma; one header per function</td></tr>
+<tr><td><code>≥</code> in <code>SELECT</code></td><td><code>SELECT(i≥1, …)</code></td><td>syntax error; write <code>i&gt;=1</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="judged-differently"><a class="header" href="#judged-differently">Judged differently</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Situation</th><th>Online editor</th><th>speci-local</th></tr>
+</thead>
+<tbody>
+<tr><td>Precedence of <code>-&gt;</code></td><td>between <code>not</code> and <code>and</code>: <code>a and b -&gt; c</code> means <code>a and (b -&gt; c)</code></td><td>weakest: <code>(a and b) -&gt; c</code></td></tr>
+<tr><td>A declared variable missing from a test case</td><td>red: <code>incomplite type for x: …</code></td><td>computed and shown</td></tr>
+<tr><td>A constant (declared with <code>=[…]</code>) also given in the data</td><td>red: <code>data cannot contain item with the same name</code></td><td>the value from the data is used</td></tr>
+</tbody>
+</table>
+</div>
+<p>Parenthesise every compound condition before <code>-&gt;</code>, give every variable a
+value in every test case, and leave constants out of the data. Then a
+specification behaves the same in both editors.</p>
 <h2 id="known-issues"><a class="header" href="#known-issues">Known issues</a></h2>
 <ul>
 <li>A <strong>matrix with an initial value and a non-1-based range</strong>, such as
@@ -4756,29 +4912,29 @@ speci-local. <code>m5[-1,-1]</code> is reported out of range.</li>
 <ul>
 <li>Much more detailed error messages, with a suggested fix.</li>
 <li>Output values missing from a test are computed and shown.</li>
-<li>Automatic evaluation as you type.</li>
 <li>Completion and snippets.</li>
 <li>Recognises a few common misspellings of headers (for example <code>Segéd:</code> or
 <code>Input:</code>) and suggests the right one.</li>
-<li><code>CONDMIN</code>, the minimum counterpart of <code>CONDMAX</code>.</li>
 <li>Local <code>.sp</code> files, and one-line project sharing (<code>SPECI1:</code>).</li>
 </ul>
+<p>Both editors evaluate automatically as you type, and both have <code>CONDMIN</code>.</p>
 <h2 id="not-included"><a class="header" href="#not-included">Not included</a></h2>
 <ul>
 <li>The history pane.</li>
 <li>Server-side saving and permalinks. Use <code>.sp</code> files and <code>SPECI1:</code> lines instead.</li>
 </ul>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="appendix-a-grammar-reference"><a class="header" href="#appendix-a-grammar-reference">Appendix A: Grammar reference</a></h1>
 <p>This appendix summarises the whole specification language on one page.
 Follow the links for explanations and examples.</p>
 <h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
-<pre><code class="language-text">specification  =  In-block [Aux-block] Out-block [Fn-block] Pre-block Post-block
+<pre><code class="language-text">specification  =  In-block [Aux-block] Out-block {Fn-block} Pre-block Post-block
 
 In-block       =  ("In:"  | "Be:") declarations
 Aux-block      =  ("Aux:" | "Sa:") declarations
 Out-block      =  ("Out:" | "Ki:") declarations
-Fn-block       =  ("Fn:"  | "Fv:") function { "," function }
+Fn-block       =  ("Fn:"  | "Fv:" | "Def:") function     (one block per function)
 Pre-block      =  ("Pre:" | "Ef:") condition | "-"
 Post-block     =  ("Post:"| "Uf:") condition
 
@@ -4786,7 +4942,7 @@ declarations   =  item { "," item }
 item           =  name "∈" set  [ "=" literal ]   |   SetName "=" set
 function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expression
 </code></pre>
-<p><code>∈</code> can be written <code>element</code>. Comments, <code>// …</code> and <code>/* … */</code>, may appear anywhere.
+<p><code>∈</code> can be written <code>eleme</code> (online editor) or <code>element</code> (speci-local). Comments, <code>// …</code> and <code>/* … */</code>, may appear anywhere.
 <a href="#blocks-and-layout">More →</a></p>
 <h2 id="sets"><a class="header" href="#sets">Sets</a></h2>
 <div class="table-wrapper">
@@ -4815,10 +4971,10 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tbody>
 <tr><td>constants</td><td><code>5</code>, <code>-3</code>, <code>2.5</code>, <code>"text"</code>, <code>true</code>, <code>false</code></td></tr>
 <tr><td>access</td><td><code>x[i]</code>, <code>m[i,j]</code>, <code>a[i][j]</code>, <code>r.field</code>, <code>t.1</code>, <code>MAX(…).maxval</code></td></tr>
-<tr><td>arithmetic</td><td><code>+ - * /</code>, <code>mod</code> or <code>%</code>, <code>ABS(e)</code></td></tr>
-<tr><td>comparison</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, chained <code>a≤b≤c</code></td></tr>
+<tr><td>arithmetic</td><td><code>+ - * /</code>, <code>div</code>, <code>mod</code> or <code>%</code>, <code>abs(e)</code> (lowercase)</td></tr>
+<tr><td>comparison</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, <code>&lt;&gt;</code>, chained <code>a≤b≤c</code>; divisibility <code>a|b</code>, <code>a ∤ b</code></td></tr>
 <tr><td>divisibility</td><td><code>a|b</code> (a divides b)</td></tr>
-<tr><td>logic</td><td><code>and</code>/<code>és</code>, <code>or</code>/<code>vagy</code>, <code>not</code>/<code>nem</code>, <code>→</code>/<code>-&gt;</code></td></tr>
+<tr><td>logic</td><td><code>and</code>/<code>és</code>, <code>or</code>/<code>vagy</code>, <code>not</code>/<code>nem</code>, <code>-&gt;</code></td></tr>
 <tr><td>membership</td><td><code>e∈[a..b]</code></td></tr>
 <tr><td>quantifiers</td><td><code>∀i∈[a..b]:(…)</code>, <code>∃i∈[a..b]:(…)</code>; words <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>built-ins</td><td><code>length(x)</code>, <code>from(x)</code>, <code>to(x)</code></td></tr>
@@ -4826,7 +4982,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 </tbody>
 </table>
 </div>
-<p>Precedence, from weakest to strongest: <code>→</code>, <code>or</code>, <code>and</code>, <code>not</code>, comparisons,
+<p>Precedence, from weakest to strongest: <code>or</code>, <code>and</code>, <code>-&gt;</code> (groups to the right), <code>not</code>, comparisons,
 <code>+ -</code>, <code>* / mod</code>, unary minus, access. <a href="#operators">More →</a></p>
 <h2 id="theorem-macros"><a class="header" href="#theorem-macros">Theorem macros</a></h2>
 <div class="table-wrapper">
@@ -4839,7 +4995,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tr><td><code>COUNT(i=b..e, β(i))</code>, <code>DARAB(…)</code></td><td>count</td></tr>
 <tr><td><code>MAX(i=b..e, f(i))</code>, <code>MIN(…)</code></td><td>(index, value)</td></tr>
 <tr><td><code>EXISTS(i=b..e, β(i))</code>, <code>FORALL(…)</code></td><td>logical</td></tr>
-<tr><td><code>SELECT(i≥b, β(i))</code></td><td>index</td></tr>
+<tr><td><code>SELECT(i&gt;=b, β(i))</code></td><td>index</td></tr>
 <tr><td><code>SEARCH(i=b..e, β(i))</code></td><td>(logical, index)</td></tr>
 <tr><td><code>COPY(i=b..e, f(i))</code></td><td>array</td></tr>
 <tr><td><code>MIS(i=b..e, β(i))</code>, <code>MIS(i=b..e, β(i), f(i))</code></td><td>(count, array)</td></tr>
@@ -4847,7 +5003,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 </tbody>
 </table>
 </div>
-<p><a href="#postconditions-and-theorems">More →</a></p>
+<p>In <code>SELECT</code> write <code>&gt;=</code>, not <code>≥</code>. Other accepted names (<code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …) are listed in <a href="#other-names-for-the-macros">Other names for the macros</a>. <a href="#postconditions-and-theorems">More →</a></p>
 <h2 id="rules-the-editor-enforces"><a class="header" href="#rules-the-editor-enforces">Rules the editor enforces</a></h2>
 <ol>
 <li>Headers are case-sensitive and spelled exactly as above.</li>
@@ -4867,18 +5023,18 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tr><th style="text-align: center">Symbol</th><th>Name</th><th>Online editor</th><th>speci-local</th><th>ASCII / word form</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td>element of</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>element</code>, <code>eleme</code>*</td></tr>
-<tr><td style="text-align: center"><code>∀</code></td><td>for all</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
-<tr><td style="text-align: center"><code>∃</code></td><td>there exists</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td>not equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code></td></tr>
-<tr><td style="text-align: center"><code>≤</code></td><td>less or equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
-<tr><td style="text-align: center"><code>≥</code></td><td>greater or equal</td><td>Insert button</td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
-<tr><td style="text-align: center"><code>→</code></td><td>implies</td><td></td><td></td><td><code>-&gt;</code></td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td>element of</td><td>Insert button or <kbd>Alt</kbd>+<kbd>1</kbd></td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>eleme</code>*, <code>element</code>†</td></tr>
+<tr><td style="text-align: center"><code>∀</code></td><td>for all</td><td>Insert button or <kbd>Alt</kbd>+<kbd>2</kbd></td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
+<tr><td style="text-align: center"><code>∃</code></td><td>there exists</td><td>Insert button or <kbd>Alt</kbd>+<kbd>3</kbd></td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td>not equal</td><td>Insert button or <kbd>Alt</kbd>+<kbd>4</kbd></td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code></td></tr>
+<tr><td style="text-align: center"><code>≤</code></td><td>less or equal</td><td>Insert button or <kbd>Alt</kbd>+<kbd>5</kbd></td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
+<tr><td style="text-align: center"><code>≥</code></td><td>greater or equal</td><td>Insert button or <kbd>Alt</kbd>+<kbd>6</kbd></td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
+<tr><td style="text-align: center"><code>→</code></td><td>implies</td><td><strong>not accepted</strong>, type <code>-&gt;</code></td><td></td><td><code>-&gt;</code></td></tr>
 <tr><td style="text-align: center"><code>¬</code> <code>∧</code> <code>∨</code></td><td>not, and, or</td><td></td><td></td><td><code>not</code>, <code>and</code>, <code>or</code></td></tr>
 </tbody>
 </table>
 </div>
-<p>* only in the online editor.</p>
+<p>* only in the online editor. † only in speci-local.</p>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>On Linux you can also type these symbols with a compose key, and on any
@@ -4895,6 +5051,8 @@ the fastest to type, and they are accepted everywhere.</p>
 <tr><td><kbd>S</kbd> / <kbd>D</kbd> / <kbd>V</kbd> / <kbd>H</kbd> buttons</td><td>show/hide the Specification, Data, Visualization, History panes</td></tr>
 <tr><td><kbd>Shift</kbd>+<kbd>Space</kbd>, then <kbd>Tab</kbd></td><td>insert a test case template (in the Data pane)</td></tr>
 <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>step backward / forward in the Stepper</td></tr>
+<tr><td><kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (Mac: <kbd>Cmd</kbd>)</td><td>insert <code>∈ ∀ ∃ ≠ ≤ ≥</code></td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save (shown in the Save button’s tooltip)</td></tr>
 </tbody>
 </table>
 </div>
@@ -4949,7 +5107,7 @@ the fastest to type, and they are accepted everywhere.</p>
 <tr><td><code>or</code></td><td><code>vagy</code></td><td>or</td></tr>
 <tr><td><code>not</code></td><td><code>nem</code></td><td>not</td></tr>
 <tr><td><code>true</code> / <code>false</code></td><td><code>igaz</code> / <code>hamis</code>*</td><td>true / false</td></tr>
-<tr><td><code>element</code> (<code>∈</code>)</td><td><code>eleme</code>*</td><td>element of</td></tr>
+<tr><td><code>element</code> (<code>∈</code>), speci-local only</td><td><code>eleme</code>*</td><td>element of</td></tr>
 <tr><td><code>forall</code> (<code>∀</code>)</td><td><code>minden</code>*</td><td>for all</td></tr>
 <tr><td><code>exists</code> (<code>∃</code>)</td><td><code>létezik</code>*</td><td>there exists</td></tr>
 <tr><td><code>length</code></td><td><code>hossz</code>*</td><td>length of an array</td></tr>
@@ -5079,6 +5237,9 @@ Hungarian. The <a href="../hu/appendix-05-builtin.html">Hungarian edition</a> of
 shows the original text.</p>
 <p>The document uses the Hungarian word forms (<code>igaz</code>, <code>minden</code>, <code>eleme</code>,
 <code>hossz</code>, …) and several <code>Fv:</code> headers, so it runs only in the online editor.</p>
+<p>It is meant to be read, not run. Pasted into the editor (version 1.5.2), it
+parses, but it stops at the first declared variable that the postcondition
+(<code>Uf: igaz</code>) doesn’t mention: <code>a is missing from the post condition!</code>.</p>
 <pre><code class="language-speci online">/** Documentation */
 
 /** Description of the input data */

@@ -11,69 +11,75 @@ Documentation by [csabi.zip](https://csabi.zip). If it helped you, you can
 
 ## Structure
 
-The repository root is the website:
+The repository is the website: plain static HTML, CSS and JavaScript. There is
+no build step. Edit the HTML files directly and upload them.
 
 | Path | Contents |
 |------|----------|
 | `index.html` | landing page (the entry point) |
 | `donate.html` | XMR donation page |
-| `en/`, `hu/` | the two books (generated) |
+| `en/`, `hu/` | the two books, one HTML file per chapter; same file names in both |
+| `en/theme/`, `hu/theme/` | shared look: `custom.css`, spec-language highlighting (`speci-hl.js`), language switch and footer (`site.js`) |
 | `assets/` | the landing pages' script, stylesheet and QR code |
-| `source/` | everything the books are built from (not needed on the server) |
+| `source/` | reference material and tools, not needed on the server |
 
 Inside `source/`:
 
 | Path | Contents |
 |------|----------|
-| `book-en/`, `book-hu/` | [mdBook](https://rust-lang.github.io/mdBook/) sources; same file names in both |
-| `theme/` | shared look: CSS, spec-language highlighting, language switch, footer |
-| `tools/check-examples/` | runs every example of both books through speci-local |
-| `tools/check-links.py` | checks every internal link and anchor of the site |
-| `SKILL.md`, `onsite.txt` | source material: the collected reference, and the editor's built-in documentation |
+| `SKILL.md`, `onsite.txt` | the collected reference, and the editor's built-in documentation |
+| `tools/check-links.py` | optional: checks every internal link and anchor of the site |
+| `speci-local-edits.md` | where speci-local behaves differently from the online editor (1.5.2), with fixes |
 
 The landing and donation pages use the books' own stylesheets (`en/css`,
 `en/theme/custom.css`) and follow the theme chosen in the books.
 
-## Building
+The books were first generated with mdBook, but the HTML is now the only
+source. Old Markdown sources are in the git history.
 
-Requirements: [Rust](https://rustup.rs) and mdBook (`cargo install mdbook`).
+## Previewing
+
+Open `index.html` in a browser, or run `python3 -m http.server` in the
+repository root and open <http://localhost:8000>.
+
+Optionally, check the links after editing:
 
 ```sh
-./build.sh              # check all examples, build en/ and hu/, check links
-./build.sh --no-check   # skip the example check
+python3 source/tools/check-links.py .
 ```
-
-To preview it locally, run `python3 -m http.server` in the repository root and
-open <http://localhost:8000>.
 
 ## Publishing
 
-The site is plain static files with relative links and no external
-dependencies. Copy `index.html`, `donate.html`, `assets/`, `en/` and `hu/` to the
-web root, for example:
+Copy `index.html`, `donate.html`, `assets/`, `en/` and `hu/` to the web root,
+for example:
 
 ```sh
 rsync -av --delete --exclude source --exclude .git ./ <name>@caesar.elte.hu:public_html/
 ```
 
-## Writing examples
+## Editing
 
-Every code block tagged `speci` is a complete specification. The `yaml` blocks
-after it are its test cases, and `build.sh` runs them all through speci-local.
-Flags after a comma change what is checked:
+- A chapter is one file, e.g. `en/ch06-01-sum.html`. Its text is inside
+  `<main>`. Change the same file in `hu/` too, so the EN/HU switch lands on
+  the matching page.
+- The left-hand table of contents is repeated in every page. If you add,
+  rename or remove a chapter, update it in every file of that book.
+- Search uses `searchindex.js`, which is not updated by hand edits. New text
+  will not be found by search until the index is regenerated.
+- Code examples are `<pre><code class="language-…">` blocks. The class
+  decides the label and colouring:
 
-| Fence | Meaning |
+| Class | Meaning |
 |-------|---------|
-| ```` ```speci ```` | complete specification; must parse |
-| ```` ```speci,fragment ```` | partial snippet, not checked |
-| ```` ```speci,online ```` | uses syntax only the online editor knows, not checked (shown with an "online editor" label) |
-| ```` ```speci,error ```` | must be **rejected** |
-| ```` ```yaml ```` | test case; must be green |
-| ```` ```yaml,red ```` | test case that must be **red** (shown with a "✗ red" label) |
-| ```` ```yaml,fragment ```` | data snippet, not checked |
+| `language-speci` | complete specification |
+| `language-speci fragment` | partial snippet |
+| `language-speci online` | uses syntax only the online editor knows (shown with an "online editor" label) |
+| `language-speci error` | a specification the editor rejects |
+| `language-yaml` | test case that is green |
+| `language-yaml red` | test case that is red (shown with a "✗ red" label) |
+| `language-yaml fragment` | data snippet |
 
-Keep `book-en` and `book-hu` in sync: same file names, same examples
-(translated), so the EN/HU switch lands on the matching page.
+Inside code blocks, escape `<`, `>` and `&` as `&lt;`, `&gt;` and `&amp;`.
 
 ## Credits
 

@@ -189,7 +189,7 @@
 <tr><td><code>Be:</code></td><td><code>In:</code></td><td>bemenet</td></tr>
 <tr><td><code>Sa:</code></td><td><code>Aux:</code></td><td>segédadat</td></tr>
 <tr><td><code>Ki:</code></td><td><code>Out:</code></td><td>kimenet</td></tr>
-<tr><td><code>Fv:</code></td><td><code>Fn:</code></td><td>függvény</td></tr>
+<tr><td><code>Fv:</code></td><td><code>Fn:</code> vagy <code>Def:</code></td><td>függvény</td></tr>
 <tr><td><code>Ef:</code></td><td><code>Pre:</code></td><td>előfeltétel</td></tr>
 <tr><td><code>Uf:</code></td><td><code>Post:</code></td><td>utófeltétel</td></tr>
 </tbody>
@@ -281,21 +281,8 @@ neg: 2
 </code></pre>
 <p>A folytatósorok behúzása csak az olvashatóságot szolgálja.</p>
 <h2 id="több-függvény"><a class="header" href="#több-függvény">Több függvény</a></h2>
-<p>Egy <code>Fv:</code> blokk több függvényt is definiálhat, vesszővel elválasztva. Minden
+<p>Az online szerkesztőben minden függvény <strong>saját <code>Fv:</code> fejlécet</strong> kap. Minden
 definíció egy szignatúrából és a törzsből áll:</p>
-<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
-Ki: s∈N
-Fv: negyzet:N-&gt;N, negyzet(a)=a*a,
-    paros:N-&gt;L, paros(a)=a mod 2 = 0
-Ef: -
-Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
-</code></pre>
-<pre><code class="language-yaml">n: 4
-x: [1, 2, 3, 4]
-s: 20
-</code></pre>
-<p>Az online szerkesztő minden függvénynek külön <code>Fv:</code> fejlécet is elfogad. A
-beépített dokumentációja is így van megírva:</p>
 <pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
 Ki: s∈N
 Fv: negyzet:N-&gt;N, negyzet(a)=a*a
@@ -303,8 +290,14 @@ Fv: paros:N-&gt;L, paros(a)=a mod 2 = 0
 Ef: -
 Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
 </code></pre>
-<p>A speci-local egyetlen <code>Fv:</code> blokkot enged, ezért a vesszős alak az, ami
-mindenhol működik.</p>
+<pre><code class="language-yaml">n: 4
+x: [1, 2, 3, 4]
+s: 20
+</code></pre>
+<p>Ha egy <code>Fv:</code> blokkban több függvényt vesszővel választasz el, az online szerkesztő
+<strong>elutasítja</strong>. A hiba az első törzs utáni vesszőre mutat:
+<code>Expected … but "," found</code>. (A speci-local egyelőre épp ezt a vesszős alakot várja;
+lásd <a href="ch10-04-differences.html">Eltérések az online szerkesztőtől</a>.)</p>
 <p>A függvényekről részletesen a <a href="ch05-00-functions.html">Függvények</a> fejezet szól.</p>
 
                     </main>

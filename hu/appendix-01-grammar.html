@@ -181,12 +181,12 @@
 <p>Ez a függelék egy oldalon foglalja össze a teljes specifikációs nyelvet. A
 magyarázatokat és a példákat a linkek mögött találod.</p>
 <h2 id="szerkezet"><a class="header" href="#szerkezet">Szerkezet</a></h2>
-<pre><code class="language-text">specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk [Fv-blokk] Ef-blokk Uf-blokk
+<pre><code class="language-text">specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk {Fv-blokk} Ef-blokk Uf-blokk
 
 Be-blokk       =  ("Be:" | "In:")   deklarációk
 Sa-blokk       =  ("Sa:" | "Aux:")  deklarációk
 Ki-blokk       =  ("Ki:" | "Out:")  deklarációk
-Fv-blokk       =  ("Fv:" | "Fn:")   függvény { "," függvény }
+Fv-blokk       =  ("Fv:" | "Fn:" | "Def:")  függvény     (függvényenként egy blokk)
 Ef-blokk       =  ("Ef:" | "Pre:")  feltétel | "-"
 Uf-blokk       =  ("Uf:" | "Post:") feltétel
 
@@ -194,7 +194,7 @@ deklarációk    =  elem { "," elem }
 elem           =  név "∈" halmaz [ "=" literál ]   |   Halmaznév "=" halmaz
 függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")" "=" kifejezés
 </code></pre>
-<p>A <code>∈</code> helyett <code>element</code> is írható. Megjegyzés (<code>// …</code> és <code>/* … */</code>) bárhol
+<p>A <code>∈</code> helyett <code>eleme</code> (online szerkesztő) vagy <code>element</code> (speci-local) is írható. Megjegyzés (<code>// …</code> és <code>/* … */</code>) bárhol
 állhat. <a href="ch02-01-blocks.html">Bővebben →</a></p>
 <h2 id="halmazok"><a class="header" href="#halmazok">Halmazok</a></h2>
 <div class="table-wrapper">
@@ -223,10 +223,10 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tbody>
 <tr><td>konstansok</td><td><code>5</code>, <code>-3</code>, <code>2.5</code>, <code>"szöveg"</code>, <code>true</code>, <code>false</code></td></tr>
 <tr><td>elérés</td><td><code>x[i]</code>, <code>m[i,j]</code>, <code>a[i][j]</code>, <code>r.mezo</code>, <code>t.1</code>, <code>MAX(…).maxval</code></td></tr>
-<tr><td>aritmetika</td><td><code>+ - * /</code>, <code>mod</code> vagy <code>%</code>, <code>ABS(e)</code></td></tr>
-<tr><td>összehasonlítás</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, láncolva <code>a≤b≤c</code></td></tr>
+<tr><td>aritmetika</td><td><code>+ - * /</code>, <code>div</code>, <code>mod</code> vagy <code>%</code>, <code>abs(e)</code> (kisbetűvel)</td></tr>
+<tr><td>összehasonlítás</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, <code>&lt;&gt;</code>, láncolva <code>a≤b≤c</code>; oszthatóság <code>a|b</code>, <code>a ∤ b</code></td></tr>
 <tr><td>oszthatóság</td><td><code>a|b</code> (a osztója b-nek)</td></tr>
-<tr><td>logika</td><td><code>és</code>/<code>and</code>, <code>vagy</code>/<code>or</code>, <code>nem</code>/<code>not</code>, <code>→</code>/<code>-&gt;</code></td></tr>
+<tr><td>logika</td><td><code>és</code>/<code>and</code>, <code>vagy</code>/<code>or</code>, <code>nem</code>/<code>not</code>, <code>-&gt;</code></td></tr>
 <tr><td>tartalmazás</td><td><code>e∈[a..b]</code></td></tr>
 <tr><td>kvantorok</td><td><code>∀i∈[a..b]:(…)</code>, <code>∃i∈[a..b]:(…)</code>; szóval <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>beépítettek</td><td><code>length(x)</code>, <code>from(x)</code>, <code>to(x)</code></td></tr>
@@ -234,7 +234,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 </tbody>
 </table>
 </div>
-<p>Precedencia a leggyengébbtől a legerősebbig: <code>→</code>, <code>vagy</code>, <code>és</code>, <code>nem</code>,
+<p>Precedencia a leggyengébbtől a legerősebbig: <code>vagy</code>, <code>és</code>, <code>-&gt;</code> (jobbra csoportosít), <code>nem</code>,
 összehasonlítások, <code>+ -</code>, <code>* / mod</code>, előjel, elérés. <a href="ch04-01-operators.html">Bővebben →</a></p>
 <h2 id="tételmakrók"><a class="header" href="#tételmakrók">Tételmakrók</a></h2>
 <div class="table-wrapper">
@@ -247,7 +247,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tr><td><code>DARAB(i=e..u, β(i))</code>, <code>COUNT(…)</code></td><td>darabszám</td></tr>
 <tr><td><code>MAX(i=e..u, f(i))</code>, <code>MIN(…)</code></td><td>(index, érték)</td></tr>
 <tr><td><code>EXISTS(i=e..u, β(i))</code>, <code>FORALL(…)</code></td><td>logikai</td></tr>
-<tr><td><code>SELECT(i≥e, β(i))</code></td><td>index</td></tr>
+<tr><td><code>SELECT(i&gt;=e, β(i))</code></td><td>index</td></tr>
 <tr><td><code>SEARCH(i=e..u, β(i))</code></td><td>(logikai, index)</td></tr>
 <tr><td><code>COPY(i=e..u, f(i))</code></td><td>tömb</td></tr>
 <tr><td><code>MIS(i=e..u, β(i))</code>, <code>MIS(i=e..u, β(i), f(i))</code></td><td>(darabszám, tömb)</td></tr>
@@ -255,7 +255,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 </tbody>
 </table>
 </div>
-<p><a href="ch06-00-theorems.html">Bővebben →</a></p>
+<p>A <code>SELECT</code>-ben <code>&gt;=</code> jelet írj, ne <code>≥</code>-t. A további elfogadott neveket (<code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …) <a href="ch06-00-theorems.html#a-makrók-más-nevei">A makrók más nevei</a> sorolja fel. <a href="ch06-00-theorems.html">Bővebben →</a></p>
 <h2 id="a-szerkesztő-által-kikényszerített-szabályok"><a class="header" href="#a-szerkesztő-által-kikényszerített-szabályok">A szerkesztő által kikényszerített szabályok</a></h2>
 <ol>
 <li>A fejlécek kis- és nagybetű-érzékenyek, és pontosan a fenti módon írandók.</li>

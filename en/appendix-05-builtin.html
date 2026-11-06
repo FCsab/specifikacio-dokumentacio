@@ -187,6 +187,9 @@ Hungarian. The <a href="../hu/appendix-05-builtin.html">Hungarian edition</a> of
 shows the original text.</p>
 <p>The document uses the Hungarian word forms (<code>igaz</code>, <code>minden</code>, <code>eleme</code>,
 <code>hossz</code>, …) and several <code>Fv:</code> headers, so it runs only in the online editor.</p>
+<p>It is meant to be read, not run. Pasted into the editor (version 1.5.2), it
+parses, but it stops at the first declared variable that the postcondition
+(<code>Uf: igaz</code>) doesn’t mention: <code>a is missing from the post condition!</code>.</p>
 <pre><code class="language-speci online">/** Documentation */
 
 /** Description of the input data */

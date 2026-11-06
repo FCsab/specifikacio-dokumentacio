@@ -205,7 +205,7 @@ Aux: found∈L, ind∈N
 Out: lib∈S
 Pre: ∀i∈[1..n]:(pl[i].x≥0 and pl[i].y≥0)
 Post: (found,ind)=SEARCH(i=1..n-1, pl[i].y&lt;pl[i+1].y) and
-      (found → lib=pl[ind].name)
+      (found -&gt; lib=pl[ind].name)
 </code></pre>
 <h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
 <p>The statement’s example, where L4 (y = 4) is followed by L5 (y = 47):</p>
@@ -272,14 +272,12 @@ implication requires <code>lib = pl[4].name = "L4"</code>.</p>
 <h2 id="about-the-parentheses"><a class="header" href="#about-the-parentheses">About the parentheses</a></h2>
 <p>The official solution writes the last line without parentheses:</p>
 <pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -&gt; lib=pl[ind].name
 </code></pre>
-<p>Because <code>→</code> binds more weakly than <code>and</code>, this means
-<code>(SEARCH… and exists) → lib=…</code>. If a test case has wrong values for <code>exists</code> or
-<code>ind</code>, the left side is false and the whole statement is <em>true</em>, so
-the error goes unnoticed. With the parentheses, as above, the red test is
-correctly red. (The official solution also names the flag <code>exists</code>, which the
-current editor rejects. See <a href="ch06-06-search.html">Search</a>.)</p>
+<p>Because <code>-&gt;</code> binds more tightly than <code>and</code>, this means
+<code>SEARCH… and (exists -&gt; lib=…)</code>, the same as the parenthesised version above.
+The parentheses only make the intent visible. (The official solution also names the
+flag <code>exists</code>, which the current editor rejects. See <a href="ch06-06-search.html">Search</a>.)</p>
 
                     </main>
 

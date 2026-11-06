@@ -181,7 +181,7 @@
 <p><strong>Selection</strong> (<em>kiválasztás</em>) finds the first index, starting from a given
 point, at which a condition holds, <strong>when such an index is known to exist</strong>.</p>
 <div class="syntax-card">
-<p><strong>Form:</strong> <code>ind=SELECT(i≥b, β(i))</code><br>
+<p><strong>Form:</strong> <code>ind=SELECT(i&gt;=b, β(i))</code><br>
 <strong>Result:</strong> the smallest <code>i ≥ b</code> for which <code>β(i)</code> holds<br>
 <strong>Requirement:</strong> the precondition must guarantee that such an <code>i</code> exists</p>
 </div>
@@ -195,7 +195,7 @@ search could run forever.</p>
 <pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
 Out: ind∈N
 Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i≥1, nums[i] mod 2 = 1) and n=n
+Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 nums: [23, 25, 26, 28, 29]
@@ -225,7 +225,7 @@ than 1</em> (for n ≥ 2, n itself is always a divisor):</p>
 <pre><code class="language-speci">In: n∈N
 Out: d∈N
 Pre: n≥2
-Post: d=SELECT(i≥2, i|n)
+Post: d=SELECT(i&gt;=2, i|n)
 </code></pre>
 <pre><code class="language-yaml">n: 35
 d: 5

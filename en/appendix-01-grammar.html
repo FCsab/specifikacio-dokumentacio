@@ -181,12 +181,12 @@
 <p>This appendix summarises the whole specification language on one page.
 Follow the links for explanations and examples.</p>
 <h2 id="structure"><a class="header" href="#structure">Structure</a></h2>
-<pre><code class="language-text">specification  =  In-block [Aux-block] Out-block [Fn-block] Pre-block Post-block
+<pre><code class="language-text">specification  =  In-block [Aux-block] Out-block {Fn-block} Pre-block Post-block
 
 In-block       =  ("In:"  | "Be:") declarations
 Aux-block      =  ("Aux:" | "Sa:") declarations
 Out-block      =  ("Out:" | "Ki:") declarations
-Fn-block       =  ("Fn:"  | "Fv:") function { "," function }
+Fn-block       =  ("Fn:"  | "Fv:" | "Def:") function     (one block per function)
 Pre-block      =  ("Pre:" | "Ef:") condition | "-"
 Post-block     =  ("Post:"| "Uf:") condition
 
@@ -194,7 +194,7 @@ declarations   =  item { "," item }
 item           =  name "∈" set  [ "=" literal ]   |   SetName "=" set
 function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expression
 </code></pre>
-<p><code>∈</code> can be written <code>element</code>. Comments, <code>// …</code> and <code>/* … */</code>, may appear anywhere.
+<p><code>∈</code> can be written <code>eleme</code> (online editor) or <code>element</code> (speci-local). Comments, <code>// …</code> and <code>/* … */</code>, may appear anywhere.
 <a href="ch02-01-blocks.html">More →</a></p>
 <h2 id="sets"><a class="header" href="#sets">Sets</a></h2>
 <div class="table-wrapper">
@@ -223,10 +223,10 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tbody>
 <tr><td>constants</td><td><code>5</code>, <code>-3</code>, <code>2.5</code>, <code>"text"</code>, <code>true</code>, <code>false</code></td></tr>
 <tr><td>access</td><td><code>x[i]</code>, <code>m[i,j]</code>, <code>a[i][j]</code>, <code>r.field</code>, <code>t.1</code>, <code>MAX(…).maxval</code></td></tr>
-<tr><td>arithmetic</td><td><code>+ - * /</code>, <code>mod</code> or <code>%</code>, <code>ABS(e)</code></td></tr>
-<tr><td>comparison</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, chained <code>a≤b≤c</code></td></tr>
+<tr><td>arithmetic</td><td><code>+ - * /</code>, <code>div</code>, <code>mod</code> or <code>%</code>, <code>abs(e)</code> (lowercase)</td></tr>
+<tr><td>comparison</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, <code>&lt;&gt;</code>, chained <code>a≤b≤c</code>; divisibility <code>a|b</code>, <code>a ∤ b</code></td></tr>
 <tr><td>divisibility</td><td><code>a|b</code> (a divides b)</td></tr>
-<tr><td>logic</td><td><code>and</code>/<code>és</code>, <code>or</code>/<code>vagy</code>, <code>not</code>/<code>nem</code>, <code>→</code>/<code>-&gt;</code></td></tr>
+<tr><td>logic</td><td><code>and</code>/<code>és</code>, <code>or</code>/<code>vagy</code>, <code>not</code>/<code>nem</code>, <code>-&gt;</code></td></tr>
 <tr><td>membership</td><td><code>e∈[a..b]</code></td></tr>
 <tr><td>quantifiers</td><td><code>∀i∈[a..b]:(…)</code>, <code>∃i∈[a..b]:(…)</code>; words <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>built-ins</td><td><code>length(x)</code>, <code>from(x)</code>, <code>to(x)</code></td></tr>
@@ -234,7 +234,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 </tbody>
 </table>
 </div>
-<p>Precedence, from weakest to strongest: <code>→</code>, <code>or</code>, <code>and</code>, <code>not</code>, comparisons,
+<p>Precedence, from weakest to strongest: <code>or</code>, <code>and</code>, <code>-&gt;</code> (groups to the right), <code>not</code>, comparisons,
 <code>+ -</code>, <code>* / mod</code>, unary minus, access. <a href="ch04-01-operators.html">More →</a></p>
 <h2 id="theorem-macros"><a class="header" href="#theorem-macros">Theorem macros</a></h2>
 <div class="table-wrapper">
@@ -247,7 +247,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 <tr><td><code>COUNT(i=b..e, β(i))</code>, <code>DARAB(…)</code></td><td>count</td></tr>
 <tr><td><code>MAX(i=b..e, f(i))</code>, <code>MIN(…)</code></td><td>(index, value)</td></tr>
 <tr><td><code>EXISTS(i=b..e, β(i))</code>, <code>FORALL(…)</code></td><td>logical</td></tr>
-<tr><td><code>SELECT(i≥b, β(i))</code></td><td>index</td></tr>
+<tr><td><code>SELECT(i&gt;=b, β(i))</code></td><td>index</td></tr>
 <tr><td><code>SEARCH(i=b..e, β(i))</code></td><td>(logical, index)</td></tr>
 <tr><td><code>COPY(i=b..e, f(i))</code></td><td>array</td></tr>
 <tr><td><code>MIS(i=b..e, β(i))</code>, <code>MIS(i=b..e, β(i), f(i))</code></td><td>(count, array)</td></tr>
@@ -255,7 +255,7 @@ function       =  name ":" set "-&gt;" set "," name "(" params ")" "=" expressio
 </tbody>
 </table>
 </div>
-<p><a href="ch06-00-theorems.html">More →</a></p>
+<p>In <code>SELECT</code> write <code>&gt;=</code>, not <code>≥</code>. Other accepted names (<code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …) are listed in <a href="ch06-00-theorems.html#other-names-for-the-macros">Other names for the macros</a>. <a href="ch06-00-theorems.html">More →</a></p>
 <h2 id="rules-the-editor-enforces"><a class="header" href="#rules-the-editor-enforces">Rules the editor enforces</a></h2>
 <ol>
 <li>Headers are case-sensitive and spelled exactly as above.</li>

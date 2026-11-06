@@ -187,9 +187,13 @@
 <tbody>
 <tr><td><code>+</code> <code>-</code> <code>*</code></td><td>összeadás, kivonás, szorzás</td><td><code>a+b*2</code></td></tr>
 <tr><td><code>/</code></td><td>osztás</td><td><code>s/n</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
 <tr><td><code>mod</code> vagy <code>%</code></td><td>maradékos osztás</td><td><code>x mod 2 = 1</code>, <code>i%2=1</code></td></tr>
 <tr><td><code>-</code> (előjel)</td><td>ellentett</td><td><code>-x[i]</code></td></tr>
-<tr><td><code>ABS(…)</code></td><td>abszolút érték</td><td><code>ABS(x[i])</code></td></tr>
+<tr><td><code>abs(…)</code></td><td>abszolút érték (csak kisbetűvel: az <code>ABS(…)</code> az online szerkesztőben szintaktikai hiba)</td><td><code>abs(x[i])</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -203,12 +207,15 @@ szabadon használhatók.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: center"><code>=</code></td><td style="text-align: center"><code>=</code></td><td>egyenlő</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code></td><td>nem egyenlő</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code> vagy <code>&lt;&gt;</code></td><td>nem egyenlő</td></tr>
 <tr><td style="text-align: center"><code>&lt;</code></td><td style="text-align: center"><code>&lt;</code></td><td>kisebb</td></tr>
 <tr><td style="text-align: center"><code>&gt;</code></td><td style="text-align: center"><code>&gt;</code></td><td>nagyobb</td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td style="text-align: center"><code>&lt;=</code></td><td>kisebb vagy egyenlő</td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td style="text-align: center"><code>&gt;=</code></td><td>nagyobb vagy egyenlő</td></tr>
 <tr><td style="text-align: center"><code>|</code></td><td style="text-align: center"></td><td>osztója: <code>a|b</code> jelentése <em>b mod a = 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
 </tbody>
 </table>
 </div>
@@ -246,7 +253,7 @@ d: 6
 <tr><td><code>és</code></td><td><code>and</code></td><td>mindkettő igaz</td></tr>
 <tr><td><code>vagy</code></td><td><code>or</code></td><td>legalább az egyik igaz</td></tr>
 <tr><td><code>nem</code></td><td><code>not</code></td><td>tagadás</td></tr>
-<tr><td><code>→</code> vagy <code>-&gt;</code></td><td></td><td>implikáció (következtetés)</td></tr>
+<tr><td><code>-&gt;</code></td><td></td><td>implikáció (következtetés)</td></tr>
 <tr><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td><td>konstansok</td></tr>
 </tbody>
 </table>
@@ -259,7 +266,7 @@ szeretnéd, hogy a specifikációd mindkettőben működjön, használd a
 <code>true</code>/<code>false</code> alakot.</p>
 </blockquote>
 <h3 id="implikáció"><a class="header" href="#implikáció">Implikáció</a></h3>
-<p>Az <code>A → B</code> („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:</p>
+<p>Az <code>A -&gt; B</code> („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -281,7 +288,7 @@ Sa: van∈L, ind∈N
 Ki: neg∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, x[i]&lt;0) és
-    (van → neg=x[ind])
+    (van -&gt; neg=x[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 x: [5, -2, -8]
@@ -292,13 +299,34 @@ neg: -2
 <pre><code class="language-yaml">n: 2
 x: [5, 2]
 van: false
+ind: 0
 neg: 0
 </code></pre>
 <p>A második tesztben nem találtunk semmit, így a <code>neg</code> bármi lehet. Erről a
 <a href="ch06-06-search.html">Keresés</a> fejezetben bővebben is olvashatsz.</p>
 <h3 id="precedencia"><a class="header" href="#precedencia">Precedencia</a></h3>
-<p>A legerősebbtől a leggyengébbig: aritmetika, összehasonlítások, <code>nem</code>, <code>és</code>,
-<code>vagy</code>, <code>→</code>. Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:</p>
+<p>A legerősebbtől a leggyengébbig: aritmetika, összehasonlítások, <code>nem</code>, aztán
+<strong><code>-&gt;</code></strong>, aztán <code>és</code>, végül <code>vagy</code>. Az implikáció tehát <em>erősebben</em> köt, mint
+az <code>és</code> és a <code>vagy</code>, és jobbra csoportosít:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Amit írsz</th><th>Ahogy a szerkesztő érti</th></tr>
+</thead>
+<tbody>
+<tr><td><code>a és b -&gt; c</code></td><td><code>a és (b -&gt; c)</code></td></tr>
+<tr><td><code>a vagy b -&gt; c</code></td><td><code>a vagy (b -&gt; c)</code></td></tr>
+<tr><td><code>nem a -&gt; b</code></td><td><code>(nem a) -&gt; b</code></td></tr>
+<tr><td><code>a -&gt; b = c</code></td><td><code>a -&gt; (b = c)</code></td></tr>
+<tr><td><code>a -&gt; b -&gt; c</code></td><td><code>a -&gt; (b -&gt; c)</code></td></tr>
+<tr><td><code>A -&gt; x=1 és B -&gt; x=2</code></td><td><code>(A -&gt; x=1) és (B -&gt; x=2)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Az utolsó sor miatt működik zárójel nélkül az <code>és</code>-sel összefűzött esetszétválasztás.
+A csapda az összetett feltétel a bal oldalon: az <code>x&gt;0 és y&gt;0 -&gt; s=1</code> jelentése
+<code>x&gt;0 és (y&gt;0 -&gt; s=1)</code>. Tedd zárójelbe a feltételt: <code>(x&gt;0 és y&gt;0) -&gt; s=1</code>.
+Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:</p>
 <pre><code class="language-speci fragment">Ef: n&gt;0 és (3&lt;4 vagy ((3)&gt;4))
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">

@@ -197,35 +197,36 @@ számai a lenti táblázat sorainak felelnek meg.</p>
 <tr><td style="text-align: right">5</td><td><kbd>S</kbd></td><td>Megjeleníti/elrejti a Specification panelt.</td></tr>
 <tr><td style="text-align: right">6</td><td><kbd>D</kbd></td><td>Megjeleníti/elrejti a Data panelt.</td></tr>
 <tr><td style="text-align: right">7</td><td><kbd>V</kbd></td><td>Megjeleníti/elrejti a Visualization panelt.</td></tr>
-<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Megjeleníti/elrejti a History (előzmények) panelt a korábban mentett változatokkal.</td></tr>
+<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Megjeleníti/elrejti a History (előzmények) panelt: az összes elmentett specifikációdat, a legújabbal kezdve, mindegyiket <em>Open</em> hivatkozással (a ▶ jelű bejegyzések a korábbi változataikra nyílnak le).</td></tr>
 <tr><td style="text-align: right">9</td><td><strong>New</strong></td><td>Új, üres specifikációt kezd.</td></tr>
 <tr><td style="text-align: right">10</td><td><strong>Save</strong></td><td>Elmenti a specifikációt a szerverre (lásd <a href="ch01-03-save-share.html">Mentés és megosztás</a>).</td></tr>
 <tr><td style="text-align: right">11</td><td><strong>Documentation</strong></td><td>Megnyitja a beépített, magyar nyelvű dokumentációt (lásd <a href="appendix-05-builtin.html">E függelék</a>).</td></tr>
 <tr><td style="text-align: right">12</td><td><strong>Usage</strong></td><td>Megnyitja a magyar nyelvű használati útmutatót.</td></tr>
-<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>A <code>∈ ∀ ∃ ≠ ≤ ≥</code> különleges karaktereket beszúró gombok.</td></tr>
-<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Kiértékeli a specifikációt az összes tesztesetre.</td></tr>
-<tr><td style="text-align: right">15</td><td><strong>Teszteset-fülek</strong></td><td>Minden tesztesetnek saját füle van. A <code>+</code> újat ad hozzá, a <code>-</code> törli a kiválasztottat. Kiértékelés után a fül zöld (átment) vagy piros (elbukott) lesz.</td></tr>
+<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>A <code>∈ ∀ ∃ ≠ ≤ ≥</code> különleges karaktereket beszúró gombok. Gyorsbillentyűk: <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (Macen <kbd>Cmd</kbd>), ebben a sorrendben.</td></tr>
+<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Kitölti a Visualization panelt a kiértékelés lépéseivel. (Az átment/elbukott állapotot a szerkesztő gépelés közben magától ellenőrzi, lásd lent.)</td></tr>
+<tr><td style="text-align: right">15</td><td><strong>Teszteset-fülek</strong></td><td>Minden tesztesetnek saját füle van. A <code>+</code> újat ad hozzá, a <code>-</code> törli a kiválasztottat. A fül <strong>magától</strong> zöld (átment) vagy piros (elbukott) lesz, nagyjából egy másodperccel azután, hogy abbahagyod a gépelést; ehhez nem kell az Evaluate gombot megnyomni.</td></tr>
 <tr><td style="text-align: right">16</td><td>Aktuális felhasználó</td><td>A neved és az azonosítód, <em>Logout</em> (kijelentkezés) linkkel.</td></tr>
 <tr><td style="text-align: right">17</td><td>Szerzői adatok</td><td>Készítő és verzió.</td></tr>
 <tr><td style="text-align: right">18</td><td><strong>Feladat neve</strong></td><td>A specifikáció címe. Mentés előtt adj nevet minden specifikációnak.</td></tr>
 </tbody>
 </table>
 </div>
-<p>A zöld <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd> gombok kapcsolók: a zöld azt
-jelenti, hogy a panel látszik. Kis képernyőn rejtsd el, amire épp nincs
+<p>Az <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd>, <kbd>H</kbd> gombok kapcsolók: a zöld azt
+jelenti, hogy a panel látszik. Az 1.5.2-es változatban megnyitáskor csak az
+<kbd>S</kbd> és a <kbd>D</kbd> van bekapcsolva; a Visualization panelhez kapcsold be a <kbd>V</kbd>-t. Kis képernyőn rejtsd el, amire épp nincs
 szükséged. Például a Data panelt, amíg a specifikáción dolgozol.</p>
 <h2 id="a-specification-panel"><a class="header" href="#a-specification-panel">A Specification panel</a></h2>
 <p>Ez egy szintaxiskiemeléses szövegszerkesztő. Ide írod a specifikációt
 blokkonként (<code>Be:</code>, <code>Ki:</code>, <code>Ef:</code>, <code>Uf:</code>, …). A felette lévő <strong>Insert</strong> gombok
-(13) a kurzorhoz szúrják be a matematikai jeleket. Ezeket ASCII alakban is
-beírhatod:</p>
+(13), vagy az <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> billentyűk a kurzorhoz szúrják be a
+matematikai jeleket. Ezeket ASCII alakban is beírhatod:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th style="text-align: center">Jel</th><th style="text-align: center">Gomb</th><th>Helyette írható</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (angolul <code>element</code>)</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (az angol <code>element</code> szót az online szerkesztő <strong>nem</strong> fogadja el, csak a speci-local)</td></tr>
 <tr><td style="text-align: center"><code>∀</code></td><td style="text-align: center">∀</td><td><code>minden</code> (angolul <code>forall</code>)</td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td style="text-align: center">∃</td><td><code>létezik</code> (angolul <code>exists</code>)</td></tr>
 <tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center">≠</td><td><code>!=</code></td></tr>
@@ -256,7 +257,7 @@ deklarált változóval, így csak az értékeket kell kitöltened.</p>
 rekordformátumot használják.</figcaption>
 </figure>
 <h2 id="a-visualization-panel"><a class="header" href="#a-visualization-panel">A Visualization panel</a></h2>
-<p>Az <strong>Evaluate</strong> megnyomása után ez a panel mutatja, hogyan értékelődött ki az
+<p>A <kbd>V</kbd> gombbal kapcsold be. Az <strong>Evaluate</strong> megnyomása után ez a panel mutatja, hogyan értékelődött ki az
 utófeltétel a kiválasztott tesztesetre. Két nézete van:</p>
 <ul>
 <li><strong>Stepper</strong> (léptető): egyszerre egy kiértékelési lépés. A <kbd>←</kbd> és

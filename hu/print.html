@@ -340,35 +340,36 @@ számai a lenti táblázat sorainak felelnek meg.</p>
 <tr><td style="text-align: right">5</td><td><kbd>S</kbd></td><td>Megjeleníti/elrejti a Specification panelt.</td></tr>
 <tr><td style="text-align: right">6</td><td><kbd>D</kbd></td><td>Megjeleníti/elrejti a Data panelt.</td></tr>
 <tr><td style="text-align: right">7</td><td><kbd>V</kbd></td><td>Megjeleníti/elrejti a Visualization panelt.</td></tr>
-<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Megjeleníti/elrejti a History (előzmények) panelt a korábban mentett változatokkal.</td></tr>
+<tr><td style="text-align: right">8</td><td><kbd>H</kbd></td><td>Megjeleníti/elrejti a History (előzmények) panelt: az összes elmentett specifikációdat, a legújabbal kezdve, mindegyiket <em>Open</em> hivatkozással (a ▶ jelű bejegyzések a korábbi változataikra nyílnak le).</td></tr>
 <tr><td style="text-align: right">9</td><td><strong>New</strong></td><td>Új, üres specifikációt kezd.</td></tr>
 <tr><td style="text-align: right">10</td><td><strong>Save</strong></td><td>Elmenti a specifikációt a szerverre (lásd <a href="#mentés-és-megosztás">Mentés és megosztás</a>).</td></tr>
 <tr><td style="text-align: right">11</td><td><strong>Documentation</strong></td><td>Megnyitja a beépített, magyar nyelvű dokumentációt (lásd <a href="#e-függelék-a-beépített-dokumentáció">E függelék</a>).</td></tr>
 <tr><td style="text-align: right">12</td><td><strong>Usage</strong></td><td>Megnyitja a magyar nyelvű használati útmutatót.</td></tr>
-<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>A <code>∈ ∀ ∃ ≠ ≤ ≥</code> különleges karaktereket beszúró gombok.</td></tr>
-<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Kiértékeli a specifikációt az összes tesztesetre.</td></tr>
-<tr><td style="text-align: right">15</td><td><strong>Teszteset-fülek</strong></td><td>Minden tesztesetnek saját füle van. A <code>+</code> újat ad hozzá, a <code>-</code> törli a kiválasztottat. Kiértékelés után a fül zöld (átment) vagy piros (elbukott) lesz.</td></tr>
+<tr><td style="text-align: right">13</td><td><strong>Insert</strong></td><td>A <code>∈ ∀ ∃ ≠ ≤ ≥</code> különleges karaktereket beszúró gombok. Gyorsbillentyűk: <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (Macen <kbd>Cmd</kbd>), ebben a sorrendben.</td></tr>
+<tr><td style="text-align: right">14</td><td><strong>Evaluate</strong></td><td>Kitölti a Visualization panelt a kiértékelés lépéseivel. (Az átment/elbukott állapotot a szerkesztő gépelés közben magától ellenőrzi, lásd lent.)</td></tr>
+<tr><td style="text-align: right">15</td><td><strong>Teszteset-fülek</strong></td><td>Minden tesztesetnek saját füle van. A <code>+</code> újat ad hozzá, a <code>-</code> törli a kiválasztottat. A fül <strong>magától</strong> zöld (átment) vagy piros (elbukott) lesz, nagyjából egy másodperccel azután, hogy abbahagyod a gépelést; ehhez nem kell az Evaluate gombot megnyomni.</td></tr>
 <tr><td style="text-align: right">16</td><td>Aktuális felhasználó</td><td>A neved és az azonosítód, <em>Logout</em> (kijelentkezés) linkkel.</td></tr>
 <tr><td style="text-align: right">17</td><td>Szerzői adatok</td><td>Készítő és verzió.</td></tr>
 <tr><td style="text-align: right">18</td><td><strong>Feladat neve</strong></td><td>A specifikáció címe. Mentés előtt adj nevet minden specifikációnak.</td></tr>
 </tbody>
 </table>
 </div>
-<p>A zöld <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd> gombok kapcsolók: a zöld azt
-jelenti, hogy a panel látszik. Kis képernyőn rejtsd el, amire épp nincs
+<p>Az <kbd>S</kbd>, <kbd>D</kbd>, <kbd>V</kbd>, <kbd>H</kbd> gombok kapcsolók: a zöld azt
+jelenti, hogy a panel látszik. Az 1.5.2-es változatban megnyitáskor csak az
+<kbd>S</kbd> és a <kbd>D</kbd> van bekapcsolva; a Visualization panelhez kapcsold be a <kbd>V</kbd>-t. Kis képernyőn rejtsd el, amire épp nincs
 szükséged. Például a Data panelt, amíg a specifikáción dolgozol.</p>
 <h2 id="a-specification-panel"><a class="header" href="#a-specification-panel">A Specification panel</a></h2>
 <p>Ez egy szintaxiskiemeléses szövegszerkesztő. Ide írod a specifikációt
 blokkonként (<code>Be:</code>, <code>Ki:</code>, <code>Ef:</code>, <code>Uf:</code>, …). A felette lévő <strong>Insert</strong> gombok
-(13) a kurzorhoz szúrják be a matematikai jeleket. Ezeket ASCII alakban is
-beírhatod:</p>
+(13), vagy az <kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> billentyűk a kurzorhoz szúrják be a
+matematikai jeleket. Ezeket ASCII alakban is beírhatod:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th style="text-align: center">Jel</th><th style="text-align: center">Gomb</th><th>Helyette írható</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (angolul <code>element</code>)</td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td style="text-align: center">∈</td><td><code>eleme</code> (az angol <code>element</code> szót az online szerkesztő <strong>nem</strong> fogadja el, csak a speci-local)</td></tr>
 <tr><td style="text-align: center"><code>∀</code></td><td style="text-align: center">∀</td><td><code>minden</code> (angolul <code>forall</code>)</td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td style="text-align: center">∃</td><td><code>létezik</code> (angolul <code>exists</code>)</td></tr>
 <tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center">≠</td><td><code>!=</code></td></tr>
@@ -399,7 +400,7 @@ deklarált változóval, így csak az értékeket kell kitöltened.</p>
 rekordformátumot használják.</figcaption>
 </figure>
 <h2 id="a-visualization-panel"><a class="header" href="#a-visualization-panel">A Visualization panel</a></h2>
-<p>Az <strong>Evaluate</strong> megnyomása után ez a panel mutatja, hogyan értékelődött ki az
+<p>A <kbd>V</kbd> gombbal kapcsold be. Az <strong>Evaluate</strong> megnyomása után ez a panel mutatja, hogyan értékelődött ki az
 utófeltétel a kiválasztott tesztesetre. Két nézete van:</p>
 <ul>
 <li><strong>Stepper</strong> (léptető): egyszerre egy kiértékelési lépés. A <kbd>←</kbd> és
@@ -602,6 +603,7 @@ elso: 2
 k: 10
 arak: [250, 90]
 van: false
+ind: 0
 elso: -1
 </code></pre>
 <p>Így olvasd: <em>adott n, k és n darab ár, ahol n legalább 1; az elso kimenet az
@@ -629,7 +631,7 @@ amin egyszer mindenki fennakad.</li>
 <tr><td><code>Be:</code></td><td><code>In:</code></td><td>bemenet</td></tr>
 <tr><td><code>Sa:</code></td><td><code>Aux:</code></td><td>segédadat</td></tr>
 <tr><td><code>Ki:</code></td><td><code>Out:</code></td><td>kimenet</td></tr>
-<tr><td><code>Fv:</code></td><td><code>Fn:</code></td><td>függvény</td></tr>
+<tr><td><code>Fv:</code></td><td><code>Fn:</code> vagy <code>Def:</code></td><td>függvény</td></tr>
 <tr><td><code>Ef:</code></td><td><code>Pre:</code></td><td>előfeltétel</td></tr>
 <tr><td><code>Uf:</code></td><td><code>Post:</code></td><td>utófeltétel</td></tr>
 </tbody>
@@ -721,21 +723,8 @@ neg: 2
 </code></pre>
 <p>A folytatósorok behúzása csak az olvashatóságot szolgálja.</p>
 <h2 id="több-függvény"><a class="header" href="#több-függvény">Több függvény</a></h2>
-<p>Egy <code>Fv:</code> blokk több függvényt is definiálhat, vesszővel elválasztva. Minden
+<p>Az online szerkesztőben minden függvény <strong>saját <code>Fv:</code> fejlécet</strong> kap. Minden
 definíció egy szignatúrából és a törzsből áll:</p>
-<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
-Ki: s∈N
-Fv: negyzet:N-&gt;N, negyzet(a)=a*a,
-    paros:N-&gt;L, paros(a)=a mod 2 = 0
-Ef: -
-Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
-</code></pre>
-<pre><code class="language-yaml">n: 4
-x: [1, 2, 3, 4]
-s: 20
-</code></pre>
-<p>Az online szerkesztő minden függvénynek külön <code>Fv:</code> fejlécet is elfogad. A
-beépített dokumentációja is így van megírva:</p>
 <pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
 Ki: s∈N
 Fv: negyzet:N-&gt;N, negyzet(a)=a*a
@@ -743,8 +732,14 @@ Fv: paros:N-&gt;L, paros(a)=a mod 2 = 0
 Ef: -
 Uf: s=SUM(i=1..n, negyzet(x[i]), paros(x[i]))
 </code></pre>
-<p>A speci-local egyetlen <code>Fv:</code> blokkot enged, ezért a vesszős alak az, ami
-mindenhol működik.</p>
+<pre><code class="language-yaml">n: 4
+x: [1, 2, 3, 4]
+s: 20
+</code></pre>
+<p>Ha egy <code>Fv:</code> blokkban több függvényt vesszővel választasz el, az online szerkesztő
+<strong>elutasítja</strong>. A hiba az első törzs utáni vesszőre mutat:
+<code>Expected … but "," found</code>. (A speci-local egyelőre épp ezt a vesszős alakot várja;
+lásd <a href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a>.)</p>
 <p>A függvényekről részletesen a <a href="#függvények">Függvények</a> fejezet szól.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="nevek-megjegyzések-foglalt-szavak"><a class="header" href="#nevek-megjegyzések-foglalt-szavak">Nevek, megjegyzések, foglalt szavak</a></h1>
@@ -786,7 +781,7 @@ egyes billentyűzeteken nehézkes beírni őket.</p>
 <tr><td><code>és</code>, <code>vagy</code>, <code>nem</code></td><td>logikai műveletek</td></tr>
 <tr><td><code>and</code>, <code>or</code>, <code>not</code></td><td>ugyanezek angolul</td></tr>
 <tr><td><code>mod</code></td><td>maradékos osztás</td></tr>
-<tr><td><code>element</code></td><td>a <code>∈</code> szóalakja</td></tr>
+<tr><td><code>eleme</code>, <code>element</code></td><td>a <code>∈</code> szóalakjai (az online szerkesztő csak az <code>eleme</code> alakot fogadja el)</td></tr>
 <tr><td><code>exists</code>, <code>forall</code></td><td>a <code>∃</code> és a <code>∀</code> szóalakja</td></tr>
 <tr><td><code>true</code>, <code>false</code></td><td>logikai konstansok</td></tr>
 </tbody>
@@ -898,7 +893,7 @@ mindig igaz azonosságot az utófeltételbe:</p>
 <pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
 Ki: ind∈N
 Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i≥1, szamok[i] mod 2 = 1) és n=n
+Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 szamok: [23, 25, 26, 28, 29]
@@ -920,9 +915,9 @@ változókat az utófeltétel amúgy is megköti, hiszen éppen arra valók.</p>
 <p>Így olvasd: „<em>a</em> a természetes számok halmazának egy eleme”. A halmaz a típus
 szerepét tölti be. A szerkesztő ez alapján ellenőrzi a tesztadatokat, és ez
 korlátozza, milyen értéket vehet fel a változó.</p>
-<p>A <code>∈</code> jelet az <strong>Insert</strong> gombbal szúrhatod be, vagy írhatod helyette az
-<code>element</code> szót (az online szerkesztőben az <code>eleme</code> szót is):</p>
-<pre><code class="language-speci">Be: a element N, b∈Z
+<p>A <code>∈</code> jelet az <strong>Insert</strong> gombbal (vagy <kbd>Alt</kbd>+<kbd>1</kbd>-gyel) szúrhatod be, vagy
+írhatod helyette az <code>eleme</code> szót:</p>
+<pre><code class="language-speci">Be: a eleme N, b∈Z
 Ki: c∈Z
 Ef: -
 Uf: c=a+b
@@ -931,6 +926,10 @@ Uf: c=a+b
 b: -5
 c: -2
 </code></pre>
+<p>Az angol <code>element</code> szót az online szerkesztő <strong>nem</strong> fogadja el: beolvassa az
+<code>eleme</code> részt, aztán megakad a szó végén:
+<code>Expected halmaz or white space but "n" found</code>. Az <code>element</code> szót csak a
+speci-local ismeri.</p>
 <p>A használható halmazok néhány egyszerű építőelemből állnak össze:</p>
 <div class="table-wrapper">
 <table>
@@ -1113,11 +1112,12 @@ Ki: d∈N
 Ef: -
 Uf: d=napok[h]
 </code></pre>
-<pre><code class="language-yaml">napok: [31,28,31,30,31,30,31,31,30,31,30,31]
-h: 4
+<pre><code class="language-yaml">h: 4
 d: 30
 </code></pre>
-<p>A <a href="#kártyaértékek">Kártyaértékek</a> kidolgozott példa ugyanezt a technikát
+<p>Az ilyen tömb konstans: hagyd <strong>ki</strong> a tesztadatokból. Ha mégis megadod, a teszt
+piros lesz (<code>data cannot contain item with the same name: napok</code>). A
+<a href="#kártyaértékek">Kártyaértékek</a> kidolgozott példa ugyanezt a technikát
 szövegekkel használja.</p>
 <h2 id="tömbliterálok"><a class="header" href="#tömbliterálok">Tömbliterálok</a></h2>
 <p>Feltételekben közvetlenül is írhatunk tömböket, de erre ritkán van szükség:</p>
@@ -1375,7 +1375,7 @@ ahol először szükség van rájuk, általában a <code>Be:</code>-be.</p>
 <li><strong>értékek</strong>: változók, konstansok (<code>3</code>, <code>-1</code>, <code>2.5</code>, <code>"szöveg"</code>, <code>true</code>),
 tömbelemek (<code>x[i]</code>), mezők (<code>r.nev</code>), tuple-ök (<code>(3,5)</code>),</li>
 <li><strong>műveletek</strong>: aritmetikai (<code>+ - * / mod</code>), összehasonlító
-(<code>= ≠ &lt; &gt; ≤ ≥</code>) és logikai (<code>és vagy nem →</code>),</li>
+(<code>= ≠ &lt; &gt; ≤ ≥</code>) és logikai (<code>és vagy nem -&gt;</code>),</li>
 <li><strong>kvantorok</strong>: <code>∀</code> (minden) és <code>∃</code> (létezik),</li>
 <li><strong>függvényhívások</strong>: beépített (<code>length(x)</code>) vagy saját (<code>f(i)</code>),</li>
 <li><strong>tételmakrók</strong>: <code>SUM</code>, <code>COUNT</code>, <code>MAX</code>, … (a <a href="#utófeltételek-és-tételek">III. részben</a>).</li>
@@ -1412,9 +1412,13 @@ egyszerre.</li>
 <tbody>
 <tr><td><code>+</code> <code>-</code> <code>*</code></td><td>összeadás, kivonás, szorzás</td><td><code>a+b*2</code></td></tr>
 <tr><td><code>/</code></td><td>osztás</td><td><code>s/n</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
+<tr><td><code>div</code></td><td>egészosztás</td><td><code>7 div 2 = 3</code></td></tr>
 <tr><td><code>mod</code> vagy <code>%</code></td><td>maradékos osztás</td><td><code>x mod 2 = 1</code>, <code>i%2=1</code></td></tr>
 <tr><td><code>-</code> (előjel)</td><td>ellentett</td><td><code>-x[i]</code></td></tr>
-<tr><td><code>ABS(…)</code></td><td>abszolút érték</td><td><code>ABS(x[i])</code></td></tr>
+<tr><td><code>abs(…)</code></td><td>abszolút érték (csak kisbetűvel: az <code>ABS(…)</code> az online szerkesztőben szintaktikai hiba)</td><td><code>abs(x[i])</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -1428,12 +1432,15 @@ szabadon használhatók.</p>
 </thead>
 <tbody>
 <tr><td style="text-align: center"><code>=</code></td><td style="text-align: center"><code>=</code></td><td>egyenlő</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code></td><td>nem egyenlő</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td style="text-align: center"><code>!=</code> vagy <code>&lt;&gt;</code></td><td>nem egyenlő</td></tr>
 <tr><td style="text-align: center"><code>&lt;</code></td><td style="text-align: center"><code>&lt;</code></td><td>kisebb</td></tr>
 <tr><td style="text-align: center"><code>&gt;</code></td><td style="text-align: center"><code>&gt;</code></td><td>nagyobb</td></tr>
 <tr><td style="text-align: center"><code>≤</code></td><td style="text-align: center"><code>&lt;=</code></td><td>kisebb vagy egyenlő</td></tr>
 <tr><td style="text-align: center"><code>≥</code></td><td style="text-align: center"><code>&gt;=</code></td><td>nagyobb vagy egyenlő</td></tr>
 <tr><td style="text-align: center"><code>|</code></td><td style="text-align: center"></td><td>osztója: <code>a|b</code> jelentése <em>b mod a = 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
+<tr><td style="text-align: center"><code>∤</code></td><td style="text-align: center"></td><td>nem osztja: az <code>a ∤ b</code> jelentése <em>b mod a ≠ 0</em></td></tr>
 </tbody>
 </table>
 </div>
@@ -1471,7 +1478,7 @@ d: 6
 <tr><td><code>és</code></td><td><code>and</code></td><td>mindkettő igaz</td></tr>
 <tr><td><code>vagy</code></td><td><code>or</code></td><td>legalább az egyik igaz</td></tr>
 <tr><td><code>nem</code></td><td><code>not</code></td><td>tagadás</td></tr>
-<tr><td><code>→</code> vagy <code>-&gt;</code></td><td></td><td>implikáció (következtetés)</td></tr>
+<tr><td><code>-&gt;</code></td><td></td><td>implikáció (következtetés)</td></tr>
 <tr><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td><td>konstansok</td></tr>
 </tbody>
 </table>
@@ -1484,7 +1491,7 @@ szeretnéd, hogy a specifikációd mindkettőben működjön, használd a
 <code>true</code>/<code>false</code> alakot.</p>
 </blockquote>
 <h3 id="implikáció"><a class="header" href="#implikáció">Implikáció</a></h3>
-<p>Az <code>A → B</code> („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:</p>
+<p>Az <code>A -&gt; B</code> („ha A, akkor B”) csak akkor hamis, ha A igaz és B hamis:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1506,7 +1513,7 @@ Sa: van∈L, ind∈N
 Ki: neg∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, x[i]&lt;0) és
-    (van → neg=x[ind])
+    (van -&gt; neg=x[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 x: [5, -2, -8]
@@ -1517,13 +1524,34 @@ neg: -2
 <pre><code class="language-yaml">n: 2
 x: [5, 2]
 van: false
+ind: 0
 neg: 0
 </code></pre>
 <p>A második tesztben nem találtunk semmit, így a <code>neg</code> bármi lehet. Erről a
 <a href="#keresés-search">Keresés</a> fejezetben bővebben is olvashatsz.</p>
 <h3 id="precedencia"><a class="header" href="#precedencia">Precedencia</a></h3>
-<p>A legerősebbtől a leggyengébbig: aritmetika, összehasonlítások, <code>nem</code>, <code>és</code>,
-<code>vagy</code>, <code>→</code>. Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:</p>
+<p>A legerősebbtől a leggyengébbig: aritmetika, összehasonlítások, <code>nem</code>, aztán
+<strong><code>-&gt;</code></strong>, aztán <code>és</code>, végül <code>vagy</code>. Az implikáció tehát <em>erősebben</em> köt, mint
+az <code>és</code> és a <code>vagy</code>, és jobbra csoportosít:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Amit írsz</th><th>Ahogy a szerkesztő érti</th></tr>
+</thead>
+<tbody>
+<tr><td><code>a és b -&gt; c</code></td><td><code>a és (b -&gt; c)</code></td></tr>
+<tr><td><code>a vagy b -&gt; c</code></td><td><code>a vagy (b -&gt; c)</code></td></tr>
+<tr><td><code>nem a -&gt; b</code></td><td><code>(nem a) -&gt; b</code></td></tr>
+<tr><td><code>a -&gt; b = c</code></td><td><code>a -&gt; (b = c)</code></td></tr>
+<tr><td><code>a -&gt; b -&gt; c</code></td><td><code>a -&gt; (b -&gt; c)</code></td></tr>
+<tr><td><code>A -&gt; x=1 és B -&gt; x=2</code></td><td><code>(A -&gt; x=1) és (B -&gt; x=2)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Az utolsó sor miatt működik zárójel nélkül az <code>és</code>-sel összefűzött esetszétválasztás.
+A csapda az összetett feltétel a bal oldalon: az <code>x&gt;0 és y&gt;0 -&gt; s=1</code> jelentése
+<code>x&gt;0 és (y&gt;0 -&gt; s=1)</code>. Tedd zárójelbe a feltételt: <code>(x&gt;0 és y&gt;0) -&gt; s=1</code>.
+Ha bizonytalan vagy, tegyél zárójelet. Semmibe sem kerül:</p>
 <pre><code class="language-speci fragment">Ef: n&gt;0 és (3&lt;4 vagy ((3)&gt;4))
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
@@ -1593,14 +1621,14 @@ vanKicsi: true
 <tbody>
 <tr><td style="text-align: center"><code>∀</code></td><td><code>forall</code></td><td><code>minden</code></td></tr>
 <tr><td style="text-align: center"><code>∃</code></td><td><code>exists</code></td><td><code>létezik</code></td></tr>
-<tr><td style="text-align: center"><code>∈</code></td><td><code>element</code></td><td><code>eleme</code></td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td><code>element</code> (csak speci-local)</td><td><code>eleme</code></td></tr>
 </tbody>
 </table>
 </div>
 <pre><code class="language-speci">Be: n∈N, x∈N[1..n]
 Ki: jo∈L
 Ef: -
-Uf: jo=forall i element [1..n]:(x[i]&gt;0)
+Uf: jo=forall i ∈ [1..n]:(x[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 2
 x: [1, 2]
@@ -1766,10 +1794,10 @@ vissza.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>A nyilat ASCII alakban, <code>-&gt;</code>-ként írd. Az Insert sávon nincs nyíl gomb, és a
-Unicode <code>→</code>-ról volt olyan jelzés, hogy a szignatúrában hibát okoz. A
-képernyőképeken látható nyilak valószínűleg a szerkesztő betűtípusa által
-rajzolt <code>-&gt;</code> jelek. A <code>-&gt;</code> mindig működik.</p>
+<p>A nyilat ASCII alakban, <code>-&gt;</code>-ként írd. Az online szerkesztő a Unicode <code>→</code> nyilat
+sehol nem fogadja el, sem a szignatúrában, sem implikációként (hiba:
+<code>Expected … but "→" found</code>). A szerkesztőben és a képernyőképeken látható nyilak
+a szerkesztő betűtípusa által egyetlen jelként rajzolt <code>-&gt;</code> jelek.</p>
 </blockquote>
 <h2 id="példák"><a class="header" href="#példák">Példák</a></h2>
 <div class="table-wrapper">
@@ -1831,18 +1859,38 @@ c: 8
 d: 3
 </code></pre>
 <h2 id="több-függvény-1"><a class="header" href="#több-függvény-1">Több függvény</a></h2>
-<p>Egy <code>Fv:</code> blokkban több definíciót vesszővel választhatsz el. Mindegyik
-használhatja az előtte állókat:</p>
-<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
+<p>Minden definíciót külön <code>Fv:</code> fejléc alá írj. Mindegyik használhatja az előtte
+állókat. (Egy <code>Fv:</code> blokkban vesszővel elválasztott több definíciót az online
+szerkesztő elutasít.)</p>
+<pre><code class="language-speci online">Be: n∈N, x∈N[1..n]
 Ki: c∈N
-Fv: paros:N-&gt;L, paros(v)=v mod 2 = 0,
-    jo:N-&gt;L, jo(i)=paros(x[i]) és x[i]&gt;0
+Fv: paros:N-&gt;L, paros(v)=v mod 2 = 0
+Fv: jo:N-&gt;L, jo(i)=paros(x[i]) és x[i]&gt;0
 Ef: -
 Uf: c=DARAB(i=1..n, jo(i))
 </code></pre>
 <pre><code class="language-yaml">n: 5
 x: [0, 2, 3, 8, 7]
 c: 2
+</code></pre>
+<h2 id="esetszétválasztásos-definíció"><a class="header" href="#esetszétválasztásos-definíció">Esetszétválasztásos definíció</a></h2>
+<p>A függvény törzse kapcsos zárójelben eseteket is felsorolhat, ahogy a
+matematikában az esetszétválasztással megadott függvényt írjuk. Minden eset egy
+érték, utána <code>ha</code> és egy feltétel; az eseteket <code>;</code> választja el, és az utolsó
+lehet <code>egyébként</code>. Ez az alak a tananyagból származik:</p>
+<pre><code class="language-speci online">Be: a∈Z, b∈Z
+Ki: m∈Z
+Fv: nagyobb:Z x Z-&gt;Z, nagyobb(p,q)={p, ha p&gt;=q; q egyébként}
+Ef: -
+Uf: m=nagyobb(a,b)
+</code></pre>
+<pre><code class="language-yaml">a: 3
+b: 8
+m: 8
+</code></pre>
+<pre><code class="language-yaml">a: 5
+b: 2
+m: 5
 </code></pre>
 <h2 id="rekordparaméter"><a class="header" href="#rekordparaméter">Rekordparaméter</a></h2>
 <pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
@@ -1975,7 +2023,7 @@ osszeg: 12
 <tr><td><a href="#maximum--és-minimumkiválasztás-max-min">Minimumkiválasztás</a></td><td>minimum selection</td><td><code>(ind,ert)=MIN(i=e..u, f(i))</code></td><td>(index, érték)</td></tr>
 <tr><td><a href="#eldöntés-exists-forall">Eldöntés</a></td><td>decision</td><td><code>l=EXISTS(i=e..u, β(i))</code></td><td>logikai</td></tr>
 <tr><td><a href="#eldöntés-exists-forall">Eldöntés (mind)</a></td><td>decision (all)</td><td><code>l=FORALL(i=e..u, β(i))</code></td><td>logikai</td></tr>
-<tr><td><a href="#kiválasztás-select">Kiválasztás</a></td><td>selection</td><td><code>ind=SELECT(i≥e, β(i))</code></td><td>index</td></tr>
+<tr><td><a href="#kiválasztás-select">Kiválasztás</a></td><td>selection</td><td><code>ind=SELECT(i&gt;=e, β(i))</code></td><td>index</td></tr>
 <tr><td><a href="#keresés-search">Keresés</a></td><td>search</td><td><code>(van,ind)=SEARCH(i=e..u, β(i))</code></td><td>(logikai, index)</td></tr>
 <tr><td><a href="#másolás-copy">Másolás</a></td><td>copy</td><td><code>y=COPY(i=e..u, f(i))</code></td><td>tömb</td></tr>
 <tr><td><a href="#kiválogatás-mis">Kiválogatás</a></td><td>multiple item selection</td><td><code>(db,y)=MIS(i=e..u, β(i))</code><br><code>(db,y)=MIS(i=e..u, β(i), f(i))</code></td><td>(darabszám, tömb)</td></tr>
@@ -1987,7 +2035,60 @@ osszeg: 12
 <p>Minden makró első argumentuma ugyanaz: a <strong>ciklustartomány</strong>, <code>i=e..u</code>. Ez
 megnevezi a ciklusváltozót (bármilyen kisbetűs név: <code>i</code>, <code>j</code>, <code>p</code>, …), és
 megadja az intervallumot, amelyet bejár. Kivétel a <code>SELECT</code>: annak csak
-kezdőpontja van, <code>i≥e</code>.</p>
+kezdőpontja van, <code>i&gt;=e</code>. Ezt <code>&gt;=</code> jellel írd: ezen a helyen az online szerkesztő a
+<code>≥</code> jelet elutasítja (<code>Expected "&gt;=" but "≥" found</code>), máshol viszont a <code>≥</code> is jó.</p>
+<h2 id="a-makrók-más-nevei"><a class="header" href="#a-makrók-más-nevei">A makrók más nevei</a></h2>
+<p>Az online szerkesztő az alábbi neveket is elfogadja. A ✓ jelűeket
+ellenőriztük: ugyanarra az adatra ugyanazt adják, mint az angol makró. A
+többi szerepel a szerkesztő által elfogadott szavak listájában, és a jelentésük
+a névből egyértelmű, de ezeket nem ellenőriztük egyenként.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Makró</th><th>Ezek is elfogadottak</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>A speci-local csak az angol neveket és a <code>DARAB</code>-ot ismeri. Ha a
+specifikációnak mindkét szerkesztőben működnie kell, ezeket használd.</p>
+<h2 id="a-makrók-más-nevei"><a class="header" href="#a-makrók-más-nevei">A makrók más nevei</a></h2>
+<p>Az online szerkesztő az alábbi neveket is elfogadja. A ✓ jelűeket
+ellenőriztük: ugyanarra az adatra ugyanazt adják, mint az angol makró. A
+többi szerepel a szerkesztő által elfogadott szavak listájában, és a jelentésük
+a névből egyértelmű, de ezeket nem ellenőriztük egyenként.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Makró</th><th>Ezek is elfogadottak</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SUM</code></td><td><code>SZUMMA</code> ✓, <code>SZUM</code></td></tr>
+<tr><td><code>COUNT</code></td><td><code>DARAB</code> ✓, <code>MEGSZÁMOL</code></td></tr>
+<tr><td><code>EXISTS</code></td><td><code>DECISION</code> ✓, <code>VAN</code>, <code>ELDÖNT</code>, <code>LÉTEZIK</code></td></tr>
+<tr><td><code>FORALL</code></td><td><code>EVERY</code> ✓, <code>MIND</code> ✓</td></tr>
+<tr><td><code>SELECT</code></td><td><code>KIVÁLASZT</code></td></tr>
+<tr><td><code>SEARCH</code></td><td><code>KERES</code> ✓</td></tr>
+<tr><td><code>COPY</code></td><td><code>MAP</code> ✓, <code>MÁSOL</code></td></tr>
+<tr><td><code>MIS</code></td><td><code>FILTER</code> ✓, <code>KIVÁLOGAT</code> ✓</td></tr>
+<tr><td><code>CONDMAX</code></td><td><code>MAXIF</code> ✓, <code>FELTMAX</code> ✓, <code>MAXHA</code></td></tr>
+<tr><td><code>CONDMIN</code></td><td><code>MINIF</code>, <code>FELTMIN</code>, <code>MINHA</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>A speci-local csak az angol neveket és a <code>DARAB</code>-ot ismeri. Ha a
+specifikációnak mindkét szerkesztőben működnie kell, ezeket használd.</p>
 <h2 id="melyik-tétel-kell"><a class="header" href="#melyik-tétel-kell">Melyik tétel kell?</a></h2>
 <p>Abból indulj ki, mit kérdez a feladat. Milyen választ vár?</p>
 <div class="decision-tree">
@@ -2330,7 +2431,7 @@ változás az előző naphoz képest?</em></p>
 <pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
 Ki: nap∈N
 Ef: n≥2
-Uf: (nap,)=MAX(i=2..n, ABS(t[i]-t[i-1]))
+Uf: (nap,)=MAX(i=2..n, abs(t[i]-t[i-1]))
 </code></pre>
 <pre><code class="language-yaml">n: 5
 t: [10, 12, 4, 6, 7]
@@ -2445,7 +2546,7 @@ vanIlyenNap: true
 <p>A <strong>kiválasztás</strong> megkeresi az első olyan indexet egy adott kezdőponttól, ahol
 egy feltétel teljesül, <strong>ha tudjuk, hogy ilyen index létezik</strong>.</p>
 <div class="syntax-card">
-<p><strong>Alak:</strong> <code>ind=SELECT(i≥e, β(i))</code><br>
+<p><strong>Alak:</strong> <code>ind=SELECT(i&gt;=e, β(i))</code><br>
 <strong>Eredmény:</strong> a legkisebb <code>i ≥ e</code>, amelyre <code>β(i)</code> teljesül<br>
 <strong>Követelmény:</strong> az előfeltételnek garantálnia kell, hogy ilyen <code>i</code> létezik</p>
 </div>
@@ -2459,7 +2560,7 @@ keresés soha nem érne véget.</p>
 <pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
 Ki: ind∈N
 Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i≥1, szamok[i] mod 2 = 1) és n=n
+Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
 </code></pre>
 <pre><code class="language-yaml">n: 5
 szamok: [23, 25, 26, 28, 29]
@@ -2489,7 +2590,7 @@ ha a válasz matematikailag garantált. <em>n legkisebb 1-nél nagyobb osztója<
 <pre><code class="language-speci">Be: n∈N
 Ki: d∈N
 Ef: n≥2
-Uf: d=SELECT(i≥2, i|n)
+Uf: d=SELECT(i&gt;=2, i|n)
 </code></pre>
 <pre><code class="language-yaml">n: 35
 d: 5
@@ -2571,7 +2672,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, korok[i]&lt;18) és
-    (van → nev=nevek[ind])
+    (van -&gt; nev=nevek[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
 nevek: [Anna, Bence, Cili]
@@ -2584,15 +2685,18 @@ nev: Bence
 nevek: [Anna, Dani]
 korok: [21, 30]
 van: false
+ind: 0
 nev: ""
 </code></pre>
-<p>Ha nincs találat, a <code>van → …</code> igaz, bármi is a <code>nev</code>.</p>
+<p>Ha nincs találat, a <code>van -&gt; …</code> igaz, bármi is a <code>nev</code>.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>A <code>→</code> a leggyengébb művelet. Zárójel nélkül a
-<code>(van,ind)=SEARCH(…) és van → nev=nevek[ind]</code> jelentése
-<code>((van,ind)=SEARCH(…) és van) → nev=…</code>, ami igaz, valahányszor a keresés része
-hibás. Így rossz adatú teszt is átmehet. Mindig <code>és (van → …)</code> alakban írd.</p>
+<p>A <code>-&gt;</code> erősebben köt, mint az <code>és</code>, ezért a
+<code>(van,ind)=SEARCH(…) és van -&gt; nev=nevek[ind]</code> jelentése már eleve
+<code>(van,ind)=SEARCH(…) és (van -&gt; nev=…)</code>. Itt a zárójel nem kötelező, de írd ki,
+mert egyértelművé teszi a szándékot. <em>Kötelező</em> viszont, ha a feltétel összetett: a
+<code>van és jo -&gt; …</code> jelentése <code>van és (jo -&gt; …)</code>, ezért <code>(van és jo) -&gt; …</code> alakban
+írd. Lásd <a href="#precedencia">Precedencia</a>.</p>
 </blockquote>
 <h2 id="különleges-érték-jelző-helyett"><a class="header" href="#különleges-érték-jelző-helyett">Különleges érték jelző helyett</a></h2>
 <p>Egyes feladatok nem logikai értéket kérnek, hanem egy különleges kimenetet,
@@ -2607,8 +2711,8 @@ Sa: van∈L, ind∈N
 Ki: sorszam∈Z
 Ef: -
 Uf: (van,ind)=SEARCH(i=1..n, ar[i]&lt;k) és
-    (van → sorszam=ind) és
-    (nem van → sorszam=-1)
+    (van -&gt; sorszam=ind) és
+    (nem van -&gt; sorszam=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 6
 k: 2000
@@ -2621,6 +2725,7 @@ sorszam: 3
 k: 100
 ar: [2500, 5300, 1900]
 van: false
+ind: 0
 sorszam: -1
 </code></pre>
 <p>A <a href="#karácsonyfák">Karácsonyfák</a> kidolgozott példa ugyanezt a feladatot
@@ -2674,7 +2779,7 @@ alkalmaz egy átalakítást.</p>
 <pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
 Ki: cel∈N[1..n]
 Ef: -
-Uf: cel=COPY(i=1..n, ABS(szamok[i]))
+Uf: cel=COPY(i=1..n, abs(szamok[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 4
 szamok: [3, -5, 0, -1]
@@ -2899,7 +3004,7 @@ bármilyen értékük átmegy. A 0 megadása a bevett szokás.</p>
 <p>Ha a feladat egy konkrét „nincs válasz” értéket kér, azt implikációkkal
 állítsd elő az utófeltételben, ahogy a
 <a href="#különleges-érték-jelző-helyett">Keresés</a> fejezetben:
-<code>(van → ki=ert) és (nem van → ki=-1)</code>.</p>
+<code>(van -&gt; ki=ert) és (nem van -&gt; ki=-1)</code>.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="tételek-összeépítése"><a class="header" href="#tételek-összeépítése">Tételek összeépítése</a></h1>
@@ -2992,7 +3097,7 @@ amely csak a belső ellenőrzésen bukik meg, egy olyat, amelyik átmegy rajta,
 <h1 id="utófeltétel-tételek-nélkül"><a class="header" href="#utófeltétel-tételek-nélkül">Utófeltétel tételek nélkül</a></h1>
 <p>Az utófeltételnek nem <em>kell</em> tételmakrókat használnia. A bemenetről és a
 kimenetről szóló bármilyen logikai állítás érvényes, és a szerkesztő
-közvetlenül kiértékeli. Ez a <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>→</code> elemekből építkező
+közvetlenül kiértékeli. Ez a <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>-&gt;</code> elemekből építkező
 <strong>relációs</strong> stílus az előadások jelölése, és egyes feladatok kifejezetten ezt
 kérik.</p>
 <h2 id="ugyanaz-a-feladat-mindkét-stílusban"><a class="header" href="#ugyanaz-a-feladat-mindkét-stílusban">Ugyanaz a feladat mindkét stílusban</a></h2>
@@ -3208,7 +3313,7 @@ Sa: van∈L, ind∈N
 Ki: gyoztes∈S
 Ef: n&gt;0
 Uf: (van,ind)=SEARCH(i=1..n, versenyek[i].ido&lt;hatar) és
-    (van → gyoztes=versenyek[ind].nev)
+    (van -&gt; gyoztes=versenyek[ind].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 3
 versenyek:
@@ -3242,9 +3347,24 @@ gyoztes: ""
 <tr><td>egy mező „hiányzik”</td><td>a mező neve el van írva, vagy más a kis- és nagybetűs írásmódja</td></tr>
 <tr><td>a rekordot rosszul olvassa be</td><td>egy szóközzel el van csúszva a behúzás</td></tr>
 <tr><td>gondot okoz az <code>exists</code></td><td>foglalt szó, nevezd át a változót (lásd <a href="#keresés-search">Keresés</a>)</td></tr>
+<tr><td><code>incomplite type for x: undefined is not natural</code> (vagy <code>… not float</code>)</td><td>az <code>x</code> hiányzik a tesztesetből</td></tr>
+<tr><td><code>data cannot contain item with the same name: x</code></td><td>az <code>x</code> deklarációjában kezdőérték van (<code>x∈N[1..3]=[…]</code>), ezért az adatok között <strong>nem</strong> szerepelhet</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="mely-változók-kellenek-a-tesztesetbe"><a class="header" href="#mely-változók-kellenek-a-tesztesetbe">Mely változók kellenek a tesztesetbe</a></h2>
+<ul>
+<li><strong>Minden</strong> deklarált bemeneti, segéd- és kimeneti változónak <strong>minden</strong>
+tesztesetben kell érték, akkor is, ha az utófeltétel abban az esetben nem
+használja. Ha például a <code>SEARCH</code> nem talál semmit, az <code>ind</code> lényegtelen, de
+akkor is meg kell adni (írd: <code>ind: 0</code>). Hiányzó érték esetén a teszt piros:
+<code>incomplite type for ind: undefined is not natural</code>.</li>
+<li>A deklarációjában <strong>kezdőértéket</strong> kapó változó konstans. Hagyd <strong>ki</strong> az
+adatokból: <code>data cannot contain item with the same name</code>.</li>
+<li>A fölösleges kulcs nem hiba. Sőt, ha egy nevet használsz a specifikációban, de
+nem deklaráltad, a szerkesztő az adatokból veszi az értékét, így egy elírt
+deklaráció észrevétlen maradhat. Mindent deklarálj, amit használsz.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jó-tesztkészlet-írása"><a class="header" href="#jó-tesztkészlet-írása">Jó tesztkészlet írása</a></h1>
 <p>Egy zöld teszt azt mutatja, hogy a specifikáció <em>egy</em> példára illik. A jó
@@ -3322,8 +3442,11 @@ szövegével. Aztán írd vissza a helyes értéket.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiértékelés"><a class="header" href="#kiértékelés">Kiértékelés</a></h1>
-<p>Ha a specifikáció kész, és van legalább egy teszteset, nyomd meg az
-<strong>Evaluate</strong> gombot. A szerkesztő ekkor minden tesztesetet feldolgoz:</p>
+<p>Az eredményhez semmit sem kell megnyomnod: nagyjából egy másodperccel azután,
+hogy abbahagyod a gépelést, a szerkesztő minden tesztesetet feldolgoz, és a fülét
+zöldre vagy pirosra színezi. (Teszteset nélkül nincs mit mutatnia, ezért előbb
+adj hozzá egyet.) Az <strong>Evaluate</strong> gomb csak a Visualization panel lépéseihez kell.
+Minden teszteset ezeken a lépéseken megy át:</p>
 <ol>
 <li><strong>Beolvasás.</strong> Elolvassa a specifikációt. A szintaktikai hiba mindent
 leállít, és a Specification panelben jelenik meg.</li>
@@ -3464,7 +3587,7 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">6</td><td>szomszédok összehasonlítása <code>n</code>-ig</td><td>az <code>x[i+1]</code> kilóg a tartományból</td><td>menj <code>n-1</code>-ig</td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> létezési garancia nélkül</td><td>hibás eredmény vagy hiba</td><td>írj <code>∃…</code>-t az <code>Ef:</code>-be, vagy használj <code>SEARCH</code>-et</td></tr>
 <tr><td style="text-align: right">8</td><td>rossz alakú tuple</td><td>típushiba</td><td><code>(ind,)=MAX(…)</code>, <code>(van,,ert)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> a függvényszignatúrában</td><td>szintaktikai hiba az <code>Fv:</code>-ben</td><td>használd a <code>-&gt;</code> alakot</td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> bárhol (szignatúrában vagy implikációként)</td><td><code>Expected … but "→" found.</code></td><td>használd a <code>-&gt;</code> alakot</td></tr>
 <tr><td style="text-align: right">10</td><td>visszafelé keresés, de nem minden van negálva</td><td>rossz index</td><td><code>(van,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML-behúzás vagy tabulátor</td><td>nem olvasható az adat</td><td>2 szóköz, vagy a tömör <code>{…}</code> alak</td></tr>
 <tr><td style="text-align: right">12</td><td>eltérő kis- és nagybetűs mezőnevek</td><td>„hiányzó” mező</td><td>pontosan egyezzen a deklarációval</td></tr>
@@ -3473,7 +3596,15 @@ tesztesetekben.</p>
 <tr><td style="text-align: right">15</td><td>hiányzó szűrőfeltétel a <code>SUM</code>/<code>DARAB</code>-ban</td><td>egyes bemenetekre rossz számok</td><td><em>minden</em> megszorítást tegyél a feltételbe</td></tr>
 <tr><td style="text-align: right">16</td><td><code>exists</code> nevű változó / kitalált kulcsszó</td><td>„incomplite type…” / „Expected …”</td><td>nevezd át / használd a <code>Sa:</code>-t</td></tr>
 <tr><td style="text-align: right">17</td><td><code>N</code>-ként deklarált −1-es eredmény</td><td>a „nincs találat” teszt elbukik</td><td>deklaráld <code>Z</code>-ként, és az <code>Uf:</code>-ben állítsd elő a −1-et</td></tr>
-<tr><td style="text-align: right">18</td><td>zárójel nélküli implikáció</td><td>a rossz adat is átmegy</td><td><code>… és (van → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>zárójel nélküli összetett feltétel a <code>-&gt;</code> előtt</td><td>az <code>a és b -&gt; c</code> jelentése <code>a és (b -&gt; c)</code></td><td><code>(a és b) -&gt; c</code></td></tr>
+<tr><td style="text-align: right">19</td><td>hiányzó érték a tesztesetben (gyakran az <code>ind</code>, ha nincs találat)</td><td><code>incomplite type for ind: undefined is not natural</code></td><td>minden deklarált változónak adj értéket, pl. <code>ind: 0</code></td></tr>
+<tr><td style="text-align: right">20</td><td>konstans (<code>=[…]</code> kezdőértékkel) az adatok között is</td><td><code>data cannot contain item with the same name: napok</code></td><td>töröld az adatok közül</td></tr>
+<tr><td style="text-align: right">21</td><td>használt, de nem deklarált név</td><td><code>Identifier: no data found in context: […], q</code></td><td>deklaráld</td></tr>
+<tr><td style="text-align: right">22</td><td>nem deklarált tömb indexelése, pl. <code>nev[i]</code></td><td><code>Cannot read properties of undefined (reading 'toString')</code></td><td>deklaráld (<code>nev∈S[1..n]</code>)</td></tr>
+<tr><td style="text-align: right">23</td><td>az angol <code>element</code> szó a <code>∈</code> helyett</td><td><code>Expected halmaz or white space but "n" found.</code></td><td><code>∈</code> vagy <code>eleme</code></td></tr>
+<tr><td style="text-align: right">24</td><td>több függvény egy <code>Fv:</code> blokkban</td><td><code>Expected … but "," found.</code></td><td>függvényenként külön <code>Fv:</code> fejléc</td></tr>
+<tr><td style="text-align: right">25</td><td><code>ABS(…)</code></td><td><code>Expected … but "A" found.</code></td><td><code>abs(…)</code></td></tr>
+<tr><td style="text-align: right">26</td><td><code>≥</code> a <code>SELECT(i≥1, …)</code>-ben</td><td><code>Expected "&gt;=" but "≥" found.</code></td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -3572,7 +3703,7 @@ Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: ∀i∈[1..n]:(kt[i].x≥0 és kt[i].y≥0)
 Uf: (van,ind)=SEARCH(i=1..n-1, kt[i].y&lt;kt[i+1].y) és
-    (van → nev=kt[ind].nev)
+    (van -&gt; nev=kt[ind].nev)
 </code></pre>
 <h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
 <p>A feladat példája, ahol az L4-et (y = 4) az L5 (y = 47) követi:</p>
@@ -3639,14 +3770,13 @@ megköveteli, hogy <code>nev = kt[4].nev = "L4"</code>.</p>
 <h2 id="a-zárójelekről"><a class="header" href="#a-zárójelekről">A zárójelekről</a></h2>
 <p>A hivatalos megoldás az utolsó sort zárójel nélkül írja:</p>
 <pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists → lib=pl[ind].name
+      exists -&gt; lib=pl[ind].name
 </code></pre>
-<p>Mivel a <code>→</code> gyengébben köt, mint az <code>and</code>, ez azt jelenti:
-<code>(SEARCH… and exists) → lib=…</code>. Ha egy tesztesetben rossz az <code>exists</code> vagy az
-<code>ind</code> értéke, a bal oldal hamis, és az egész állítás <em>igaz</em>, így a hiba
-észrevétlen marad. A fenti zárójelezéssel a piros teszt helyesen piros. (A
-hivatalos megoldás a jelzőt is <code>exists</code>-nek nevezi, amit a mostani szerkesztő
-elutasít, lásd <a href="#keresés-search">Keresés</a>.)</p>
+<p>Mivel a <code>-&gt;</code> erősebben köt, mint az <code>and</code>, ez azt jelenti:
+<code>SEARCH… and (exists -&gt; lib=…)</code>, vagyis ugyanazt, mint a fenti zárójeles változat.
+A zárójel csak a szándékot teszi láthatóvá. (A hivatalos megoldás a jelzőt is
+<code>exists</code>-nek nevezi, amit a mostani szerkesztő elutasít, lásd
+<a href="#keresés-search">Keresés</a>.)</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="yossarian-térképe"><a class="header" href="#yossarian-térképe">Yossarian térképe</a></h1>
 <blockquote>
@@ -3969,7 +4099,7 @@ maxert: 25
 <p>Ez a specifikáció a változást <code>adat[i]-adat[i+1]</code>-ként, <em>előjeles</em>
 különbségként méri, pontosan úgy, mint a hivatalos megoldás. Ha a „változás”
 bármelyik irányú változás nagyságát jelenti, használd az
-<code>ABS(adat[i]-adat[i+1])</code> alakot. Az első tesztre a válasz így is 6, de az
+<code>abs(adat[i]-adat[i+1])</code> alakot. Az első tesztre a válasz így is 6, de az
 <code>adat: [20, 45]</code> esetén −25 helyett 25 lenne.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -4222,30 +4352,23 @@ mindig teljesíthető.</li>
 <li>Nem kell sem <code>Sa:</code>, sem <code>Fv:</code>: a hozzárendelés adat, nem logika.</li>
 </ul>
 <h2 id="tesztek-6"><a class="header" href="#tesztek-6">Tesztek</a></h2>
-<p>A konstans tömbök a deklarált bemenet részei, ezért a tesztadatban is
-szerepelnek:</p>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "asz"
+<p>A konstans tömböknek már van értékük, ezért a tesztadatban <strong>nem</strong>
+szerepelhetnek. Csak a <code>lap</code> és az elvárt <code>ertek</code> kell:</p>
+<pre><code class="language-yaml">lap: "asz"
 ertek: 11
 </code></pre>
-<pre><code class="language-yaml">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "also"
+<pre><code class="language-yaml">lap: "also"
 ertek: 2
 </code></pre>
 <p>Nem létező lap megsérti az előfeltételt:</p>
-<pre><code class="language-yaml red">lapok: ["also", "felso", "kiraly", "VII", "VIII", "IX", "X", "asz"]
-ertekek: [2, 3, 4, 7, 8, 9, 10, 11]
-lap: "joker"
+<pre><code class="language-yaml red">lap: "joker"
 ertek: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> által generált sablon
-minden bemenetet felsorol, a konstans tömböket is. Ha a szerkesztőd
-verziója a deklarációból tölti ki őket, és panaszkodik a duplikátumokra,
-töröld azt a két sort a tesztből.</p>
+<p>Ha mégis megadod őket az adatok között, a teszt piros lesz:
+<code>data cannot contain item with the same name: lapok</code>. (A tananyag saját megoldása
+is csak a <code>lap</code>-ot és az <code>ertek</code>-et adja meg.)</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="karácsonyfák"><a class="header" href="#karácsonyfák">Karácsonyfák</a></h1>
@@ -4761,8 +4884,9 @@ speci-localban is volt.</li>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="eltérések-az-online-szerkesztőtől"><a class="header" href="#eltérések-az-online-szerkesztőtől">Eltérések az online szerkesztőtől</a></h1>
 <p>A speci-local célja, hogy pontosan azt fogadja el, amit az ELTE-s szerkesztő,
-és minden tesztet ugyanúgy ítéljen meg. Néhány eltérés azért maradt. Ezek a
-könyv példáinak ellenőrzése közben derültek ki.</p>
+és minden tesztet ugyanúgy ítéljen meg. Néhány eltérés azért maradt. Ezek úgy
+derültek ki, hogy a könyv összes példáját lefuttattuk az online szerkesztőben
+(1.5.2-es változat, 2026 novembere).</p>
 <h2 id="csak-az-online-szerkesztő-fogadja-el"><a class="header" href="#csak-az-online-szerkesztő-fogadja-el">Csak az online szerkesztő fogadja el</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4771,15 +4895,50 @@ könyv példáinak ellenőrzése közben derültek ki.</p>
 </thead>
 <tbody>
 <tr><td>magyar logikai konstansok</td><td><code>igaz</code>, <code>hamis</code></td><td><code>true</code>, <code>false</code></td></tr>
-<tr><td>magyar kvantor- és tartalmazás-szavak</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>∈</code>, vagy <code>forall</code>, <code>exists</code>, <code>element</code></td></tr>
+<tr><td>magyar kvantor- és tartalmazás-szavak</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td><code>∀</code>, <code>∃</code>, <code>∈</code>, vagy <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>magyar tömbfüggvények</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td><code>length</code>, <code>from</code>, <code>to</code></td></tr>
 <tr><td>indextartományos tömbliterálok</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>sima literálok</td></tr>
-<tr><td>külön <code>Fv:</code> fejléc minden függvénynek</td><td><code>Fv: f…</code> <code>Fv: g…</code></td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel</td></tr>
+<tr><td>külön <code>Fv:</code> fejléc minden függvénynek (az online szerkesztő <strong>csak</strong> ezt fogadja el)</td><td><code>Fv: f…</code> <code>Fv: g…</code></td><td>egy <code>Fv:</code> blokk, vesszővel elválasztott függvényekkel</td></tr>
+<tr><td><code>Def:</code> függvényfejlécként</td><td><code>Def: f:N-&gt;N, f(a)=a*2</code></td><td><code>Fv:</code></td></tr>
+<tr><td>esetszétválasztásos függvénytörzs</td><td><code>{p, ha p&gt;=q; q egyébként}</code></td><td>nem támogatott; implikációkkal írd</td></tr>
+<tr><td>a <code>&lt;&gt;</code>, <code>div</code>, <code>∤</code> műveletek</td><td><code>a &lt;&gt; b</code>, <code>7 div 2</code>, <code>a ∤ b</code></td><td><code>!=</code>; a többi nem támogatott</td></tr>
+<tr><td>a makrók más nevei</td><td><code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …</td><td>az angol nevek (lásd <a href="#a-makrók-más-nevei">A makrók más nevei</a>)</td></tr>
 </tbody>
 </table>
 </div>
 <p>Az ilyen lehetőségeket használó példákat a könyvben <strong>CSAK ONLINE</strong> felirat
 jelöli.</p>
+<h2 id="csak-a-speci-local-fogadja-el"><a class="header" href="#csak-a-speci-local-fogadja-el">Csak a speci-local fogadja el</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Lehetőség</th><th>Példa</th><th>Az online szerkesztőben</th></tr>
+</thead>
+<tbody>
+<tr><td>Unicode nyíl</td><td><code>van → x=1</code></td><td>szintaktikai hiba; írd így: <code>-&gt;</code></td></tr>
+<tr><td>az <code>element</code> szó</td><td><code>a element N</code></td><td>szintaktikai hiba; <code>∈</code> vagy <code>eleme</code></td></tr>
+<tr><td>nagybetűs <code>ABS</code></td><td><code>ABS(x)</code></td><td>szintaktikai hiba; <code>abs(x)</code></td></tr>
+<tr><td>több függvény egy <code>Fv:</code> blokkban</td><td><code>Fv: f…, g…</code></td><td>szintaktikai hiba a vesszőnél; függvényenként egy fejléc</td></tr>
+<tr><td><code>≥</code> a <code>SELECT</code>-ben</td><td><code>SELECT(i≥1, …)</code></td><td>szintaktikai hiba; <code>i&gt;=1</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="eltérő-ítélet"><a class="header" href="#eltérő-ítélet">Eltérő ítélet</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Helyzet</th><th>Online szerkesztő</th><th>speci-local</th></tr>
+</thead>
+<tbody>
+<tr><td>a <code>-&gt;</code> precedenciája</td><td>a <code>nem</code> és az <code>és</code> között: az <code>a és b -&gt; c</code> jelentése <code>a és (b -&gt; c)</code></td><td>leggyengébb: <code>(a és b) -&gt; c</code></td></tr>
+<tr><td>deklarált változó hiányzik a tesztesetből</td><td>piros: <code>incomplite type for x: …</code></td><td>kiszámolja és megmutatja</td></tr>
+<tr><td>konstans (<code>=[…]</code> kezdőértékkel) az adatok között is</td><td>piros: <code>data cannot contain item with the same name</code></td><td>az adatokbeli értéket használja</td></tr>
+</tbody>
+</table>
+</div>
+<p>Zárójelezz minden összetett feltételt a <code>-&gt;</code> előtt, minden tesztesetben adj
+értéket minden változónak, és hagyd ki a konstansokat az adatokból. Így a
+specifikáció mindkét szerkesztőben ugyanúgy viselkedik.</p>
 <h2 id="ismert-hibák"><a class="header" href="#ismert-hibák">Ismert hibák</a></h2>
 <ul>
 <li>Egy <strong>kezdőértékkel megadott, nem 1-től indexelt mátrixot</strong>, például az
@@ -4790,30 +4949,30 @@ indexel. Az <code>m5[-1,-1]</code>-et tartományon kívülinek jelzi.</li>
 <ul>
 <li>Sokkal részletesebb hibaüzenetek, javítási javaslattal.</li>
 <li>A tesztből hiányzó kimeneti értékeket kiszámolja és megmutatja.</li>
-<li>Automatikus kiértékelés gépelés közben.</li>
 <li>Kiegészítés és sablonok.</li>
 <li>Felismeri a fejlécek néhány gyakori elírását (például <code>Segéd:</code> vagy
 <code>Bemenet:</code>), és javasolja a helyeset.</li>
-<li><code>CONDMIN</code>, a <code>CONDMAX</code> minimumos párja.</li>
 <li>Helyi <code>.sp</code> fájlok és egysoros projektmegosztás (<code>SPECI1:</code>).</li>
 </ul>
+<p>Gépelés közben mindkét szerkesztő automatikusan kiértékel, és mindkettőben van <code>CONDMIN</code>.</p>
 <h2 id="ami-hiányzik"><a class="header" href="#ami-hiányzik">Ami hiányzik</a></h2>
 <ul>
 <li>Az előzmények (History) panel.</li>
 <li>Szerveroldali mentés és állandó linkek. Helyettük <code>.sp</code> fájlokat és
 <code>SPECI1:</code> sorokat használj.</li>
 </ul>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="a-függelék-nyelvtani-összefoglaló"><a class="header" href="#a-függelék-nyelvtani-összefoglaló">A. függelék: Nyelvtani összefoglaló</a></h1>
 <p>Ez a függelék egy oldalon foglalja össze a teljes specifikációs nyelvet. A
 magyarázatokat és a példákat a linkek mögött találod.</p>
 <h2 id="szerkezet"><a class="header" href="#szerkezet">Szerkezet</a></h2>
-<pre><code class="language-text">specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk [Fv-blokk] Ef-blokk Uf-blokk
+<pre><code class="language-text">specifikáció   =  Be-blokk [Sa-blokk] Ki-blokk {Fv-blokk} Ef-blokk Uf-blokk
 
 Be-blokk       =  ("Be:" | "In:")   deklarációk
 Sa-blokk       =  ("Sa:" | "Aux:")  deklarációk
 Ki-blokk       =  ("Ki:" | "Out:")  deklarációk
-Fv-blokk       =  ("Fv:" | "Fn:")   függvény { "," függvény }
+Fv-blokk       =  ("Fv:" | "Fn:" | "Def:")  függvény     (függvényenként egy blokk)
 Ef-blokk       =  ("Ef:" | "Pre:")  feltétel | "-"
 Uf-blokk       =  ("Uf:" | "Post:") feltétel
 
@@ -4821,7 +4980,7 @@ deklarációk    =  elem { "," elem }
 elem           =  név "∈" halmaz [ "=" literál ]   |   Halmaznév "=" halmaz
 függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")" "=" kifejezés
 </code></pre>
-<p>A <code>∈</code> helyett <code>element</code> is írható. Megjegyzés (<code>// …</code> és <code>/* … */</code>) bárhol
+<p>A <code>∈</code> helyett <code>eleme</code> (online szerkesztő) vagy <code>element</code> (speci-local) is írható. Megjegyzés (<code>// …</code> és <code>/* … */</code>) bárhol
 állhat. <a href="#blokkok-és-elrendezés">Bővebben →</a></p>
 <h2 id="halmazok"><a class="header" href="#halmazok">Halmazok</a></h2>
 <div class="table-wrapper">
@@ -4850,10 +5009,10 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tbody>
 <tr><td>konstansok</td><td><code>5</code>, <code>-3</code>, <code>2.5</code>, <code>"szöveg"</code>, <code>true</code>, <code>false</code></td></tr>
 <tr><td>elérés</td><td><code>x[i]</code>, <code>m[i,j]</code>, <code>a[i][j]</code>, <code>r.mezo</code>, <code>t.1</code>, <code>MAX(…).maxval</code></td></tr>
-<tr><td>aritmetika</td><td><code>+ - * /</code>, <code>mod</code> vagy <code>%</code>, <code>ABS(e)</code></td></tr>
-<tr><td>összehasonlítás</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, láncolva <code>a≤b≤c</code></td></tr>
+<tr><td>aritmetika</td><td><code>+ - * /</code>, <code>div</code>, <code>mod</code> vagy <code>%</code>, <code>abs(e)</code> (kisbetűvel)</td></tr>
+<tr><td>összehasonlítás</td><td><code>=</code>, <code>≠</code>/<code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>≤</code>/<code>&lt;=</code>, <code>≥</code>/<code>&gt;=</code>, <code>&lt;&gt;</code>, láncolva <code>a≤b≤c</code>; oszthatóság <code>a|b</code>, <code>a ∤ b</code></td></tr>
 <tr><td>oszthatóság</td><td><code>a|b</code> (a osztója b-nek)</td></tr>
-<tr><td>logika</td><td><code>és</code>/<code>and</code>, <code>vagy</code>/<code>or</code>, <code>nem</code>/<code>not</code>, <code>→</code>/<code>-&gt;</code></td></tr>
+<tr><td>logika</td><td><code>és</code>/<code>and</code>, <code>vagy</code>/<code>or</code>, <code>nem</code>/<code>not</code>, <code>-&gt;</code></td></tr>
 <tr><td>tartalmazás</td><td><code>e∈[a..b]</code></td></tr>
 <tr><td>kvantorok</td><td><code>∀i∈[a..b]:(…)</code>, <code>∃i∈[a..b]:(…)</code>; szóval <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>beépítettek</td><td><code>length(x)</code>, <code>from(x)</code>, <code>to(x)</code></td></tr>
@@ -4861,7 +5020,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 </tbody>
 </table>
 </div>
-<p>Precedencia a leggyengébbtől a legerősebbig: <code>→</code>, <code>vagy</code>, <code>és</code>, <code>nem</code>,
+<p>Precedencia a leggyengébbtől a legerősebbig: <code>vagy</code>, <code>és</code>, <code>-&gt;</code> (jobbra csoportosít), <code>nem</code>,
 összehasonlítások, <code>+ -</code>, <code>* / mod</code>, előjel, elérés. <a href="#műveletek">Bővebben →</a></p>
 <h2 id="tételmakrók"><a class="header" href="#tételmakrók">Tételmakrók</a></h2>
 <div class="table-wrapper">
@@ -4874,7 +5033,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tr><td><code>DARAB(i=e..u, β(i))</code>, <code>COUNT(…)</code></td><td>darabszám</td></tr>
 <tr><td><code>MAX(i=e..u, f(i))</code>, <code>MIN(…)</code></td><td>(index, érték)</td></tr>
 <tr><td><code>EXISTS(i=e..u, β(i))</code>, <code>FORALL(…)</code></td><td>logikai</td></tr>
-<tr><td><code>SELECT(i≥e, β(i))</code></td><td>index</td></tr>
+<tr><td><code>SELECT(i&gt;=e, β(i))</code></td><td>index</td></tr>
 <tr><td><code>SEARCH(i=e..u, β(i))</code></td><td>(logikai, index)</td></tr>
 <tr><td><code>COPY(i=e..u, f(i))</code></td><td>tömb</td></tr>
 <tr><td><code>MIS(i=e..u, β(i))</code>, <code>MIS(i=e..u, β(i), f(i))</code></td><td>(darabszám, tömb)</td></tr>
@@ -4882,7 +5041,7 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 </tbody>
 </table>
 </div>
-<p><a href="#utófeltételek-és-tételek">Bővebben →</a></p>
+<p>A <code>SELECT</code>-ben <code>&gt;=</code> jelet írj, ne <code>≥</code>-t. A további elfogadott neveket (<code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …) <a href="#a-makrók-más-nevei">A makrók más nevei</a> sorolja fel. <a href="#utófeltételek-és-tételek">Bővebben →</a></p>
 <h2 id="a-szerkesztő-által-kikényszerített-szabályok"><a class="header" href="#a-szerkesztő-által-kikényszerített-szabályok">A szerkesztő által kikényszerített szabályok</a></h2>
 <ol>
 <li>A fejlécek kis- és nagybetű-érzékenyek, és pontosan a fenti módon írandók.</li>
@@ -4902,18 +5061,18 @@ függvény       =  név ":" halmaz "-&gt;" halmaz "," név "(" paraméterek ")"
 <tr><th style="text-align: center">Jel</th><th>Neve</th><th>Online szerkesztő</th><th>speci-local</th><th>ASCII / szóalak</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: center"><code>∈</code></td><td>eleme</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>element</code>, <code>eleme</code>*</td></tr>
-<tr><td style="text-align: center"><code>∀</code></td><td>minden</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
-<tr><td style="text-align: center"><code>∃</code></td><td>létezik</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
-<tr><td style="text-align: center"><code>≠</code></td><td>nem egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code></td></tr>
-<tr><td style="text-align: center"><code>≤</code></td><td>kisebb vagy egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
-<tr><td style="text-align: center"><code>≥</code></td><td>nagyobb vagy egyenlő</td><td>Insert gomb</td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
-<tr><td style="text-align: center"><code>→</code></td><td>implikáció</td><td></td><td></td><td><code>-&gt;</code></td></tr>
+<tr><td style="text-align: center"><code>∈</code></td><td>eleme</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>1</kbd></td><td><kbd>Alt</kbd>+<kbd>1</kbd></td><td><code>eleme</code>*, <code>element</code>†</td></tr>
+<tr><td style="text-align: center"><code>∀</code></td><td>minden</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>2</kbd></td><td><kbd>Alt</kbd>+<kbd>2</kbd></td><td><code>forall</code>, <code>minden</code>*</td></tr>
+<tr><td style="text-align: center"><code>∃</code></td><td>létezik</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>3</kbd></td><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td><code>exists</code>, <code>létezik</code>*</td></tr>
+<tr><td style="text-align: center"><code>≠</code></td><td>nem egyenlő</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>4</kbd></td><td><kbd>Alt</kbd>+<kbd>4</kbd></td><td><code>!=</code></td></tr>
+<tr><td style="text-align: center"><code>≤</code></td><td>kisebb vagy egyenlő</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>5</kbd></td><td><kbd>Alt</kbd>+<kbd>5</kbd></td><td><code>&lt;=</code></td></tr>
+<tr><td style="text-align: center"><code>≥</code></td><td>nagyobb vagy egyenlő</td><td>Insert gomb vagy <kbd>Alt</kbd>+<kbd>6</kbd></td><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td><code>&gt;=</code></td></tr>
+<tr><td style="text-align: center"><code>→</code></td><td>implikáció</td><td><strong>nem fogadja el</strong>, írd így: <code>-&gt;</code></td><td></td><td><code>-&gt;</code></td></tr>
 <tr><td style="text-align: center"><code>¬</code> <code>∧</code> <code>∨</code></td><td>nem, és, vagy</td><td></td><td></td><td><code>nem</code>, <code>és</code>, <code>vagy</code></td></tr>
 </tbody>
 </table>
 </div>
-<p>* csak az online szerkesztőben.</p>
+<p>* csak az online szerkesztőben. † csak a speci-localban.</p>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>Linuxon compose billentyűvel is beírhatod ezeket a jeleket, és bármilyen
@@ -4930,6 +5089,8 @@ alakok a leggyorsabbak, és mindenhol elfogadottak.</p>
 <tr><td><kbd>S</kbd> / <kbd>D</kbd> / <kbd>V</kbd> / <kbd>H</kbd> gombok</td><td>a Specification, Data, Visualization, History panel megjelenítése/elrejtése</td></tr>
 <tr><td><kbd>Shift</kbd>+<kbd>Space</kbd>, majd <kbd>Tab</kbd></td><td>teszteset-sablon beszúrása (a Data panelben)</td></tr>
 <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>lépés vissza / előre a léptetőben</td></tr>
+<tr><td><kbd>Alt</kbd>+<kbd>1</kbd> … <kbd>Alt</kbd>+<kbd>6</kbd> (Mac: <kbd>Cmd</kbd>)</td><td>a <code>∈ ∀ ∃ ≠ ≤ ≥</code> beszúrása</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>mentés (a Save gomb súgója szerint)</td></tr>
 </tbody>
 </table>
 </div>
@@ -4977,14 +5138,14 @@ alakok a leggyorsabbak, és mindenhol elfogadottak.</p>
 <tr><td><code>Be:</code></td><td><code>In:</code></td><td>bemenet</td></tr>
 <tr><td><code>Sa:</code></td><td><code>Aux:</code></td><td>segédadat</td></tr>
 <tr><td><code>Ki:</code></td><td><code>Out:</code></td><td>kimenet</td></tr>
-<tr><td><code>Fv:</code></td><td><code>Fn:</code></td><td>függvény</td></tr>
+<tr><td><code>Fv:</code></td><td><code>Fn:</code> vagy <code>Def:</code></td><td>függvény</td></tr>
 <tr><td><code>Ef:</code></td><td><code>Pre:</code></td><td>előfeltétel</td></tr>
 <tr><td><code>Uf:</code></td><td><code>Post:</code></td><td>utófeltétel</td></tr>
 <tr><td><code>és</code></td><td><code>and</code></td><td>és</td></tr>
 <tr><td><code>vagy</code></td><td><code>or</code></td><td>vagy</td></tr>
 <tr><td><code>nem</code></td><td><code>not</code></td><td>nem</td></tr>
 <tr><td><code>igaz</code> / <code>hamis</code>*</td><td><code>true</code> / <code>false</code></td><td>igaz / hamis</td></tr>
-<tr><td><code>eleme</code>*</td><td><code>element</code> (<code>∈</code>)</td><td>eleme</td></tr>
+<tr><td><code>eleme</code>*</td><td><code>element</code> (<code>∈</code>), csak speci-local</td><td>eleme</td></tr>
 <tr><td><code>minden</code>*</td><td><code>forall</code> (<code>∀</code>)</td><td>minden</td></tr>
 <tr><td><code>létezik</code>*</td><td><code>exists</code> (<code>∃</code>)</td><td>létezik</td></tr>
 <tr><td><code>hossz</code>*</td><td><code>length</code></td><td>egy tömb hossza</td></tr>
@@ -5114,6 +5275,9 @@ szerzője által írt összefoglalója mindannak, amit a szerkesztő elfogad.</p
 tartalmazza.</p>
 <p>A dokumentum a magyar szóalakokat (<code>igaz</code>, <code>minden</code>, <code>eleme</code>, <code>hossz</code>, …) és több
 <code>Fv:</code> fejlécet használ, ezért csak az online szerkesztőben fut.</p>
+<p>Olvasásra készült, nem futtatásra. Ha bemásolod a szerkesztőbe (1.5.2-es
+változat), a beolvasás sikerül, de megáll az első olyan deklarált változónál,
+amelyet az utófeltétel (<code>Uf: igaz</code>) nem említ: <code>a is missing from the post condition!</code>.</p>
 <pre><code class="language-speci online">/** Dokumentáció */
 
 /** Bemeneti adatok leírása */

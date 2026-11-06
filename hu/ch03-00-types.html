@@ -184,9 +184,9 @@
 <p>Így olvasd: „<em>a</em> a természetes számok halmazának egy eleme”. A halmaz a típus
 szerepét tölti be. A szerkesztő ez alapján ellenőrzi a tesztadatokat, és ez
 korlátozza, milyen értéket vehet fel a változó.</p>
-<p>A <code>∈</code> jelet az <strong>Insert</strong> gombbal szúrhatod be, vagy írhatod helyette az
-<code>element</code> szót (az online szerkesztőben az <code>eleme</code> szót is):</p>
-<pre><code class="language-speci">Be: a element N, b∈Z
+<p>A <code>∈</code> jelet az <strong>Insert</strong> gombbal (vagy <kbd>Alt</kbd>+<kbd>1</kbd>-gyel) szúrhatod be, vagy
+írhatod helyette az <code>eleme</code> szót:</p>
+<pre><code class="language-speci">Be: a eleme N, b∈Z
 Ki: c∈Z
 Ef: -
 Uf: c=a+b
@@ -195,6 +195,10 @@ Uf: c=a+b
 b: -5
 c: -2
 </code></pre>
+<p>Az angol <code>element</code> szót az online szerkesztő <strong>nem</strong> fogadja el: beolvassa az
+<code>eleme</code> részt, aztán megakad a szó végén:
+<code>Expected halmaz or white space but "n" found</code>. Az <code>element</code> szót csak a
+speci-local ismeri.</p>
 <p>A használható halmazok néhány egyszerű építőelemből állnak össze:</p>
 <div class="table-wrapper">
 <table>

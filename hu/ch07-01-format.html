@@ -263,7 +263,7 @@ Sa: van∈L, ind∈N
 Ki: gyoztes∈S
 Ef: n&gt;0
 Uf: (van,ind)=SEARCH(i=1..n, versenyek[i].ido&lt;hatar) és
-    (van → gyoztes=versenyek[ind].nev)
+    (van -&gt; gyoztes=versenyek[ind].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 3
 versenyek:
@@ -297,9 +297,24 @@ gyoztes: ""
 <tr><td>egy mező „hiányzik”</td><td>a mező neve el van írva, vagy más a kis- és nagybetűs írásmódja</td></tr>
 <tr><td>a rekordot rosszul olvassa be</td><td>egy szóközzel el van csúszva a behúzás</td></tr>
 <tr><td>gondot okoz az <code>exists</code></td><td>foglalt szó, nevezd át a változót (lásd <a href="ch06-06-search.html">Keresés</a>)</td></tr>
+<tr><td><code>incomplite type for x: undefined is not natural</code> (vagy <code>… not float</code>)</td><td>az <code>x</code> hiányzik a tesztesetből</td></tr>
+<tr><td><code>data cannot contain item with the same name: x</code></td><td>az <code>x</code> deklarációjában kezdőérték van (<code>x∈N[1..3]=[…]</code>), ezért az adatok között <strong>nem</strong> szerepelhet</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="mely-változók-kellenek-a-tesztesetbe"><a class="header" href="#mely-változók-kellenek-a-tesztesetbe">Mely változók kellenek a tesztesetbe</a></h2>
+<ul>
+<li><strong>Minden</strong> deklarált bemeneti, segéd- és kimeneti változónak <strong>minden</strong>
+tesztesetben kell érték, akkor is, ha az utófeltétel abban az esetben nem
+használja. Ha például a <code>SEARCH</code> nem talál semmit, az <code>ind</code> lényegtelen, de
+akkor is meg kell adni (írd: <code>ind: 0</code>). Hiányzó érték esetén a teszt piros:
+<code>incomplite type for ind: undefined is not natural</code>.</li>
+<li>A deklarációjában <strong>kezdőértéket</strong> kapó változó konstans. Hagyd <strong>ki</strong> az
+adatokból: <code>data cannot contain item with the same name</code>.</li>
+<li>A fölösleges kulcs nem hiba. Sőt, ha egy nevet használsz a specifikációban, de
+nem deklaráltad, a szerkesztő az adatokból veszi az értékét, így egy elírt
+deklaráció észrevétlen maradhat. Mindent deklarálj, amit használsz.</li>
+</ul>
 
                     </main>
 

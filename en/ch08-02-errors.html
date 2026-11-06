@@ -217,7 +217,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">6</td><td>comparing neighbours up to <code>n</code></td><td><code>x[i+1]</code> out of range</td><td>loop to <code>n-1</code></td></tr>
 <tr><td style="text-align: right">7</td><td><code>SELECT</code> without an existence guarantee</td><td>wrong results or errors</td><td>add <code>∃…</code> to <code>Pre:</code>, or use <code>SEARCH</code></td></tr>
 <tr><td style="text-align: right">8</td><td>wrong tuple shape</td><td>type mismatch</td><td><code>(ind,)=MAX(…)</code>, <code>(found,,val)=CONDMAX(…)</code></td></tr>
-<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> in a function signature</td><td>syntax error in <code>Fn:</code></td><td>use <code>-&gt;</code></td></tr>
+<tr><td style="text-align: right">9</td><td>Unicode <code>→</code> anywhere (signature or implication)</td><td><code>Expected … but "→" found.</code></td><td>use <code>-&gt;</code></td></tr>
 <tr><td style="text-align: right">10</td><td>backward search without negating everything</td><td>wrong index</td><td><code>(found,-ind)=SEARCH(i=-n..-1, β(-i))</code></td></tr>
 <tr><td style="text-align: right">11</td><td>YAML indentation or tabs</td><td>data can’t be read</td><td>2 spaces, or the compact <code>{…}</code> form</td></tr>
 <tr><td style="text-align: right">12</td><td>field names with different case</td><td>field “missing”</td><td>match the declaration exactly</td></tr>
@@ -226,7 +226,15 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tr><td style="text-align: right">15</td><td>a missing filter condition in <code>SUM</code>/<code>COUNT</code></td><td>wrong numbers on some inputs</td><td>put <em>every</em> restriction into the condition</td></tr>
 <tr><td style="text-align: right">16</td><td>a variable named <code>exists</code> / an invented keyword</td><td>“incomplite type…” / “Expected …”</td><td>rename / use <code>Sa:</code></td></tr>
 <tr><td style="text-align: right">17</td><td>a −1 result declared as <code>N</code></td><td>the “not found” test fails</td><td>declare it <code>Z</code> and produce the −1 in <code>Post:</code></td></tr>
-<tr><td style="text-align: right">18</td><td>an implication without parentheses</td><td>wrong data still passes</td><td><code>… and (found → …)</code></td></tr>
+<tr><td style="text-align: right">18</td><td>a compound condition before <code>-&gt;</code> without parentheses</td><td><code>a and b -&gt; c</code> means <code>a and (b -&gt; c)</code></td><td><code>(a and b) -&gt; c</code></td></tr>
+<tr><td style="text-align: right">19</td><td>a value missing from a test case (often <code>ind</code> when nothing is found)</td><td><code>incomplite type for ind: undefined is not natural</code></td><td>give every declared variable a value, e.g. <code>ind: 0</code></td></tr>
+<tr><td style="text-align: right">20</td><td>a constant (declared with <code>=[…]</code>) repeated in the data</td><td><code>data cannot contain item with the same name: days</code></td><td>remove it from the data</td></tr>
+<tr><td style="text-align: right">21</td><td>a name used but never declared</td><td><code>Identifier: no data found in context: […], q</code></td><td>declare it</td></tr>
+<tr><td style="text-align: right">22</td><td>an undeclared array indexed, e.g. <code>nev[i]</code></td><td><code>Cannot read properties of undefined (reading 'toString')</code></td><td>declare it (<code>nev∈S[1..n]</code>)</td></tr>
+<tr><td style="text-align: right">23</td><td>the English word <code>element</code> for <code>∈</code></td><td><code>Expected halmaz or white space but "n" found.</code></td><td>use <code>∈</code> or <code>eleme</code></td></tr>
+<tr><td style="text-align: right">24</td><td>several functions in one <code>Fn:</code> block</td><td><code>Expected … but "," found.</code></td><td>one <code>Fn:</code> header per function</td></tr>
+<tr><td style="text-align: right">25</td><td><code>ABS(…)</code></td><td><code>Expected … but "A" found.</code></td><td><code>abs(…)</code></td></tr>
+<tr><td style="text-align: right">26</td><td><code>≥</code> in <code>SELECT(i≥1, …)</code></td><td><code>Expected "&gt;=" but "≥" found.</code></td><td><code>SELECT(i&gt;=1, …)</code></td></tr>
 </tbody>
 </table>
 </div>

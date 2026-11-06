@@ -189,7 +189,7 @@
 <tr><td><code>In:</code></td><td><code>Be:</code></td><td><em>Bemenet</em>: input</td></tr>
 <tr><td><code>Aux:</code></td><td><code>Sa:</code></td><td><em>Segédadat</em>: auxiliary data</td></tr>
 <tr><td><code>Out:</code></td><td><code>Ki:</code></td><td><em>Kimenet</em>: output</td></tr>
-<tr><td><code>Fn:</code></td><td><code>Fv:</code></td><td><em>Függvény</em>: function</td></tr>
+<tr><td><code>Fn:</code> or <code>Def:</code></td><td><code>Fv:</code></td><td><em>Függvény</em>: function</td></tr>
 <tr><td><code>Pre:</code></td><td><code>Ef:</code></td><td><em>Előfeltétel</em>: precondition</td></tr>
 <tr><td><code>Post:</code></td><td><code>Uf:</code></td><td><em>Utófeltétel</em>: postcondition</td></tr>
 </tbody>
@@ -279,21 +279,8 @@ neg: 2
 </code></pre>
 <p>The indentation of the continuation lines is only for readability.</p>
 <h2 id="several-functions"><a class="header" href="#several-functions">Several functions</a></h2>
-<p>One <code>Fn:</code> block can define several functions, separated by commas. Each
+<p>In the online editor every function gets <strong>its own <code>Fn:</code> header</strong>. Each
 definition is a signature followed by the body:</p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
-Out: s∈N
-Fn: sq:N-&gt;N, sq(a)=a*a,
-    even:N-&gt;L, even(a)=a mod 2 = 0
-Pre: -
-Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
-</code></pre>
-<pre><code class="language-yaml">n: 4
-x: [1, 2, 3, 4]
-s: 20
-</code></pre>
-<p>The online editor also accepts a separate <code>Fn:</code> header for each function. Its
-built-in documentation is written that way:</p>
 <pre><code class="language-speci online">In: n∈N, x∈N[1..n]
 Out: s∈N
 Fn: sq:N-&gt;N, sq(a)=a*a
@@ -301,8 +288,14 @@ Fn: even:N-&gt;L, even(a)=a mod 2 = 0
 Pre: -
 Post: s=SUM(i=1..n, sq(x[i]), even(x[i]))
 </code></pre>
-<p>speci-local insists on a single <code>Fn:</code> block, so the comma form is the one that
-works everywhere.</p>
+<pre><code class="language-yaml">n: 4
+x: [1, 2, 3, 4]
+s: 20
+</code></pre>
+<p>Several functions separated by commas in <em>one</em> <code>Fn:</code> block are
+<strong>rejected</strong> by the online editor. The error points at the comma after the first
+body: <code>Expected … but "," found</code>. (speci-local, for now, expects exactly that comma
+form; see <a href="ch10-04-differences.html">Differences from the online editor</a>.)</p>
 <p>Chapter <a href="ch05-00-functions.html">Functions</a> explains functions in detail.</p>
 
                     </main>

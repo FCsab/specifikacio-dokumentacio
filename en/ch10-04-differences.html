@@ -179,8 +179,8 @@
                     <main>
                         <h1 id="differences-from-the-online-editor"><a class="header" href="#differences-from-the-online-editor">Differences from the online editor</a></h1>
 <p>speci-local aims to accept exactly what the ELTE editor accepts and to judge
-every test the same way. A few differences remain. They were found while
-checking the examples of this book.</p>
+every test the same way. A few differences remain. They were found by running
+every example of this book in the online editor (version 1.5.2, November 2026).</p>
 <h2 id="accepted-only-by-the-online-editor"><a class="header" href="#accepted-only-by-the-online-editor">Accepted only by the online editor</a></h2>
 <div class="table-wrapper">
 <table>
@@ -189,14 +189,49 @@ checking the examples of this book.</p>
 </thead>
 <tbody>
 <tr><td>Hungarian logical constants</td><td><code>igaz</code>, <code>hamis</code></td><td>use <code>true</code>, <code>false</code></td></tr>
-<tr><td>Hungarian quantifier and membership words</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td>use <code>∀</code>, <code>∃</code>, <code>∈</code> or <code>forall</code>, <code>exists</code>, <code>element</code></td></tr>
+<tr><td>Hungarian quantifier and membership words</td><td><code>minden i eleme [1..n]:(…)</code>, <code>létezik</code></td><td>use <code>∀</code>, <code>∃</code>, <code>∈</code> or <code>forall</code>, <code>exists</code></td></tr>
 <tr><td>Hungarian array functions</td><td><code>hossz(x)</code>, <code>tól(x)</code>, <code>ig(x)</code></td><td>use <code>length</code>, <code>from</code>, <code>to</code></td></tr>
 <tr><td>Array literals with an index range</td><td><code>[0..:1, 2, 3]</code>, <code>[1..,1..:[1,2],[3,4]]</code></td><td>write plain literals</td></tr>
-<tr><td>A separate <code>Fn:</code> header for each function</td><td><code>Fn: f…</code> <code>Fn: g…</code></td><td>one <code>Fn:</code> block, functions separated by commas</td></tr>
+<tr><td>A separate <code>Fn:</code> header for each function (the <strong>only</strong> form the online editor accepts)</td><td><code>Fn: f…</code> <code>Fn: g…</code></td><td>one <code>Fn:</code> block, functions separated by commas</td></tr>
+<tr><td><code>Def:</code> as a function header</td><td><code>Def: f:N-&gt;N, f(a)=a*2</code></td><td>use <code>Fn:</code></td></tr>
+<tr><td>Piecewise function bodies</td><td><code>{p, ha p&gt;=q; q egyébként}</code></td><td>not supported; use implications</td></tr>
+<tr><td>Operators <code>&lt;&gt;</code>, <code>div</code>, <code>∤</code></td><td><code>a &lt;&gt; b</code>, <code>7 div 2</code>, <code>a ∤ b</code></td><td>use <code>!=</code>; the others are not supported</td></tr>
+<tr><td>Other macro names</td><td><code>SZUMMA</code>, <code>KERES</code>, <code>FILTER</code>, <code>MAXIF</code>, …</td><td>use the English names (see <a href="ch06-00-theorems.html#other-names-for-the-macros">Other names for the macros</a>)</td></tr>
 </tbody>
 </table>
 </div>
 <p>Examples using these features are marked <strong>ONLINE EDITOR</strong> in this book.</p>
+<h2 id="accepted-only-by-speci-local"><a class="header" href="#accepted-only-by-speci-local">Accepted only by speci-local</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Example</th><th>In the online editor</th></tr>
+</thead>
+<tbody>
+<tr><td>Unicode arrow</td><td><code>found → x=1</code></td><td>syntax error; write <code>-&gt;</code></td></tr>
+<tr><td>The word <code>element</code></td><td><code>a element N</code></td><td>syntax error; write <code>∈</code> or <code>eleme</code></td></tr>
+<tr><td>Upper-case <code>ABS</code></td><td><code>ABS(x)</code></td><td>syntax error; write <code>abs(x)</code></td></tr>
+<tr><td>Several functions in one <code>Fn:</code> block</td><td><code>Fn: f…, g…</code></td><td>syntax error at the comma; one header per function</td></tr>
+<tr><td><code>≥</code> in <code>SELECT</code></td><td><code>SELECT(i≥1, …)</code></td><td>syntax error; write <code>i&gt;=1</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="judged-differently"><a class="header" href="#judged-differently">Judged differently</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Situation</th><th>Online editor</th><th>speci-local</th></tr>
+</thead>
+<tbody>
+<tr><td>Precedence of <code>-&gt;</code></td><td>between <code>not</code> and <code>and</code>: <code>a and b -&gt; c</code> means <code>a and (b -&gt; c)</code></td><td>weakest: <code>(a and b) -&gt; c</code></td></tr>
+<tr><td>A declared variable missing from a test case</td><td>red: <code>incomplite type for x: …</code></td><td>computed and shown</td></tr>
+<tr><td>A constant (declared with <code>=[…]</code>) also given in the data</td><td>red: <code>data cannot contain item with the same name</code></td><td>the value from the data is used</td></tr>
+</tbody>
+</table>
+</div>
+<p>Parenthesise every compound condition before <code>-&gt;</code>, give every variable a
+value in every test case, and leave constants out of the data. Then a
+specification behaves the same in both editors.</p>
 <h2 id="known-issues"><a class="header" href="#known-issues">Known issues</a></h2>
 <ul>
 <li>A <strong>matrix with an initial value and a non-1-based range</strong>, such as
@@ -207,18 +242,18 @@ speci-local. <code>m5[-1,-1]</code> is reported out of range.</li>
 <ul>
 <li>Much more detailed error messages, with a suggested fix.</li>
 <li>Output values missing from a test are computed and shown.</li>
-<li>Automatic evaluation as you type.</li>
 <li>Completion and snippets.</li>
 <li>Recognises a few common misspellings of headers (for example <code>Segéd:</code> or
 <code>Input:</code>) and suggests the right one.</li>
-<li><code>CONDMIN</code>, the minimum counterpart of <code>CONDMAX</code>.</li>
 <li>Local <code>.sp</code> files, and one-line project sharing (<code>SPECI1:</code>).</li>
 </ul>
+<p>Both editors evaluate automatically as you type, and both have <code>CONDMIN</code>.</p>
 <h2 id="not-included"><a class="header" href="#not-included">Not included</a></h2>
 <ul>
 <li>The history pane.</li>
 <li>Server-side saving and permalinks. Use <code>.sp</code> files and <code>SPECI1:</code> lines instead.</li>
 </ul>
+
 
                     </main>
 
