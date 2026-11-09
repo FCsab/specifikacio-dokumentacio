@@ -44,7 +44,7 @@
 <p>A complete guide to the <strong>ELTE Specification Editor</strong>
 (<a href="https://progalap.elte.hu/specifikacio/">progalap.elte.hu/specifikacio</a>),
 the tool used for specifications in the course PROGRAMMING (<code>IP-18fPROGEG</code>).
-It covers every block, type and programming theorem, and has worked course tasks.
+It covers every block, type and programming theorem, and has worked tasks written for the book.
 Every example is checked automatically, so you can copy it and expect the same result.</p>
 
 <div class="editions">
@@ -72,14 +72,14 @@ messages say what is wrong and how to fix it.
 
 <p>A specification, and a test case that the editor evaluates against it:</p>
 
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)</code></pre>
+Post: light=COUNT(i=1..n, jars[i]&lt;450)</code></pre>
 
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3</code></pre>
+jars: [452, 438, 450, 447, 461]
+light: 2</code></pre>
 
 <p>The book starts from <a href="en/ch01-02-first-spec.html">exactly this example</a>
 and works up to compound tasks.</p>
@@ -93,7 +93,7 @@ and works up to compound tasks.</p>
 <tr><td><a href="en/ch02-00-structure.html">The specification language</a></td><td>blocks, types, arrays, records, operators, quantifiers, functions</td></tr>
 <tr><td><a href="en/ch06-00-theorems.html">Programming theorems</a></td><td><code>SUM</code>, <code>COUNT</code>, <code>MAX</code>, <code>SEARCH</code>, <code>MIS</code>, <code>CONDMAX</code> and the rest, with a guide to choosing between them</td></tr>
 <tr><td><a href="en/ch07-00-tests.html">Testing and evaluation</a></td><td>the test data format, the stepper, error messages</td></tr>
-<tr><td><a href="en/ch09-00-examples.html">Worked examples</a></td><td>course tasks solved from the statement to a green test suite</td></tr>
+<tr><td><a href="en/ch09-00-examples.html">Worked examples</a></td><td>original tasks solved from the statement to a green test suite</td></tr>
 <tr><td><a href="en/ch10-00-speci-local.html">speci-local</a></td><td>installing and using the offline editor</td></tr>
 <tr><td><a href="en/appendix-01-grammar.html">Appendices</a></td><td>grammar, symbols and shortcuts, glossary, FAQ</td></tr>
 </tbody>
@@ -121,7 +121,7 @@ Specification Editor is the work of its authors at ELTE IK.</p>
 <p>Teljes útmutató az <strong>ELTE Specifikációszerkesztőhöz</strong>
 (<a href="https://progalap.elte.hu/specifikacio/">progalap.elte.hu/specifikacio</a>),
 amellyel a Programozás alapjai (<code>IP-18fPROGEG</code>) tárgyban a specifikációkat
-írjuk. Minden blokkot, típust és programozási tételt bemutat, és kidolgozott tárgyi
+írjuk. Minden blokkot, típust és programozási tételt bemutat, és kidolgozott, a könyvhöz írt
 feladatokat is tartalmaz. Minden példát automatikusan ellenőrzünk, így bemásolhatod, és
 ugyanazt az eredményt kapod.</p>
 
@@ -150,14 +150,14 @@ mint az ELTE-s szerkesztő, és nem kell hozzá se bejelentkezés, se hálózat.
 
 <p>Egy specifikáció, és egy teszteset, amelyre a szerkesztő kiértékeli:</p>
 
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)</code></pre>
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)</code></pre>
 
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3</code></pre>
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2</code></pre>
 
 <p>A könyv <a href="hu/ch01-02-first-spec.html">pontosan ezzel a példával</a> indul, és
 eljut az összetett feladatokig.</p>
@@ -171,7 +171,7 @@ eljut az összetett feladatokig.</p>
 <tr><td><a href="hu/ch02-00-structure.html">A specifikációs nyelv</a></td><td>blokkok, típusok, tömbök, rekordok, műveletek, kvantorok, függvények</td></tr>
 <tr><td><a href="hu/ch06-00-theorems.html">Programozási tételek</a></td><td><code>SUM</code>, <code>DARAB</code>, <code>MAX</code>, <code>SEARCH</code>, <code>MIS</code>, <code>CONDMAX</code> és a többi, a választást segítő útmutatóval</td></tr>
 <tr><td><a href="hu/ch07-00-tests.html">Tesztelés és kiértékelés</a></td><td>a tesztadatok formátuma, a léptető, a hibaüzenetek</td></tr>
-<tr><td><a href="hu/ch09-00-examples.html">Kidolgozott példák</a></td><td>tárgyi feladatok a szövegtől a zöld tesztkészletig</td></tr>
+<tr><td><a href="hu/ch09-00-examples.html">Kidolgozott példák</a></td><td>saját feladatok a szövegtől a zöld tesztkészletig</td></tr>
 <tr><td><a href="hu/ch10-00-speci-local.html">speci-local</a></td><td>az offline szerkesztő telepítése és használata</td></tr>
 <tr><td><a href="hu/appendix-01-grammar.html">Függelékek</a></td><td>nyelvtan, jelek és billentyűparancsok, szójegyzék, GYIK</td></tr>
 </tbody>

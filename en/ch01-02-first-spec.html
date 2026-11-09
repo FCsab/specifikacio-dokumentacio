@@ -180,19 +180,20 @@
                         <h1 id="your-first-specification"><a class="header" href="#your-first-specification">Your first specification</a></h1>
 <p>Let’s solve a small task completely, from the problem statement to a green test.</p>
 <blockquote>
-<p><strong>Task.</strong> We are given <em>n</em> natural numbers. How many of them are odd?</p>
+<p><strong>Task.</strong> Borbála weighed <em>n</em> jars of honey, in grams. How many of them are
+lighter than 450 g?</p>
 </blockquote>
 <h2 id="step-1-decide-the-data"><a class="header" href="#step-1-decide-the-data">Step 1: Decide the data</a></h2>
 <p>Read the task and list what goes <strong>in</strong> and what comes <strong>out</strong>:</p>
 <ul>
-<li>in: how many numbers there are (<code>n</code>) and the numbers themselves (<code>nums</code>),</li>
-<li>out: the count of odd numbers (<code>cnt</code>).</li>
+<li>in: how many jars there are (<code>n</code>) and their weights (<code>jars</code>),</li>
+<li>out: the count of light jars (<code>light</code>).</li>
 </ul>
 <p>In the editor, every piece of data is declared as <em>name ∈ set</em>. A natural
 number is an element of <code>N</code>, and <em>n</em> natural numbers indexed from 1 to <em>n</em> are
 an element of <code>N[1..n]</code>:</p>
-<pre><code class="language-speci fragment">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci fragment">In: n∈N, jars∈N[1..n]
+Out: light∈N
 </code></pre>
 <p>Variable names start with a lowercase letter. Set names (<code>N</code>, <code>Z</code>, …) start
 with an uppercase letter. Declarations in one block are separated by commas.</p>
@@ -203,39 +204,39 @@ dash:</p>
 <pre><code class="language-speci fragment">Pre: -
 </code></pre>
 <h2 id="step-3-the-postcondition"><a class="header" href="#step-3-the-postcondition">Step 3: The postcondition</a></h2>
-<p>The postcondition states what must be true of the output. <code>cnt</code> is <em>the number
-of indices i between 1 and n for which nums[i] is odd</em>. This is the
+<p>The postcondition states what must be true of the output. <code>light</code> is <em>the number
+of indices i between 1 and n for which jars[i] is below 450</em>. This is the
 <strong>counting</strong> pattern, and the editor has a macro for it:</p>
-<pre><code class="language-speci fragment">Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <p><code>COUNT(i=1..n, condition)</code> goes through <code>i = 1, 2, …, n</code> and counts how many
-times the condition holds. <code>mod</code> is the remainder operator, so
-<code>nums[i] mod 2 = 1</code> means “nums[i] is odd”.</p>
+times the condition holds.</p>
 <p>Put together, the specification looks like this. Type it into the
 Specification pane (use the <strong>Insert</strong> buttons for <code>∈</code>):</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <h2 id="step-4-a-test-case"><a class="header" href="#step-4-a-test-case">Step 4: A test case</a></h2>
 <p>Click into the Data pane and write a test. The input values come first, then
 the output value you expect:</p>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
-<p>Three of the five numbers (3, 81 and 5) are odd, so we expect <code>cnt: 3</code>.</p>
+<p>Two of the five jars (438 g and 447 g) are lighter than 450 g, so we expect
+<code>light: 2</code>. The jar of exactly 450 g doesn’t count.</p>
 <h2 id="step-5-evaluate"><a class="header" href="#step-5-evaluate">Step 5: Evaluate</a></h2>
 <p>Press <strong>Evaluate</strong>. The test tab turns <strong>green</strong>: with this input and this
 output, the postcondition is true.</p>
 <p>Now see what a mistake looks like. Add a second test case with <code>+</code> and enter a
 wrong expectation on purpose:</p>
 <pre><code class="language-yaml red">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 2
+jars: [452, 438, 450, 447, 461]
+light: 3
 </code></pre>
-<p>This tab turns <strong>red</strong>: <code>COUNT</code> gives 3, but the test says 2. Open the
+<p>This tab turns <strong>red</strong>: <code>COUNT</code> gives 2, but the test says 3. Open the
 Visualization pane to watch the evaluation step by step.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
@@ -246,12 +247,12 @@ expected output too. You are describing the answer, not computing it.</p>
 <h2 id="step-6-more-tests"><a class="header" href="#step-6-more-tests">Step 6: More tests</a></h2>
 <p>A single test proves little. Add a few that probe the edges of the task:</p>
 <pre><code class="language-yaml">n: 3
-nums: [2, 4, 6]
-cnt: 0
+jars: [450, 500, 480]
+light: 0
 </code></pre>
 <pre><code class="language-yaml">n: 0
-nums: []
-cnt: 0
+jars: []
+light: 0
 </code></pre>
 <p>The second one is an empty input. <code>COUNT</code> over the empty range <code>1..0</code> is 0.
 Chapter <a href="ch07-02-good-tests.html">Writing a good test suite</a> explains how to
@@ -259,14 +260,14 @@ choose tests systematically.</p>
 <h2 id="the-same-in-hungarian"><a class="header" href="#the-same-in-hungarian">The same in Hungarian</a></h2>
 <p>The editor accepts the Hungarian keywords too. This specification is exactly
 equivalent:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <p>Here <code>Be</code>, <code>Ki</code>, <code>Ef</code>, <code>Uf</code> stand for <em>bemenet</em> (input), <em>kimenet</em> (output),
 <em>előfeltétel</em> (precondition) and <em>utófeltétel</em> (postcondition), and <code>DARAB</code> is

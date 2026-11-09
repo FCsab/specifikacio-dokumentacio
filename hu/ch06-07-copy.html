@@ -186,39 +186,39 @@ alkalmaz egy átalakítást.</p>
 </div>
 
 <h2 id="példa-abszolút-értékek"><a class="header" href="#példa-abszolút-értékek">Példa: abszolút értékek</a></h2>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈Z[1..n]
 Ki: cel∈N[1..n]
 Ef: -
-Uf: cel=COPY(i=1..n, abs(szamok[i]))
+Uf: cel=COPY(i=1..n, abs(x[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [3, -5, 0, -1]
+x: [3, -5, 0, -1]
 cel: [3, 5, 0, 1]
 </code></pre>
 <p>A kimeneti tömböt ugyanakkorának deklaráljuk, mint a bemenetet: <code>N[1..n]</code>.</p>
 <h2 id="példa-mértékegység-átváltás"><a class="header" href="#példa-mértékegység-átváltás">Példa: mértékegység-átváltás</a></h2>
 <blockquote>
-<p><em>n hőmérséklet adott Celsiusban. Add meg őket Fahrenheitben.</em></p>
+<p><em>n üveg súlya adott grammban. Add meg őket kilogrammban.</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, c∈R[1..n]
-Ki: f∈R[1..n]
+<pre><code class="language-speci">Be: n∈N, g∈R[1..n]
+Ki: kg∈R[1..n]
 Ef: -
-Uf: f=COPY(i=1..n, c[i]*9/5+32)
+Uf: kg=COPY(i=1..n, g[i]/1000)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-c: [0, 100, -40]
-f: [32, 212, -40]
+g: [1500, 250, 0]
+kg: [1.5, 0.25, 0]
 </code></pre>
 <h2 id="egy-mező-kiemelése"><a class="header" href="#egy-mező-kiemelése">Egy mező kiemelése</a></h2>
 <p>A <code>COPY</code> rekordok tömbjéből egyetlen mezőt is kiemelhet:</p>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: nevek∈S[1..n]
 Ef: -
 Uf: nevek=COPY(i=1..n, h[i].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 5}, {nev: Bence, jegy: 3}]
-nevek: [Anna, Bence]
+h: [{nev: Akac, pont: 5}, {nev: Bodza, pont: 3}]
+nevek: [Akac, Bodza]
 </code></pre>
 <h2 id="copy-vagy-mis"><a class="header" href="#copy-vagy-mis">COPY vagy MIS?</a></h2>
 <p>A <code>COPY</code> <strong>minden</strong> elemet megtart. Ha csak néhány elem kerülhet az

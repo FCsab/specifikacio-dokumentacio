@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="hu" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Trurl robotjai - A Specifikációszerkesztő könyve</title>
+        <title>The coldest flight - The Specification Editor Book</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
+        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
+                    <h1 class="menu-title">The Specification Editor Book</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,92 +177,101 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="trurl-robotjai"><a class="header" href="#trurl-robotjai">Trurl robotjai</a></h1>
+                        <h1 id="the-coldest-flight"><a class="header" href="#the-coldest-flight">The coldest flight</a></h1>
 <blockquote>
-<p><em>Trurl n napon át feljegyezte, hány robotot épített. Sorold fel azokat a
-napokat, amikor több robotot épített, mint az előző d nap alatt összesen
-(1 &lt; d &lt; n)!</em></p>
+<p><em>Borbála sits by the hive entrance with a thermometer and a clicker. For each
+observation she notes the temperature and how many bees left in a minute.
+She counts it as a real flight if more than k bees left. What is the lowest
+temperature at which a real flight happened?</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> összetett minta. A fő minta a kiválogatás, a beágyazott az
-összegzés.</p>
-<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
+<p><strong>Task type:</strong> conditional minimum selection.</p>
+<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li><strong>Adatok.</strong> <code>n</code>, <code>d</code>, és a napi darabszámok: <code>tr∈N[1..n]</code>.</li>
-<li><strong>Kérdés.</strong> <em>Sorold fel azokat a napokat, amikor…</em>: több index
-összegyűjtése, tehát <strong>MIS</strong>.</li>
-<li><strong>Feltétel az i. napra.</strong> A <code>tr[i]</code> nagyobb, mint az előző <em>d</em> nap összege,
-<code>tr[i-d] + … + tr[i-1]</code>. Ez egy <strong>SUM</strong>, amiből függvény lesz.</li>
-<li><strong>Tartomány.</strong> Az <em>i</em>. naphoz <em>d</em> előző nap kell, ezért az <code>i</code> <code>d+1</code>-től
-indul.</li>
-<li><strong>Előfeltétel.</strong> A feladat szerint <code>1 &lt; d &lt; n</code>.</li>
+<li><strong>Data.</strong> The threshold <code>k</code> and the observations. Their number isn’t given
+separately, so the array is open-ended: <code>obs∈Obs[]</code>, with <code>length(obs)</code> as
+its size. Temperatures can be negative, so the field is <code>Z</code>.</li>
+<li><strong>Question.</strong> The minimum temperature, but only among the real flights. That’s
+a minimum with a condition, so <code>CONDMIN</code>. A plain <code>MIN</code> would find the coldest
+observation, which is usually one with no bees at all.</li>
+<li><strong>Value for i.</strong> <code>obs[i].temp</code>.</li>
+<li><strong>Condition for i.</strong> <code>obs[i].bees&gt;k</code>.</li>
+<li><strong>Output.</strong> Whether there was any flight, and the temperature. The index isn’t
+asked for, so its slot is skipped: <code>(any,,coldest)</code>.</li>
 </ul>
-<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, d∈N, tr∈N[1..n]
-Ki: db∈N, napok∈N[1..db]
-Fv: ossz:N-&gt;N, ossz(i)=SUM(j=i-d..i-1, tr[j])
-Ef: 1&lt;d&lt;n
-Uf: (db,napok)=MIS(i=d+1..n, ossz(i)&lt;tr[i], i)
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<pre><code class="language-speci">In: k∈N, obs∈Obs[], Obs=(temp:Z x bees:N)
+Out: any∈L, coldest∈Z
+Pre: -
+Post: (any,,coldest)=CONDMIN(i=1..length(obs), obs[i].temp, obs[i].bees&gt;k)
 </code></pre>
-<p>A <code>MIS</code> harmadik argumentuma, az <code>i</code>, a napok sorszámát gyűjti össze. Két
-argumentummal is ugyanez lenne az eredmény, mert a kétargumentumos <code>MIS</code> eleve
-az indexeket gyűjti. A tárgyi megoldás kiírja.</p>
-<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>Tipikus eset, két megfelelő nappal:</p>
-<pre><code class="language-yaml">n: 10
-d: 3
-tr: [2, 4, 5, 1, 13, 1, 1, 1, 4, 5]
-db: 2
-napok: [5, 9]
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
+<p>The nominal case. The −1 °C and 3 °C observations don’t count as flights:</p>
+<pre><code class="language-yaml">k: 50
+obs:
+  - temp: 14
+    bees: 120
+  - temp: 6
+    bees: 60
+  - temp: 3
+    bees: 10
+  - temp: -1
+    bees: 0
+  - temp: 9
+    bees: 80
+any: true
+coldest: 6
 </code></pre>
-<p>Negatív eset, csökkenő termeléssel:</p>
-<pre><code class="language-yaml">n: 5
-d: 2
-tr: [100, 50, 20, 10, 5]
-db: 0
-napok: []
+<p>Boundary, the same data with <code>k: 60</code>, where exactly 60 bees is no longer a flight:</p>
+<pre><code class="language-yaml">k: 60
+obs: [{temp: 14, bees: 120}, {temp: 6, bees: 60}, {temp: 3, bees: 10}, {temp: -1, bees: 0}, {temp: 9, bees: 80}]
+any: true
+coldest: 9
 </code></pre>
-<p>Határeset, <code>d = n-1</code>, így csak az utolsó nap jöhet szóba:</p>
-<pre><code class="language-yaml">n: 4
-d: 3
-tr: [1, 1, 1, 10]
-db: 1
-napok: [4]
+<p>Negative, no flight at all:</p>
+<pre><code class="language-yaml">k: 500
+obs: [{temp: 14, bees: 120}, {temp: 6, bees: 60}]
+any: false
+coldest: 0
 </code></pre>
-<p>Az előfeltétel kizárja a <code>d = 1</code> esetet:</p>
-<pre><code class="language-yaml red">n: 4
-d: 1
-tr: [1, 2, 3, 4]
-db: 3
-napok: [2, 3, 4]
+<p>A real flight below freezing, to check that the output really is <code>Z</code>:</p>
+<pre><code class="language-yaml">k: 0
+obs: [{temp: 2, bees: 5}, {temp: -3, bees: 1}]
+any: true
+coldest: -3
 </code></pre>
-<h2 id="végigkövetés-első-teszt-d--3"><a class="header" href="#végigkövetés-első-teszt-d--3">Végigkövetés (első teszt, d = 3)</a></h2>
+<h2 id="walkthrough-first-test-k--50"><a class="header" href="#walkthrough-first-test-k--50">Walkthrough (first test, k = 50)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i. nap</th><th>előző napok</th><th style="text-align: right">ossz(i)</th><th style="text-align: right">tr[i]</th><th style="text-align: center">ossz(i) &lt; tr[i]?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">temp</th><th style="text-align: center">bees</th><th style="text-align: center">more than 50?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">4</td><td>2 + 4 + 5</td><td style="text-align: right">11</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">5</td><td>4 + 5 + 1</td><td style="text-align: right">10</td><td style="text-align: right">13</td><td style="text-align: center"><strong>igen</strong></td></tr>
-<tr><td style="text-align: right">6</td><td>5 + 1 + 13</td><td style="text-align: right">19</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">7</td><td>1 + 13 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">8</td><td>13 + 1 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">9</td><td>1 + 1 + 1</td><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: center"><strong>igen</strong></td></tr>
-<tr><td style="text-align: right">10</td><td>1 + 1 + 4</td><td style="text-align: right">6</td><td style="text-align: right">5</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">14</td><td style="text-align: center">120</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">6</td><td style="text-align: center">60</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3</td><td style="text-align: center">10</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">−1</td><td style="text-align: center">0</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">9</td><td style="text-align: center">80</td><td style="text-align: center">yes</td></tr>
 </tbody>
 </table>
 </div>
-<p>Az 5. és a 9. nap felel meg, így <code>db = 2</code> és <code>napok = [5, 9]</code>.</p>
+<p>The lowest temperature among the matching rows is 6.</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>When <code>any</code> is false, <code>coldest</code> carries no meaning and any value passes, so
+writing 0 is only a convention. If the task wanted a specific “no answer”
+value, the postcondition would have to produce it, as in
+<a href="ch09-09-tank.html">The overflowing tank</a>.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-02-yossarian.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-04-harvest.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-04-catbert.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-06-fair.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -272,11 +281,11 @@ napok: [2, 3, 4]
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-02-yossarian.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-04-harvest.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-04-catbert.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-06-fair.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

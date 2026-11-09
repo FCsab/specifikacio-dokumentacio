@@ -207,8 +207,8 @@ ind: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Don’t call the flag <code>exists</code>.</strong> Older manuals and screenshots use
-<code>Aux: exists∈L</code>, but <code>exists</code> is a reserved word (the ASCII form of <code>∃</code>), and
+<p><strong>Don’t call the flag <code>exists</code>.</strong> You may run into <code>Aux: exists∈L</code> in older
+material, but <code>exists</code> is a reserved word (the ASCII form of <code>∃</code>), and
 the current editor rejects it with
 <code>incomplite type for exists: undefined is not boolean</code>. Use <code>found</code>, <code>van</code>
 or <code>talalt</code>.</p>
@@ -229,24 +229,25 @@ ind: 4
 </code></pre>
 <h2 id="making-the-output-depend-on-the-result"><a class="header" href="#making-the-output-depend-on-the-result">Making the output depend on the result</a></h2>
 <p>Often the task wants something <em>derived</em> from the found element, and only if
-there is one. Use an implication. Wrap it in parentheses:</p>
-<pre><code class="language-speci">In: n∈N, names∈S[1..n], ages∈N[1..n]
+there is one. <em>What is the name of the first hive whose queen is at least 3 years
+old?</em> Use an implication. Wrap it in parentheses:</p>
+<pre><code class="language-speci">In: n∈N, names∈S[1..n], age∈N[1..n]
 Aux: found∈L, ind∈N
 Out: name∈S
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, ages[i]&lt;18) and
+Post: (found,ind)=SEARCH(i=1..n, age[i]≥3) and
       (found -&gt; name=names[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-names: [Anna, Bence, Cili]
-ages: [21, 17, 15]
+names: [Akac, Bodza, Repce]
+age: [1, 3, 4]
 found: true
 ind: 2
-name: Bence
+name: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-names: [Anna, Dani]
-ages: [21, 30]
+names: [Akac, Hars]
+age: [1, 2]
 found: false
 ind: 1
 name: ""
@@ -264,35 +265,35 @@ write <code>and (found -&gt; …)</code>.</p>
 <p>Some tasks don’t want a logical value. They want a special output, usually −1,
 when there is no match:</p>
 <blockquote>
-<p><em>Print the index of the first tree cheaper than K forints, or −1 if there is
+<p><em>Print the number of the first hive with more than K mites, or −1 if there is
 none.</em></p>
 </blockquote>
 <p>Two changes are needed. The output must be <code>Z</code> (−1 isn’t a natural number),
 and the postcondition must produce the −1 itself:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, price∈N[1..n]
+<pre><code class="language-speci">In: n∈N, k∈N, mites∈N[1..n]
 Aux: found∈L, ind∈N
 Out: res∈Z
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, price[i]&lt;k) and
+Post: (found,ind)=SEARCH(i=1..n, mites[i]&gt;k) and
       (found -&gt; res=ind) and
       (not found -&gt; res=-1)
 </code></pre>
-<pre><code class="language-yaml">n: 6
-k: 2000
-price: [2500, 5300, 1900, 2400, 8800, 5300]
+<pre><code class="language-yaml">n: 5
+k: 30
+mites: [12, 30, 45, 7, 60]
 found: true
 ind: 3
 res: 3
 </code></pre>
 <pre><code class="language-yaml">n: 3
 k: 100
-price: [2500, 5300, 1900]
+mites: [12, 30, 45]
 found: false
 ind: 1
 res: -1
 </code></pre>
-<p>The worked example <a href="ch09-09-trees.html">Christmas trees</a> solves the same task
-without <code>SEARCH</code> as well.</p>
+<p>The worked example <a href="ch09-09-tank.html">The overflowing tank</a> uses the same −1 technique,
+and solves its task without <code>SEARCH</code> as well.</p>
 <h2 id="searching-from-the-back"><a class="header" href="#searching-from-the-back">Searching from the back</a></h2>
 <p>To find the <strong>last</strong> matching index, run the search backwards. The trick is to
 negate the indices: let <code>i</code> run from <code>-n</code> to <code>-1</code>, look at <code>x[-i]</code>, and take the
@@ -313,8 +314,8 @@ the end. The first hit is at <code>i = -4</code>, which gives <code>-ind = -4</c
 The general form is <code>(found,-ind)=SEARCH(i=-e..-b, β(-i))</code>.</p>
 <h2 id="searching-in-a-compound-condition"><a class="header" href="#searching-in-a-compound-condition">Searching in a compound condition</a></h2>
 <p>The condition is often a function containing another theorem, for example
-<em>find a day on which every coffee break was above 5 litres</em>. That’s in
-<a href="ch09-04-catbert.html">Catbert’s coffee breaks</a>.</p>
+<em>find a frame position that is ripe in every box</em>. That’s in
+<a href="ch09-04-harvest.html">Harvest day</a>.</p>
 <h2 id="search-select-exists"><a class="header" href="#search-select-exists">SEARCH, SELECT, EXISTS</a></h2>
 <div class="table-wrapper">
 <table>

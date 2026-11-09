@@ -191,10 +191,10 @@
 <tr><th>Valid</th><th>Invalid</th><th>Why it’s invalid</th></tr>
 </thead>
 <tbody>
-<tr><td><code>nums</code>, <code>x1</code>, <code>visitedCount</code></td><td><code>Nums</code></td><td>starts with an uppercase letter (that’s a set name)</td></tr>
-<tr><td><code>szam</code>, <code>ar</code>, <code>tav</code></td><td><code>visited count</code></td><td>contains a space</td></tr>
+<tr><td><code>jars</code>, <code>x1</code>, <code>hiveCount</code></td><td><code>Jars</code></td><td>starts with an uppercase letter (that’s a set name)</td></tr>
+<tr><td><code>kaptar</code>, <code>suly</code>, <code>atka</code></td><td><code>hive count</code></td><td>contains a space</td></tr>
 <tr><td><code>r1</code>, <code>maxval</code></td><td><code>1x</code></td><td>starts with a digit</td></tr>
-<tr><td><code>osztok</code>, <code>db</code></td><td><code>max-val</code></td><td>contains <code>-</code> (read as subtraction)</td></tr>
+<tr><td><code>uvegek</code>, <code>db</code></td><td><code>max-val</code></td><td>contains <code>-</code> (read as subtraction)</td></tr>
 </tbody>
 </table>
 </div>
@@ -204,7 +204,7 @@ anyway, because they are awkward to type on some keyboards.</p>
 <h2 id="set-type-names"><a class="header" href="#set-type-names">Set (type) names</a></h2>
 <p>The names of sets, both the built-in ones (<code>N</code>, <code>Z</code>, <code>R</code>, <code>L</code>, <code>S</code>, <code>C</code>) and
 your own (<a href="ch03-05-aliases.html">Naming your own sets</a>), start with an
-<strong>uppercase letter</strong>: <code>Student</code>, <code>Grade</code>, <code>Walk</code>.</p>
+<strong>uppercase letter</strong>: <code>Hive</code>, <code>Rating</code>, <code>Reading</code>.</p>
 <h2 id="reserved-words"><a class="header" href="#reserved-words">Reserved words</a></h2>
 <p>Some lowercase words are part of the language, so you can’t use them as
 variable names:</p>
@@ -225,8 +225,7 @@ variable names:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Don’t name a variable <code>exists</code></strong>, even though old screenshots and
-manuals do: <code>Aux: exists∈L</code>. The current editor rejects it with the cryptic
+<p><strong>Don’t name a variable <code>exists</code></strong>, even though you may see <code>Aux: exists∈L</code> in older material. The current editor rejects it with the cryptic
 message <code>incomplite type for exists: undefined is not boolean</code>. Use <code>van</code>,
 <code>talalt</code> or <code>found</code> instead, and rename it everywhere: in the declaration, in
 the postcondition and in every test case.</p>
@@ -250,24 +249,26 @@ max: 9
 real content on the same line.</li>
 <li><code>/* … */</code> is a <strong>block comment</strong> that can span several lines.</li>
 </ul>
-<pre><code class="language-speci">/* Count the divisors of a number.
-   i|n means: i divides n. */
-In: n∈N
-Out: d∈N
-Pre: n&gt;=1          // 0 would have infinitely many divisors
-Post: d=COUNT(i=1..n, i|n)
+<pre><code class="language-speci">/* Which box sizes hold the whole harvest exactly?
+   b[i]|jars means: b[i] divides jars. */
+In: jars∈N, n∈N, b∈N[1..n]
+Out: fit∈N
+Pre: ∀i∈[1..n]:(b[i]&gt;=1)   // a box of size 0 makes no sense
+Post: fit=COUNT(i=1..n, b[i]|jars)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">jars: 24
+n: 4
+b: [6, 5, 8, 7]
+fit: 2
 </code></pre>
-<p>A common habit in course solutions is to write the general form of the
-theorem in a comment and match it with the concrete names:</p>
-<pre><code class="language-speci fragment">Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
+<p>A useful habit is to write the general form of the theorem in a comment and match
+it with the concrete names:</p>
+<pre><code class="language-speci fragment">Post: (c,names)=MIS(i=1..n, hives[i].kg&gt;30, hives[i].name)
+/* (c,y)=MIS(i=b..e, A(i), f(i))
+   c, y   ~ c, names
    b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+   A(i)   ~ hives[i].kg&gt;30
+   f(i)   ~ hives[i].name
 */
 </code></pre>
 <p>The built-in documentation also uses <code>/** … */</code> for headings. It’s an ordinary

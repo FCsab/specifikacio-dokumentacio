@@ -180,19 +180,20 @@
                         <h1 id="az-első-specifikációd"><a class="header" href="#az-első-specifikációd">Az első specifikációd</a></h1>
 <p>Oldjunk meg egy kis feladatot teljesen, a feladat szövegétől a zöld tesztig.</p>
 <blockquote>
-<p><strong>Feladat.</strong> Adott <em>n</em> darab természetes szám. Hány páratlan van köztük?</p>
+<p><strong>Feladat.</strong> Borbála <em>n</em> üveg mézet mért le, grammban. Hány közülük könnyebb
+450 grammnál?</p>
 </blockquote>
 <h2 id="1-lépés-az-adatok"><a class="header" href="#1-lépés-az-adatok">1. lépés: az adatok</a></h2>
 <p>Olvasd el a feladatot, és gyűjtsd ki, mi <strong>megy be</strong> és mi <strong>jön ki</strong>:</p>
 <ul>
-<li>be: a számok darabszáma (<code>n</code>) és maguk a számok (<code>szamok</code>),</li>
-<li>ki: a páratlanok száma (<code>db</code>).</li>
+<li>be: az üvegek darabszáma (<code>n</code>) és a súlyuk (<code>uvegek</code>),</li>
+<li>ki: a könnyű üvegek száma (<code>konnyu</code>).</li>
 </ul>
 <p>A szerkesztőben minden adatot <em>név ∈ halmaz</em> alakban deklarálunk. Egy
 természetes szám az <code>N</code> eleme, <em>n</em> darab, 1-től <em>n</em>-ig indexelt természetes szám
 pedig az <code>N[1..n]</code> eleme:</p>
-<pre><code class="language-speci fragment">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci fragment">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 </code></pre>
 <p>A változónevek kisbetűvel, a halmaznevek (<code>N</code>, <code>Z</code>, …) nagybetűvel kezdődnek.
 Egy blokkon belül a deklarációkat vessző választja el.</p>
@@ -203,39 +204,39 @@ bármilyen bemenetnek van értelme, tehát az előfeltétel egyszerűen „igaz�
 <pre><code class="language-speci fragment">Ef: -
 </code></pre>
 <h2 id="3-lépés-az-utófeltétel"><a class="header" href="#3-lépés-az-utófeltétel">3. lépés: az utófeltétel</a></h2>
-<p>Az utófeltétel azt rögzíti, minek kell igaznak lennie a kimenetre. A <code>db</code> az
-<em>olyan 1 és n közötti i indexek száma, amelyekre szamok[i] páratlan</em>. Ez a
+<p>Az utófeltétel azt rögzíti, minek kell igaznak lennie a kimenetre. A <code>konnyu</code> az
+<em>olyan 1 és n közötti i indexek száma, amelyekre uvegek[i] 450 alatt van</em>. Ez a
 <strong>megszámolás</strong> tétele, és a szerkesztőben van rá makró:</p>
-<pre><code class="language-speci fragment">Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <p>A <code>DARAB(i=1..n, feltétel)</code> végigmegy az <code>i = 1, 2, …, n</code> értékeken, és
-megszámolja, hányszor teljesül a feltétel. A <code>mod</code> a maradékos osztás, így a
-<code>szamok[i] mod 2 = 1</code> azt jelenti, hogy „szamok[i] páratlan”.</p>
+megszámolja, hányszor teljesül a feltétel.</p>
 <p>Összerakva a specifikáció így néz ki. Gépeld be a Specification panelbe (a <code>∈</code>
 jelhez használd az <strong>Insert</strong> gombot):</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <h2 id="4-lépés-egy-teszteset"><a class="header" href="#4-lépés-egy-teszteset">4. lépés: egy teszteset</a></h2>
 <p>Kattints a Data panelbe, és írj egy tesztet. Előbb a bemeneti értékek jönnek,
 aztán az elvárt kimenet:</p>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
-<p>Az öt számból három (3, 81 és 5) páratlan, ezért <code>db: 3</code>-at várunk.</p>
+<p>Az öt üvegből kettő (a 438 g-os és a 447 g-os) könnyebb 450 grammnál, ezért
+<code>konnyu: 2</code>-t várunk. A pontosan 450 g-os üveg nem számít.</p>
 <h2 id="5-lépés-kiértékelés"><a class="header" href="#5-lépés-kiértékelés">5. lépés: kiértékelés</a></h2>
 <p>Nyomd meg az <strong>Evaluate</strong> gombot. A teszt füle <strong>zöld</strong> lesz: ezzel a
 bemenettel és ezzel a kimenettel az utófeltétel igaz.</p>
 <p>Most nézzük meg, milyen egy hiba. Adj hozzá egy második tesztesetet a <code>+</code>
 gombbal, és írj bele szándékosan rossz elvárást:</p>
 <pre><code class="language-yaml red">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 2
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 3
 </code></pre>
-<p>Ez a fül <strong>piros</strong> lesz: a <code>DARAB</code> 3-at ad, a teszt viszont 2-t mond. Nyisd meg a
+<p>Ez a fül <strong>piros</strong> lesz: a <code>DARAB</code> 2-t ad, a teszt viszont 3-at mond. Nyisd meg a
 Visualization panelt, és kövesd lépésről lépésre a kiértékelést.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
@@ -247,12 +248,12 @@ az elvárt kimenetet is beírni. A választ írod le, nem kiszámolod.</p>
 <p>Egyetlen teszt keveset bizonyít. Írj néhányat, amelyek a feladat széleit
 próbálgatják:</p>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 4, 6]
-db: 0
+uvegek: [450, 500, 480]
+konnyu: 0
 </code></pre>
 <pre><code class="language-yaml">n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 </code></pre>
 <p>A második üres bemenet. Az üres <code>1..0</code> tartományon a <code>DARAB</code> értéke 0. A
 <a href="ch07-02-good-tests.html">Jó tesztkészlet írása</a> fejezet megmutatja, hogyan
@@ -260,14 +261,14 @@ db: 0
 <h2 id="ugyanez-angolul"><a class="header" href="#ugyanez-angolul">Ugyanez angolul</a></h2>
 <p>A szerkesztő az angol kulcsszavakat is elfogadja. Ez a specifikáció pontosan
 ugyanazt jelenti:</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <p>Az <code>In</code>, <code>Out</code>, <code>Pre</code>, <code>Post</code> a <em>bemenet</em>, <em>kimenet</em>, <em>előfeltétel</em> és
 <em>utófeltétel</em> angol neve, a <code>COUNT</code> pedig a <code>DARAB</code> angol megfelelője.</p>

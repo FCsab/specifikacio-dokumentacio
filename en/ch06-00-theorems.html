@@ -185,18 +185,18 @@ has to mention every input variable (see
 <a href="ch02-03-all-variables.html">The all-variables rule</a>).</p>
 <p>You could write every postcondition with quantifiers alone, and
 <a href="ch06-11-relational.html">Postconditions without theorems</a> shows how. Most
-course tasks, though, are instances of a small number of standard
+tasks, though, are instances of a small number of standard
 <strong>programming theorems</strong> (<em>programozási tételek</em>). Each one is an algorithmic
 pattern with a known, proven algorithm. The editor has a macro for each, so the
 postcondition can name the pattern directly:</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: sum∈N
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
+Out: total∈N
 Pre: -
-Post: sum=SUM(i=1..n, nums[i])
+Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-nums: [5, 1, 4, 2]
-sum: 12
+kg: [12, 3, 9, 6]
+total: 30
 </code></pre>
 <p>Recognising the theorem in the task <em>is</em> the algorithm design: once the
 postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</p>
@@ -310,21 +310,21 @@ point, <code>i&gt;=b</code>.</p>
 </div>
 
 <p>If the property of an element is <em>itself</em> a question about many elements
-(for example “every coffee break of the day was above 5 litres”), you need
+(for example “this frame position is ripe in every box”), you need
 two theorems, one inside the other. See
 <a href="ch06-10-compound.html">Combining theorems</a>.</p>
 <h2 id="reading-a-theorem-macro"><a class="header" href="#reading-a-theorem-macro">Reading a theorem macro</a></h2>
-<p>Take <code>cnt=COUNT(i=1..n, nums[i] mod 2 = 1)</code>:</p>
+<p>Take <code>light=COUNT(i=1..n, jars[i]&lt;450)</code>:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Part</th><th>Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>cnt=</code></td><td>the result is bound to the output variable <code>cnt</code></td></tr>
+<tr><td><code>light=</code></td><td>the result is bound to the output variable <code>light</code></td></tr>
 <tr><td><code>COUNT</code></td><td>the theorem: counting</td></tr>
 <tr><td><code>i=1..n</code></td><td>loop variable <code>i</code> runs over 1, 2, …, n</td></tr>
-<tr><td><code>nums[i] mod 2 = 1</code></td><td>the condition checked for each <code>i</code></td></tr>
+<tr><td><code>jars[i]&lt;450</code></td><td>the condition checked for each <code>i</code></td></tr>
 </tbody>
 </table>
 </div>

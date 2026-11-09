@@ -191,7 +191,7 @@ magukat az összegyűjtött elemeket is.</p>
 darabszám-változóval mint határral.</p>
 <h2 id="a-kétargumentumos-alak-illeszkedő-indexek"><a class="header" href="#a-kétargumentumos-alak-illeszkedő-indexek">A kétargumentumos alak: illeszkedő indexek</a></h2>
 <blockquote>
-<p><em>Melyik napokon volt fagypont alatt a hőmérséklet?</em></p>
+<p><em>Melyik hajnalokon volt fagypont alatt a hőmérséklet a röpnyílásnál?</em></p>
 </blockquote>
 <pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
 Ki: db∈N, napok∈N[1..db]
@@ -199,12 +199,12 @@ Ef: -
 Uf: (db,napok)=MIS(i=1..n, t[i]&lt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 db: 3
 napok: [2, 3, 6]
 </code></pre>
 <pre><code class="language-yaml">n: 2
-t: [5, 7]
+t: [6, 9]
 db: 0
 napok: []
 </code></pre>
@@ -223,9 +223,9 @@ Ef: -
 Uf: (db,hideg)=MIS(i=1..n, t[i]&lt;0, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 db: 3
-hideg: [-1, -4, -2]
+hideg: [-2, -5, -1]
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -234,54 +234,49 @@ az összegyűjtött érték a <em>harmadik</em>. A szűrt <code>SUM</code>-nál 
 <code>SUM(i=…, érték, feltétel)</code>.</p>
 </blockquote>
 <h3 id="példa-rekordok-mezői"><a class="header" href="#példa-rekordok-mezői">Példa: rekordok mezői</a></h3>
-<p>Gyűjtsük össze minden 30 percnél hosszabb futás helyszínét. Ez tárgyi példa
-(ezért angol nevekkel). Figyeld meg a megjegyzést, amely az általános alakot a
-feladatra illeszti:</p>
-<pre><code class="language-speci">In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]
-Out: cnt∈N, location∈S[1..cnt]
-Pre: -
-Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
-   b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+<p>Gyűjtsük össze minden 30 kg-nál nehezebb kaptár nevét. Figyeld meg a megjegyzést,
+amely az általános alakot a feladatra illeszti:</p>
+<pre><code class="language-speci">Be: Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]
+Ki: c∈N, nevek∈S[1..c]
+Ef: -
+Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
+   e..u   ~ 1..n
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-runs:
-  - time: 15
-    loc: office
-  - time: 35
-    loc: restaurant
-  - time: 40
-    loc: gym
-  - time: 5
-    loc: shop
-cnt: 2
-location: [restaurant, gym]
+kaptarak:
+  - kg: 22
+    nev: Akac
+  - kg: 35
+    nev: Bodza
+  - kg: 41
+    nev: Repce
+  - kg: 30
+    nev: Hars
+c: 2
+nevek: [Bodza, Repce]
 </code></pre>
 <h2 id="más-tételekkel-kombinálva"><a class="header" href="#más-tételekkel-kombinálva">Más tételekkel kombinálva</a></h2>
-<p>Az összegyűjtött tömb egy másik tétel bemenete lehet. <em>A legtávolabbi városok
-közül mennyi a legolcsóbb jegy?</em> A <code>MAX</code> megtalálja a legnagyobb távolságot, a
-<code>MIS</code> összegyűjti az ekkora távolsághoz tartozó árakat, a <code>MIN</code> pedig kiválasztja
-a legolcsóbbat:</p>
-<pre><code class="language-speci">Be: n∈N, varos∈Varos[1..n], Varos=(tav:N x ar:N)
-Sa: leg∈N, db∈N, arak∈N[1..db]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: (,leg)=MAX(i=1..n, varos[i].tav) és
-    (db,arak)=MIS(i=1..n, varos[i].tav=leg, varos[i].ar) és
-    (,jegy)=MIN(i=1..db, arak[i])
+<p>Az összegyűjtött tömb egy másik tétel bemenete lehet. <em>Mennyi méz jött a legalább 4
+pontos kaptárakból?</em> A <code>MIS</code> összegyűjti a termésüket, a <code>SUM</code> pedig összeadja:</p>
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(kg:N x pont:N)
+Sa: db∈N, termes∈N[1..db]
+Ki: ossz∈N
+Ef: -
+Uf: (db,termes)=MIS(i=1..n, h[i].pont≥4, h[i].kg) és
+    ossz=SUM(i=1..db, termes[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-varos: [{tav: 500, ar: 90}, {tav: 900, ar: 120}, {tav: 900, ar: 80}, {tav: 300, ar: 20}]
-leg: 900
+h: [{kg: 50, pont: 2}, {kg: 90, pont: 4}, {kg: 80, pont: 5}, {kg: 30, pont: 1}]
 db: 2
-arak: [120, 80]
-jegy: 80
+termes: [90, 80]
+ossz: 170
 </code></pre>
-<p>A segédváltozóknak (<code>leg</code>, <code>db</code>, <code>arak</code>) is szerepelniük kell a tesztesetben, az
+<p>A segédváltozóknak (<code>db</code>, <code>termes</code>) is szerepelniük kell a tesztesetben, az
 elvárt értékükkel.</p>
 
                     </main>

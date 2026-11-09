@@ -182,18 +182,18 @@
 <p>A <strong>rekord</strong> (struktúra) <em>különböző</em> típusú értékeket fog össze egy egységbe. A
 specifikációban a mezők halmazainak <strong>direkt szorzata</strong>, a mezők között <code>x</code>
 jellel:</p>
-<pre><code class="language-speci fragment">r1∈(nev:S x jegy:N)
+<pre><code class="language-speci fragment">r1∈(nev:S x pont:N)
 </code></pre>
-<p>Az <code>r1</code> az <em>S × N</em> egy eleme, egy név–jegy pár. A mezőket ponttal érjük el:
-<code>r1.nev</code>, <code>r1.jegy</code>.</p>
+<p>Az <code>r1</code> az <em>S × N</em> egy eleme, egy név–pont pár. A mezőket ponttal érjük el:
+<code>r1.nev</code>, <code>r1.pont</code>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Deklaráció</th><th>Jelentés</th></tr>
 </thead>
 <tbody>
-<tr><td><code>r1∈nev:S x jegy:N</code></td><td>a zárójel elhagyható</td></tr>
-<tr><td><code>r2∈(nev:S x jegy:N)</code></td><td>a szokásos forma</td></tr>
+<tr><td><code>r1∈nev:S x pont:N</code></td><td>a zárójel elhagyható</td></tr>
+<tr><td><code>r2∈(nev:S x pont:N)</code></td><td>a szokásos forma</td></tr>
 <tr><td><code>r3∈(eszak:L x kelet:L x del:L x nyugat:L)</code></td><td>tetszőleges számú mező</td></tr>
 <tr><td><code>r4∈(a:[1..2] x b:[3..4])</code></td><td>a mezők intervallumok is lehetnek: r4 az (1,3), (1,4), (2,3), (2,4) egyike</td></tr>
 </tbody>
@@ -201,50 +201,50 @@ jellel:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p>Az <code>x</code> mindkét oldalán szóköz kell: <code>nev:S x jegy:N</code>.</p>
+<p>Az <code>x</code> mindkét oldalán szóköz kell: <code>nev:S x pont:N</code>.</p>
 </blockquote>
 <p>A tesztadatban a rekord többsoros YAML alakban vagy tömör <code>{…}</code> alakban írható:</p>
-<pre><code class="language-speci">Be: r∈(nev:S x jegy:N)
-Ki: atment∈L
-Ef: r.jegy≥1 és r.jegy≤5
-Uf: atment=(r.jegy≥2)
+<pre><code class="language-speci">Be: r∈(nev:S x pont:N)
+Ki: marad∈L
+Ef: r.pont≥1 és r.pont≤5
+Uf: marad=(r.pont≥2)
 </code></pre>
 <pre><code class="language-yaml">r:
-  nev: Anna
-  jegy: 4
-atment: true
+  nev: Akac
+  pont: 4
+marad: true
 </code></pre>
-<pre><code class="language-yaml">r: {nev: Bence, jegy: 1}
-atment: false
+<pre><code class="language-yaml">r: {nev: Bodza, pont: 1}
+marad: false
 </code></pre>
 <h2 id="rekordok-tömbje"><a class="header" href="#rekordok-tömbje">Rekordok tömbje</a></h2>
-<p>A legtöbb valódi feladatban <strong>rekordok tömbje</strong> szerepel: hallgatók listája,
+<p>A legtöbb valódi feladatban <strong>rekordok tömbje</strong> szerepel: kaptárak listája,
 mérések sorozata. Átláthatóbb, ha a rekord típusát előbb elnevezzük (lásd
 <a href="ch03-05-aliases.html">Saját halmaznevek</a>):</p>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: c∈N
-Ef: ∀i∈[1..n]:(1≤h[i].jegy≤5)
-Uf: c=DARAB(i=1..n, h[i].jegy=5)
+Ef: ∀i∈[1..n]:(1≤h[i].pont≤5)
+Uf: c=DARAB(i=1..n, h[i].pont=5)
 </code></pre>
 <pre><code class="language-yaml">n: 3
 h:
-  - nev: Anna
-    jegy: 5
-  - nev: Bence
-    jegy: 3
-  - nev: Cili
-    jegy: 5
+  - nev: Akac
+    pont: 5
+  - nev: Bodza
+    pont: 3
+  - nev: Repce
+    pont: 5
 c: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 2}, {nev: Bence, jegy: 4}]
+h: [{nev: Akac, pont: 2}, {nev: Bodza, pont: 4}]
 c: 0
 </code></pre>
-<p>A <code>h[i].jegy</code> jelentése: „a h <em>i</em>-edik elemének jegy mezője”.</p>
+<p>A <code>h[i].pont</code> jelentése: „a h <em>i</em>-edik elemének pont mezője”.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p>A tesztadat mezőneveinek pontosan egyezniük kell a deklarációval, kis- és
-nagybetűre is: a <code>jegy</code> nem <code>Jegy</code>.</p>
+nagybetűre is: a <code>pont</code> nem <code>Pont</code>.</p>
 </blockquote>
 <h2 id="tuple-ök"><a class="header" href="#tuple-ök">Tuple-ök</a></h2>
 <p>A <strong>tuple</strong> (rendezett n-es) rekord deklarálása nélkül fog össze értékeket:
@@ -278,7 +278,7 @@ A részletek a <a href="ch06-03-max-min.html">Maximum- és minimumkiválasztás<
 vannak.</p>
 <p>A függvények is visszaadhatnak tuple-t: <code>csere:Z x Z-&gt;Z x Z, csere(a,b)=(b,a)</code>.
 A tételek eredményének komponensei <strong>névvel</strong> is elérhetők, például a <code>MAX</code>-nál
-a <code>.maxval</code> és a <code>.maxind</code>. A <a href="ch09-02-yossarian.html">Yossarian térképe</a> példa
+a <code>.maxval</code> és a <code>.maxind</code>. A <a href="ch09-02-reliable.html">legmegbízhatóbb kaptár</a> példa
 ezt használja.</p>
 
                     </main>

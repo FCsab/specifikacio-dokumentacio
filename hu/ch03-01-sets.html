@@ -202,20 +202,20 @@ ki az előfeltételben: <code>Ef: n&gt;0</code>. Ha egy érték negatív is lehe
 „−1, ha nincs ilyen” eredmény), <code>Z</code>-ként deklaráld, ne <code>N</code>-ként.</p>
 </blockquote>
 <p>Egy példa, amely többet is használ közülük:</p>
-<pre><code class="language-speci">Be: nev∈S, kor∈N, magassag∈R
-Ki: felnott∈L
-Ef: magassag&gt;0
-Uf: felnott=(kor≥18) és nev=nev és magassag=magassag
+<pre><code class="language-speci">Be: nev∈S, kor∈N, kg∈R
+Ki: csere∈L
+Ef: kg&gt;0
+Uf: csere=(kor≥3) és nev=nev és kg=kg
 </code></pre>
-<pre><code class="language-yaml">nev: Anna
-kor: 19
-magassag: 1.68
-felnott: true
+<pre><code class="language-yaml">nev: Akac
+kor: 3
+kg: 41.5
+csere: true
 </code></pre>
-<pre><code class="language-yaml">nev: "Bence"
-kor: 12
-magassag: 1.45
-felnott: false
+<pre><code class="language-yaml">nev: "Bodza"
+kor: 1
+kg: 28.25
+csere: false
 </code></pre>
 <h2 id="intervallumok"><a class="header" href="#intervallumok">Intervallumok</a></h2>
 <p>Az intervallum két határ közötti egész számok halmaza, a határokat is
@@ -224,20 +224,20 @@ beleértve:</p>
 </code></pre>
 <p>Az <code>iv</code> értéke 1, 2 vagy 3 lehet. A határok más bemeneti változókat tartalmazó
 kifejezések is lehetnek: <code>[2+3..n*2]</code>.</p>
-<p>Az intervallumok kis, rögzített tartományokra valók, például jegyekre vagy
+<p>Az intervallumok kis, rögzített tartományokra valók, például pontszámokra vagy
 hónapokra:</p>
-<pre><code class="language-speci">Be: jegy∈[1..5]
-Ki: atment∈L
+<pre><code class="language-speci">Be: pont∈[1..5]
+Ki: marad∈L
 Ef: -
-Uf: atment=(jegy≥2)
+Uf: marad=(pont≥2)
 </code></pre>
-<pre><code class="language-yaml">jegy: 4
-atment: true
+<pre><code class="language-yaml">pont: 4
+marad: true
 </code></pre>
 <p>Az intervallumon kívüli érték bukott tesztesetet ad, mert az adat nem illik a
 deklarált típusra:</p>
-<pre><code class="language-yaml red">jegy: 6
-atment: true
+<pre><code class="language-yaml red">pont: 6
+marad: true
 </code></pre>
 <p>Az intervallumok a kvantorokban is megjelennek, <code>∀i∈[1..n]:(…)</code> alakban (lásd
 <a href="ch04-02-quantifiers.html">Kvantorok</a>), és a tömbök indextartományaként is, erről

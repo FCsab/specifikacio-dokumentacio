@@ -211,7 +211,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tbody>
 <tr><td style="text-align: right">1</td><td>no space after a header on the same line (<code>In:n∈N</code>)</td><td>syntax error on line 1</td><td><code>In: n∈N</code>, or put the header on its own line</td></tr>
 <tr><td style="text-align: right">2</td><td>a declared variable not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
-<tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Student=(…)</code></td></tr>
+<tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Hive=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>matrix vs. array of arrays</td><td>indexing errors</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>index range off by one (<code>0..</code> vs <code>1..</code>)</td><td>out-of-range index</td><td>check <code>from</code>/<code>to</code>, or loop over <code>from(x)..to(x)</code></td></tr>
 <tr><td style="text-align: right">6</td><td>comparing neighbours up to <code>n</code></td><td><code>x[i+1]</code> out of range</td><td>loop to <code>n-1</code></td></tr>
@@ -247,11 +247,11 @@ Fix: Rename it everywhere (declaration, postcondition and test data), e.g. to `v
 Fix: Check the loop bounds; when you look at `x[i+1]`, the loop must stop at n-1.
 </code></pre>
 <p>A red test tells you <em>which</em> part is false, and what the specification computes:</p>
-<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `cnt=COUNT(i=1..n, nums[i] mod 2 = 1)` does not hold
- 4 | Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `light=COUNT(i=1..n, jars[i]&lt;450)` does not hold
+ 4 | Post: light=COUNT(i=1..n, jars[i]&lt;450)
    |       ^
-Values used: cnt = 2, n = 5, nums = [3, 72, 81, 4, 5].
-`cnt`: the test case says 2, the specification gives 3
+Values used: light = 3, n = 5, jars = [452, 438, 450, 447, 461].
+`light`: the test case says 3, the specification gives 2
 Fix: Either the expected output in the test case is wrong, or the postcondition does not describe the task.
 </code></pre>
 <p>When an online error message is hard to understand, paste the specification into

@@ -178,8 +178,11 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="feladatmegoldás-lépésről-lépésre"><a class="header" href="#feladatmegoldás-lépésről-lépésre">Feladatmegoldás lépésről lépésre</a></h1>
-<p>Ez a rész teljes feladatokat old meg, többségüket a tárgyi anyagból, a feladat
-szövegétől a zöld tesztkészletig. Mindegyik ugyanazt a módszert követi:</p>
+<p>Ez a rész teljes feladatokat old meg, a feladat szövegétől a zöld
+tesztkészletig. Minden feladat ehhez a könyvhöz készült. Mindegyik Borbála
+méhészetében, a Kaptár-völgyben játszódik, amely csak itt létezik, így az adatok
+ismerősek maradnak, és a specifikációra koncentrálhatsz. Mindegyik ugyanazt a
+módszert követi:</p>
 <ol>
 <li><strong>Olvasd el a feladatot</strong>, és húzd alá, mi adott és mi a kérdés.</li>
 <li><strong>Deklaráld az adatokat.</strong> Bemenetek, kimenetek, és ha az utófeltételnek
@@ -199,21 +202,19 @@ segítségével. Figyeld a beágyazást („minden egyes … minden …”) és 
 <tr><th>Feladat</th><th>Tételek</th><th>Adatok</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="ch09-01-discworld.html">A Korongvilág könyvtárai</a></td><td><code>SEARCH</code> + implikáció</td><td>rekordok tömbje</td></tr>
-<tr><td><a href="ch09-02-yossarian.html">Yossarian térképe</a></td><td><code>MAX</code>-ok <code>MAX</code>-a</td><td>mátrix</td></tr>
-<tr><td><a href="ch09-03-trurl.html">Trurl robotjai</a></td><td><code>MIS</code> + beágyazott <code>SUM</code></td><td>tömb</td></tr>
-<tr><td><a href="ch09-04-catbert.html">Catbert kávészünetei</a></td><td><code>SEARCH</code> + beágyazott <code>FORALL</code></td><td>mátrix</td></tr>
-<tr><td><a href="ch09-05-dogbert.html">Dogbert csillaga</a></td><td><code>CONDMAX</code>, pozíció kihagyása</td><td>nyitott tömb</td></tr>
-<tr><td><a href="ch09-06-travel.html">Az utazási iroda</a></td><td>relációs, vagy <code>MAX</code>+<code>MIS</code>+<code>MIN</code></td><td>párhuzamos tömbök</td></tr>
-<tr><td><a href="ch09-07-divisors.html">Osztók</a></td><td><code>DARAB</code>, szűrt <code>SUM</code></td><td>egyetlen szám</td></tr>
-<tr><td><a href="ch09-08-cards.html">Kártyaértékek</a></td><td>relációs, keresőtábla</td><td>konstans tömbök</td></tr>
-<tr><td><a href="ch09-09-trees.html">Karácsonyfák</a></td><td><code>SEARCH</code> −1-es eredménnyel, relációs</td><td>tömb</td></tr>
+<tr><td><a href="ch09-01-swarm.html">A raj a mérlegen</a></td><td><code>SEARCH</code> + implikáció</td><td>rekordok tömbje</td></tr>
+<tr><td><a href="ch09-02-reliable.html">A legmegbízhatóbb kaptár</a></td><td><code>MIN</code>-ek <code>MAX</code>-a</td><td>mátrix</td></tr>
+<tr><td><a href="ch09-03-flow.html">A hordás</a></td><td><code>MIS</code> + beágyazott <code>SUM</code></td><td>tömb</td></tr>
+<tr><td><a href="ch09-04-harvest.html">Pergetés</a></td><td><code>SEARCH</code> + beágyazott <code>FORALL</code> oszlopokon</td><td>mátrix</td></tr>
+<tr><td><a href="ch09-05-coldest.html">A leghidegebb kijárás</a></td><td><code>CONDMIN</code>, pozíció kihagyása</td><td>rekordok nyitott tömbje</td></tr>
+<tr><td><a href="ch09-06-fair.html">A mézvásár</a></td><td><code>MAX</code> + szűrt <code>SUM</code>, vagy relációs</td><td>párhuzamos tömbök</td></tr>
+<tr><td><a href="ch09-07-calendar.html">Az etetési naptár</a></td><td><code>DARAB</code>, szűrt <code>SUM</code></td><td>néhány szám</td></tr>
+<tr><td><a href="ch09-08-bloom.html">A virágzási naptár</a></td><td>relációs, keresőtábla</td><td>konstans tömbök</td></tr>
+<tr><td><a href="ch09-09-tank.html">A túlfolyó tartály</a></td><td><code>SEARCH</code> −1-es eredménnyel, relációs</td><td>tömb</td></tr>
 <tr><td><a href="ch09-10-more.html">További rövid példák</a></td><td><code>DARAB</code>+<code>FORALL</code>, <code>MIS</code>+<code>FORALL</code>, …</td><td>vegyes</td></tr>
 </tbody>
 </table>
 </div>
-<p>A hivatalos angol segédlet feladatait magyarra fordítva, magyar kulcsszavakkal
-és nevekkel oldjuk meg. A hivatalos megoldások linkjei mindenhol szerepelnek.</p>
 
                     </main>
 
@@ -223,7 +224,7 @@ segítségével. Figyeld a beágyazást („minden egyes … minden …”) és 
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-01-discworld.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-01-swarm.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -237,7 +238,7 @@ segítségével. Figyeld a beágyazást („minden egyes … minden …”) és 
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-01-discworld.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-01-swarm.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

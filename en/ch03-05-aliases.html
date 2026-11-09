@@ -181,7 +181,7 @@
 <p>Any set can be given a name with <code>Name=Set</code>. The name starts with an
 <strong>uppercase letter</strong>, and the definition goes into a declaration block next
 to the variables:</p>
-<pre><code class="language-speci">In: j∈Grade, Grade=[1..5]
+<pre><code class="language-speci">In: j∈Rating, Rating=[1..5]
 Out: ok∈L
 Pre: -
 Post: ok=(j≥2)
@@ -192,17 +192,17 @@ ok: true
 <p>Use <code>=</code> for the definition, not <code>:=</code>.</p>
 <h2 id="why-name-sets"><a class="header" href="#why-name-sets">Why name sets?</a></h2>
 <p>Names make complex data readable. Compare</p>
-<pre><code class="language-speci fragment">h1∈(name:S x grade:N)[1..]
+<pre><code class="language-speci fragment">h1∈(name:S x rating:N)[1..]
 </code></pre>
 <p>with</p>
-<pre><code class="language-speci fragment">h2∈Student[1..], Student=(name:S x grade:N)
+<pre><code class="language-speci fragment">h2∈Hive[1..], Hive=(name:S x rating:N)
 </code></pre>
 <p>The second one says what the data <em>is</em>. Once a set has a name you can use it
 in several places: in other declarations, in function signatures
-(<code>grade:Student-&gt;N</code>), and inside other named sets.</p>
+(<code>rating:Hive-&gt;N</code>), and inside other named sets.</p>
 <h2 id="chains-and-nesting"><a class="header" href="#chains-and-nesting">Chains and nesting</a></h2>
 <p>Names can refer to other names, so you can build long chains:</p>
-<pre><code class="language-speci">In: j2∈Mark, Mark=OneToFive, OneToFive=[1..5]
+<pre><code class="language-speci">In: j2∈Score, Score=OneToFive, OneToFive=[1..5]
 Out: ok∈L
 Pre: -
 Post: ok=(j2=j2)
@@ -211,22 +211,21 @@ Post: ok=(j2=j2)
 ok: true
 </code></pre>
 <p>They can also be nested to describe deep structures. In this example
-each student has a list of grades:</p>
-<pre><code class="language-speci">In: cls∈Class, Class=Student[], Student=(name:S x grades:Grade[]), Grade=[1..5]
+each hive has a list of ratings:</p>
+<pre><code class="language-speci">In: yard∈Apiary, Apiary=Hive[], Hive=(name:S x ratings:Rating[]), Rating=[1..5]
 Out: c∈N
 Pre: -
-Post: c=COUNT(i=1..length(cls), length(cls[i].grades)&gt;0)
+Post: c=COUNT(i=1..length(yard), length(yard[i].ratings)&gt;0)
 </code></pre>
-<pre><code class="language-yaml">cls:
-  - name: Anna
-    grades: [5, 4, 5]
-  - name: Bence
-    grades: []
+<pre><code class="language-yaml">yard:
+  - name: Akac
+    ratings: [5, 4, 5]
+  - name: Bodza
+    ratings: []
 c: 1
 </code></pre>
-<p>A definition can come before or after its first use. The built-in documentation
-writes <code>j∈Grade, Grade=[1..5]</code>. Some course solutions put the record definition
-first: <code>In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]</code>.</p>
+<p>A definition can come before or after its first use: both
+<code>j∈Rating, Rating=[1..5]</code> and <code>Thive=(kg:N x name:S), n∈N, hives∈Thive[1..n]</code> are fine.</p>
 <h2 id="where-to-put-the-definitions"><a class="header" href="#where-to-put-the-definitions">Where to put the definitions</a></h2>
 <p>The definitions go into the declaration blocks (<code>In:</code>, <code>Aux:</code>, <code>Out:</code>) and are
 separated from the variables by commas. Convention is to put them in the block

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Osztók - A Specifikációszerkesztő könyve</title>
+        <title>A mézvásár - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
@@ -177,103 +177,141 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="osztók"><a class="header" href="#osztók">Osztók</a></h1>
-<p>Három rövid magyar tárgyi feladat egy szám osztóiról. A <code>DARAB</code> megszámoló
-makrót, a <code>|</code> oszthatósági relációt és a szűrt <code>SUM</code>-ot mutatják be.</p>
-<h2 id="az-osztók-száma"><a class="header" href="#az-osztók-száma">Az osztók száma</a></h2>
+                        <h1 id="a-mézvásár"><a class="header" href="#a-mézvásár">A mézvásár</a></h1>
 <blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki az osztóinak a számát!</em></p>
+<p><em>A kaptár-völgyi mézvásáron Borbála N eladást jegyzett fel. Mindegyikhez felírta
+a méz fajtáját (1-től K-ig számozva), az üvegek számát és egy üveg árát. Melyik
+fajta hozta a legtöbb bevételt? Ha több is ugyanannyit, a legkisebb sorszámút add
+meg.</em></p>
+<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100) és K (1 ≤ K ≤ 10), aztán N sorban a fajta
+(1 ≤ F ≤ K), az üvegek (1 ≤ D ≤ 50) és az ár (1 ≤ Á ≤ 9000).
+<strong>Kimenet:</strong> egy egész szám, a fajta.</p>
 </blockquote>
-<pre><code class="language-speci">Be: szam∈N
-
-Ki: osztok∈N
-
-Ef: szam&gt;=1
-
-Uf: osztok=DARAB(i=1..szam, i|szam)    // szam mod i = 0
-</code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
-</code></pre>
-<pre><code class="language-yaml">szam: 1
-osztok: 1
-</code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
-</code></pre>
+<p>A feladatot magyar stílusban írjuk: magyar fejlécek és nevek, soronként egy
+deklaráció, a blokkok között üres sor.</p>
+<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li>A <code>DARAB</code> a <code>COUNT</code> magyar alakja.</li>
-<li>Az <code>i|szam</code> jelentése „i osztója szam-nak”, ami ugyanaz, mint a
-<code>szam mod i = 0</code>. A sorvégi megjegyzés ki is mondja.</li>
-<li>Az előfeltétel kizárja a 0-t, amelynek végtelen sok osztója lenne.</li>
+<li><strong>Adatok.</strong> A bemenet N sor (fajta, üvegek, ár). Ezt három párhuzamos tömb
+követi közvetlenül. A <code>k</code> megmondja, hány fajta van.</li>
+<li><strong>Kérdés.</strong> A külső tétel egy maximum a <strong>fajtákon</strong>, nem az eladásokon. Ez a
+legfontosabb lépés: a <code>t</code> ciklusváltozó az <code>1..k</code> tartományon fut.</li>
+<li><strong>Belső tétel.</strong> A <code>t</code> fajta bevétele a <code>db[i]*ar[i]</code> összege az adott fajta
+eladásain, tehát egy szűrt <code>SUM</code>, amiből függvény lesz.</li>
+<li><strong>Döntetlen.</strong> A <code>MAX</code> az első indexet veszi, ez a legkisebb fajtaszám.</li>
 </ul>
-<h2 id="az-osztók-összege"><a class="header" href="#az-osztók-összege">Az osztók összege</a></h2>
-<blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki az osztóinak az összegét!</em></p>
-</blockquote>
-<pre><code class="language-speci">Be: n∈N
+<h2 id="specifikáció-tételekkel"><a class="header" href="#specifikáció-tételekkel">Specifikáció (tételekkel)</a></h2>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
-Ki: sum∈N
+Ki:
+legjobb∈N
 
-Ef: n&gt;=1
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
-Uf: sum=SUM(i=1..n, i, i|n)
+Ef:
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
+
+Uf:
+(legjobb,)=MAX(t=1..k, bev(t))
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 28
+<p>Figyeld meg, hogy az <code>n</code>, a <code>db</code> és az <code>ar</code> csak a <code>bev</code> függvényen keresztül
+szerepel az utófeltételben. Ez teljesíti a
+<a href="ch02-03-all-variables.html">minden-változó szabályt</a>.</p>
+<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
+<p>A szokásos eset. Az 1. fajta 9000-et, a 2. 10 000-et, a 3. 4000-et hoz:</p>
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
+<p>Döntetlen, így a kisebb fajtaszám a válasz:</p>
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
+</code></pre>
+<p>Ugyanez a döntetlen a nagyobb számmal piros kell legyen:</p>
+<pre><code class="language-yaml red">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 2
+</code></pre>
+<p>Az eladás nélküli fajták bevétele 0, és nem nyerhetnek:</p>
 <pre><code class="language-yaml">n: 1
-sum: 1
-</code></pre>
-<p>A <code>SUM</code> harmadik argumentuma a szűrő: csak az osztókat adja össze.</p>
-<h2 id="a-páratlan-osztók-összege"><a class="header" href="#a-páratlan-osztók-összege">A páratlan osztók összege</a></h2>
-<blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki a páratlan osztóinak az összegét!</em></p>
-</blockquote>
-<p>Egy, a tárgyban terjedő megoldás:</p>
-<pre><code class="language-speci">Be: n∈N
-
-Ki: sum∈N
-
-Ef: n&gt;=1
-
-Uf: sum = SUM(i=1..n,i,i%2=1)
-</code></pre>
-<pre><code class="language-yaml red">n: 10
-sum: 6
+k: 3
+fajta: [3]
+db: [1]
+ar: [5]
+legjobb: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>Ez nem oldja meg a feladatot. Az <code>i%2=1</code> szűrő n-ig <em>minden páratlan számot</em>
-megtart. n = 10-re 1+3+5+7+9 = 25-öt ad, nem a páratlan osztók 1+5 = 6
-összegét. A helyes választ tartalmazó teszt piros, és ez leleplezi a hibát.</p>
+<p><strong>Ellenőrizz minden határt.</strong> Könnyű az árkorlátot (9000) az üvegekre is
+rámásolni. Az ilyen előfeltétel túl laza, és egyetlen teszt sem lesz miatta
+piros. Az <code>Ef:</code> minden határát vesd össze a feladat szövegével.</p>
 </blockquote>
-<p>A helyes szűrőben mindkét feltétel szerepel:</p>
-<pre><code class="language-speci">Be: n∈N
+<h2 id="specifikáció-relációs"><a class="header" href="#specifikáció-relációs">Specifikáció (relációs)</a></h2>
+<p>Ugyanez a feladat tulajdonságként: <em>létezik egy t fajta, amely a válasz, egyik
+fajta sem hozott nála többet, és minden előtte lévő fajta szigorúan kevesebbet
+hozott.</em></p>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
-Ki: sum∈N
+Ki:
+legjobb∈N
 
-Ef: n&gt;=1
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
-Uf: sum=SUM(i=1..n, i, i%2=1 és i|n)
+Ef:
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
+
+Uf:
+∃t∈[1..k]:(legjobb=t és ∀u∈[1..k]:(bev(u)&lt;=bev(t)) és ∀u∈[1..t-1]:(bev(u)&lt;bev(t)))
 </code></pre>
-<pre><code class="language-yaml">n: 10
-sum: 6
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 4
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>A <code>%</code> és a <code>mod</code> felcserélhető.</p>
+<p>Az utolsó <code>∀</code> nélkül a döntetlen mindkét fajtája elfogadható lenne. Mindig
+legyen olyan teszt, amelyben számít a döntetlen feloldása.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-06-travel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-05-coldest.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-08-cards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-07-calendar.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -283,11 +321,11 @@ sum: 4
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-06-travel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-05-coldest.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-08-cards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-07-calendar.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

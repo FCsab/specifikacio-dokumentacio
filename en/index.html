@@ -189,14 +189,14 @@ what relationship must hold between input and output. It does more than store
 the text. It <strong>evaluates</strong> your specification against test cases you provide and
 shows, step by step, how it reaches its verdict. A green test means your
 specification describes the expected answer, and a red one means it doesn’t.</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <p>By the end of this book you will be able to read and write specifications like
 the one above, and much harder ones, with confidence.</p>
@@ -217,24 +217,20 @@ types, expressions, quantifiers and functions.</li>
 pattern’s meaning, its exact syntax, a complete example and the usual mistakes.</li>
 <li><strong>Testing and evaluation</strong> explains the test-data format, the stepper,
 and what each error message means.</li>
-<li><strong>Worked examples</strong> solves real course tasks from the problem statement
-to a green test suite.</li>
-<li><strong>speci-local</strong> describes the offline editor that reimplements the
-online tool, with more detailed error messages.</li>
-<li>The <strong>appendices</strong> are a quick reference: grammar, symbols and keyboard
-shortcuts, an English–Hungarian glossary, and an FAQ.</li>
+<li><strong>Worked examples</strong> solves complete tasks, invented for this book, from the
+problem statement to a green test suite.</li>
 </ul>
 <p>Once you know your way around, use the search button (<kbd>S</kbd> or <kbd>/</kbd>)
 to jump straight to what you need.</p>
 <h2 id="conventions"><a class="header" href="#conventions">Conventions</a></h2>
 <p>Code blocks with a specification look like this:</p>
-<pre><code class="language-speci fragment">Post: sum=SUM(i=1..n, numbers[i])
+<pre><code class="language-speci fragment">Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <p>Test cases (the content of the editor’s <em>Data</em> pane) are marked <strong>TEST</strong> in
 the lower right corner:</p>
 <pre><code class="language-yaml fragment">n: 3
-numbers: [1, 2, 3]
-sum: 6
+kg: [10, 25, 7]
+total: 42
 </code></pre>
 <p>A test marked <strong>✗ RED</strong> is <em>supposed</em> to fail. It shows what the editor does
 when the data doesn’t fit the specification.</p>
@@ -263,11 +259,12 @@ alongside. Appendix <a href="appendix-03-glossary.html">C</a> lists every pair.<
 checked in the online editor, so you can copy it into the editor and expect the
 same result. <a href="ch10-00-speci-local.html">speci-local</a> gives the same results too.</p>
 <h2 id="sources"><a class="header" href="#sources">Sources</a></h2>
-<p>This book brings together everything known about the tool. Its sources are the
-official course manual (<em>Manual for the Specification Editor tool</em>, 3rd
-edition), the editor’s own built-in documentation, many verified course
-solutions, and behaviour confirmed by experiment. Where the sources disagreed,
-the behaviour of the live editor won. Anything still uncertain is marked as such.</p>
+<p>This book brings together what is known about the tool. Its sources are the
+editor’s own built-in documentation, its manual, and behaviour confirmed by
+experiment. Where the sources disagreed, the behaviour of the live editor won.
+Anything still uncertain is marked as such.</p>
+<p>All the tasks and test data in this book were written for it. They take place
+in an invented apiary and are not course assignments.</p>
 <p>The book was written by <a href="https://csabi.zip">csabi.zip</a>. The source is on
 <a href="https://github.com/FCsab/specifikacio-dokumentacio">GitHub</a>.</p>
 

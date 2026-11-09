@@ -186,50 +186,51 @@
 <strong>Üres tartomány:</strong> 0</p>
 </div>
 
-<h2 id="példa-páratlan-számok"><a class="header" href="#példa-páratlan-számok">Példa: páratlan számok</a></h2>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<h2 id="példa-könnyű-üvegek"><a class="header" href="#példa-könnyű-üvegek">Példa: könnyű üvegek</a></h2>
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 4, 6]
-db: 0
+uvegek: [450, 500, 480]
+konnyu: 0
 </code></pre>
-<p>Ez a hivatalos tárgyi példa, angol kulcsszavakkal
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">megnyitás a szerkesztőben</a>).</p>
+<p>A pontosan 450 g-os üveg nem számít, mert a feltétel <code>&lt;</code>.</p>
 <h2 id="darab-és-count"><a class="header" href="#darab-és-count">DARAB és COUNT</a></h2>
 <p>A <code>DARAB</code> („hány darab?”) pontosan ugyanazt jelenti, mint a <code>COUNT</code>.
-<em>Hány osztója van egy számnak?</em></p>
-<pre><code class="language-speci">Be: szam∈N
-Ki: osztok∈N
-Ef: szam&gt;=1
-Uf: osztok=DARAB(i=1..szam, i|szam)    // i osztója szam-nak
+<em>Az első d nap közül hányra esik ellenőrzés, ha minden a-adik napon van egy?</em></p>
+<pre><code class="language-speci">Be: d∈N, a∈N
+Ki: db∈N
+Ef: a&gt;=1
+Uf: db=DARAB(i=1..d, a|i)    // a osztója i-nek
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 3
+db: 4
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 10
+a: 11
+db: 0
 </code></pre>
 <h2 id="megszámolás-összetett-feltétellel"><a class="header" href="#megszámolás-összetett-feltétellel">Megszámolás összetett feltétellel</a></h2>
 <p>A feltétel tetszőleges logikai kifejezés lehet: összehasonlíthat
-szomszédokat, hívhat függvényt, tartalmazhat kvantort. <em>Hányszor emelkedett a
-hőmérséklet egyik napról a másikra?</em></p>
-<pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
+szomszédokat, hívhat függvényt, tartalmazhat kvantort. <em>Hányszor lett nehezebb a
+kaptár egyik estéről a másikra?</em></p>
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
 Ki: emel∈N
 Ef: -
-Uf: emel=DARAB(i=1..n-1, t[i]&lt;t[i+1])
+Uf: emel=DARAB(i=1..n-1, kg[i]&lt;kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [3, 5, 4, 4, 8, 9]
+kg: [30, 32, 31, 31, 35, 36]
 emel: 3
 </code></pre>
-<p>Figyeld meg az <code>1..n-1</code> tartományt: <code>i = n</code>-re a <code>t[i+1]</code> nem létezne.</p>
+<p>Figyeld meg az <code>1..n-1</code> tartományt: <code>i = n</code>-re a <code>kg[i+1]</code> nem létezne.</p>
 <h2 id="darab-vagy-sum"><a class="header" href="#darab-vagy-sum">DARAB vagy SUM?</a></h2>
 <p>A <code>DARAB(i=e..u, β(i))</code> ugyanaz, mint a <code>SUM(i=e..u, 1, β(i))</code>: minden
 illeszkedő indexre 1-et adunk hozzá. Mégis a <code>DARAB</code>-ot használd, mert

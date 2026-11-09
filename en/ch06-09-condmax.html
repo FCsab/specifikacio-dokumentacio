@@ -237,20 +237,20 @@ warmest: 2
 </code></pre>
 <p>(Here <code>CONDMIN</code> gives the <em>smallest</em> positive temperature.)</p>
 <h2 id="conditions-on-neighbouring-elements"><a class="header" href="#conditions-on-neighbouring-elements">Conditions on neighbouring elements</a></h2>
-<p>The condition and the value can both look at several elements. In
-<a href="ch09-05-dogbert.html">Dogbert’s star</a>, the value is the change between two
-consecutive measurements, and the condition requires both to be above a
-threshold:</p>
-<pre><code class="language-speci">In: k∈N, data∈Z[1..]
-Out: found∈L, maxval∈Z
-Pre: -
-Post: (found,,maxval)=CONDMAX(i=1..length(data)-1,
-      data[i]-data[i+1], data[i]&gt;k and data[i+1]&gt;k)
+<p>The condition and the value can both look at several elements. <em>What was the
+largest gain from one evening to the next, counting only the evenings without
+rain?</em> Scale readings on rainy evenings are unreliable. Two open arrays must have the
+same length, so the precondition says that:</p>
+<pre><code class="language-speci">In: w∈N[], rainy∈L[]
+Out: found∈L, gain∈Z
+Pre: length(w)=length(rainy)
+Post: (found,,gain)=CONDMAX(i=2..length(w),
+      w[i]-w[i-1], not rainy[i])
 </code></pre>
-<pre><code class="language-yaml">k: 10
-data: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
+<pre><code class="language-yaml">w: [30, 33, 40, 38, 41]
+rainy: [false, false, true, false, false]
 found: true
-maxval: 6
+gain: 3
 </code></pre>
 <h2 id="when-nothing-matches"><a class="header" href="#when-nothing-matches">When nothing matches</a></h2>
 <p>When <code>found</code> is false, <code>ind</code> and <code>val</code> carry no meaning, and any value in the

@@ -181,62 +181,62 @@
 <p>A függvények igazi ereje a <strong>feladat felbontása</strong>. Ha egy feladatban az egyik
 tétel a másikba ágyazódik, tedd a belsőt egy függvénybe. Így az utófeltételben
 tisztán látszik a külső tétel, a függvényben pedig a belső.</p>
-<p>A táblázat a tárgyi anyagban leggyakrabban előforduló kombinációkat gyűjti
-össze. Mindegyik szerepel teljes példaként a könyv későbbi részében.</p>
+<p>A táblázat gyakori kombinációkat gyűjt össze. A legtöbb teljes példaként is
+szerepel a könyv későbbi részében.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Függvény</th><th>Belső tétel</th><th>Hol szerepel?</th></tr>
 </thead>
 <tbody>
-<tr><td><code>maxoszl:N-&gt;N x N, maxoszl(i)=MAX(j=1..m, terkep[i,j])</code></td><td>az <em>i</em>. sor maximuma</td><td><a href="ch09-02-yossarian.html">Yossarian térképe</a></td></tr>
-<tr><td><code>ossz:N-&gt;N, ossz(i)=SUM(j=i-d..i-1, tr[j])</code></td><td>az előző <em>d</em> érték összege</td><td><a href="ch09-03-trurl.html">Trurl robotjai</a></td></tr>
-<tr><td><code>tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)</code></td><td>az <em>i</em>. sor minden eleme &gt; 5</td><td><a href="ch09-04-catbert.html">Catbert kávészünetei</a></td></tr>
-<tr><td><code>kev5:N-&gt;L, kev5(i)=EXISTS(j=1..4, kave[i,j]&lt;5)</code></td><td>az <em>i</em>. sor valamelyik eleme &lt; 5</td><td></td></tr>
-<tr><td><code>latog:N-&gt;N, latog(i)=DARAB(j=1..n, hely[j]=i)</code></td><td>hányszor fordul elő <em>i</em></td><td></td></tr>
-<tr><td><code>uj:N-&gt;L, uj(i)=FORALL(j=1..i-1, v[i].ido≠v[j].ido)</code></td><td>az <em>i</em>. érték nem fordult elő korábban</td><td><a href="ch09-10-more.html">További rövid példák</a></td></tr>
-<tr><td><code>kes:N-&gt;L, kes(j)=FORALL(i=1..n, kesesek[i,j]&gt;k)</code></td><td>a <em>j</em>. oszlop minden eleme &gt; k</td><td><a href="ch09-10-more.html">További rövid példák</a></td></tr>
+<tr><td><code>rossz:N-&gt;N x N, rossz(h)=MIN(w=1..m, y[h,w])</code></td><td>a <em>h</em>. sor minimuma</td><td><a href="ch09-02-reliable.html">A legmegbízhatóbb kaptár</a></td></tr>
+<tr><td><code>hordas:N-&gt;N, hordas(i)=SUM(j=i-d+1..i, nektar[j])</code></td><td>az utolsó <em>d</em> érték összege</td><td><a href="ch09-03-flow.html">A hordás</a></td></tr>
+<tr><td><code>erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)</code></td><td>a <em>p</em>. oszlop minden eleme legalább 80</td><td><a href="ch09-04-harvest.html">Pergetés</a></td></tr>
+<tr><td><code>hiaba:N-&gt;L, hiaba(h)=EXISTS(w=1..m, nov[h,w]=0)</code></td><td>a <em>h</em>. sor valamelyik eleme 0</td><td>lentebb</td></tr>
+<tr><td><code>eladott:N-&gt;N, eladott(t)=SUM(i=1..n, db[i], fajta[i]=t)</code></td><td>a <em>t</em> kategória tételeinek összege</td><td>lentebb</td></tr>
+<tr><td><code>rek:N-&gt;L, rek(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])</code></td><td>az <em>i</em>. érték minden korábbinál nagyobb</td><td><a href="ch09-10-more.html">További rövid példák</a></td></tr>
+<tr><td><code>nott:N-&gt;L, nott(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])</code></td><td>a <em>h</em>. sor folyamatosan nő</td><td><a href="ch09-10-more.html">További rövid példák</a></td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="példa-tulajdonságú-sorok"><a class="header" href="#példa-tulajdonságú-sorok">Példa: tulajdonságú sorok</a></h2>
+<h2 id="példa-adott-tulajdonságú-sorok"><a class="header" href="#példa-adott-tulajdonságú-sorok">Példa: adott tulajdonságú sorok</a></h2>
 <blockquote>
-<p><em>Egy konferencia n napig tartott, naponta négy kávészünettel. Hány napon
-fogyott minden szünetben 5 liternél több kávé?</em></p>
+<p><em>Borbála n kaptár heti súlygyarapodását jegyezte fel 4 héten át. Hány kaptárnál
+volt legalább egy hét, amikor semmit sem gyarapodott?</em></p>
 </blockquote>
-<p>A külső tétel a <strong>megszámolás</strong> (hány nap?), a belső az <strong>eldöntés</strong> (minden
-szünet 5 felett volt?):</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<p>A külső tétel a <strong>megszámolás</strong> (hány kaptár?), a belső az <strong>eldöntés</strong> (van-e 0-s
+hét?):</p>
+<pre><code class="language-speci">Be: n∈N, nov∈N[1..n,1..4]
 Ki: c∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+Fv: hiaba:N-&gt;L, hiaba(h)=EXISTS(w=1..4, nov[h,w]=0)
 Ef: -
-Uf: c=DARAB(i=1..n, tobb5(i))
+Uf: c=DARAB(h=1..n, hiaba(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [6, 6, 7, 8]
+nov: [
+  [2, 0, 1, 3],
+  [1, 1, 2, 1],
+  [0, 0, 4, 2]
 ]
 c: 2
 </code></pre>
-<h2 id="példa-melyik-érték-hányszor-fordul-elő"><a class="header" href="#példa-melyik-érték-hányszor-fordul-elő">Példa: melyik érték hányszor fordul elő?</a></h2>
+<h2 id="példa-kategóriánkénti-összeg"><a class="header" href="#példa-kategóriánkénti-összeg">Példa: kategóriánkénti összeg</a></h2>
 <blockquote>
-<p><em>n látogatást jegyeztek fel, mindegyik az 1..k helyek egyikére történt.
-Melyik helyet látogatták a legtöbbször?</em></p>
+<p><em>Borbála n rendelést jegyzett fel, mindegyik néhány üveg 1..k fajtájú mézre szólt.
+Melyik fajtából fogyott a legtöbb üveg?</em></p>
 </blockquote>
-<p>A külső tétel egy <strong>maximum</strong> a helyeken. A függvény egy hely látogatásait
-számolja meg:</p>
-<pre><code class="language-speci">Be: n∈N, k∈N, hely∈N[1..n]
+<p>A külső tétel egy <strong>maximum</strong> a fajtákon. A függvény egy fajta üvegeit adja össze:</p>
+<pre><code class="language-speci">Be: n∈N, k∈N, fajta∈N[1..n], db∈N[1..n]
 Ki: legjobb∈N
-Fv: latog:N-&gt;N, latog(p)=DARAB(j=1..n, hely[j]=p)
-Ef: k≥1 és ∀i∈[1..n]:(1≤hely[i]≤k)
-Uf: (legjobb,)=MAX(p=1..k, latog(p))
+Fv: eladott:N-&gt;N, eladott(t)=SUM(i=1..n, db[i], fajta[i]=t)
+Ef: k≥1 és ∀i∈[1..n]:(1≤fajta[i]≤k)
+Uf: (legjobb,)=MAX(t=1..k, eladott(t))
 </code></pre>
-<pre><code class="language-yaml">n: 6
+<pre><code class="language-yaml">n: 4
 k: 3
-hely: [2, 3, 2, 1, 2, 3]
-legjobb: 2
+fajta: [2, 3, 2, 1]
+db: [1, 9, 2, 4]
+legjobb: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -246,18 +246,18 @@ elemekről feltett kérdés pedig a belső tételt, amiből függvény lesz.</p>
 </blockquote>
 <h2 id="lehet-függvény-nélkül-is"><a class="header" href="#lehet-függvény-nélkül-is">Lehet függvény nélkül is?</a></h2>
 <p>Igen. Egy tétel közvetlenül is állhat egy másik belsejében:</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<pre><code class="language-speci">Be: n∈N, nov∈N[1..n,1..4]
 Ki: c∈N
 Ef: -
-Uf: c=DARAB(i=1..n, FORALL(j=1..4, kave[i,j]&gt;5))
+Uf: c=DARAB(h=1..n, EXISTS(w=1..4, nov[h,w]=0))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-kave: [[6, 6, 6, 6], [6, 1, 6, 6]]
+nov: [[1, 1, 1, 1], [1, 0, 1, 1]]
 c: 1
 </code></pre>
-<p>A jelentés ugyanaz. A tárgyban mégis a függvényes változat a javasolt, mert
-megnevezi a belső tételt, és egyértelművé teszi az algoritmus tervezését
-(minden beágyazott tétel egy függvény lesz).</p>
+<p>A jelentés ugyanaz. A függvényes változat általában átláthatóbb, mert megnevezi a
+belső tételt, és egyértelművé teszi az algoritmus tervezését (minden beágyazott
+tétel egy függvény lesz).</p>
 
                     </main>
 

@@ -199,22 +199,17 @@ evaluation on or off.</p>
 <h2 id="reading-the-steps"><a class="header" href="#reading-the-steps">Reading the steps</a></h2>
 <p>Each step is the postcondition with one part replaced by its value. The part
 that changed in the step is <strong>highlighted in yellow</strong>. Here is the step list of
-a search (“find a day on which every coffee break was above 5”):</p>
-<figure>
-<img src="img/step-list.png" alt="The step list of a SEARCH with a nested function">
-<figcaption>The step list. The yellow highlight marks the part evaluated in
-each step, and ↓/↑ mark entering and leaving a function.</figcaption>
-</figure>
-<p>The steps, in order:</p>
-<pre><code class="language-text">Post: (exists,ind)=SEARCH(i=1..n, more5(i))     the original statement
-Post: (true,2)=SEARCH(i=1..n, more5(i))         the outputs are substituted
-Post: (true,2)=SEARCH(i=1..n, more5(i))         the lower bound: 1
-Post: (true,2)=SEARCH(i=1..3, more5(i))         the upper bound: n = 3
-Post: (true,2)=SEARCH(i=1..3, more5(1))         first iteration: i = 1
-Post: (true,2)=SEARCH(i=1..3, ↓)                entering more5(1)…
-Post: (true,2)=SEARCH(i=1..3, more5(2))         …false, next iteration: i = 2
-Post: (true,2)=SEARCH(i=1..3, ↑)                more5(2) returned true
-Post: (true,2)=(true,2)                         SEARCH gives (true, 2)
+the first test of <a href="ch09-04-harvest.html">Harvest day</a> (“find a frame position that is
+ripe in every box”). In outline, with the steps inside the functions left out:</p>
+<pre><code class="language-text">Post: (found,pos)=SEARCH(p=1..5, ripe(p))       the original statement
+Post: (true,3)=SEARCH(p=1..5, ripe(p))          the outputs are substituted
+Post: (true,3)=SEARCH(p=1..5, ripe(p))          the bounds of the range: 1..5
+Post: (true,3)=SEARCH(p=1..5, ripe(1))          first iteration: p = 1
+Post: (true,3)=SEARCH(p=1..5, ↓)                entering ripe(1)…
+Post: (true,3)=SEARCH(p=1..5, ripe(2))          …false, next iteration: p = 2
+Post: (true,3)=SEARCH(p=1..5, ripe(3))          …false, next iteration: p = 3
+Post: (true,3)=SEARCH(p=1..5, ↑)                ripe(3) returned true
+Post: (true,3)=(true,3)                         SEARCH gives (true, 3)
 Post: ↑                                         the comparison is true
 </code></pre>
 <h2 id="entering-and-leaving-functions--and-"><a class="header" href="#entering-and-leaving-functions--and-">Entering and leaving functions: ↓ and ↑</a></h2>
@@ -245,7 +240,7 @@ shows the formula with the evaluated part highlighted, the value, and the
 current loop variables. The ↓/↑ marks and the step list work the same way.
 Its error messages also say <em>which</em> part of the postcondition is false and
 what the specification computes, for example
-“<code>cnt</code>: the test case says 2, the specification gives 3”.</p>
+“<code>light</code>: the test case says 3, the specification gives 2”.</p>
 
                     </main>
 

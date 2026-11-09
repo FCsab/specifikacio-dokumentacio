@@ -204,30 +204,30 @@ Ef: a≥2 és a≤7
 <p><strong>Bemenetek közötti kapcsolat.</strong> <em>1 &lt; d &lt; n:</em></p>
 <pre><code class="language-speci fragment">Ef: 1&lt;d&lt;n
 </code></pre>
-<p><strong>Garancia, amelyre az utófeltétel épít.</strong> <em>Van páratlan szám</em>, ezt a
+<p><strong>Garancia, amelyre az utófeltétel épít.</strong> <em>Van 40 kg feletti kaptár</em>, ezt a
 <a href="ch06-05-select.html"><code>SELECT</code></a> igényli:</p>
-<pre><code class="language-speci fragment">Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Ef: ∃i∈[1..n]:(kg[i]&gt;40)
 </code></pre>
 <p>Több állítás <code>és</code>-sel kapcsolható össze. Ne felejtsd ki köztük a műveleti
 jelet: két egymás után írt állítás szintaktikai hiba.</p>
 <h2 id="példa"><a class="header" href="#példa">Példa</a></h2>
 <blockquote>
-<p><em>Adott n ≥ 1 gyerek magassága centiméterben (mindegyik 50 és 250 között).
-Mennyi az átlagmagasság?</em></p>
+<p><em>Adott n ≥ 1 kaptár súlya kilogrammban (mindegyik 5 és 90 között).
+Mennyi az átlagsúly?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, m∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
 Ki: atlag∈R
-Ef: n≥1 és ∀i∈[1..n]:(50≤m[i]≤250)
-Uf: atlag=SUM(i=1..n, m[i])/n
+Ef: n≥1 és ∀i∈[1..n]:(5≤s[i]≤90)
+Uf: atlag=SUM(i=1..n, s[i])/n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-m: [120, 130, 125, 135]
-atlag: 127.5
+s: [40, 43, 38, 44]
+atlag: 41.25
 </code></pre>
 <p>Az előfeltételt megsértő bemenet piros tesztet ad:</p>
 <pre><code class="language-yaml red">n: 2
-m: [120, 300]
-atlag: 210
+s: [40, 300]
+atlag: 170
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>

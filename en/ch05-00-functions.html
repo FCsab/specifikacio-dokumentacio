@@ -203,7 +203,7 @@ tuple.</li>
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>Write the arrow as ASCII <code>-&gt;</code>. The Insert bar has no arrow button, and the
 Unicode <code>→</code> is a syntax error everywhere: in signatures and as implication
-alike. The arrows you see in screenshots are <code>-&gt;</code> drawn by the editor’s font.</p>
+alike. Any arrow you see in the editor is <code>-&gt;</code> drawn by its font.</p>
 </blockquote>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <div class="table-wrapper">
@@ -217,7 +217,7 @@ alike. The arrows you see in screenshots are <code>-&gt;</code> drawn by the edi
 <tr><td><code>add:Z x Z-&gt;Z, add(a,b)=a+b</code></td><td>two parameters</td></tr>
 <tr><td><code>swap:Z x Z-&gt;Z x Z, swap(a,b)=(b,a)</code></td><td>returns a tuple</td></tr>
 <tr><td><code>f2:Z-&gt;Z, f2(p)=p+n</code></td><td>uses the input variable <code>n</code></td></tr>
-<tr><td><code>grade:Student-&gt;N, grade(h)=h.grade</code></td><td>record parameter</td></tr>
+<tr><td><code>rating:Hive-&gt;N, rating(h)=h.rating</code></td><td>record parameter</td></tr>
 <tr><td><code>index:N[] x N-&gt;N, index(x,i)=x[i]</code></td><td>array parameter</td></tr>
 <tr><td><code>even:N-&gt;L, even(i)=x[i] mod 2 = 0</code></td><td>logical function</td></tr>
 </tbody>
@@ -279,14 +279,14 @@ x: [0, 2, 3, 8, 7]
 c: 2
 </code></pre>
 <h2 id="record-parameters"><a class="header" href="#record-parameters">Record parameters</a></h2>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: s∈N
-Fn: grade:Student-&gt;N, grade(h)=h.grade
+Fn: rating:Hive-&gt;N, rating(h)=h.rating
 Pre: -
-Post: s=SUM(i=1..n, grade(st[i]))
+Post: s=SUM(i=1..n, rating(hv[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 5}, {name: Bence, grade: 3}]
+hv: [{name: Akac, rating: 5}, {name: Bodza, rating: 3}]
 s: 8
 </code></pre>
 

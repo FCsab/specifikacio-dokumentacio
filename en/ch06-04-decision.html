@@ -189,41 +189,40 @@ index with a property (<code>EXISTS</code>), or do all of them have it (<code>FO
 
 <h2 id="exists-is-there"><a class="header" href="#exists-is-there">EXISTS: is there…?</a></h2>
 <blockquote>
-<p><em>Is there an odd number among the numbers?</em></p>
+<p><em>Is there a hive with more than 50 mites?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, numbers∈N[1..n]
-Out: odd∈L
+<pre><code class="language-speci">In: n∈N, mites∈N[1..n]
+Out: alarm∈L
 Pre: -
-Post: odd=EXISTS(i=1..n, numbers[i] mod 2 = 1)
+Post: alarm=EXISTS(i=1..n, mites[i]&gt;50)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-numbers: [2, 8, 7, 4]
-odd: true
+mites: [12, 8, 70, 4]
+alarm: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [2, 8, 4]
-odd: false
+mites: [12, 50, 4]
+alarm: false
 </code></pre>
 <h2 id="forall-is-every"><a class="header" href="#forall-is-every">FORALL: is every…?</a></h2>
 <blockquote>
-<p><em>Are all the numbers positive?</em></p>
+<p><em>Did every hive gain weight?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, numbers∈Z[1..n]
-Out: positive∈L
+<pre><code class="language-speci">In: n∈N, gain∈Z[1..n]
+Out: allGrew∈L
 Pre: -
-Post: positive=FORALL(i=1..n, numbers[i]&gt;0)
+Post: allGrew=FORALL(i=1..n, gain[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [5, 1, 9]
-positive: true
+gain: [5, 1, 9]
+allGrew: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [5, 0, 9]
-positive: false
+gain: [5, 0, 9]
+allGrew: false
 </code></pre>
 <h2 id="the-two-are-related"><a class="header" href="#the-two-are-related">The two are related</a></h2>
-<p>“Not every element is positive” is the same as “some element is not
-positive”:</p>
+<p>“Not every hive grew” is the same as “some hive did not grow”:</p>
 <pre><code class="language-text">not FORALL(i=1..n, β(i))   =   EXISTS(i=1..n, not β(i))
 </code></pre>
 <p>Use whichever reads more naturally for the task.</p>
@@ -243,18 +242,18 @@ b: true
 The quantifier is a purely logical statement. Preconditions usually use the
 quantifier, and postconditions that define an output use the macro.</p>
 <h2 id="as-a-building-block"><a class="header" href="#as-a-building-block">As a building block</a></h2>
-<p>Decision is often the <em>inner</em> part of a compound task. <em>Find a day on which
-every coffee break was above 5 litres</em> is a search whose condition is a
-<code>FORALL</code>. See <a href="ch09-04-catbert.html">Catbert’s coffee breaks</a>.</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
-Out: someDay∈L
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+<p>Decision is often the <em>inner</em> part of a compound task. <em>Find a frame position that
+is ripe in every box</em> is a search whose condition is a
+<code>FORALL</code>. See <a href="ch09-04-harvest.html">Harvest day</a>.</p>
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
+Out: anyRipe∈L
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
 Pre: -
-Post: someDay=EXISTS(i=1..n, more5(i))
+Post: anyRipe=EXISTS(p=1..5, ripe(p))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-coffe: [[6, 6, 6, 5], [7, 8, 9, 6]]
-someDay: true
+capped: [[90, 70, 85, 10, 0], [85, 95, 20, 90, 0]]
+anyRipe: true
 </code></pre>
 
                     </main>

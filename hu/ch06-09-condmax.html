@@ -237,19 +237,20 @@ legkisebbPoz: 2
 </code></pre>
 <p>(Itt a <code>CONDMIN</code> a <em>legkisebb</em> pozitív hőmérsékletet adja.)</p>
 <h2 id="feltétel-szomszédos-elemekre"><a class="header" href="#feltétel-szomszédos-elemekre">Feltétel szomszédos elemekre</a></h2>
-<p>A feltétel és az érték is nézhet több elemet. A <a href="ch09-05-dogbert.html">Dogbert csillaga</a>
-feladatban az érték két egymást követő mérés közötti változás, a feltétel
-pedig az, hogy mindkettő egy küszöb fölött legyen:</p>
-<pre><code class="language-speci">Be: k∈N, adat∈Z[1..]
-Ki: van∈L, maxert∈Z
-Ef: -
-Uf: (van,,maxert)=CONDMAX(i=1..length(adat)-1,
-    adat[i]-adat[i+1], adat[i]&gt;k és adat[i+1]&gt;k)
+<p>A feltétel és az érték is nézhet több elemet. <em>Mennyi volt a legnagyobb gyarapodás
+egyik estéről a másikra, csak az eső nélküli estéket számolva?</em> Az esős esték
+leolvasásai megbízhatatlanok. Két nyitott tömbnek azonos hosszúnak kell lennie, ezt
+az előfeltétel mondja ki:</p>
+<pre><code class="language-speci">Be: s∈N[], esos∈L[]
+Ki: van∈L, nov∈Z
+Ef: length(s)=length(esos)
+Uf: (van,,nov)=CONDMAX(i=2..length(s),
+    s[i]-s[i-1], nem esos[i])
 </code></pre>
-<pre><code class="language-yaml">k: 10
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
+<pre><code class="language-yaml">s: [30, 33, 40, 38, 41]
+esos: [false, false, true, false, false]
 van: true
-maxert: 6
+nov: 3
 </code></pre>
 <h2 id="ha-semmi-sem-illeszkedik"><a class="header" href="#ha-semmi-sem-illeszkedik">Ha semmi sem illeszkedik</a></h2>
 <p>Ha a <code>van</code> hamis, az <code>ind</code>-nek és az <code>ert</code>-nek nincs jelentése, a tesztesetben

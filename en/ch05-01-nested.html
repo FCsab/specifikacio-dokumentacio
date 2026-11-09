@@ -181,62 +181,63 @@
 <p>The real power of functions is <strong>decomposition</strong>. When a task needs one
 theorem inside another, put the inner one in a function. The postcondition
 then shows the outer pattern clearly, and the function shows the inner one.</p>
-<p>The table collects the most frequent combinations from the course material.
-Each is used in a complete example later in the book.</p>
+<p>The table collects frequent combinations. Most are used in a complete example
+later in the book.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Function</th><th>Inner pattern</th><th>Used in</th></tr>
 </thead>
 <tbody>
-<tr><td><code>maxcol:N-&gt;N x N, maxcol(i)=MAX(j=1..m, map[i,j])</code></td><td>maximum of row <em>i</em></td><td><a href="ch09-02-yossarian.html">Yossarian’s map</a></td></tr>
-<tr><td><code>total:N-&gt;N, total(i)=SUM(j=i-d..i-1, tr[j])</code></td><td>sum of the <em>d</em> previous values</td><td><a href="ch09-03-trurl.html">Trurl’s robots</a></td></tr>
-<tr><td><code>more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)</code></td><td>every value of row <em>i</em> is &gt; 5</td><td><a href="ch09-04-catbert.html">Catbert’s coffee breaks</a></td></tr>
-<tr><td><code>less5:N-&gt;L, less5(i)=EXISTS(j=1..4, coffe[i,j]&lt;5)</code></td><td>some value of row <em>i</em> is &lt; 5</td><td></td></tr>
-<tr><td><code>visits:N-&gt;N, visits(i)=COUNT(j=1..n, visited[j]=i)</code></td><td>how often <em>i</em> occurs</td><td></td></tr>
-<tr><td><code>nV:N-&gt;L, nV(i)=FORALL(j=1..i-1, rs[i].time≠rs[j].time)</code></td><td>value <em>i</em> didn’t occur before</td><td><a href="ch09-10-more.html">More short examples</a></td></tr>
-<tr><td><code>lt:N-&gt;L, lt(j)=FORALL(i=1..n, lates[i,j]&gt;k)</code></td><td>every value of column <em>j</em> &gt; k</td><td><a href="ch09-10-more.html">More short examples</a></td></tr>
+<tr><td><code>worst:N-&gt;N x N, worst(h)=MIN(w=1..m, y[h,w])</code></td><td>minimum of row <em>h</em></td><td><a href="ch09-02-reliable.html">The most reliable hive</a></td></tr>
+<tr><td><code>flow:N-&gt;N, flow(i)=SUM(j=i-d+1..i, nectar[j])</code></td><td>sum of the last <em>d</em> values</td><td><a href="ch09-03-flow.html">The nectar flow</a></td></tr>
+<tr><td><code>ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)</code></td><td>every value of column <em>p</em> is at least 80</td><td><a href="ch09-04-harvest.html">Harvest day</a></td></tr>
+<tr><td><code>idle:N-&gt;L, idle(h)=EXISTS(w=1..m, gain[h,w]=0)</code></td><td>some value of row <em>h</em> is 0</td><td>below</td></tr>
+<tr><td><code>sold:N-&gt;N, sold(t)=SUM(i=1..n, qty[i], type[i]=t)</code></td><td>total of the items of category <em>t</em></td><td>below</td></tr>
+<tr><td><code>rec:N-&gt;L, rec(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])</code></td><td>value <em>i</em> is above all earlier ones</td><td><a href="ch09-10-more.html">More short examples</a></td></tr>
+<tr><td><code>rising:N-&gt;L, rising(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])</code></td><td>row <em>h</em> keeps growing</td><td><a href="ch09-10-more.html">More short examples</a></td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="example-rows-with-a-property"><a class="header" href="#example-rows-with-a-property">Example: rows with a property</a></h2>
 <blockquote>
-<p><em>A conference lasted n days, with four coffee breaks a day. On how many days
-was every break above 5 litres?</em></p>
+<p><em>Borbála noted the weekly weight gain of n hives for 4 weeks. In how many hives
+was there at least one week with no gain at all?</em></p>
 </blockquote>
-<p>The outer pattern is <strong>counting</strong> (how many days?), and the inner one is
-<strong>decision</strong> (is every break above 5?):</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<p>The outer pattern is <strong>counting</strong> (how many hives?), and the inner one is
+<strong>decision</strong> (is there a week with 0?):</p>
+<pre><code class="language-speci">In: n∈N, gain∈N[1..n,1..4]
 Out: c∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+Fn: idle:N-&gt;L, idle(h)=EXISTS(w=1..4, gain[h,w]=0)
 Pre: -
-Post: c=COUNT(i=1..n, more5(i))
+Post: c=COUNT(h=1..n, idle(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [6, 6, 7, 8]
+gain: [
+  [2, 0, 1, 3],
+  [1, 1, 2, 1],
+  [0, 0, 4, 2]
 ]
 c: 2
 </code></pre>
-<h2 id="example-how-many-times-does-each-value-occur"><a class="header" href="#example-how-many-times-does-each-value-occur">Example: how many times does each value occur?</a></h2>
+<h2 id="example-the-total-of-each-category"><a class="header" href="#example-the-total-of-each-category">Example: the total of each category</a></h2>
 <blockquote>
-<p><em>n visits were recorded, each to one of the places 1..k. Which place was
-visited the most often?</em></p>
+<p><em>Borbála noted n orders, each for some jars of one of the honey types 1..k. Which
+type sold the most jars?</em></p>
 </blockquote>
-<p>The outer pattern is a <strong>maximum</strong> over the places. The function counts the
-visits to one place:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, visited∈N[1..n]
+<p>The outer pattern is a <strong>maximum</strong> over the types. The function adds up the jars of
+one type:</p>
+<pre><code class="language-speci">In: n∈N, k∈N, type∈N[1..n], qty∈N[1..n]
 Out: best∈N
-Fn: visits:N-&gt;N, visits(p)=COUNT(j=1..n, visited[j]=p)
-Pre: k≥1 and ∀i∈[1..n]:(1≤visited[i]≤k)
-Post: (best,)=MAX(p=1..k, visits(p))
+Fn: sold:N-&gt;N, sold(t)=SUM(i=1..n, qty[i], type[i]=t)
+Pre: k≥1 and ∀i∈[1..n]:(1≤type[i]≤k)
+Post: (best,)=MAX(t=1..k, sold(t))
 </code></pre>
-<pre><code class="language-yaml">n: 6
+<pre><code class="language-yaml">n: 4
 k: 3
-visited: [2, 3, 2, 1, 2, 3]
-best: 2
+type: [2, 3, 2, 1]
+qty: [1, 9, 2, 4]
+best: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -246,18 +247,18 @@ asked about each element marks the inner theorem that becomes a function.</p>
 </blockquote>
 <h2 id="can-i-nest-without-a-function"><a class="header" href="#can-i-nest-without-a-function">Can I nest without a function?</a></h2>
 <p>Yes. A theorem can appear directly inside another:</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<pre><code class="language-speci">In: n∈N, gain∈N[1..n,1..4]
 Out: c∈N
 Pre: -
-Post: c=COUNT(i=1..n, FORALL(j=1..4, coffe[i,j]&gt;5))
+Post: c=COUNT(h=1..n, EXISTS(w=1..4, gain[h,w]=0))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-coffe: [[6, 6, 6, 6], [6, 1, 6, 6]]
+gain: [[1, 1, 1, 1], [1, 0, 1, 1]]
 c: 1
 </code></pre>
-<p>The meaning is the same. The function version is preferred in the course,
-because it names the inner pattern and makes the algorithm design (one
-function per nested theorem) straightforward.</p>
+<p>The meaning is the same. The function version is usually clearer, because it
+names the inner pattern and makes the algorithm design (one function per nested
+theorem) straightforward.</p>
 
                     </main>
 

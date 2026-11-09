@@ -184,18 +184,18 @@ kimenet helyes válasz a bemenetre. Minden bemeneti változót említenie kell
 (lásd <a href="ch02-03-all-variables.html">A minden-változó szabály</a>).</p>
 <p>Minden utófeltételt meg lehetne írni pusztán kvantorokkal, az
 <a href="ch06-11-relational.html">Utófeltétel tételek nélkül</a> fejezet meg is mutatja,
-hogyan. A tárgy feladatainak többsége azonban néhány szabványos <strong>programozási
+hogyan. A feladatok többsége azonban néhány szabványos <strong>programozási
 tétel</strong> példánya. Mindegyik egy algoritmikus minta, ismert és bizonyított
 algoritmussal. A szerkesztőben mindegyikhez tartozik egy makró, így az
 utófeltétel közvetlenül megnevezheti a mintát:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: osszeg∈N
 Ef: -
-Uf: osszeg=SUM(i=1..n, szamok[i])
+Uf: osszeg=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [5, 1, 4, 2]
-osszeg: 12
+kg: [12, 3, 9, 6]
+osszeg: 30
 </code></pre>
 <p>A tétel felismerése a feladatban maga az algoritmustervezés: ha az utófeltétel
 <code>SUM</code>-ot mond, az algoritmus az összegzés algoritmusa.</p>
@@ -309,21 +309,21 @@ kezdőpontja van, <code>i&gt;=e</code>.</p>
 
 </div>
 
-<p>Ha egy elem tulajdonsága <em>maga is</em> sok elemre vonatkozó kérdés (például „a
-nap minden kávészünetében 5 liternél több fogyott”), két egymásba ágyazott
+<p>Ha egy elem tulajdonsága <em>maga is</em> sok elemre vonatkozó kérdés (például „ez a
+kerethely minden fiókban érett”), két egymásba ágyazott
 tétel kell. Lásd <a href="ch06-10-compound.html">Tételek összeépítése</a>.</p>
 <h2 id="egy-tételmakró-olvasása"><a class="header" href="#egy-tételmakró-olvasása">Egy tételmakró olvasása</a></h2>
-<p>Vegyük a <code>db=DARAB(i=1..n, szamok[i] mod 2 = 1)</code> makrót:</p>
+<p>Vegyük a <code>konnyu=DARAB(i=1..n, uvegek[i]&lt;450)</code> makrót:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Rész</th><th>Jelentés</th></tr>
 </thead>
 <tbody>
-<tr><td><code>db=</code></td><td>az eredmény a <code>db</code> kimeneti változóhoz kötődik</td></tr>
+<tr><td><code>konnyu=</code></td><td>az eredmény a <code>konnyu</code> kimeneti változóhoz kötődik</td></tr>
 <tr><td><code>DARAB</code></td><td>a tétel: megszámolás</td></tr>
 <tr><td><code>i=1..n</code></td><td>az <code>i</code> ciklusváltozó az 1, 2, …, n értékeken fut végig</td></tr>
-<tr><td><code>szamok[i] mod 2 = 1</code></td><td>minden <code>i</code>-re ellenőrzött feltétel</td></tr>
+<tr><td><code>uvegek[i]&lt;450</code></td><td>minden <code>i</code>-re ellenőrzött feltétel</td></tr>
 </tbody>
 </table>
 </div>

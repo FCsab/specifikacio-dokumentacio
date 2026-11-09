@@ -178,154 +178,128 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="további-rövid-példák"><a class="header" href="#további-rövid-példák">További rövid példák</a></h1>
-<h2 id="különböző-értékek"><a class="header" href="#különböző-értékek">Különböző értékek</a></h2>
+<h2 id="új-súlyrekordok"><a class="header" href="#új-súlyrekordok">Új súlyrekordok</a></h2>
 <blockquote>
-<p><em>Adott versenyeredmények listája (név és idő). Hány különböző célidőt
-jegyeztek fel?</em></p>
+<p><em>A listán a kaptár esti súlyai vannak. Hány este volt a kaptár nehezebb, mint az
+összes korábbi estén?</em></p>
 </blockquote>
-<p>Egy idő akkor „új”, ha korábban nem fordult elő a listában. Számoljuk meg az
-újakat: <code>DARAB</code>, beágyazott, <strong>visszafelé</strong> néző <code>FORALL</code>-lal.</p>
-<pre><code class="language-speci">Be: n∈N, v∈Verseny[1..n], Verseny=(nev:S x ido:N)
-Ki: db∈N
-Fv: uj:N-&gt;L, uj(i)=FORALL(j=1..i-1, v[i].ido≠v[j].ido)
+<p>Egy este akkor rekord, ha minden korábbi könnyebb volt. Ezeket számoljuk meg:
+<code>DARAB</code> beágyazott, visszafelé néző <code>FORALL</code>-lal.</p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
+Ki: c∈N
+Fv: rek:N-&gt;L, rek(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])
 Ef: -
-Uf: db=DARAB(i=1..n, uj(i))
+Uf: c=DARAB(i=1..n, rek(i))
 </code></pre>
-<pre><code class="language-yaml">n: 4
-v:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
-  - nev: FG
-    ido: 30
-  - nev: PS
-    ido: 37
-db: 3
+<pre><code class="language-yaml">n: 5
+kg: [30, 28, 33, 33, 40]
+c: 3
 </code></pre>
-<pre><code class="language-yaml">n: 2
-v: [{nev: AS, ido: 37}, {nev: BE, ido: 31}]
-db: 2
+<pre><code class="language-yaml">n: 3
+kg: [50, 50, 50]
+c: 1
 </code></pre>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">idő</th><th>korábbi idők</th><th style="text-align: center">új?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">kg</th><th style="text-align: center">korábbi értékek</th><th style="text-align: center">rekord?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">37</td><td>(nincs: az 1..0 tartomány üres, így a <code>FORALL</code> igaz)</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">31</td><td>37</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">30</td><td>37, 31</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">37</td><td>37, 31, 30</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">30</td><td style="text-align: center">(nincs: az <code>1..0</code> tartomány üres, így a <code>FORALL</code> igaz)</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">28</td><td style="text-align: center">30</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">33</td><td style="text-align: center">30, 28</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">33</td><td style="text-align: center">30, 28, 33</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">40</td><td style="text-align: center">30, 28, 33, 33</td><td style="text-align: center">igen</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="hosszú-futások"><a class="header" href="#hosszú-futások">Hosszú futások</a></h2>
+<h2 id="nehéz-kaptárak"><a class="header" href="#nehéz-kaptárak">Nehéz kaptárak</a></h2>
 <blockquote>
-<p><em>Egy futónaplóból (idő, helyszín) sorold fel a 30 percnél hosszabb futások
-helyszíneit.</em></p>
+<p><em>A kaptárak listájából (súly, név) sorold fel a 30 kg-nál nehezebbek nevét.</em></p>
 </blockquote>
-<p>Háromargumentumos <code>MIS</code>, egy mezőt gyűjtve. A megjegyzés az általános alakot a
-feladatra illeszti:</p>
-<pre><code class="language-speci">Be: Futas=(ido:N x hely:S), n∈N, f∈Futas[1..n]
-Ki: db∈N, helyek∈S[1..db]
+<p>Háromargumentumos <code>MIS</code>, amely egy mezőt gyűjt össze. A megjegyzés az általános
+alakot illeszti a feladatra:</p>
+<pre><code class="language-speci">Be: Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]
+Ki: c∈N, nevek∈S[1..c]
 Ef: -
-Uf: (db,helyek)=MIS(i=1..n, f[i].ido&gt;30, f[i].hely)
-/* (db,y)=MIS(i=e..u, T(i), g(i))
-   db, y  ~ db, helyek
+Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
    e..u   ~ 1..n
-   T(i)   ~ f[i].ido&gt;30
-   g(i)   ~ f[i].hely
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-f:
-  - ido: 15
-    hely: iroda
-  - ido: 35
-    hely: étterem
-  - ido: 40
-    hely: edzőterem
-  - ido: 5
-    hely: bolt
-db: 2
-helyek: [étterem, edzőterem]
+kaptarak:
+  - kg: 22
+    nev: Akac
+  - kg: 35
+    nev: Bodza
+  - kg: 41
+    nev: Repce
+  - kg: 30
+    nev: Hars
+c: 2
+nevek: [Bodza, Repce]
 </code></pre>
-<h2 id="órák-amelyekről-mindenki-késett"><a class="header" href="#órák-amelyekről-mindenki-késett">Órák, amelyekről mindenki késett</a></h2>
+<h2 id="minden-héten-gyarapodó-kaptárak"><a class="header" href="#minden-héten-gyarapodó-kaptárak">Minden héten gyarapodó kaptárak</a></h2>
 <blockquote>
-<p><em>Egy mátrix rögzíti, hogy n hallgató közül ki hány percet késett m óra
-mindegyikéről. Sorold fel azokat az órákat, amelyekről minden hallgató k
-percnél többet késett.</em></p>
+<p><em>Egy mátrix az n kaptár súlyát tartalmazza az m hét mindegyikén. Sorold fel azokat
+a kaptárakat, amelyek minden egyes héten nehezebbek lettek.</em></p>
 </blockquote>
-<p>Ez <strong>oszlopokat</strong> jár be. A külső <code>MIS</code> az órákon (<code>j</code>) fut, a belső <code>FORALL</code> a
-hallgatókon (<code>i</code>):</p>
-<pre><code class="language-speci">Be: n∈N, m∈N, k∈N, kesesek∈N[1..n,1..m]
-Ki: db∈N, orak∈N[1..db]
-Fv: kes:N-&gt;L, kes(j)=FORALL(i=1..n, kesesek[i,j]&gt;k)
+<p>A külső <code>MIS</code> a kaptárakon fut, a belső <code>FORALL</code> pedig szomszédos oszlopokat
+hasonlít össze, ezért a 2. héttől indul:</p>
+<pre><code class="language-speci">Be: n∈N, m∈N, y∈N[1..n,1..m]
+Ki: c∈N, kaptarak∈N[1..c]
+Fv: nott:N-&gt;L, nott(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])
 Ef: -
-Uf: (db,orak)=MIS(j=1..m, kes(j))
+Uf: (c,kaptarak)=MIS(h=1..n, nott(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-m: 4
-k: 5
-kesesek: [
-  [6, 8, 2, 7],
-  [7, 9, 4, 8],
-  [6, 6, 1, 9]
+m: 3
+y: [
+  [1, 2, 3],
+  [3, 3, 4],
+  [2, 5, 9]
 ]
-db: 3
-orak: [1, 2, 4]
+c: 2
+kaptarak: [1, 3]
 </code></pre>
-<h2 id="a-leglátogatottabb-hely"><a class="header" href="#a-leglátogatottabb-hely">A leglátogatottabb hely</a></h2>
-<blockquote>
-<p><em>n látogatást jegyeztek fel, mindegyik az 1..k helyek egyikére történt.
-Melyik helyet látogatták a legtöbbször?</em></p>
-</blockquote>
-<pre><code class="language-speci">Be: n∈N, k∈N, hely∈N[1..n]
-Ki: legjobb∈N
-Fv: latog:N-&gt;N, latog(p)=DARAB(j=1..n, hely[j]=p)
-Ef: k≥1 és ∀i∈[1..n]:(1≤hely[i]≤k)
-Uf: (legjobb,)=MAX(p=1..k, latog(p))
-</code></pre>
-<pre><code class="language-yaml">n: 7
-k: 4
-hely: [4, 1, 4, 2, 1, 4, 3]
-legjobb: 4
-</code></pre>
-<h2 id="az-utolsó-páratlan-elem"><a class="header" href="#az-utolsó-páratlan-elem">Az utolsó páratlan elem</a></h2>
-<p>Visszafelé keresés:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
+<h2 id="az-utolsó-kezelt-kaptár"><a class="header" href="#az-utolsó-kezelt-kaptár">Az utolsó kezelt kaptár</a></h2>
+<p>Visszafelé keresés egy logikai tömbben:</p>
+<pre><code class="language-speci">Be: n∈N, kezelt∈L[1..n]
 Sa: van∈L
 Ki: ind∈N
 Ef: -
-Uf: (van,-ind)=SEARCH(i=-n..-1, szamok[-i] mod 2 = 1)
+Uf: (van,-ind)=SEARCH(i=-n..-1, kezelt[-i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 4, 7, 8, 10]
+kezelt: [true, false, true, false, false]
 van: true
 ind: 3
 </code></pre>
-<h2 id="rendezett-e-a-tömb"><a class="header" href="#rendezett-e-a-tömb">Rendezett-e a tömb?</a></h2>
+<h2 id="csökkent-e-valaha-a-súly"><a class="header" href="#csökkent-e-valaha-a-súly">Csökkent-e valaha a súly?</a></h2>
 <p>Relációs utófeltétel. Elég a szomszédokat összehasonlítani:</p>
-<pre><code class="language-speci">Be: n∈N, x∈Z[1..n]
-Ki: rendezett∈L
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
+Ki: stabil∈L
 Ef: -
-Uf: rendezett=∀i∈[1..n-1]:(x[i]≤x[i+1])
+Uf: stabil=∀i∈[1..n-1]:(kg[i]≤kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-x: [-2, 0, 0, 3, 9]
-rendezett: true
+kg: [12, 12, 15, 19, 40]
+stabil: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-x: [1, 5, 4]
-rendezett: false
+kg: [12, 18, 17]
+stabil: false
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-09-trees.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-09-tank.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -339,7 +313,7 @@ rendezett: false
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-09-trees.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-09-tank.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

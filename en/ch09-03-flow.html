@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Catbert&#x27;s coffee breaks - The Specification Editor Book</title>
+        <title>The nectar flow - The Specification Editor Book</title>
 
 
         <!-- Custom HTML head -->
@@ -177,92 +177,93 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="catberts-coffee-breaks"><a class="header" href="#catberts-coffee-breaks">Catbert’s coffee breaks</a></h1>
+                        <h1 id="the-nectar-flow"><a class="header" href="#the-nectar-flow">The nectar flow</a></h1>
 <blockquote>
-<p><em>Catbert organised a multi-day conference with four coffee breaks each day.
-She recorded how much coffee was consumed during each break. Find a day on
-which the participants drank more than 5 litres of coffee in each of the
-coffee breaks.</em></p>
+<p><em>Borbála records how much nectar her colonies brought in on each of n days.
+She calls a stretch of d consecutive days a <strong>flow</strong> if at least <code>goal</code> units
+arrived during it. List the last day of every flow.</em></p>
 </blockquote>
-<p><strong>Task type:</strong> compound pattern. Search is the main pattern, and decision
-(all) is the nested pattern.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=96a3095f-cd78-482b-91cf-89e8a92229ab">Official solution</a>.</p>
+<p><strong>Task type:</strong> compound pattern. Multiple item selection is the main pattern,
+and summation is the nested pattern.</p>
 <h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> n days × 4 breaks, a matrix <code>coffe∈N[1..n,1..4]</code>. (The course
-solution spells it <code>coffe</code>.)</li>
-<li><strong>Question.</strong> <em>Find a day</em>, which may not exist, so <strong>search</strong>.</li>
-<li><strong>Condition for day i.</strong> <em>Each</em> of the four breaks was above 5, so
-<strong>FORALL</strong>, as a function of the day.</li>
+<li><strong>Data.</strong> <code>n</code>, <code>d</code>, <code>goal</code>, and the daily amounts <code>nectar∈N[1..n]</code>.</li>
+<li><strong>Question.</strong> <em>List the days on which…</em> means collecting several indices, so <code>MIS</code>.</li>
+<li><strong>Condition for day i.</strong> The last d days, ending with day <code>i</code>, add up to at
+least <code>goal</code>. That’s a <code>SUM</code>, which becomes a function:
+<code>nectar[i-d+1] + … + nectar[i]</code>.</li>
+<li><strong>Range.</strong> Day <code>i</code> needs <code>d</code> days ending with itself, so the first possible
+last day is <code>d</code>.</li>
+<li><strong>Precondition.</strong> The stretch must fit: <code>1≤d≤n</code>.</li>
 </ul>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
-Aux: found∈L
-Out: ind∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
-Pre: -
-Post: (found,ind)=SEARCH(i=1..n, more5(i))
+<pre><code class="language-speci">In: n∈N, d∈N, goal∈N, nectar∈N[1..n]
+Out: c∈N, days∈N[1..c]
+Fn: flow:N-&gt;N, flow(i)=SUM(j=i-d+1..i, nectar[j])
+Pre: 1≤d≤n
+Post: (c,days)=MIS(i=d..n, flow(i)≥goal)
 </code></pre>
+<p>Getting the window right is the whole task. For <code>d = 3</code> and <code>i = 7</code>, the range
+<code>i-d+1..i</code> is <code>5..7</code>, which is exactly three days.</p>
 <h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>Day 2 is the only day with all four breaks above 5:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
-]
-found: true
-ind: 2
+<p>The nominal case, with two flows:</p>
+<pre><code class="language-yaml">n: 7
+d: 3
+goal: 20
+nectar: [5, 9, 8, 1, 0, 12, 9]
+c: 2
+days: [3, 7]
 </code></pre>
-<p>No such day. Day 2 has a break of exactly 5, which is not <em>more</em> than 5:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 3, 5, 6],
-  [6, 7, 5, 6],
-  [5, 6, 5, 6]
-]
-found: false
-ind: 0
+<p>Negative, a poor week:</p>
+<pre><code class="language-yaml">n: 4
+d: 2
+goal: 100
+nectar: [1, 2, 3, 4]
+c: 0
+days: []
 </code></pre>
-<p>The official example of a failed search. It writes <code>ind: 4</code> (n + 1), which is
-what the step list shows:</p>
+<p>Boundary, <code>d = n</code>, and a total of exactly <code>goal</code>, which counts:</p>
 <pre><code class="language-yaml">n: 3
-coffe: [
-  [5, 6, 7, 4],
-  [6, 4, 6, 8],
-  [1, 2, 3, 4]
-]
-found: false
-ind: 4
+d: 3
+goal: 6
+nectar: [1, 2, 3]
+c: 1
+days: [3]
 </code></pre>
-<p>Several good days, so the first one must be chosen:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [[1, 1, 1, 1], [6, 6, 6, 6], [9, 9, 9, 9]]
-found: true
-ind: 2
+<p>The precondition excludes <code>d = 0</code>:</p>
+<pre><code class="language-yaml red">n: 3
+d: 0
+goal: 1
+nectar: [1, 2, 3]
+c: 0
+days: []
 </code></pre>
-<h2 id="in-the-step-list"><a class="header" href="#in-the-step-list">In the step list</a></h2>
-<p>The step list of the official solution is explained line by line in
-<a href="ch08-01-stepper.html">Stepper and step list</a>. It shows the evaluation entering
-<code>more5</code> (↓) for each day and returning (↑) with the result.</p>
-<h2 id="variants"><a class="header" href="#variants">Variants</a></h2>
-<ul>
-<li><em>How many days</em> had every break above 5? Use <code>COUNT</code> instead of <code>SEARCH</code>:
-<code>c=COUNT(i=1..n, more5(i))</code>.</li>
-<li><em>Was there a day</em> with a break under 5? Use <code>EXISTS</code> with a nested <code>EXISTS</code>:
-<code>l=EXISTS(i=1..n, EXISTS(j=1..4, coffe[i,j]&lt;5))</code>.</li>
-<li><em>Which</em> days? Use <code>MIS</code>: <code>(c,days)=MIS(i=1..n, more5(i))</code>.</li>
-</ul>
+<h2 id="walkthrough-first-test-d--3"><a class="header" href="#walkthrough-first-test-d--3">Walkthrough (first test, d = 3)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">day i</th><th style="text-align: center">window</th><th style="text-align: center"><code>flow(i)</code></th><th style="text-align: center">at least 20?</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">3</td><td style="text-align: center">5 + 9 + 8</td><td style="text-align: center">22</td><td style="text-align: center"><strong>yes</strong></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">9 + 8 + 1</td><td style="text-align: center">18</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">8 + 1 + 0</td><td style="text-align: center">9</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">1 + 0 + 12</td><td style="text-align: center">13</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">0 + 12 + 9</td><td style="text-align: center">21</td><td style="text-align: center"><strong>yes</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>Days 3 and 7 match, so <code>c = 2</code> and <code>days = [3, 7]</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-03-trurl.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-02-reliable.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-05-dogbert.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-04-harvest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -272,11 +273,11 @@ ind: 2
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-03-trurl.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-02-reliable.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-05-dogbert.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-04-harvest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

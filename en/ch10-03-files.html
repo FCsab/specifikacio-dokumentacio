@@ -191,25 +191,25 @@ for <em>Save as</em>) and open with <kbd>Ctrl</kbd>+<kbd>O</kbd>. You can also d
 onto the window. The file is evaluated as soon as it opens.</p>
 <p>A <code>.sp</code> file is plain text: the title as a comment, the specification, and each
 test case stored as a block comment:</p>
-<pre><code class="language-speci">// title: Odd numbers
+<pre><code class="language-speci">// title: Light jars
 Be:
 n∈N,
-szamok∈N[1..n]
+uvegek∈N[1..n]
 Ki:
-db∈N
+konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 
 /*--- test ---
 n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 ---*/
 
 /*--- test ---
 n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 ---*/
 </code></pre>
 <p><code>.sp</code> files and <code>SPECI1:</code> lines are speci-local’s own formats: <strong>only

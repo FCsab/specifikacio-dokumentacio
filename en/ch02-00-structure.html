@@ -200,32 +200,33 @@ set of all possible combinations of input, auxiliary and output values. The
 precondition picks out the <em>meaningful inputs</em>, and the postcondition picks out,
 for each such input, the <em>correct outputs</em>.</p>
 <p>Here is a specification that uses all six blocks:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, prices∈N[1..n]
+<pre><code class="language-speci">In: n∈N, limit∈N, mites∈N[1..n]
 Aux: found∈L, ind∈N
 Out: first∈Z
-Fn: cheap:N-&gt;L, cheap(i)=prices[i]&lt;k
+Fn: sick:N-&gt;L, sick(i)=mites[i]&gt;limit
 Pre: n≥1
-Post: (found,ind)=SEARCH(i=1..n, cheap(i)) and
+Post: (found,ind)=SEARCH(i=1..n, sick(i)) and
       (found -&gt; first=ind) and
       (not found -&gt; first=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-prices: [250, 90, 120, 40]
+limit: 30
+mites: [12, 30, 45, 7]
 found: true
-ind: 2
-first: 2
+ind: 3
+first: 3
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 10
-prices: [250, 90]
+limit: 50
+mites: [12, 30]
 found: false
-ind: 1
+ind: 3
 first: -1
 </code></pre>
-<p>Read it like this: <em>given n, k and n prices, where n is at least 1, the output
-first is the index of the first price below k, or −1 if there is none.</em> Don’t
-worry if <code>SEARCH</code> isn’t clear yet. Its chapter is <a href="ch06-06-search.html">Search</a>.</p>
+<p>Read it like this: <em>given n, a limit and the mite counts of n hives, where n is at
+least 1, the output first is the index of the first hive with more mites than the
+limit, or −1 if there is none.</em> Don’t worry if <code>SEARCH</code> isn’t clear yet. Its
+chapter is <a href="ch06-06-search.html">Search</a>.</p>
 <h2 id="in-this-chapter"><a class="header" href="#in-this-chapter">In this chapter</a></h2>
 <ul>
 <li><a href="ch02-01-blocks.html">Blocks and layout</a>: how to write headers, the order

@@ -180,42 +180,37 @@
                         <h1 id="postconditions-without-theorems"><a class="header" href="#postconditions-without-theorems">Postconditions without theorems</a></h1>
 <p>A postcondition doesn’t <em>have</em> to use theorem macros. Any logical statement
 over the input and output is valid, and the editor evaluates it directly. This
-<strong>relational</strong> style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>-&gt;</code>, is the
-notation of the lectures, and some assignments ask for it explicitly.</p>
+style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>-&gt;</code>, is called <strong>relational</strong>.</p>
 <h2 id="the-same-task-in-both-styles"><a class="header" href="#the-same-task-in-both-styles">The same task in both styles</a></h2>
 <blockquote>
-<p><em>A travel agency sells tickets to n cities. Give the price of the ticket to
-the farthest city. If several are equally far, the cheapest among them.</em></p>
+<p><em>Borbála weighed n jars from one batch. Give the second heaviest weight: the
+largest one that is below the maximum. The jars are not all the same weight.</em></p>
 </blockquote>
-<p><strong>With theorems.</strong> Find the maximum distance, collect the prices at that
-distance, and take the minimum:</p>
-<pre><code class="language-speci">In: n∈N, city∈City[1..n], City=(dist:N x price:N)
-Aux: far∈N, cnt∈N, prices∈N[1..cnt]
-Out: ticket∈N
-Pre: n&gt;0
-Post: (,far)=MAX(i=1..n, city[i].dist) and
-      (cnt,prices)=MIS(i=1..n, city[i].dist=far, city[i].price) and
-      (,ticket)=MIN(i=1..cnt, prices[i])
+<p><strong>With theorems.</strong> Find the maximum, then take the largest of the values below it:</p>
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
+Aux: top∈N, found∈L
+Out: second∈N
+Pre: ∃i∈[1..n]:(w[i]≠w[1])
+Post: (,top)=MAX(i=1..n, w[i]) and
+      (found,,second)=CONDMAX(i=1..n, w[i], w[i]&lt;top)
 </code></pre>
-<pre><code class="language-yaml">n: 3
-city: [{dist: 1000, price: 500}, {dist: 1000, price: 250}, {dist: 500, price: 100}]
-far: 1000
-cnt: 2
-prices: [500, 250]
-ticket: 250
+<pre><code class="language-yaml">n: 4
+w: [450, 480, 480, 465]
+top: 480
+found: true
+second: 465
 </code></pre>
-<p><strong>Relational.</strong> <em>There is a city i whose price is the answer, and every other
-city j is either nearer, or equally far and not cheaper:</em></p>
-<pre><code class="language-speci">In: n∈N, dist∈N[1..n], price∈N[1..n]
-Out: ticket∈N
-Pre: n&gt;0
-Post: ∃i∈[1..n]:(price[i]=ticket and
-        ∀j∈[1..n]:(dist[j]&lt;dist[i] or (dist[j]=dist[i] and price[j]≥price[i])))
+<p><strong>Relational.</strong> <em>The answer occurs among the weights, some jar is heavier than the
+answer, and every jar is either no heavier than the answer, or is a heaviest jar:</em></p>
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
+Out: second∈N
+Pre: ∃i∈[1..n]:(w[i]≠w[1])
+Post: ∃i∈[1..n]:(w[i]=second) and ∃j∈[1..n]:(w[j]&gt;second) and
+      ∀k∈[1..n]:(w[k]≤second or ∀m∈[1..n]:(w[m]≤w[k]))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-dist: [1000, 1000, 500]
-price: [500, 250, 100]
-ticket: 250
+<pre><code class="language-yaml">n: 4
+w: [450, 480, 480, 465]
+second: 465
 </code></pre>
 <h2 id="how-to-write-a-relational-postcondition"><a class="header" href="#how-to-write-a-relational-postcondition">How to write a relational postcondition</a></h2>
 <p>The typical shape: <strong>an <code>∃</code> that names a witness, plus <code>∀</code>s that say why the
@@ -228,24 +223,25 @@ witness is the right one.</strong></p>
 <code>(out=-1 and ∀i∈[…]:(not P(i))) or ∃i∈[…]:(…)</code></li>
 </ul>
 <h3 id="example-first-match-or-1"><a class="header" href="#example-first-match-or-1">Example: first match or −1</a></h3>
-<pre><code class="language-speci">In: n∈N, k∈N, price∈N[1..n]
+<p><em>The first hive with fewer than k kilograms, or −1:</em></p>
+<pre><code class="language-speci">In: n∈N, k∈N, kg∈N[1..n]
 Out: res∈Z
 Pre: -
-Post: (res=-1 and ∀i∈[1..n]:(price[i]≥k)) or
-      ∃i∈[1..n]:(res=i and price[i]&lt;k and ∀j∈[1..i-1]:(price[j]≥k))
+Post: (res=-1 and ∀i∈[1..n]:(kg[i]≥k)) or
+      ∃i∈[1..n]:(res=i and kg[i]&lt;k and ∀j∈[1..i-1]:(kg[j]≥k))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 5000
-price: [6000, 3000, 1000, 200]
+k: 30
+kg: [40, 25, 18, 10]
 res: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 100
-price: [2500, 5300]
+k: 10
+kg: [40, 25]
 res: -1
 </code></pre>
 <p>The output is bound <em>through the witness</em> (<code>res=i</code>), so the formula never reads
-<code>price[res]</code> when <code>res</code> is −1. Writing <code>price[res]&lt;k</code> would be an out-of-range
+<code>kg[res]</code> when <code>res</code> is −1. Writing <code>kg[res]&lt;k</code> would be an out-of-range
 read on the failing branch.</p>
 <h2 id="which-style-should-i-use"><a class="header" href="#which-style-should-i-use">Which style should I use?</a></h2>
 <div class="table-wrapper">
@@ -255,7 +251,7 @@ read on the failing branch.</p>
 </thead>
 <tbody>
 <tr><td><strong>theorems</strong></td><td>the specification should lead to an algorithm: each macro becomes a known algorithm in the design phase</td></tr>
-<tr><td><strong>relational</strong></td><td>the output is defined by a property, the assignment asks for the relational form, or the theorem version would need many auxiliary variables</td></tr>
+<tr><td><strong>relational</strong></td><td>the output is defined by a property, or the theorem version would need many auxiliary variables</td></tr>
 </tbody>
 </table>
 </div>

@@ -198,25 +198,18 @@ hibakereső a specifikációhoz. Ha egy teszt váratlanul piros, megmutatja,
 kiértékelésének megjelenítését.</p>
 <h2 id="a-lépések-olvasása"><a class="header" href="#a-lépések-olvasása">A lépések olvasása</a></h2>
 <p>Minden lépés az utófeltétel, amelyben egy részt az értéke váltott fel. Az adott
-lépésben megváltozott rész <strong>sárgával van kiemelve</strong>. Íme egy keresés
-lépéslistája („keress egy napot, amikor minden kávészünetben 5 felett
-fogyott”):</p>
-<figure>
-<img src="img/step-list.png" alt="Egy beágyazott függvényes SEARCH lépéslistája">
-<figcaption>A lépéslista. A sárga kiemelés jelzi az adott lépésben
-kiértékelt részt, a ↓/↑ pedig egy függvénybe való belépést és a kilépést
-belőle.</figcaption>
-</figure>
-<p>A lépések sorban:</p>
-<pre><code class="language-text">Post: (exists,ind)=SEARCH(i=1..n, more5(i))     az eredeti állítás
-Post: (true,2)=SEARCH(i=1..n, more5(i))         behelyettesíti a kimeneteket
-Post: (true,2)=SEARCH(i=1..n, more5(i))         az alsó határ: 1
-Post: (true,2)=SEARCH(i=1..3, more5(i))         a felső határ: n = 3
-Post: (true,2)=SEARCH(i=1..3, more5(1))         első iteráció: i = 1
-Post: (true,2)=SEARCH(i=1..3, ↓)                belép a more5(1)-be…
-Post: (true,2)=SEARCH(i=1..3, more5(2))         …hamis, következő iteráció: i = 2
-Post: (true,2)=SEARCH(i=1..3, ↑)                a more5(2) igazzal tért vissza
-Post: (true,2)=(true,2)                         a SEARCH eredménye (true, 2)
+lépésben megváltozott rész <strong>sárgával van kiemelve</strong>. Íme a
+<a href="ch09-04-harvest.html">Pergetés</a> első tesztjének lépéslistája („keress egy kerethelyet,
+amely minden fiókban érett”). Vázlatosan, a függvényeken belüli lépések nélkül:</p>
+<pre><code class="language-text">Post: (van,hely)=SEARCH(p=1..5, erett(p))       az eredeti állítás
+Post: (true,3)=SEARCH(p=1..5, erett(p))         behelyettesíti a kimeneteket
+Post: (true,3)=SEARCH(p=1..5, erett(p))         a tartomány határai: 1..5
+Post: (true,3)=SEARCH(p=1..5, erett(1))         első iteráció: p = 1
+Post: (true,3)=SEARCH(p=1..5, ↓)                belép az erett(1)-be…
+Post: (true,3)=SEARCH(p=1..5, erett(2))         …hamis, következő iteráció: p = 2
+Post: (true,3)=SEARCH(p=1..5, erett(3))         …hamis, következő iteráció: p = 3
+Post: (true,3)=SEARCH(p=1..5, ↑)                az erett(3) igazzal tért vissza
+Post: (true,3)=(true,3)                         a SEARCH eredménye (true, 3)
 Post: ↑                                         az összehasonlítás igaz
 </code></pre>
 <h2 id="belépés-függvénybe-és-kilépés--és-"><a class="header" href="#belépés-függvénybe-és-kilépés--és-">Belépés függvénybe és kilépés: ↓ és ↑</a></h2>
@@ -249,7 +242,7 @@ lehetőséget. A formulát a kiértékelt rész kiemelésével, az értékkel é
 aktuális ciklusváltozókkal mutatja. A ↓/↑ jelek és a lépéslista ugyanígy
 működnek. A hibaüzenetei azt is megmondják, az utófeltétel <em>melyik</em> része hamis,
 és mit számol ki a specifikáció, például:
-„<code>cnt</code>: the test case says 2, the specification gives 3”.</p>
+„<code>konnyu</code>: the test case says 3, the specification gives 2”.</p>
 
                     </main>
 

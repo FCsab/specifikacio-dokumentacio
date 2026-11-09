@@ -191,7 +191,7 @@ the collected items themselves.</p>
 count variable as the bound.</p>
 <h2 id="the-two-argument-form-matching-indices"><a class="header" href="#the-two-argument-form-matching-indices">The two-argument form: matching indices</a></h2>
 <blockquote>
-<p><em>On which days was it below freezing?</em></p>
+<p><em>At which dawns was it below freezing at the hive entrance?</em></p>
 </blockquote>
 <pre><code class="language-speci">In: n∈N, t∈Z[1..n]
 Out: c∈N, days∈N[1..c]
@@ -199,12 +199,12 @@ Pre: -
 Post: (c,days)=MIS(i=1..n, t[i]&lt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 c: 3
 days: [2, 3, 6]
 </code></pre>
 <pre><code class="language-yaml">n: 2
-t: [5, 7]
+t: [6, 9]
 c: 0
 days: []
 </code></pre>
@@ -222,9 +222,9 @@ Pre: -
 Post: (c,cold)=MIS(i=1..n, t[i]&lt;0, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 c: 3
-cold: [-1, -4, -2]
+cold: [-2, -5, -1]
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -233,52 +233,49 @@ collected value <em>third</em>. In the filtered <code>SUM</code> it’s the othe
 <code>SUM(i=…, value, condition)</code>.</p>
 </blockquote>
 <h3 id="example-fields-of-records"><a class="header" href="#example-fields-of-records">Example: fields of records</a></h3>
-<p>Collect the location of every run longer than 30 minutes. This is a course
-example. Note the comment that maps the general form onto the task:</p>
-<pre><code class="language-speci">In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]
-Out: cnt∈N, location∈S[1..cnt]
+<p>Collect the name of every hive heavier than 30 kg. Note the comment that maps the
+general form onto the task:</p>
+<pre><code class="language-speci">In: Thive=(kg:N x name:S), n∈N, hives∈Thive[1..n]
+Out: c∈N, names∈S[1..c]
 Pre: -
-Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
+Post: (c,names)=MIS(i=1..n, hives[i].kg&gt;30, hives[i].name)
+/* (c,y)=MIS(i=b..e, A(i), f(i))
+   c, y   ~ c, names
    b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+   A(i)   ~ hives[i].kg&gt;30
+   f(i)   ~ hives[i].name
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-runs:
-  - time: 15
-    loc: office
-  - time: 35
-    loc: restaurant
-  - time: 40
-    loc: gym
-  - time: 5
-    loc: shop
-cnt: 2
-location: [restaurant, gym]
+hives:
+  - kg: 22
+    name: Akac
+  - kg: 35
+    name: Bodza
+  - kg: 41
+    name: Repce
+  - kg: 30
+    name: Hars
+c: 2
+names: [Bodza, Repce]
 </code></pre>
 <h2 id="combining-with-other-theorems"><a class="header" href="#combining-with-other-theorems">Combining with other theorems</a></h2>
-<p>The collected array can feed another theorem. <em>Among the cities farthest away,
-what is the cheapest ticket?</em> <code>MAX</code> finds the farthest distance, <code>MIS</code>
-collects the prices at that distance, and <code>MIN</code> picks the cheapest:</p>
-<pre><code class="language-speci">In: n∈N, city∈City[1..n], City=(dist:N x price:N)
-Aux: far∈N, cnt∈N, prices∈N[1..cnt]
-Out: ticket∈N
-Pre: n&gt;0
-Post: (,far)=MAX(i=1..n, city[i].dist) and
-      (cnt,prices)=MIS(i=1..n, city[i].dist=far, city[i].price) and
-      (,ticket)=MIN(i=1..cnt, prices[i])
+<p>The collected array can feed another theorem. <em>How much honey came from the hives
+rated 4 or higher?</em> <code>MIS</code> collects their yields, and <code>SUM</code> adds them up:</p>
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(kg:N x rating:N)
+Aux: cnt∈N, yields∈N[1..cnt]
+Out: total∈N
+Pre: -
+Post: (cnt,yields)=MIS(i=1..n, hv[i].rating≥4, hv[i].kg) and
+      total=SUM(i=1..cnt, yields[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-city: [{dist: 500, price: 90}, {dist: 900, price: 120}, {dist: 900, price: 80}, {dist: 300, price: 20}]
-far: 900
+hv: [{kg: 50, rating: 2}, {kg: 90, rating: 4}, {kg: 80, rating: 5}, {kg: 30, rating: 1}]
 cnt: 2
-prices: [120, 80]
-ticket: 80
+yields: [90, 80]
+total: 170
 </code></pre>
-<p>The auxiliary variables (<code>far</code>, <code>cnt</code>, <code>prices</code>) also have to appear in the
+<p>The auxiliary variables (<code>cnt</code>, <code>yields</code>) also have to appear in the
 test case, with their expected values.</p>
 
                     </main>

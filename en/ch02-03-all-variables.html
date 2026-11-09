@@ -184,9 +184,7 @@
 checks this and rejects the specification otherwise.</p>
 </blockquote>
 <p>The idea behind the rule is that if an input doesn’t influence the result,
-either it isn’t really input, or the postcondition forgot about it. The
-official manual puts it this way: <em>“The postcondition must include all declared
-data.”</em></p>
+either it isn’t really input, or the postcondition forgot about it.</p>
 <h2 id="what-the-error-looks-like"><a class="header" href="#what-the-error-looks-like">What the error looks like</a></h2>
 <pre><code class="language-speci error">In: n∈N, x∈N[1..n], extra∈N
 Out: s∈N
@@ -225,14 +223,14 @@ c: 2
 <p>Sometimes a pattern really doesn’t need an input. The typical case is
 <a href="ch06-05-select.html"><code>SELECT</code></a>, which has no upper bound. Then add a trivially
 true identity to the postcondition:</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: ind∈N
-Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
+Pre: ∃i∈[1..n]:(kg[i]&gt;40)
+Post: ind=SELECT(i&gt;=1, kg[i]&gt;40) and n=n
 </code></pre>
-<pre><code class="language-yaml">n: 5
-nums: [23, 25, 26, 28, 29]
-ind: 1
+<pre><code class="language-yaml">n: 4
+kg: [23, 41, 26, 58]
+ind: 2
 </code></pre>
 <p><code>n=n</code> is always true, so it doesn’t change the meaning, but <code>n</code> now appears in
 the postcondition. If several variables are unused, chain them:

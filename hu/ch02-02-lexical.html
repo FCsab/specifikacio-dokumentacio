@@ -191,10 +191,10 @@
 <tr><th>Helyes</th><th>Hibás</th><th>Miért hibás?</th></tr>
 </thead>
 <tbody>
-<tr><td><code>szamok</code>, <code>x1</code>, <code>latogatasDb</code></td><td><code>Szamok</code></td><td>nagybetűvel kezdődik (az halmaznév)</td></tr>
-<tr><td><code>szam</code>, <code>ar</code>, <code>tav</code></td><td><code>latogatas db</code></td><td>szóközt tartalmaz</td></tr>
+<tr><td><code>uvegek</code>, <code>x1</code>, <code>kaptarDb</code></td><td><code>Uvegek</code></td><td>nagybetűvel kezdődik (az halmaznév)</td></tr>
+<tr><td><code>kaptar</code>, <code>suly</code>, <code>atka</code></td><td><code>kaptar db</code></td><td>szóközt tartalmaz</td></tr>
 <tr><td><code>r1</code>, <code>maxert</code></td><td><code>1x</code></td><td>számjeggyel kezdődik</td></tr>
-<tr><td><code>osztok</code>, <code>db</code></td><td><code>max-ert</code></td><td><code>-</code> van benne (kivonásnak olvassa)</td></tr>
+<tr><td><code>konnyu</code>, <code>db</code></td><td><code>max-ert</code></td><td><code>-</code> van benne (kivonásnak olvassa)</td></tr>
 </tbody>
 </table>
 </div>
@@ -204,7 +204,7 @@ egyes billentyűzeteken nehézkes beírni őket.</p>
 <h2 id="halmaznevek-típusnevek"><a class="header" href="#halmaznevek-típusnevek">Halmaznevek (típusnevek)</a></h2>
 <p>A halmazok neve, a beépítetteké (<code>N</code>, <code>Z</code>, <code>R</code>, <code>L</code>, <code>S</code>, <code>C</code>) és a sajátjaidé
 (<a href="ch03-05-aliases.html">Saját halmaznevek</a>) is, <strong>nagybetűvel kezdődik</strong>:
-<code>Hallgato</code>, <code>Jegy</code>, <code>Seta</code>.</p>
+<code>Kaptar</code>, <code>Pont</code>, <code>Meres</code>.</p>
 <h2 id="foglalt-szavak"><a class="header" href="#foglalt-szavak">Foglalt szavak</a></h2>
 <p>Néhány kisbetűs szó a nyelv része, ezért nem lehet változónév:</p>
 <div class="table-wrapper">
@@ -224,8 +224,7 @@ egyes billentyűzeteken nehézkes beírni őket.</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Ne nevezz el változót <code>exists</code>-nek</strong>, akkor sem, ha régi képernyőképek és
-segédletek így tesznek: <code>Aux: exists∈L</code>. A mostani szerkesztő elutasítja,
+<p><strong>Ne nevezz el változót <code>exists</code>-nek</strong>, akkor sem, ha régebbi anyagokban találkozol az <code>Aux: exists∈L</code> alakkal. A mostani szerkesztő elutasítja,
 ezzel a rejtélyes üzenettel: <code>incomplite type for exists: undefined is not boolean</code>.
 Használd helyette a <code>van</code> vagy <code>talalt</code> nevet, és nevezd át mindenhol: a
 deklarációban, az utófeltételben és minden tesztesetben.</p>
@@ -249,24 +248,26 @@ max: 9
 után is ugyanabban a sorban.</li>
 <li><code>/* … */</code> a <strong>blokkmegjegyzés</strong>, amely több soron át is tarthat.</li>
 </ul>
-<pre><code class="language-speci">/* Egy szám osztóinak száma.
-   i|n jelentése: i osztója n-nek. */
-Be: n∈N
-Ki: d∈N
-Ef: n&gt;=1          // a 0-nak végtelen sok osztója lenne
-Uf: d=DARAB(i=1..n, i|n)
+<pre><code class="language-speci">/* Melyik dobozméretbe fér el pontosan a teljes termés?
+   b[i]|uvegek jelentése: b[i] osztója uvegek-nek. */
+Be: uvegek∈N, n∈N, b∈N[1..n]
+Ki: jo∈N
+Ef: ∀i∈[1..n]:(b[i]&gt;=1)   // a 0 méretű doboznak nincs értelme
+Uf: jo=DARAB(i=1..n, b[i]|uvegek)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">uvegek: 24
+n: 4
+b: [6, 5, 8, 7]
+jo: 2
 </code></pre>
-<p>A tárgyi megoldásokban bevett szokás, hogy megjegyzésben leírják a tétel
-általános alakját, és megfeleltetik a konkrét neveknek:</p>
-<pre><code class="language-speci fragment">Uf: (db,helyek)=MIS(i=1..n, futas[i].ido&gt;30, futas[i].hely)
-/* (db,y)=MIS(i=e..u, T(i), f(i))
-   db, y  ~ db, helyek
+<p>Hasznos szokás, hogy megjegyzésben leírjuk a tétel általános alakját, és
+megfeleltetjük a konkrét neveknek:</p>
+<pre><code class="language-speci fragment">Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
    e..u   ~ 1..n
-   T(i)   ~ futas[i].ido&gt;30
-   f(i)   ~ futas[i].hely
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <p>A beépített dokumentáció <code>/** … */</code> alakot is használ a címekhez. Ez közönséges

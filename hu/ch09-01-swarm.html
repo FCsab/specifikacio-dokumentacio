@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="hu" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Yossarian&#x27;s map - The Specification Editor Book</title>
+        <title>A raj a mérlegen - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
+        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Specification Editor Book</h1>
+                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,110 +177,116 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="yossarians-map"><a class="header" href="#yossarians-map">Yossarian’s map</a></h1>
+                        <h1 id="a-raj-a-mérlegen"><a class="header" href="#a-raj-a-mérlegen">A raj a mérlegen</a></h1>
 <blockquote>
-<p><em>Yossarian marked on a grid map (n × m) how many times he had been to each
-place. Which place had he been to the most? Give the “coordinates” of the
-first such place.</em></p>
+<p><em>Borbála a legjobb kaptára alatt mérleget tart. Minden este felírja a súlyát
+kilogrammban, és egy rövid megjegyzést. Amikor egy család rajzik, a kaptár
+hirtelen könnyebb lesz. Add meg annak az első estének a megjegyzését, amikor a
+kaptár több mint 3 kg-mal könnyebb volt, mint előző este.</em></p>
 </blockquote>
-<p><strong>Task type:</strong> maximum selection in a matrix.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=0ae47017-4755-40de-82b5-00ba484d7637">Official solution</a>.</p>
-<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
+<p><strong>A feladat típusa:</strong> keresés rekordok tömbjében.</p>
+<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><strong>Data.</strong> An n × m matrix of natural numbers: <code>map∈N[1..n,1..m]</code>.</li>
-<li><strong>Question.</strong> The position of the largest value: a <strong>maximum</strong>, but over two
-indices.</li>
-<li><strong>Decomposition.</strong> First find the maximum of each row (inner <code>MAX</code> over the
-columns), then the row with the largest row-maximum (outer <code>MAX</code> over the
-rows). The inner one becomes a function returning (column, value).</li>
-<li><strong>“The first such place”</strong>: <code>MAX</code> already takes the first maximum, in both
-the row and the column.</li>
+<li><strong>Adatok.</strong> n leolvasás, mindegyikben egy megjegyzés és egy súly. Ehhez egy
+<code>Meres=(megj:S x kg:N)</code> rekord és egy ilyenekből álló tömb kell.</li>
+<li><strong>Kérdés.</strong> <em>Az első este, amikor…</em> Egy elemet keresünk, és lehet, hogy
+nincs ilyen. Ez a <code>SEARCH</code>.</li>
+<li><strong>Feltétel.</strong> Az <code>i</code>. este az előző estéhez képest:
+<code>naplo[i-1].kg-naplo[i].kg&gt;3</code>. A „több mint 3” azt jelenti, hogy a pontosan 3
+kg-os esés nem számít.</li>
+<li><strong>Tartomány.</strong> Az <code>i</code>. este visszanéz az <code>i-1</code>.-re, ezért az <code>i</code> 2-től indul.
+(Ha előre néznénk, <code>n-1</code>-nél kellene megállni.)</li>
+<li><strong>Kimenet.</strong> A megjegyzés csak sikeres keresés esetén létezik. Ehhez
+implikáció kell.</li>
 </ul>
-<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, m∈N, map∈N[1..n,1..m]
-Out: mpx∈N, mpy∈N
-Fn: maxcol:N-&gt;N x N, maxcol(i)=MAX(j=1..m, map[i,j])
-Pre: n&gt;0 and m&gt;0
-Post: (mpx,)=MAX(i=1..n, maxcol(i).maxval) and
-      mpy=maxcol(mpx).maxind
+<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
+<pre><code class="language-speci">Be: n∈N, naplo∈Meres[1..n], Meres=(megj:S x kg:N)
+Sa: van∈L, ind∈N
+Ki: uzenet∈S
+Ef: n≥1
+Uf: (van,ind)=SEARCH(i=2..n, naplo[i-1].kg-naplo[i].kg&gt;3) és
+    (van -&gt; uzenet=naplo[ind].megj)
 </code></pre>
-<ul>
-<li><code>maxcol(i)</code> is the pair (column of the maximum, maximum) for row <em>i</em>.</li>
-<li><code>maxcol(i).maxval</code> is the maximum of row <em>i</em>. The outer <code>MAX</code> keeps only the
-row index: <code>(mpx,)</code>.</li>
-<li><code>maxcol(mpx).maxind</code> is the column of the maximum within the chosen row.</li>
-</ul>
-<blockquote class="blockquote-tag blockquote-tag-note">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The official solution’s precondition is <code>∀i∈[1..n]:(∀j∈[1..m]:(map[i,j]≥0))</code>,
-which is always true for <code>N</code>. What <code>MAX</code> actually needs is a non-empty
-matrix, so this version says <code>n&gt;0 and m&gt;0</code>.</p>
-</blockquote>
-<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>The statement’s example, where the maximum 23 occurs in rows 2 and 4 (the first
-one wins):</p>
-<pre><code class="language-yaml">n: 6
-m: 4
-map: [
-  [12, 3, 1, 4],
-  [3, 2, 23, 5],
-  [4, 2, 2, 1],
-  [5, 2, 23, 0],
-  [0, 2, 4, 1],
-  [0, 0, 0, 1]
-]
-mpx: 2
-mpy: 3
+<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
+<p>A szokásos eset. A súly a 3. estén 2 kg-ot esik, aztán a 4.-en 5-öt:</p>
+<pre><code class="language-yaml">n: 5
+naplo:
+  - megj: nyugalom
+    kg: 41
+  - megj: nyugalom
+    kg: 42
+  - megj: eso
+    kg: 40
+  - megj: mindenhol mehek
+    kg: 35
+  - megj: csend
+    kg: 34
+van: true
+ind: 4
+uzenet: mindenhol mehek
 </code></pre>
-<p>The maximum in the top-left corner:</p>
+<p>Negatív eset, lassú csökkenés, amely sosem haladja meg az 1 kg-ot:</p>
 <pre><code class="language-yaml">n: 3
-m: 3
-map: [[99, 10, 5], [20, 30, 40], [15, 25, 35]]
-mpx: 1
-mpy: 1
+naplo: [{megj: a, kg: 30}, {megj: b, kg: 29}, {megj: c, kg: 28}]
+van: false
+ind: 4
+uzenet: ""
 </code></pre>
-<p>All cells equal, so the first cell is chosen:</p>
+<p>Határeset, pontosan 3 kg-os esés, ami nem <em>több mint</em> 3:</p>
 <pre><code class="language-yaml">n: 2
-m: 2
-map: [[7, 7], [7, 7]]
-mpx: 1
-mpy: 1
+naplo: [{megj: a, kg: 30}, {megj: b, kg: 27}]
+van: false
+ind: 3
+uzenet: ""
 </code></pre>
-<p>The second occurrence is <em>not</em> accepted:</p>
-<pre><code class="language-yaml red">n: 2
-m: 2
-map: [[1, 9], [9, 1]]
-mpx: 2
-mpy: 1
+<p>Határeset, egyetlen este (a <code>2..1</code> tartomány üres):</p>
+<pre><code class="language-yaml">n: 1
+naplo: [{megj: elso nap, kg: 20}]
+van: false
+ind: 2
+uzenet: ""
 </code></pre>
-<h2 id="walkthrough-first-test"><a class="header" href="#walkthrough-first-test">Walkthrough (first test)</a></h2>
+<p>A rossz elvárást észre kell venni. Ez a 3. esti 2 kg-os esést jelöli meg:</p>
+<pre><code class="language-yaml red">n: 5
+naplo: [{megj: nyugalom, kg: 41}, {megj: nyugalom, kg: 42}, {megj: eso, kg: 40}, {megj: mindenhol mehek, kg: 35}, {megj: csend, kg: 34}]
+van: true
+ind: 3
+uzenet: eso
+</code></pre>
+<h2 id="végigkövetés"><a class="header" href="#végigkövetés">Végigkövetés</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">row i</th><th style="text-align: center"><code>maxcol(i)</code></th><th style="text-align: right"><code>.maxval</code></th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center"><code>naplo[i-1].kg</code></th><th style="text-align: center"><code>naplo[i].kg</code></th><th style="text-align: center">esés</th><th style="text-align: center">több mint 3?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: center">(1, 12)</td><td style="text-align: right">12</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: center">(3, 23)</td><td style="text-align: right"><strong>23</strong></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: center">(1, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: center">(3, 23)</td><td style="text-align: right">23</td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: center">(3, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: center">(4, 1)</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">41</td><td style="text-align: center">42</td><td style="text-align: center">−1</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">42</td><td style="text-align: center">40</td><td style="text-align: center">2</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">40</td><td style="text-align: center">35</td><td style="text-align: center">5</td><td style="text-align: center"><strong>igen</strong></td></tr>
 </tbody>
 </table>
 </div>
-<p>The outer <code>MAX</code> finds 23 first in row 2, so <code>mpx = 2</code>. Then
-<code>maxcol(2).maxind = 3</code>, so <code>mpy = 3</code>.</p>
+<p>A keresés az <code>i = 4</code>-nél megáll, tehát <code>van = true</code> és <code>ind = 4</code>, az implikáció
+pedig az <code>uzenet = naplo[4].megj</code> egyenlőséget követeli meg.</p>
+<h2 id="a-zárójelekről"><a class="header" href="#a-zárójelekről">A zárójelekről</a></h2>
+<p>Könnyű hiba, ha az implikáció körül elmarad a zárójel:</p>
+<pre><code class="language-speci fragment">Uf: (van,ind)=SEARCH(i=2..n, naplo[i-1].kg-naplo[i].kg&gt;3) és
+    van -&gt; uzenet=naplo[ind].megj
+</code></pre>
+<p>Mivel a <code>-&gt;</code> gyengébben köt, mint az <code>és</code>, ennek a jelentése
+<code>(SEARCH… és van) -&gt; uzenet=…</code>. Ha egy tesztesetben a <code>van</code> vagy az <code>ind</code> hibás, a
+bal oldal hamis, a teljes állítás pedig <strong>igaz</strong>, így a hiba észrevétlen marad.
+A fenti, zárójeles alakkal a piros teszt helyesen piros.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-01-discworld.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-00-examples.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-03-trurl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-02-reliable.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -290,11 +296,11 @@ mpy: 1
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-01-discworld.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-00-examples.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-03-trurl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-02-reliable.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

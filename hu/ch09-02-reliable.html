@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="hu" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>The travel agency - The Specification Editor Book</title>
+        <title>A legmegbízhatóbb kaptár - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
+        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Specification Editor Book</h1>
+                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,133 +177,104 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="the-travel-agency"><a class="header" href="#the-travel-agency">The travel agency</a></h1>
+                        <h1 id="a-legmegbízhatóbb-kaptár"><a class="header" href="#a-legmegbízhatóbb-kaptár">A legmegbízhatóbb kaptár</a></h1>
 <blockquote>
-<p><em>A travel agency stores which cities it sells plane tickets to, how far away
-they are, and at what price. Give the price of the ticket to the farthest
-city! If several cities are equally far, give the cheapest of them.</em></p>
-<p><strong>Input:</strong> N (1 ≤ N ≤ 100), then N lines with the distance
-(1 ≤ T ≤ 20 000) and the price (1 ≤ Á ≤ 2 000 000).
-<strong>Output:</strong> one integer, the price.</p>
+<p><em>Borbála n kaptárának mézét m héten át hetente leméri. Egyetlen remek hét keveset
+jelent neki: abban a kaptárban bízik, amelynek a <strong>legrosszabb</strong> hete volt a
+legjobb. Melyik kaptár ez, és melyik héten volt a legrosszabb eredménye? Ha több
+ilyen van, az elsőt add meg.</em></p>
 </blockquote>
-<p>This Hungarian course task was verified on the live editor. It is written in
-the canonical Hungarian style: Hungarian headers and names, one declaration per
-line, a blank line between blocks.</p>
-<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
+<p><strong>A feladat típusa:</strong> minimumok maximuma egy mátrixban.</p>
+<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><strong>Data.</strong> The input comes as N lines of (distance, price). Two parallel
-arrays, <code>tav</code> (distance) and <code>ar</code> (price), mirror that directly.</li>
-<li><strong>Question.</strong> A single price, defined by a property: the price of a city
-that is farthest, and cheapest among the farthest ones.</li>
-<li><strong>Style.</strong> The property translates directly into a relational postcondition. A
-theorem version is shown below too.</li>
+<li><strong>Adatok.</strong> Egy n × m-es természetes számokból álló mátrix, <code>y∈N[1..n,1..m]</code>,
+kaptáronként egy sorral.</li>
+<li><strong>Kérdés.</strong> Két kérdés egymásba ágyazva. Minden kaptárra: melyik volt a
+legrosszabb hete? (<code>MIN</code> az oszlopokon.) Aztán: melyik kaptárnak a legjobb ez az
+értéke? (<code>MAX</code> a sorokon.)</li>
+<li><strong>Felbontás.</strong> A belső <code>MIN</code> a kaptár függvénye lesz. Egy (hét, érték) párt ad
+vissza, amelynek részei a <code>.minind</code> és a <code>.minval</code>.</li>
+<li><strong>„Az első.”</strong> A <code>MAX</code> és a <code>MIN</code> is az első indexet veszi egyenlőség esetén,
+így nem kell külön teendő.</li>
 </ul>
-<h2 id="specification-relational"><a class="header" href="#specification-relational">Specification (relational)</a></h2>
-<pre><code class="language-speci">Be:
-n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
-
-Ki:
-max∈N
-
-Ef:
-1&lt;=n and n&lt;=100 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=2000000 and 1&lt;=tav[i] and tav[i]&lt;=20000)
-
-Uf:
-∃i∈[1..n]:(∀j∈[1..n]:(tav[j]&lt;tav[i] vagy (tav[j]=tav[i] és ar[j]&gt;=ar[i])) és ar[i]=max)
+<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
+<pre><code class="language-speci">Be: n∈N, m∈N, y∈N[1..n,1..m]
+Ki: kaptar∈N, het∈N
+Fv: rossz:N-&gt;N x N, rossz(h)=MIN(w=1..m, y[h,w])
+Ef: n&gt;0 és m&gt;0
+Uf: (kaptar,)=MAX(h=1..n, rossz(h).minval) és
+    het=rossz(kaptar).minind
 </code></pre>
-<p>Read the postcondition as: <em>there is a city i such that every city j is either
-nearer than i, or equally far but not cheaper, and the answer is the price of i.</em></p>
-<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>The statement’s sample. The farthest city is no. 6 (2100), at 30 000:</p>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-max: 30000
-</code></pre>
-<p>A tie on the farthest distance, so the cheaper of the two is the answer:</p>
-<pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 250
-</code></pre>
-<p>A single city:</p>
-<pre><code class="language-yaml">n: 1
-ar: [1]
-tav: [1]
-max: 1
-</code></pre>
-<p>All cities equally far, with the cheapest one last:</p>
-<pre><code class="language-yaml">n: 4
-ar: [100, 100, 2000000, 1]
-tav: [20000, 20000, 20000, 20000]
-max: 1
-</code></pre>
-<p>Not the cheapest of the farthest:</p>
-<pre><code class="language-yaml red">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 500
-</code></pre>
-<blockquote class="blockquote-tag blockquote-tag-warning">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Check every bound.</strong> It’s easy to copy the price limit (2 000 000) onto the
-distance as well. Such a precondition is too loose, and no test will turn
-red because of it. Compare each bound in <code>Ef:</code> with the statement.</p>
+<ul>
+<li>A <code>rossz(h)</code> a <code>h</code> kaptár (a minimum hete, minimum) párja.</li>
+<li>A <code>rossz(h).minval</code> a <code>h</code> kaptár legrosszabb eredménye. A külső <code>MAX</code> csak a
+kaptár indexét tartja meg: <code>(kaptar,)</code>.</li>
+<li>A <code>rossz(kaptar).minind</code> a kiválasztott kaptár legrosszabb hete.</li>
+</ul>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>A <code>MIN</code>-nek és a <code>MAX</code>-nak nem üres tartomány kell. Ezért követeli meg az
+előfeltétel az <code>n&gt;0 és m&gt;0</code> állítást. Az <code>n∈N</code> önmagában megengedné az <code>n: 0</code>-t.</p>
 </blockquote>
-<h2 id="specification-with-theorems"><a class="header" href="#specification-with-theorems">Specification (with theorems)</a></h2>
-<p>The same task in three steps: the largest distance (<code>MAX</code>), the prices at
-that distance (<code>MIS</code>), and the smallest of those (<code>MIN</code>):</p>
-<pre><code class="language-speci">Be:
-n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
-
-Sa:
-legtav∈N,
-db∈N,
-arak∈N[1..db]
-
-Ki:
-max∈N
-
-Ef:
-1&lt;=n and n&lt;=100 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=2000000 and 1&lt;=tav[i] and tav[i]&lt;=20000)
-
-Uf:
-(,legtav)=MAX(i=1..n, tav[i]) és
-(db,arak)=MIS(i=1..n, tav[i]=legtav, ar[i]) és
-(,max)=MIN(i=1..db, arak[i])
-</code></pre>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-legtav: 2100
-db: 1
-arak: [30000]
-max: 30000
-</code></pre>
+<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
+<p>A szokásos eset. A 3. kaptárnak vannak a legjobb hetei, de a 2.-nak a legjobb a
+legrosszabb hete:</p>
 <pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-legtav: 1000
-db: 2
-arak: [500, 250]
-max: 250
+m: 4
+y: [
+  [9, 2, 7, 8],
+  [5, 6, 4, 5],
+  [3, 9, 9, 9]
+]
+kaptar: 2
+het: 3
 </code></pre>
-<p>The output variable is called <code>max</code>, and that’s fine: <code>MAX</code> the theorem is
-uppercase, so the two don’t collide.</p>
+<p>Döntetlen a kaptárak között, így az első nyer:</p>
+<pre><code class="language-yaml">n: 2
+m: 2
+y: [[4, 5], [5, 4]]
+kaptar: 1
+het: 1
+</code></pre>
+<p>Egyetlen kaptár két egyformán rossz héttel, így az első számít:</p>
+<pre><code class="language-yaml">n: 1
+m: 3
+y: [[6, 3, 3]]
+kaptar: 1
+het: 2
+</code></pre>
+<p>A legnagyobb egyedi értékű kaptár nem a válasz:</p>
+<pre><code class="language-yaml red">n: 3
+m: 4
+y: [[9, 2, 7, 8], [5, 6, 4, 5], [3, 9, 9, 9]]
+kaptar: 3
+het: 1
+</code></pre>
+<h2 id="végigkövetés-első-teszt"><a class="header" href="#végigkövetés-első-teszt">Végigkövetés (első teszt)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">h kaptár</th><th style="text-align: center"><code>rossz(h)</code></th><th style="text-align: center"><code>.minval</code></th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">(2, 2)</td><td style="text-align: center">2</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">(3, 4)</td><td style="text-align: center"><strong>4</strong></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">(1, 3)</td><td style="text-align: center">3</td></tr>
+</tbody>
+</table>
+</div>
+<p>A külső <code>MAX</code> a 2. sorban találja a 4-et, tehát <code>kaptar = 2</code>. Ezután
+<code>rossz(2).minind = 3</code>, tehát <code>het = 3</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-05-dogbert.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-01-swarm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-07-divisors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-03-flow.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -313,11 +284,11 @@ uppercase, so the two don’t collide.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-05-dogbert.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-01-swarm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-07-divisors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-03-flow.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

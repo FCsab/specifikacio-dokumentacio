@@ -188,20 +188,20 @@
 
 <h2 id="example-the-total-of-an-array"><a class="header" href="#example-the-total-of-an-array">Example: the total of an array</a></h2>
 <blockquote>
-<p><em>We know how much money we spent on each of n days. How much did we spend in
-total?</em></p>
+<p><em>We know how many kilograms of honey Borbála extracted on each of n days. How
+much did she extract in total?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, spent∈N[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: total∈N
 Pre: -
-Post: total=SUM(i=1..n, spent[i])
+Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-spent: [1200, 0, 3500, 800, 450]
-total: 5950
+kg: [12, 0, 35, 8, 4]
+total: 59
 </code></pre>
 <pre><code class="language-yaml">n: 0
-spent: []
+kg: []
 total: 0
 </code></pre>
 <h2 id="the-summed-value-can-be-any-expression"><a class="header" href="#the-summed-value-can-be-any-expression">The summed value can be any expression</a></h2>
@@ -216,44 +216,51 @@ s: 30
 </code></pre>
 <h2 id="the-filtered-form"><a class="header" href="#the-filtered-form">The filtered form</a></h2>
 <p>With a <strong>third argument</strong>, a condition, only the terms for which the
-condition holds are added. <em>Sum of the even elements:</em></p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
+condition holds are added. <em>The honey of the hives rated 4 or higher:</em></p>
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n], rating∈N[1..n]
 Out: s∈N
 Pre: -
-Post: s=SUM(i=1..n, x[i], x[i] mod 2 = 0)
+Post: s=SUM(i=1..n, kg[i], rating[i]≥4)
 </code></pre>
-<pre><code class="language-yaml">n: 5
-x: [1, 2, 3, 4, 10]
-s: 16
+<pre><code class="language-yaml">n: 4
+kg: [10, 20, 30, 40]
+rating: [4, 2, 5, 3]
+s: 40
 </code></pre>
-<p><em>Sum of the divisors of n</em> combines the filter with the divisibility relation <code>|</code>:</p>
-<pre><code class="language-speci">In: n∈N
+<p><em>The jars in the orders that fill six-packs exactly</em> combines the filter with the
+divisibility relation <code>|</code>:</p>
+<pre><code class="language-speci">In: n∈N, q∈N[1..n]
 Out: s∈N
-Pre: n≥1
-Post: s=SUM(i=1..n, i, i|n)
+Pre: -
+Post: s=SUM(i=1..n, q[i], 6|q[i])
 </code></pre>
-<pre><code class="language-yaml">n: 12
-s: 28
+<pre><code class="language-yaml">n: 4
+q: [12, 7, 6, 10]
+s: 18
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Put every restriction into the filter.</strong> “Sum of the <em>odd divisors</em> of n”
-has two conditions. <code>SUM(i=1..n, i, i mod 2 = 1)</code> adds <em>every</em> odd number up to
-n (25 for n = 10) instead of the odd divisors (1 + 5 = 6). The correct
-filter is <code>i mod 2 = 1 and i|n</code>.</p>
+<p><strong>Put every restriction into the filter.</strong> “The honey of the hives rated 4 or
+higher <em>that are not under treatment</em>” has two conditions.
+<code>SUM(i=1..n, kg[i], rating[i]≥4)</code> also adds the treated hives (70 in the test
+below) instead of only the others (40). The correct filter is
+<code>rating[i]≥4 and not treated[i]</code>.</p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n], rating∈N[1..n], treated∈L[1..n]
 Out: s∈N
-Pre: n≥1
-Post: s=SUM(i=1..n, i, i mod 2 = 1 and i|n)
+Pre: -
+Post: s=SUM(i=1..n, kg[i], rating[i]≥4 and not treated[i])
 </code></pre>
-<pre><code class="language-yaml">n: 10
-s: 6
+<pre><code class="language-yaml">n: 3
+kg: [40, 30, 20]
+rating: [4, 5, 2]
+treated: [false, true, false]
+s: 40
 </code></pre>
 <h2 id="a-window-of-the-array"><a class="header" href="#a-window-of-the-array">A window of the array</a></h2>
-<p>The range doesn’t have to cover the whole array. <em>Sum of the d values before
-index i</em> is <code>SUM(j=i-d..i-1, x[j])</code>. This is the inner part of
-<a href="ch09-03-trurl.html">Trurl’s robots</a>.</p>
+<p>The range doesn’t have to cover the whole array. <em>Sum of the last d values, ending
+at index i</em> is <code>SUM(j=i-d+1..i, x[j])</code>. This is the inner part of
+<a href="ch09-03-flow.html">The nectar flow</a>.</p>
 <h2 id="averages"><a class="header" href="#averages">Averages</a></h2>
 <p>There’s no separate macro for averages. Divide the sum by the count:</p>
 <pre><code class="language-speci">In: n∈N, x∈N[1..n]

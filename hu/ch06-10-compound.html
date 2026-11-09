@@ -182,39 +182,38 @@
 kombinálják a tételeket:</p>
 <ul>
 <li><strong>beágyazással</strong>: az egyik tétel feltétele vagy értéke maga is tétel
-(„keress egy napot, amikor <em>minden</em> szünetben…”),</li>
+(„keress egy helyet, amely <em>minden</em> fiókban…”),</li>
 <li><strong>egymásutánnal</strong>: az egyik tétel eredménye a következő bemenete
 („keresd meg a maximumot, aztán gyűjtsd ki az összes vele egyenlőt”).</li>
 </ul>
 <h2 id="beágyazás"><a class="header" href="#beágyazás">Beágyazás</a></h2>
 <p>Tedd a belső tételt a külső ciklusváltozó egy <a href="ch05-01-nested.html">függvényébe</a>.
-<em>Keress egy napot, amikor minden kávészünetben 5 liternél több fogyott:</em></p>
+<em>Keress egy kerethelyet, amely minden fiókban érett:</em></p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Szint</th><th>Kérdés</th><th>Tétel</th></tr>
 </thead>
 <tbody>
-<tr><td>külső</td><td>melyik nap?</td><td><code>SEARCH</code> a napokon</td></tr>
-<tr><td>belső</td><td>az <em>i</em>. nap minden szünetében 5 felett volt?</td><td><code>FORALL</code> a szüneteken</td></tr>
+<tr><td>külső</td><td>melyik hely?</td><td><code>SEARCH</code> a helyeken</td></tr>
+<tr><td>belső</td><td>a <em>p</em>. hely minden fiókban legalább 80?</td><td><code>FORALL</code> a fiókokon</td></tr>
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
 Sa: van∈L
-Ki: ind∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+Ki: hely∈N
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
 Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, tobb5(i))
+Uf: (van,hely)=SEARCH(p=1..5, erett(p))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-kave: [[4, 5, 7, 5], [6, 8, 7, 9], [4, 5, 7, 5]]
+<pre><code class="language-yaml">n: 2
+fedett: [[70, 85, 90, 0, 0], [90, 60, 80, 0, 0]]
 van: true
-ind: 2
+hely: 3
 </code></pre>
-<p>A tárgyi anyag ezt így írja le: <em>„compound pattern; search is the main pattern,
-and decision all is the nested pattern”</em>. Magyarul: összetett minta, a keresés
-a fő minta, az eldöntés (mind) a beágyazott.</p>
+<p>Az ilyen feladatot <em>összetett mintának</em> nevezhetjük: a keresés a fő minta, az
+eldöntés (mind) a beágyazott.</p>
 <h2 id="egymásután-segédváltozókkal"><a class="header" href="#egymásután-segédváltozókkal">Egymásután segédváltozókkal</a></h2>
 <p>Ha egy későbbi lépésnek szüksége van egy korábbi eredményre, tárold egy
 <strong>segédváltozóban</strong> (<code>Sa:</code>), és hivatkozz rá.</p>
@@ -255,10 +254,10 @@ amely csak a belső ellenőrzésen bukik meg, egy olyat, amelyik átmegy rajta,
 <tr><th>Feladat</th><th>Kombináció</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="ch09-02-yossarian.html">Yossarian térképe</a></td><td>sormaximumokat adó függvény <code>MAX</code>-a</td></tr>
-<tr><td><a href="ch09-03-trurl.html">Trurl robotjai</a></td><td><code>MIS</code> beágyazott <code>SUM</code>-mal</td></tr>
-<tr><td><a href="ch09-04-catbert.html">Catbert kávészünetei</a></td><td><code>SEARCH</code> beágyazott <code>FORALL</code>-lal</td></tr>
-<tr><td><a href="ch09-06-travel.html">Az utazási iroda</a></td><td><code>MAX</code>, aztán <code>MIS</code>, aztán <code>MIN</code></td></tr>
+<tr><td><a href="ch09-02-reliable.html">A legmegbízhatóbb kaptár</a></td><td>sorminimumokat adó függvény <code>MAX</code>-a</td></tr>
+<tr><td><a href="ch09-03-flow.html">A hordás</a></td><td><code>MIS</code> beágyazott <code>SUM</code>-mal</td></tr>
+<tr><td><a href="ch09-04-harvest.html">Pergetés</a></td><td><code>SEARCH</code> beágyazott <code>FORALL</code>-lal</td></tr>
+<tr><td><a href="ch09-06-fair.html">A mézvásár</a></td><td><code>MAX</code> beágyazott szűrt <code>SUM</code>-mal</td></tr>
 <tr><td><a href="ch09-10-more.html">További rövid példák</a></td><td><code>DARAB</code> beágyazott <code>FORALL</code>-lal, <code>MIS</code> beágyazott <code>FORALL</code>-lal</td></tr>
 </tbody>
 </table>

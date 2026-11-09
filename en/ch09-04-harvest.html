@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="hu" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Dogbert csillaga - A Specifikációszerkesztő könyve</title>
+        <title>Harvest day - The Specification Editor Book</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
+        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
+                    <h1 class="menu-title">The Specification Editor Book</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,90 +177,88 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="dogbert-csillaga"><a class="header" href="#dogbert-csillaga">Dogbert csillaga</a></h1>
+                        <h1 id="harvest-day"><a class="header" href="#harvest-day">Harvest day</a></h1>
 <blockquote>
-<p><em>Dogbert rendszeres időközönként megmérte egy csillag fényességét. A k alatti
-mérések felhős eget jeleznek. Határozd meg a fényesség legnagyobb változását
-két, derült égnél (felhő nélkül) végzett, egymást követő mérés között!</em></p>
+<p><em>Each of Borbála’s n hive boxes holds five frames, in positions 1 to 5. She
+notes what percentage of each frame is capped with wax. Her extractor lifts
+the same position from every box at once, and honey is only ripe from 80%
+upwards. Find a position where the frames of all boxes are ripe.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> feltételes maximumkeresés sorozatban.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=e0d5b6d7-8231-455d-aed5-e8a7f5420c5e">Hivatalos megoldás</a>.</p>
-<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
+<p><strong>Task type:</strong> compound pattern. Search is the main pattern, and decision (all)
+is the nested pattern.</p>
+<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li><strong>Adatok.</strong> A <code>k</code> küszöb és a mérések. A számuk nincs külön megadva, ezért a
-tömb nyitott: <code>adat∈Z[1..]</code>, a mérete <code>length(adat)</code>.</li>
-<li><strong>Kérdés.</strong> <em>A legnagyobb változás</em>, de csak olyan pároknál, ahol <strong>mindkét</strong>
-mérés derült. Ez feltételes maximum, tehát <strong>CONDMAX</strong>.</li>
-<li><strong>Érték az i. párra.</strong> <code>adat[i]-adat[i+1]</code>.</li>
-<li><strong>Feltétel az i. párra.</strong> <code>adat[i]&gt;k és adat[i+1]&gt;k</code>.</li>
-<li><strong>Tartomány.</strong> (i, i+1) párok, ezért az <code>i</code> <code>length(adat)-1</code>-ig megy.</li>
-<li><strong>Kimenet.</strong> Volt-e egyáltalán derült pár, és a maximum. Az indexet nem kérdezi
-a feladat, ezért a helyét kihagyjuk: <code>(van,,maxert)</code>.</li>
+<li><strong>Data.</strong> n boxes × 5 positions, a matrix <code>capped∈N[1..n,1..5]</code>.</li>
+<li><strong>Question.</strong> <em>Find a position</em>, which may not exist, so <code>SEARCH</code>.</li>
+<li><strong>The outer loop runs over columns.</strong> We ask about positions, so the outer
+variable <code>p</code> runs along the second index. Most matrix tasks go row by row, so this is easy to get backwards.</li>
+<li><strong>Condition for position p.</strong> All boxes have at least 80 there, so <code>FORALL</code>
+over the rows, as a function of the position.</li>
+<li><strong>Precondition.</strong> Percentages go up to 100. And <code>n≥1</code>: with no boxes, <code>FORALL</code>
+is true on the empty range, so position 1 would count as ripe.</li>
 </ul>
-<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: k∈N, adat∈Z[1..]
-Ki: van∈L, maxert∈Z
-Ef: -
-Uf: (van,,maxert)=CONDMAX(i=1..length(adat)-1,
-    adat[i]-adat[i+1], adat[i]&gt;k és adat[i+1]&gt;k)
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
+Aux: found∈L
+Out: pos∈N
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
+Pre: n≥1 and ∀b∈[1..n]:(∀p∈[1..5]:(capped[b,p]≤100))
+Post: (found,pos)=SEARCH(p=1..5, ripe(p))
 </code></pre>
-<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>Tipikus eset, több derült párral, 6-os legnagyobb változással:</p>
-<pre><code class="language-yaml">k: 10
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-van: true
-maxert: 6
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
+<p>Position 3 is the first where every box reaches 80:</p>
+<pre><code class="language-yaml">n: 3
+capped: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
+]
+found: true
+pos: 3
 </code></pre>
-<p>Ugyanez az adat sűrűbb felhőzettel, egyetlen derült pár nélkül:</p>
-<pre><code class="language-yaml">k: 50
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-van: false
-maxert: 0
+<p>No such position. A 79 is not enough, and each position fails in some box:</p>
+<pre><code class="language-yaml">n: 2
+capped: [
+  [79, 90, 90, 10, 90],
+  [90, 79, 10, 90, 79]
+]
+found: false
+pos: 6
 </code></pre>
-<p>Pontosan két mérés, mindkettő derült:</p>
-<pre><code class="language-yaml">k: 10
-adat: [45, 20]
-van: true
-maxert: 25
+<p>Boundary, exactly 80 counts:</p>
+<pre><code class="language-yaml">n: 1
+capped: [[10, 80, 100, 0, 0]]
+found: true
+pos: 2
 </code></pre>
-<h2 id="végigkövetés-első-teszt-k--10"><a class="header" href="#végigkövetés-első-teszt-k--10">Végigkövetés (első teszt, k = 10)</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">adat[i]</th><th style="text-align: right">adat[i+1]</th><th style="text-align: center">mindkettő &gt; 10?</th><th style="text-align: right">változás</th></tr>
-</thead>
-<tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">34</td><td style="text-align: right">30</td><td style="text-align: center">igen</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">30</td><td style="text-align: right">1</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">1</td><td style="text-align: right">2</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">2</td><td style="text-align: right">1</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: right">1</td><td style="text-align: right">30</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: right">30</td><td style="text-align: right">33</td><td style="text-align: center">igen</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">7</td><td style="text-align: right">33</td><td style="text-align: right">27</td><td style="text-align: center">igen</td><td style="text-align: right"><strong>6</strong></td></tr>
-<tr><td style="text-align: right">8</td><td style="text-align: right">27</td><td style="text-align: right">30</td><td style="text-align: center">igen</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">9</td><td style="text-align: right">30</td><td style="text-align: right">32</td><td style="text-align: center">igen</td><td style="text-align: right">−2</td></tr>
-</tbody>
-</table>
-</div>
-<p>A derült párok közül a legnagyobb változás 6 (i = 7-nél).</p>
-<blockquote class="blockquote-tag blockquote-tag-note">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>Ez a specifikáció a változást <code>adat[i]-adat[i+1]</code>-ként, <em>előjeles</em>
-különbségként méri, pontosan úgy, mint a hivatalos megoldás. Ha a „változás”
-bármelyik irányú változás nagyságát jelenti, használd az
-<code>abs(adat[i]-adat[i+1])</code> alakot. Az első tesztre a válasz így is 6, de az
-<code>adat: [20, 45]</code> esetén −25 helyett 25 lenne.</p>
-</blockquote>
+<p>Every position is ripe, so the first one must be chosen:</p>
+<pre><code class="language-yaml">n: 2
+capped: [[85, 85, 85, 85, 85], [85, 85, 85, 85, 85]]
+found: true
+pos: 1
+</code></pre>
+<h2 id="in-the-step-list"><a class="header" href="#in-the-step-list">In the step list</a></h2>
+<p>The evaluation of the first test is explained line by line in
+<a href="ch08-01-stepper.html">Stepper and step list</a>. It shows the evaluation entering
+<code>ripe</code> (↓) for each position and returning (↑) with the result.</p>
+<h2 id="variants"><a class="header" href="#variants">Variants</a></h2>
+<ul>
+<li><em>How many positions are ripe?</em> Use <code>COUNT</code> instead of <code>SEARCH</code>:
+<code>c=COUNT(p=1..5, ripe(p))</code>.</li>
+<li><em>Is some frame below 20% anywhere?</em> Use <code>EXISTS</code> with a nested <code>EXISTS</code>:
+<code>l=EXISTS(b=1..n, EXISTS(p=1..5, capped[b,p]&lt;20))</code>.</li>
+<li><em>Which positions?</em> Use <code>MIS</code>: <code>(c,ps)=MIS(p=1..5, ripe(p))</code>.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-04-catbert.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-03-flow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-06-travel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-05-coldest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -270,11 +268,11 @@ bármelyik irányú változás nagyságát jelenti, használd az
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-04-catbert.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-03-flow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-06-travel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-05-coldest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

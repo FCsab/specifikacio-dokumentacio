@@ -182,18 +182,18 @@
 <p>A <strong>record</strong> (structure, <em>rekord</em>) bundles values of <em>different</em> types into one
 unit. In the specification it is the <strong>direct product</strong> of its fields’
 sets, written with <code>x</code> between the fields:</p>
-<pre><code class="language-speci fragment">r1∈(name:S x grade:N)
+<pre><code class="language-speci fragment">r1∈(name:S x rating:N)
 </code></pre>
-<p><code>r1</code> is one element of <em>S × N</em>, a name–grade pair. Fields are accessed with a dot:
-<code>r1.name</code>, <code>r1.grade</code>.</p>
+<p><code>r1</code> is one element of <em>S × N</em>, a name–rating pair. Fields are accessed with a dot:
+<code>r1.name</code>, <code>r1.rating</code>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Declaration</th><th>Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>r1∈name:S x grade:N</code></td><td>parentheses are optional</td></tr>
-<tr><td><code>r2∈(name:S x grade:N)</code></td><td>the usual form</td></tr>
+<tr><td><code>r1∈name:S x rating:N</code></td><td>parentheses are optional</td></tr>
+<tr><td><code>r2∈(name:S x rating:N)</code></td><td>the usual form</td></tr>
 <tr><td><code>r3∈(north:L x east:L x south:L x west:L)</code></td><td>any number of fields</td></tr>
 <tr><td><code>r4∈(a:[1..2] x b:[3..4])</code></td><td>fields can be intervals: r4 is one of (1,3), (1,4), (2,3), (2,4)</td></tr>
 </tbody>
@@ -201,51 +201,51 @@ sets, written with <code>x</code> between the fields:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p>The <code>x</code> needs a space on both sides: <code>name:S x grade:N</code>.</p>
+<p>The <code>x</code> needs a space on both sides: <code>name:S x rating:N</code>.</p>
 </blockquote>
 <p>In the test data, a record is written either in the multi-line YAML form or
 in the compact <code>{…}</code> form:</p>
-<pre><code class="language-speci">In: r∈(name:S x grade:N)
-Out: pass∈L
-Pre: r.grade≥1 and r.grade≤5
-Post: pass=(r.grade≥2)
+<pre><code class="language-speci">In: r∈(name:S x rating:N)
+Out: keep∈L
+Pre: r.rating≥1 and r.rating≤5
+Post: keep=(r.rating≥2)
 </code></pre>
 <pre><code class="language-yaml">r:
-  name: Anna
-  grade: 4
-pass: true
+  name: Akac
+  rating: 4
+keep: true
 </code></pre>
-<pre><code class="language-yaml">r: {name: Bence, grade: 1}
-pass: false
+<pre><code class="language-yaml">r: {name: Bodza, rating: 1}
+keep: false
 </code></pre>
 <h2 id="arrays-of-records"><a class="header" href="#arrays-of-records">Arrays of records</a></h2>
-<p>Most real tasks have an <strong>array of records</strong>, such as a list of students or
+<p>Most real tasks have an <strong>array of records</strong>, such as a list of hives or
 measurements. It’s clearer to name the record type first (see
 <a href="ch03-05-aliases.html">Naming your own sets</a>):</p>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: c∈N
-Pre: ∀i∈[1..n]:(1≤st[i].grade≤5)
-Post: c=COUNT(i=1..n, st[i].grade=5)
+Pre: ∀i∈[1..n]:(1≤hv[i].rating≤5)
+Post: c=COUNT(i=1..n, hv[i].rating=5)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-st:
-  - name: Anna
-    grade: 5
-  - name: Bence
-    grade: 3
-  - name: Cili
-    grade: 5
+hv:
+  - name: Akac
+    rating: 5
+  - name: Bodza
+    rating: 3
+  - name: Repce
+    rating: 5
 c: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 2}, {name: Bence, grade: 4}]
+hv: [{name: Akac, rating: 2}, {name: Bodza, rating: 4}]
 c: 0
 </code></pre>
-<p><code>st[i].grade</code> reads “the grade field of element <em>i</em> of st”.</p>
+<p><code>hv[i].rating</code> reads “the rating field of element <em>i</em> of hv”.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p>Field names in the test data must match the declaration exactly, including
-upper and lower case: <code>grade</code> is not <code>Grade</code>.</p>
+upper and lower case: <code>rating</code> is not <code>Rating</code>.</p>
 </blockquote>
 <h2 id="tuples"><a class="header" href="#tuples">Tuples</a></h2>
 <p>A <strong>tuple</strong> groups values without declaring a record: <code>(3, 5)</code>. Its
@@ -279,7 +279,7 @@ the index, and <code>(,val)=MAX(…)</code> keeps only the value. See
 <p>Functions can return tuples too: <code>swap:Z x Z-&gt;Z x Z, swap(a,b)=(b,a)</code>. The
 components of a theorem result can also be accessed <strong>by name</strong>, for example
 <code>.maxval</code> and <code>.maxind</code> for <code>MAX</code>. The worked example
-<a href="ch09-02-yossarian.html">Yossarian’s map</a> uses this.</p>
+<a href="ch09-02-reliable.html">The most reliable hive</a> uses this.</p>
 
                     </main>
 

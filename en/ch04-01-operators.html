@@ -226,14 +226,15 @@ inRange: true
 <pre><code class="language-yaml">a: 8
 inRange: false
 </code></pre>
-<p>The divisibility relation <code>|</code> is a compact way to talk about divisors:</p>
-<pre><code class="language-speci">In: n∈N
-Out: d∈N
-Pre: n≥1
-Post: d=COUNT(i=1..n, i|n)
+<p>The divisibility relation <code>|</code> is a compact way to talk about multiples. <em>Do the
+jars fill six-packs exactly?</em></p>
+<pre><code class="language-speci">In: jars∈N
+Out: exact∈L
+Pre: -
+Post: exact=(6|jars)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">jars: 24
+exact: true
 </code></pre>
 <h2 id="logic"><a class="header" href="#logic">Logic</a></h2>
 <div class="table-wrapper">

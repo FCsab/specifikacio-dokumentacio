@@ -189,14 +189,14 @@ között. A szerkesztő nem csak tárolja a szöveget. <strong>Ki is értékeli<
 specifikációt a megadott tesztesetekre, és lépésről lépésre megmutatja, hogyan
 jutott az eredményre. A zöld teszt azt jelenti, hogy a specifikáció leírja a
 várt választ, a piros pedig azt, hogy nem.</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <p>A könyv végére magabiztosan fogsz olvasni és írni ilyen specifikációkat, és
 ennél jóval nehezebbeket is.</p>
@@ -217,24 +217,20 @@ típusok, kifejezések, kvantorok, függvények.</li>
 teljes példa és a szokásos hibák.</li>
 <li>A <strong>Tesztelés és kiértékelés</strong> bemutatja a tesztadatok formátumát, a
 léptetőt, és hogy mit jelentenek az egyes hibaüzenetek.</li>
-<li>A <strong>Kidolgozott példák</strong> valódi feladatokat old meg a szövegtől a zöld
-tesztkészletig.</li>
-<li>A <strong>speci-local</strong> rész az online eszközt újraimplementáló, részletesebb
-hibaüzeneteket adó offline szerkesztőt mutatja be.</li>
-<li>A <strong>függelékek</strong> gyors referenciák: nyelvtan, jelek és billentyűparancsok,
-magyar–angol szójegyzék, GYIK.</li>
+<li>A <strong>Kidolgozott példák</strong> ehhez a könyvhöz írt, teljes feladatokat old meg a
+szövegtől a zöld tesztkészletig.</li>
 </ul>
 <p>Ha már kiismered magad, a keresővel (<kbd>S</kbd> vagy <kbd>/</kbd>) azonnal
 odaugorhatsz, amire szükséged van.</p>
 <h2 id="jelölések"><a class="header" href="#jelölések">Jelölések</a></h2>
 <p>A specifikációt tartalmazó kódblokkok így néznek ki:</p>
-<pre><code class="language-speci fragment">Uf: osszeg=SUM(i=1..n, szamok[i])
+<pre><code class="language-speci fragment">Uf: osszeg=SUM(i=1..n, kg[i])
 </code></pre>
 <p>A teszteseteket (a szerkesztő <em>Data</em> paneljének tartalmát) a jobb alsó
 sarokban <strong>TESZT</strong> felirat jelöli:</p>
 <pre><code class="language-yaml fragment">n: 3
-szamok: [1, 2, 3]
-osszeg: 6
+kg: [10, 25, 7]
+osszeg: 42
 </code></pre>
 <p>A <strong>✗ PIROS</strong> jelölésű teszt <em>szándékosan</em> bukik el. Azt mutatja, mit csinál a
 szerkesztő, ha az adat nem illik a specifikációhoz.</p>
@@ -264,11 +260,12 @@ kipróbáltuk az online szerkesztőben, így bemásolhatod a szerkesztőbe, és
 ugyanazt az eredményt kapod. A <a href="ch10-00-speci-local.html">speci-local</a> is ugyanezt
 az eredményt adja.</p>
 <h2 id="források"><a class="header" href="#források">Források</a></h2>
-<p>A könyv mindazt összegyűjti, ami az eszközről tudható. Forrásai a hivatalos
-tárgyi segédlet (<em>Manual for the Specification Editor tool</em>, 3. kiadás), a
-szerkesztő beépített dokumentációja, sok ellenőrzött tárgyi megoldás, és
-kísérletekkel igazolt viselkedés. Ahol a források ellentmondtak egymásnak, az
-élő szerkesztő viselkedése döntött. Ami még bizonytalan, azt jelöljük.</p>
+<p>A könyv összegyűjti, ami az eszközről tudható. Forrásai a szerkesztő beépített
+dokumentációja, a kézikönyve és a kísérletekkel igazolt viselkedés. Ahol a
+források ellentmondtak egymásnak, az élő szerkesztő viselkedése döntött. Ami még
+bizonytalan, azt jelöljük.</p>
+<p>A könyv minden feladata és tesztadata ehhez a könyvhöz készült. Egy kitalált
+méhészetben játszódnak, és nem tárgyi feladatok.</p>
 <p>A könyvet <a href="https://csabi.zip">csabi.zip</a> írta. A forrása a
 <a href="https://github.com/FCsab/specifikacio-dokumentacio">GitHubon</a> érhető el.</p>
 

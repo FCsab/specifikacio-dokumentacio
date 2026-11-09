@@ -190,14 +190,14 @@ what relationship must hold between input and output. It does more than store
 the text. It <strong>evaluates</strong> your specification against test cases you provide and
 shows, step by step, how it reaches its verdict. A green test means your
 specification describes the expected answer, and a red one means it doesn’t.</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <p>By the end of this book you will be able to read and write specifications like
 the one above, and much harder ones, with confidence.</p>
@@ -218,24 +218,20 @@ types, expressions, quantifiers and functions.</li>
 pattern’s meaning, its exact syntax, a complete example and the usual mistakes.</li>
 <li><strong>Testing and evaluation</strong> explains the test-data format, the stepper,
 and what each error message means.</li>
-<li><strong>Worked examples</strong> solves real course tasks from the problem statement
-to a green test suite.</li>
-<li><strong>speci-local</strong> describes the offline editor that reimplements the
-online tool, with more detailed error messages.</li>
-<li>The <strong>appendices</strong> are a quick reference: grammar, symbols and keyboard
-shortcuts, an English–Hungarian glossary, and an FAQ.</li>
+<li><strong>Worked examples</strong> solves complete tasks, invented for this book, from the
+problem statement to a green test suite.</li>
 </ul>
 <p>Once you know your way around, use the search button (<kbd>S</kbd> or <kbd>/</kbd>)
 to jump straight to what you need.</p>
 <h2 id="conventions"><a class="header" href="#conventions">Conventions</a></h2>
 <p>Code blocks with a specification look like this:</p>
-<pre><code class="language-speci fragment">Post: sum=SUM(i=1..n, numbers[i])
+<pre><code class="language-speci fragment">Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <p>Test cases (the content of the editor’s <em>Data</em> pane) are marked <strong>TEST</strong> in
 the lower right corner:</p>
 <pre><code class="language-yaml fragment">n: 3
-numbers: [1, 2, 3]
-sum: 6
+kg: [10, 25, 7]
+total: 42
 </code></pre>
 <p>A test marked <strong>✗ RED</strong> is <em>supposed</em> to fail. It shows what the editor does
 when the data doesn’t fit the specification.</p>
@@ -264,11 +260,12 @@ alongside. Appendix <a href="#appendix-c-englishhungarian-glossary">C</a> lists 
 checked in the online editor, so you can copy it into the editor and expect the
 same result. <a href="#speci-local-the-offline-editor">speci-local</a> gives the same results too.</p>
 <h2 id="sources"><a class="header" href="#sources">Sources</a></h2>
-<p>This book brings together everything known about the tool. Its sources are the
-official course manual (<em>Manual for the Specification Editor tool</em>, 3rd
-edition), the editor’s own built-in documentation, many verified course
-solutions, and behaviour confirmed by experiment. Where the sources disagreed,
-the behaviour of the live editor won. Anything still uncertain is marked as such.</p>
+<p>This book brings together what is known about the tool. Its sources are the
+editor’s own built-in documentation, its manual, and behaviour confirmed by
+experiment. Where the sources disagreed, the behaviour of the live editor won.
+Anything still uncertain is marked as such.</p>
+<p>All the tasks and test data in this book were written for it. They take place
+in an invented apiary and are not course assignments.</p>
 <p>The book was written by <a href="https://csabi.zip">csabi.zip</a>. The source is on
 <a href="https://github.com/FCsab/specifikacio-dokumentacio">GitHub</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -317,11 +314,10 @@ and send it to someone.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="a-tour-of-the-interface"><a class="header" href="#a-tour-of-the-interface">A tour of the interface</a></h1>
-<p>The editor’s window is divided into panes, with a toolbar across the top. The
-numbers in the screenshot match the list below.</p>
+<p>The editor’s window is divided into panes, with a toolbar across the top. The numbers in the diagram match the list below.</p>
 <figure>
-<img src="img/ui-overview.png" alt="The Specification Editor with its parts numbered 1 to 18">
-<figcaption>The Specification Editor (version 1.5.1), with its parts numbered.</figcaption>
+<img src="img/ui-overview.svg" alt="A diagram of the Specification Editor with its parts numbered 1 to 18">
+<figcaption>The layout of the Specification Editor, with its parts numbered.</figcaption>
 </figure>
 <div class="table-wrapper">
 <table>
@@ -382,8 +378,8 @@ ones.</p>
 and the <em>expected</em> values of the output (and auxiliary) variables, in a
 YAML-like format:</p>
 <pre><code class="language-yaml fragment">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -391,11 +387,6 @@ cnt: 3
 then <kbd>Tab</kbd>. The editor inserts a template with every declared variable,
 so you only have to fill in the values.</p>
 </blockquote>
-<figure>
-<img src="img/test-tabs.png" alt="A specification with four green test case tabs">
-<figcaption>Four test cases, all passing (green tabs). The data uses the
-multi-line record format.</figcaption>
-</figure>
 <h2 id="the-visualization-pane"><a class="header" href="#the-visualization-pane">The Visualization pane</a></h2>
 <p>After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
 evaluated for the selected test case. It has two views:</p>
@@ -411,19 +402,20 @@ read the trace.</p>
 <h1 id="your-first-specification"><a class="header" href="#your-first-specification">Your first specification</a></h1>
 <p>Let’s solve a small task completely, from the problem statement to a green test.</p>
 <blockquote>
-<p><strong>Task.</strong> We are given <em>n</em> natural numbers. How many of them are odd?</p>
+<p><strong>Task.</strong> Borbála weighed <em>n</em> jars of honey, in grams. How many of them are
+lighter than 450 g?</p>
 </blockquote>
 <h2 id="step-1-decide-the-data"><a class="header" href="#step-1-decide-the-data">Step 1: Decide the data</a></h2>
 <p>Read the task and list what goes <strong>in</strong> and what comes <strong>out</strong>:</p>
 <ul>
-<li>in: how many numbers there are (<code>n</code>) and the numbers themselves (<code>nums</code>),</li>
-<li>out: the count of odd numbers (<code>cnt</code>).</li>
+<li>in: how many jars there are (<code>n</code>) and their weights (<code>jars</code>),</li>
+<li>out: the count of light jars (<code>light</code>).</li>
 </ul>
 <p>In the editor, every piece of data is declared as <em>name ∈ set</em>. A natural
 number is an element of <code>N</code>, and <em>n</em> natural numbers indexed from 1 to <em>n</em> are
 an element of <code>N[1..n]</code>:</p>
-<pre><code class="language-speci fragment">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci fragment">In: n∈N, jars∈N[1..n]
+Out: light∈N
 </code></pre>
 <p>Variable names start with a lowercase letter. Set names (<code>N</code>, <code>Z</code>, …) start
 with an uppercase letter. Declarations in one block are separated by commas.</p>
@@ -434,39 +426,39 @@ dash:</p>
 <pre><code class="language-speci fragment">Pre: -
 </code></pre>
 <h2 id="step-3-the-postcondition"><a class="header" href="#step-3-the-postcondition">Step 3: The postcondition</a></h2>
-<p>The postcondition states what must be true of the output. <code>cnt</code> is <em>the number
-of indices i between 1 and n for which nums[i] is odd</em>. This is the
+<p>The postcondition states what must be true of the output. <code>light</code> is <em>the number
+of indices i between 1 and n for which jars[i] is below 450</em>. This is the
 <strong>counting</strong> pattern, and the editor has a macro for it:</p>
-<pre><code class="language-speci fragment">Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <p><code>COUNT(i=1..n, condition)</code> goes through <code>i = 1, 2, …, n</code> and counts how many
-times the condition holds. <code>mod</code> is the remainder operator, so
-<code>nums[i] mod 2 = 1</code> means “nums[i] is odd”.</p>
+times the condition holds.</p>
 <p>Put together, the specification looks like this. Type it into the
 Specification pane (use the <strong>Insert</strong> buttons for <code>∈</code>):</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <h2 id="step-4-a-test-case"><a class="header" href="#step-4-a-test-case">Step 4: A test case</a></h2>
 <p>Click into the Data pane and write a test. The input values come first, then
 the output value you expect:</p>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
-<p>Three of the five numbers (3, 81 and 5) are odd, so we expect <code>cnt: 3</code>.</p>
+<p>Two of the five jars (438 g and 447 g) are lighter than 450 g, so we expect
+<code>light: 2</code>. The jar of exactly 450 g doesn’t count.</p>
 <h2 id="step-5-evaluate"><a class="header" href="#step-5-evaluate">Step 5: Evaluate</a></h2>
 <p>Press <strong>Evaluate</strong>. The test tab turns <strong>green</strong>: with this input and this
 output, the postcondition is true.</p>
 <p>Now see what a mistake looks like. Add a second test case with <code>+</code> and enter a
 wrong expectation on purpose:</p>
 <pre><code class="language-yaml red">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 2
+jars: [452, 438, 450, 447, 461]
+light: 3
 </code></pre>
-<p>This tab turns <strong>red</strong>: <code>COUNT</code> gives 3, but the test says 2. Open the
+<p>This tab turns <strong>red</strong>: <code>COUNT</code> gives 2, but the test says 3. Open the
 Visualization pane to watch the evaluation step by step.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
@@ -477,12 +469,12 @@ expected output too. You are describing the answer, not computing it.</p>
 <h2 id="step-6-more-tests"><a class="header" href="#step-6-more-tests">Step 6: More tests</a></h2>
 <p>A single test proves little. Add a few that probe the edges of the task:</p>
 <pre><code class="language-yaml">n: 3
-nums: [2, 4, 6]
-cnt: 0
+jars: [450, 500, 480]
+light: 0
 </code></pre>
 <pre><code class="language-yaml">n: 0
-nums: []
-cnt: 0
+jars: []
+light: 0
 </code></pre>
 <p>The second one is an empty input. <code>COUNT</code> over the empty range <code>1..0</code> is 0.
 Chapter <a href="#writing-a-good-test-suite">Writing a good test suite</a> explains how to
@@ -490,14 +482,14 @@ choose tests systematically.</p>
 <h2 id="the-same-in-hungarian"><a class="header" href="#the-same-in-hungarian">The same in Hungarian</a></h2>
 <p>The editor accepts the Hungarian keywords too. This specification is exactly
 equivalent:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <p>Here <code>Be</code>, <code>Ki</code>, <code>Ef</code>, <code>Uf</code> stand for <em>bemenet</em> (input), <em>kimenet</em> (output),
 <em>előfeltétel</em> (precondition) and <em>utófeltétel</em> (postcondition), and <code>DARAB</code> is
@@ -511,12 +503,12 @@ explains each element of the language in detail.</p>
 <h2 id="saving"><a class="header" href="#saving">Saving</a></h2>
 <ol>
 <li>Give the specification a name in the <strong>task name</strong> field at the top of the
-window (for example <em>OddCount</em>).</li>
+window (for example <em>LightJars</em>).</li>
 <li>Click <strong>Save</strong>.</li>
 </ol>
 <p>The specification and all of its test cases are stored on the ELTE server.
 Saving changes the page address: it now contains a unique identifier.</p>
-<pre><code class="language-text">https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86
+<pre><code class="language-text">https://progalap.elte.hu/specifikacio/v1/?uuid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 </code></pre>
 <p>This address is a <em>permanent link</em> (permalink) to the saved version.</p>
 <blockquote class="blockquote-tag blockquote-tag-important">
@@ -529,20 +521,6 @@ only a specification without errors: one that parses and passes its tests.</p>
 copy the address from the browser’s address bar after saving and send it. Whoever
 opens the link sees the specification with all its test cases and can evaluate
 it.</p>
-<p>Examples from the official course material:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Task</th><th>Link</th></tr>
-</thead>
-<tbody>
-<tr><td>Selecting the first odd number</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">ecacc1f7-…</a></td></tr>
-<tr><td>Counting odd numbers</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">058de53d-…</a></td></tr>
-<tr><td>Search that fails</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=3cacade4-7c80-451e-9e62-610baa01b68b">3cacade4-…</a></td></tr>
-</tbody>
-</table>
-</div>
-<p>(You need to be logged in to open them.)</p>
 <h2 id="history"><a class="header" href="#history">History</a></h2>
 <p>Each save creates a new version. The <kbd>H</kbd> button opens the History pane,
 where you can go back to earlier saved versions of the specification.</p>
@@ -581,32 +559,33 @@ set of all possible combinations of input, auxiliary and output values. The
 precondition picks out the <em>meaningful inputs</em>, and the postcondition picks out,
 for each such input, the <em>correct outputs</em>.</p>
 <p>Here is a specification that uses all six blocks:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, prices∈N[1..n]
+<pre><code class="language-speci">In: n∈N, limit∈N, mites∈N[1..n]
 Aux: found∈L, ind∈N
 Out: first∈Z
-Fn: cheap:N-&gt;L, cheap(i)=prices[i]&lt;k
+Fn: sick:N-&gt;L, sick(i)=mites[i]&gt;limit
 Pre: n≥1
-Post: (found,ind)=SEARCH(i=1..n, cheap(i)) and
+Post: (found,ind)=SEARCH(i=1..n, sick(i)) and
       (found -&gt; first=ind) and
       (not found -&gt; first=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-prices: [250, 90, 120, 40]
+limit: 30
+mites: [12, 30, 45, 7]
 found: true
-ind: 2
-first: 2
+ind: 3
+first: 3
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 10
-prices: [250, 90]
+limit: 50
+mites: [12, 30]
 found: false
-ind: 1
+ind: 3
 first: -1
 </code></pre>
-<p>Read it like this: <em>given n, k and n prices, where n is at least 1, the output
-first is the index of the first price below k, or −1 if there is none.</em> Don’t
-worry if <code>SEARCH</code> isn’t clear yet. Its chapter is <a href="#search-search">Search</a>.</p>
+<p>Read it like this: <em>given n, a limit and the mite counts of n hives, where n is at
+least 1, the output first is the index of the first hive with more mites than the
+limit, or −1 if there is none.</em> Don’t worry if <code>SEARCH</code> isn’t clear yet. Its
+chapter is <a href="#search-search">Search</a>.</p>
 <h2 id="in-this-chapter-1"><a class="header" href="#in-this-chapter-1">In this chapter</a></h2>
 <ul>
 <li><a href="#blocks-and-layout">Blocks and layout</a>: how to write headers, the order
@@ -661,38 +640,36 @@ left out.</p>
 don’t. Pick one language per file.</p>
 <h2 id="layout-a-everything-on-one-line"><a class="header" href="#layout-a-everything-on-one-line">Layout A: everything on one line</a></h2>
 <p>The payload can follow the header on the same line, after a space:</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈Z[1..n]
 Out: s∈Z
 Pre: -
-Post: s=SUM(i=1..n, nums[i])
+Post: s=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-nums: [4, -1, 10]
-s: 13
+kg: [7, -2, 12]
+s: 17
 </code></pre>
-<p>The official manual describes each header as including the trailing space,
-“<code>In: </code> (there is a space at the end of the string)”. In this layout the
-space is required.</p>
+<p>In this layout the space after the colon is required.</p>
 <h2 id="layout-b-the-header-on-its-own-line"><a class="header" href="#layout-b-the-header-on-its-own-line">Layout B: the header on its own line</a></h2>
 <p>The header can also stand alone, with the payload on the following lines. This
-is common in Hungarian course solutions, with one declaration per line:</p>
+is handy for longer specifications, with one declaration per line:</p>
 <pre><code class="language-speci">Be:
 n∈N,
-k∈N,
-ar∈N[1..n]
+hatar∈N,
+suly∈N[1..n]
 
 Ki:
 db∈N
 
 Ef:
-n&gt;=1 és k&gt;=1
+n&gt;=1 és hatar&gt;=1
 
 Uf:
-db=DARAB(i=1..n, ar[i]&lt;k)
+db=DARAB(i=1..n, suly[i]&lt;hatar)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-ar: [250, 90, 120, 40]
+hatar: 450
+suly: [500, 440, 470, 410]
 db: 2
 </code></pre>
 <p>The rules for this layout:</p>
@@ -750,10 +727,10 @@ syntax error.</p>
 <tr><th>Valid</th><th>Invalid</th><th>Why it’s invalid</th></tr>
 </thead>
 <tbody>
-<tr><td><code>nums</code>, <code>x1</code>, <code>visitedCount</code></td><td><code>Nums</code></td><td>starts with an uppercase letter (that’s a set name)</td></tr>
-<tr><td><code>szam</code>, <code>ar</code>, <code>tav</code></td><td><code>visited count</code></td><td>contains a space</td></tr>
+<tr><td><code>jars</code>, <code>x1</code>, <code>hiveCount</code></td><td><code>Jars</code></td><td>starts with an uppercase letter (that’s a set name)</td></tr>
+<tr><td><code>kaptar</code>, <code>suly</code>, <code>atka</code></td><td><code>hive count</code></td><td>contains a space</td></tr>
 <tr><td><code>r1</code>, <code>maxval</code></td><td><code>1x</code></td><td>starts with a digit</td></tr>
-<tr><td><code>osztok</code>, <code>db</code></td><td><code>max-val</code></td><td>contains <code>-</code> (read as subtraction)</td></tr>
+<tr><td><code>uvegek</code>, <code>db</code></td><td><code>max-val</code></td><td>contains <code>-</code> (read as subtraction)</td></tr>
 </tbody>
 </table>
 </div>
@@ -763,7 +740,7 @@ anyway, because they are awkward to type on some keyboards.</p>
 <h2 id="set-type-names"><a class="header" href="#set-type-names">Set (type) names</a></h2>
 <p>The names of sets, both the built-in ones (<code>N</code>, <code>Z</code>, <code>R</code>, <code>L</code>, <code>S</code>, <code>C</code>) and
 your own (<a href="#naming-your-own-sets">Naming your own sets</a>), start with an
-<strong>uppercase letter</strong>: <code>Student</code>, <code>Grade</code>, <code>Walk</code>.</p>
+<strong>uppercase letter</strong>: <code>Hive</code>, <code>Rating</code>, <code>Reading</code>.</p>
 <h2 id="reserved-words"><a class="header" href="#reserved-words">Reserved words</a></h2>
 <p>Some lowercase words are part of the language, so you can’t use them as
 variable names:</p>
@@ -784,8 +761,7 @@ variable names:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Don’t name a variable <code>exists</code></strong>, even though old screenshots and
-manuals do: <code>Aux: exists∈L</code>. The current editor rejects it with the cryptic
+<p><strong>Don’t name a variable <code>exists</code></strong>, even though you may see <code>Aux: exists∈L</code> in older material. The current editor rejects it with the cryptic
 message <code>incomplite type for exists: undefined is not boolean</code>. Use <code>van</code>,
 <code>talalt</code> or <code>found</code> instead, and rename it everywhere: in the declaration, in
 the postcondition and in every test case.</p>
@@ -809,24 +785,26 @@ max: 9
 real content on the same line.</li>
 <li><code>/* … */</code> is a <strong>block comment</strong> that can span several lines.</li>
 </ul>
-<pre><code class="language-speci">/* Count the divisors of a number.
-   i|n means: i divides n. */
-In: n∈N
-Out: d∈N
-Pre: n&gt;=1          // 0 would have infinitely many divisors
-Post: d=COUNT(i=1..n, i|n)
+<pre><code class="language-speci">/* Which box sizes hold the whole harvest exactly?
+   b[i]|jars means: b[i] divides jars. */
+In: jars∈N, n∈N, b∈N[1..n]
+Out: fit∈N
+Pre: ∀i∈[1..n]:(b[i]&gt;=1)   // a box of size 0 makes no sense
+Post: fit=COUNT(i=1..n, b[i]|jars)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">jars: 24
+n: 4
+b: [6, 5, 8, 7]
+fit: 2
 </code></pre>
-<p>A common habit in course solutions is to write the general form of the
-theorem in a comment and match it with the concrete names:</p>
-<pre><code class="language-speci fragment">Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
+<p>A useful habit is to write the general form of the theorem in a comment and match
+it with the concrete names:</p>
+<pre><code class="language-speci fragment">Post: (c,names)=MIS(i=1..n, hives[i].kg&gt;30, hives[i].name)
+/* (c,y)=MIS(i=b..e, A(i), f(i))
+   c, y   ~ c, names
    b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+   A(i)   ~ hives[i].kg&gt;30
+   f(i)   ~ hives[i].name
 */
 </code></pre>
 <p>The built-in documentation also uses <code>/** … */</code> for headings. It’s an ordinary
@@ -843,9 +821,7 @@ signatures), which needs a space on both sides: <code>Z x Z</code>.</p>
 checks this and rejects the specification otherwise.</p>
 </blockquote>
 <p>The idea behind the rule is that if an input doesn’t influence the result,
-either it isn’t really input, or the postcondition forgot about it. The
-official manual puts it this way: <em>“The postcondition must include all declared
-data.”</em></p>
+either it isn’t really input, or the postcondition forgot about it.</p>
 <h2 id="what-the-error-looks-like"><a class="header" href="#what-the-error-looks-like">What the error looks like</a></h2>
 <pre><code class="language-speci error">In: n∈N, x∈N[1..n], extra∈N
 Out: s∈N
@@ -884,14 +860,14 @@ c: 2
 <p>Sometimes a pattern really doesn’t need an input. The typical case is
 <a href="#selection-select"><code>SELECT</code></a>, which has no upper bound. Then add a trivially
 true identity to the postcondition:</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: ind∈N
-Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
+Pre: ∃i∈[1..n]:(kg[i]&gt;40)
+Post: ind=SELECT(i&gt;=1, kg[i]&gt;40) and n=n
 </code></pre>
-<pre><code class="language-yaml">n: 5
-nums: [23, 25, 26, 28, 29]
-ind: 1
+<pre><code class="language-yaml">n: 4
+kg: [23, 41, 26, 58]
+ind: 2
 </code></pre>
 <p><code>n=n</code> is always true, so it doesn’t change the meaning, but <code>n</code> now appears in
 the postcondition. If several variables are unused, chain them:
@@ -934,7 +910,7 @@ c: -2
 <tr><td>Arrays (sequences)</td><td><code>N[1..n]</code>, <code>Z[]</code></td><td><a href="#arrays">Arrays</a></td></tr>
 <tr><td>Matrices</td><td><code>Z[1..n,1..m]</code></td><td><a href="#matrices-and-arrays-of-arrays">Matrices and arrays of arrays</a></td></tr>
 <tr><td>Records (direct products)</td><td><code>(name:S x age:N)</code></td><td><a href="#records-and-tuples">Records and tuples</a></td></tr>
-<tr><td>Your own names</td><td><code>Student=(name:S x grade:N)</code></td><td><a href="#naming-your-own-sets">Naming your own sets</a></td></tr>
+<tr><td>Your own names</td><td><code>Hive=(name:S x rating:N)</code></td><td><a href="#naming-your-own-sets">Naming your own sets</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -966,20 +942,20 @@ fields are arrays.</p>
 declare it in <code>Z</code>, not <code>N</code>.</p>
 </blockquote>
 <p>An example using several of them:</p>
-<pre><code class="language-speci">In: name∈S, age∈N, height∈R
-Out: adult∈L
-Pre: height&gt;0
-Post: adult=(age≥18) and name=name and height=height
+<pre><code class="language-speci">In: name∈S, age∈N, kg∈R
+Out: replace∈L
+Pre: kg&gt;0
+Post: replace=(age≥3) and name=name and kg=kg
 </code></pre>
-<pre><code class="language-yaml">name: Anna
-age: 19
-height: 1.68
-adult: true
+<pre><code class="language-yaml">name: Akac
+age: 3
+kg: 41.5
+replace: true
 </code></pre>
-<pre><code class="language-yaml">name: "Bence"
-age: 12
-height: 1.45
-adult: false
+<pre><code class="language-yaml">name: "Bodza"
+age: 1
+kg: 28.25
+replace: false
 </code></pre>
 <h2 id="intervals"><a class="header" href="#intervals">Intervals</a></h2>
 <p>An interval is the set of integers between two bounds, both included:</p>
@@ -987,20 +963,20 @@ adult: false
 </code></pre>
 <p><code>iv</code> can be 1, 2 or 3. The bounds can be expressions involving other
 input variables: <code>[2+3..n*2]</code>.</p>
-<p>Intervals are useful for small, fixed ranges such as grades and
+<p>Intervals are useful for small, fixed ranges such as ratings and
 months:</p>
-<pre><code class="language-speci">In: grade∈[1..5]
-Out: pass∈L
+<pre><code class="language-speci">In: rating∈[1..5]
+Out: keep∈L
 Pre: -
-Post: pass=(grade≥2)
+Post: keep=(rating≥2)
 </code></pre>
-<pre><code class="language-yaml">grade: 4
-pass: true
+<pre><code class="language-yaml">rating: 4
+keep: true
 </code></pre>
 <p>A value outside the interval makes the test case fail, because the data
 doesn’t fit its declared type:</p>
-<pre><code class="language-yaml red">grade: 6
-pass: true
+<pre><code class="language-yaml red">rating: 6
+keep: true
 </code></pre>
 <p>Intervals also show up in quantifiers, <code>∀i∈[1..n]:(…)</code>, which is covered in
 <a href="#quantifiers--and-">Quantifiers</a>, and as the index range of arrays,
@@ -1023,7 +999,7 @@ index range in square brackets:</p>
 <tbody>
 <tr><td><code>x1∈N[1..3]</code></td><td>exactly 3 elements, indexed 1..3</td></tr>
 <tr><td><code>x2∈N[-1..1]</code></td><td>3 elements, indexed −1, 0, 1</td></tr>
-<tr><td><code>n∈N, x∈Z[1..n]</code></td><td><em>n</em> elements, where <em>n</em> is also input (the usual course convention)</td></tr>
+<tr><td><code>n∈N, x∈Z[1..n]</code></td><td><em>n</em> elements, where <em>n</em> is also input (the usual convention)</td></tr>
 <tr><td><code>x3∈N[1..]</code></td><td>any length, indexed from 1; the test data decides the length</td></tr>
 <tr><td><code>x4∈N[0..]</code></td><td>any length, indexed from 0</td></tr>
 <tr><td><code>x5∈N[]</code></td><td>shorthand for <code>N[1..]</code></td></tr>
@@ -1109,7 +1085,7 @@ d: 30
 <p>The value comes from the declaration, so the test data <strong>leaves <code>days</code> out</strong>.
 A test that repeats it is red: “data cannot contain item with the same name:
 days”.</p>
-<p>The worked example <a href="#card-values">Card values</a> uses the same technique with
+<p>The worked example <a href="#the-bloom-calendar">The bloom calendar</a> uses the same technique with
 strings.</p>
 <h2 id="array-literals"><a class="header" href="#array-literals">Array literals</a></h2>
 <p>In conditions you can also write arrays directly, but that’s rarely needed:</p>
@@ -1155,11 +1131,6 @@ t: [
 s: 21
 </code></pre>
 <p>The same data on one line also works: <code>t: [[1,2,3],[4,5,6]]</code>.</p>
-<figure>
-<img src="img/data-matrix.png" alt="A matrix input in the Data pane">
-<figcaption>A 3×4 matrix in the Data pane. The guide lines show the
-nesting.</figcaption>
-</figure>
 <h2 id="arrays-of-arrays"><a class="header" href="#arrays-of-arrays">Arrays of arrays</a></h2>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -1199,26 +1170,26 @@ m: 3
 t: [[10, 1, 2], [3, 4, 5]]
 ok: false
 </code></pre>
-<p>The worked example <a href="#yossarians-map">Yossarian’s map</a> finds the maximum of
-a matrix.</p>
+<p>The worked example <a href="#the-most-reliable-hive">The most reliable hive</a> combines a minimum
+and a maximum over a matrix.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="records-and-tuples"><a class="header" href="#records-and-tuples">Records and tuples</a></h1>
 <h2 id="records"><a class="header" href="#records">Records</a></h2>
 <p>A <strong>record</strong> (structure, <em>rekord</em>) bundles values of <em>different</em> types into one
 unit. In the specification it is the <strong>direct product</strong> of its fields’
 sets, written with <code>x</code> between the fields:</p>
-<pre><code class="language-speci fragment">r1∈(name:S x grade:N)
+<pre><code class="language-speci fragment">r1∈(name:S x rating:N)
 </code></pre>
-<p><code>r1</code> is one element of <em>S × N</em>, a name–grade pair. Fields are accessed with a dot:
-<code>r1.name</code>, <code>r1.grade</code>.</p>
+<p><code>r1</code> is one element of <em>S × N</em>, a name–rating pair. Fields are accessed with a dot:
+<code>r1.name</code>, <code>r1.rating</code>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Declaration</th><th>Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>r1∈name:S x grade:N</code></td><td>parentheses are optional</td></tr>
-<tr><td><code>r2∈(name:S x grade:N)</code></td><td>the usual form</td></tr>
+<tr><td><code>r1∈name:S x rating:N</code></td><td>parentheses are optional</td></tr>
+<tr><td><code>r2∈(name:S x rating:N)</code></td><td>the usual form</td></tr>
 <tr><td><code>r3∈(north:L x east:L x south:L x west:L)</code></td><td>any number of fields</td></tr>
 <tr><td><code>r4∈(a:[1..2] x b:[3..4])</code></td><td>fields can be intervals: r4 is one of (1,3), (1,4), (2,3), (2,4)</td></tr>
 </tbody>
@@ -1226,51 +1197,51 @@ sets, written with <code>x</code> between the fields:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p>The <code>x</code> needs a space on both sides: <code>name:S x grade:N</code>.</p>
+<p>The <code>x</code> needs a space on both sides: <code>name:S x rating:N</code>.</p>
 </blockquote>
 <p>In the test data, a record is written either in the multi-line YAML form or
 in the compact <code>{…}</code> form:</p>
-<pre><code class="language-speci">In: r∈(name:S x grade:N)
-Out: pass∈L
-Pre: r.grade≥1 and r.grade≤5
-Post: pass=(r.grade≥2)
+<pre><code class="language-speci">In: r∈(name:S x rating:N)
+Out: keep∈L
+Pre: r.rating≥1 and r.rating≤5
+Post: keep=(r.rating≥2)
 </code></pre>
 <pre><code class="language-yaml">r:
-  name: Anna
-  grade: 4
-pass: true
+  name: Akac
+  rating: 4
+keep: true
 </code></pre>
-<pre><code class="language-yaml">r: {name: Bence, grade: 1}
-pass: false
+<pre><code class="language-yaml">r: {name: Bodza, rating: 1}
+keep: false
 </code></pre>
 <h2 id="arrays-of-records"><a class="header" href="#arrays-of-records">Arrays of records</a></h2>
-<p>Most real tasks have an <strong>array of records</strong>, such as a list of students or
+<p>Most real tasks have an <strong>array of records</strong>, such as a list of hives or
 measurements. It’s clearer to name the record type first (see
 <a href="#naming-your-own-sets">Naming your own sets</a>):</p>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: c∈N
-Pre: ∀i∈[1..n]:(1≤st[i].grade≤5)
-Post: c=COUNT(i=1..n, st[i].grade=5)
+Pre: ∀i∈[1..n]:(1≤hv[i].rating≤5)
+Post: c=COUNT(i=1..n, hv[i].rating=5)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-st:
-  - name: Anna
-    grade: 5
-  - name: Bence
-    grade: 3
-  - name: Cili
-    grade: 5
+hv:
+  - name: Akac
+    rating: 5
+  - name: Bodza
+    rating: 3
+  - name: Repce
+    rating: 5
 c: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 2}, {name: Bence, grade: 4}]
+hv: [{name: Akac, rating: 2}, {name: Bodza, rating: 4}]
 c: 0
 </code></pre>
-<p><code>st[i].grade</code> reads “the grade field of element <em>i</em> of st”.</p>
+<p><code>hv[i].rating</code> reads “the rating field of element <em>i</em> of hv”.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p>Field names in the test data must match the declaration exactly, including
-upper and lower case: <code>grade</code> is not <code>Grade</code>.</p>
+upper and lower case: <code>rating</code> is not <code>Rating</code>.</p>
 </blockquote>
 <h2 id="tuples"><a class="header" href="#tuples">Tuples</a></h2>
 <p>A <strong>tuple</strong> groups values without declaring a record: <code>(3, 5)</code>. Its
@@ -1304,13 +1275,13 @@ the index, and <code>(,val)=MAX(…)</code> keeps only the value. See
 <p>Functions can return tuples too: <code>swap:Z x Z-&gt;Z x Z, swap(a,b)=(b,a)</code>. The
 components of a theorem result can also be accessed <strong>by name</strong>, for example
 <code>.maxval</code> and <code>.maxind</code> for <code>MAX</code>. The worked example
-<a href="#yossarians-map">Yossarian’s map</a> uses this.</p>
+<a href="#the-most-reliable-hive">The most reliable hive</a> uses this.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="naming-your-own-sets"><a class="header" href="#naming-your-own-sets">Naming your own sets</a></h1>
 <p>Any set can be given a name with <code>Name=Set</code>. The name starts with an
 <strong>uppercase letter</strong>, and the definition goes into a declaration block next
 to the variables:</p>
-<pre><code class="language-speci">In: j∈Grade, Grade=[1..5]
+<pre><code class="language-speci">In: j∈Rating, Rating=[1..5]
 Out: ok∈L
 Pre: -
 Post: ok=(j≥2)
@@ -1321,17 +1292,17 @@ ok: true
 <p>Use <code>=</code> for the definition, not <code>:=</code>.</p>
 <h2 id="why-name-sets"><a class="header" href="#why-name-sets">Why name sets?</a></h2>
 <p>Names make complex data readable. Compare</p>
-<pre><code class="language-speci fragment">h1∈(name:S x grade:N)[1..]
+<pre><code class="language-speci fragment">h1∈(name:S x rating:N)[1..]
 </code></pre>
 <p>with</p>
-<pre><code class="language-speci fragment">h2∈Student[1..], Student=(name:S x grade:N)
+<pre><code class="language-speci fragment">h2∈Hive[1..], Hive=(name:S x rating:N)
 </code></pre>
 <p>The second one says what the data <em>is</em>. Once a set has a name you can use it
 in several places: in other declarations, in function signatures
-(<code>grade:Student-&gt;N</code>), and inside other named sets.</p>
+(<code>rating:Hive-&gt;N</code>), and inside other named sets.</p>
 <h2 id="chains-and-nesting"><a class="header" href="#chains-and-nesting">Chains and nesting</a></h2>
 <p>Names can refer to other names, so you can build long chains:</p>
-<pre><code class="language-speci">In: j2∈Mark, Mark=OneToFive, OneToFive=[1..5]
+<pre><code class="language-speci">In: j2∈Score, Score=OneToFive, OneToFive=[1..5]
 Out: ok∈L
 Pre: -
 Post: ok=(j2=j2)
@@ -1340,22 +1311,21 @@ Post: ok=(j2=j2)
 ok: true
 </code></pre>
 <p>They can also be nested to describe deep structures. In this example
-each student has a list of grades:</p>
-<pre><code class="language-speci">In: cls∈Class, Class=Student[], Student=(name:S x grades:Grade[]), Grade=[1..5]
+each hive has a list of ratings:</p>
+<pre><code class="language-speci">In: yard∈Apiary, Apiary=Hive[], Hive=(name:S x ratings:Rating[]), Rating=[1..5]
 Out: c∈N
 Pre: -
-Post: c=COUNT(i=1..length(cls), length(cls[i].grades)&gt;0)
+Post: c=COUNT(i=1..length(yard), length(yard[i].ratings)&gt;0)
 </code></pre>
-<pre><code class="language-yaml">cls:
-  - name: Anna
-    grades: [5, 4, 5]
-  - name: Bence
-    grades: []
+<pre><code class="language-yaml">yard:
+  - name: Akac
+    ratings: [5, 4, 5]
+  - name: Bodza
+    ratings: []
 c: 1
 </code></pre>
-<p>A definition can come before or after its first use. The built-in documentation
-writes <code>j∈Grade, Grade=[1..5]</code>. Some course solutions put the record definition
-first: <code>In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]</code>.</p>
+<p>A definition can come before or after its first use: both
+<code>j∈Rating, Rating=[1..5]</code> and <code>Thive=(kg:N x name:S), n∈N, hives∈Thive[1..n]</code> are fine.</p>
 <h2 id="where-to-put-the-definitions"><a class="header" href="#where-to-put-the-definitions">Where to put the definitions</a></h2>
 <p>The definitions go into the declaration blocks (<code>In:</code>, <code>Aux:</code>, <code>Out:</code>) and are
 separated from the variables by commas. Convention is to put them in the block
@@ -1445,14 +1415,15 @@ inRange: true
 <pre><code class="language-yaml">a: 8
 inRange: false
 </code></pre>
-<p>The divisibility relation <code>|</code> is a compact way to talk about divisors:</p>
-<pre><code class="language-speci">In: n∈N
-Out: d∈N
-Pre: n≥1
-Post: d=COUNT(i=1..n, i|n)
+<p>The divisibility relation <code>|</code> is a compact way to talk about multiples. <em>Do the
+jars fill six-packs exactly?</em></p>
+<pre><code class="language-speci">In: jars∈N
+Out: exact∈L
+Pre: -
+Post: exact=(6|jars)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">jars: 24
+exact: true
 </code></pre>
 <h2 id="logic"><a class="header" href="#logic">Logic</a></h2>
 <div class="table-wrapper">
@@ -1691,30 +1662,30 @@ Pre: a≥2 and a≤7
 <p><strong>Relations between inputs.</strong> <em>1 &lt; d &lt; n:</em></p>
 <pre><code class="language-speci fragment">Pre: 1&lt;d&lt;n
 </code></pre>
-<p><strong>Guarantees the postcondition relies on.</strong> <em>There is an odd number</em>,
+<p><strong>Guarantees the postcondition relies on.</strong> <em>There is a hive over 40 kg</em>,
 required by <a href="#selection-select"><code>SELECT</code></a>:</p>
-<pre><code class="language-speci fragment">Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Pre: ∃i∈[1..n]:(kg[i]&gt;40)
 </code></pre>
 <p>Statements can be combined with <code>and</code>. Don’t forget the operator between
 them: two statements written one after the other are a syntax error.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <blockquote>
-<p><em>We are given the heights of n ≥ 1 children in centimetres (each between 50
-and 250). What is the average height?</em></p>
+<p><em>We are given the weights of n ≥ 1 hives in kilograms (each between 5
+and 90). What is the average weight?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, h∈N[1..n]
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
 Out: avg∈R
-Pre: n≥1 and ∀i∈[1..n]:(50≤h[i]≤250)
-Post: avg=SUM(i=1..n, h[i])/n
+Pre: n≥1 and ∀i∈[1..n]:(5≤w[i]≤90)
+Post: avg=SUM(i=1..n, w[i])/n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-h: [120, 130, 125, 135]
-avg: 127.5
+w: [40, 43, 38, 44]
+avg: 41.25
 </code></pre>
 <p>Input that violates the precondition makes the test red:</p>
 <pre><code class="language-yaml red">n: 2
-h: [120, 300]
-avg: 210
+w: [40, 300]
+avg: 170
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -1758,7 +1729,7 @@ tuple.</li>
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>Write the arrow as ASCII <code>-&gt;</code>. The Insert bar has no arrow button, and the
 Unicode <code>→</code> is a syntax error everywhere: in signatures and as implication
-alike. The arrows you see in screenshots are <code>-&gt;</code> drawn by the editor’s font.</p>
+alike. Any arrow you see in the editor is <code>-&gt;</code> drawn by its font.</p>
 </blockquote>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <div class="table-wrapper">
@@ -1772,7 +1743,7 @@ alike. The arrows you see in screenshots are <code>-&gt;</code> drawn by the edi
 <tr><td><code>add:Z x Z-&gt;Z, add(a,b)=a+b</code></td><td>two parameters</td></tr>
 <tr><td><code>swap:Z x Z-&gt;Z x Z, swap(a,b)=(b,a)</code></td><td>returns a tuple</td></tr>
 <tr><td><code>f2:Z-&gt;Z, f2(p)=p+n</code></td><td>uses the input variable <code>n</code></td></tr>
-<tr><td><code>grade:Student-&gt;N, grade(h)=h.grade</code></td><td>record parameter</td></tr>
+<tr><td><code>rating:Hive-&gt;N, rating(h)=h.rating</code></td><td>record parameter</td></tr>
 <tr><td><code>index:N[] x N-&gt;N, index(x,i)=x[i]</code></td><td>array parameter</td></tr>
 <tr><td><code>even:N-&gt;L, even(i)=x[i] mod 2 = 0</code></td><td>logical function</td></tr>
 </tbody>
@@ -1834,14 +1805,14 @@ x: [0, 2, 3, 8, 7]
 c: 2
 </code></pre>
 <h2 id="record-parameters"><a class="header" href="#record-parameters">Record parameters</a></h2>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: s∈N
-Fn: grade:Student-&gt;N, grade(h)=h.grade
+Fn: rating:Hive-&gt;N, rating(h)=h.rating
 Pre: -
-Post: s=SUM(i=1..n, grade(st[i]))
+Post: s=SUM(i=1..n, rating(hv[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 5}, {name: Bence, grade: 3}]
+hv: [{name: Akac, rating: 5}, {name: Bodza, rating: 3}]
 s: 8
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1849,62 +1820,63 @@ s: 8
 <p>The real power of functions is <strong>decomposition</strong>. When a task needs one
 theorem inside another, put the inner one in a function. The postcondition
 then shows the outer pattern clearly, and the function shows the inner one.</p>
-<p>The table collects the most frequent combinations from the course material.
-Each is used in a complete example later in the book.</p>
+<p>The table collects frequent combinations. Most are used in a complete example
+later in the book.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Function</th><th>Inner pattern</th><th>Used in</th></tr>
 </thead>
 <tbody>
-<tr><td><code>maxcol:N-&gt;N x N, maxcol(i)=MAX(j=1..m, map[i,j])</code></td><td>maximum of row <em>i</em></td><td><a href="#yossarians-map">Yossarian’s map</a></td></tr>
-<tr><td><code>total:N-&gt;N, total(i)=SUM(j=i-d..i-1, tr[j])</code></td><td>sum of the <em>d</em> previous values</td><td><a href="#trurls-robots">Trurl’s robots</a></td></tr>
-<tr><td><code>more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)</code></td><td>every value of row <em>i</em> is &gt; 5</td><td><a href="#catberts-coffee-breaks">Catbert’s coffee breaks</a></td></tr>
-<tr><td><code>less5:N-&gt;L, less5(i)=EXISTS(j=1..4, coffe[i,j]&lt;5)</code></td><td>some value of row <em>i</em> is &lt; 5</td><td></td></tr>
-<tr><td><code>visits:N-&gt;N, visits(i)=COUNT(j=1..n, visited[j]=i)</code></td><td>how often <em>i</em> occurs</td><td></td></tr>
-<tr><td><code>nV:N-&gt;L, nV(i)=FORALL(j=1..i-1, rs[i].time≠rs[j].time)</code></td><td>value <em>i</em> didn’t occur before</td><td><a href="#more-short-examples">More short examples</a></td></tr>
-<tr><td><code>lt:N-&gt;L, lt(j)=FORALL(i=1..n, lates[i,j]&gt;k)</code></td><td>every value of column <em>j</em> &gt; k</td><td><a href="#more-short-examples">More short examples</a></td></tr>
+<tr><td><code>worst:N-&gt;N x N, worst(h)=MIN(w=1..m, y[h,w])</code></td><td>minimum of row <em>h</em></td><td><a href="#the-most-reliable-hive">The most reliable hive</a></td></tr>
+<tr><td><code>flow:N-&gt;N, flow(i)=SUM(j=i-d+1..i, nectar[j])</code></td><td>sum of the last <em>d</em> values</td><td><a href="#the-nectar-flow">The nectar flow</a></td></tr>
+<tr><td><code>ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)</code></td><td>every value of column <em>p</em> is at least 80</td><td><a href="#harvest-day">Harvest day</a></td></tr>
+<tr><td><code>idle:N-&gt;L, idle(h)=EXISTS(w=1..m, gain[h,w]=0)</code></td><td>some value of row <em>h</em> is 0</td><td>below</td></tr>
+<tr><td><code>sold:N-&gt;N, sold(t)=SUM(i=1..n, qty[i], type[i]=t)</code></td><td>total of the items of category <em>t</em></td><td>below</td></tr>
+<tr><td><code>rec:N-&gt;L, rec(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])</code></td><td>value <em>i</em> is above all earlier ones</td><td><a href="#more-short-examples">More short examples</a></td></tr>
+<tr><td><code>rising:N-&gt;L, rising(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])</code></td><td>row <em>h</em> keeps growing</td><td><a href="#more-short-examples">More short examples</a></td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="example-rows-with-a-property"><a class="header" href="#example-rows-with-a-property">Example: rows with a property</a></h2>
 <blockquote>
-<p><em>A conference lasted n days, with four coffee breaks a day. On how many days
-was every break above 5 litres?</em></p>
+<p><em>Borbála noted the weekly weight gain of n hives for 4 weeks. In how many hives
+was there at least one week with no gain at all?</em></p>
 </blockquote>
-<p>The outer pattern is <strong>counting</strong> (how many days?), and the inner one is
-<strong>decision</strong> (is every break above 5?):</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<p>The outer pattern is <strong>counting</strong> (how many hives?), and the inner one is
+<strong>decision</strong> (is there a week with 0?):</p>
+<pre><code class="language-speci">In: n∈N, gain∈N[1..n,1..4]
 Out: c∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+Fn: idle:N-&gt;L, idle(h)=EXISTS(w=1..4, gain[h,w]=0)
 Pre: -
-Post: c=COUNT(i=1..n, more5(i))
+Post: c=COUNT(h=1..n, idle(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [6, 6, 7, 8]
+gain: [
+  [2, 0, 1, 3],
+  [1, 1, 2, 1],
+  [0, 0, 4, 2]
 ]
 c: 2
 </code></pre>
-<h2 id="example-how-many-times-does-each-value-occur"><a class="header" href="#example-how-many-times-does-each-value-occur">Example: how many times does each value occur?</a></h2>
+<h2 id="example-the-total-of-each-category"><a class="header" href="#example-the-total-of-each-category">Example: the total of each category</a></h2>
 <blockquote>
-<p><em>n visits were recorded, each to one of the places 1..k. Which place was
-visited the most often?</em></p>
+<p><em>Borbála noted n orders, each for some jars of one of the honey types 1..k. Which
+type sold the most jars?</em></p>
 </blockquote>
-<p>The outer pattern is a <strong>maximum</strong> over the places. The function counts the
-visits to one place:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, visited∈N[1..n]
+<p>The outer pattern is a <strong>maximum</strong> over the types. The function adds up the jars of
+one type:</p>
+<pre><code class="language-speci">In: n∈N, k∈N, type∈N[1..n], qty∈N[1..n]
 Out: best∈N
-Fn: visits:N-&gt;N, visits(p)=COUNT(j=1..n, visited[j]=p)
-Pre: k≥1 and ∀i∈[1..n]:(1≤visited[i]≤k)
-Post: (best,)=MAX(p=1..k, visits(p))
+Fn: sold:N-&gt;N, sold(t)=SUM(i=1..n, qty[i], type[i]=t)
+Pre: k≥1 and ∀i∈[1..n]:(1≤type[i]≤k)
+Post: (best,)=MAX(t=1..k, sold(t))
 </code></pre>
-<pre><code class="language-yaml">n: 6
+<pre><code class="language-yaml">n: 4
 k: 3
-visited: [2, 3, 2, 1, 2, 3]
-best: 2
+type: [2, 3, 2, 1]
+qty: [1, 9, 2, 4]
+best: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -1914,18 +1886,18 @@ asked about each element marks the inner theorem that becomes a function.</p>
 </blockquote>
 <h2 id="can-i-nest-without-a-function"><a class="header" href="#can-i-nest-without-a-function">Can I nest without a function?</a></h2>
 <p>Yes. A theorem can appear directly inside another:</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<pre><code class="language-speci">In: n∈N, gain∈N[1..n,1..4]
 Out: c∈N
 Pre: -
-Post: c=COUNT(i=1..n, FORALL(j=1..4, coffe[i,j]&gt;5))
+Post: c=COUNT(h=1..n, EXISTS(w=1..4, gain[h,w]=0))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-coffe: [[6, 6, 6, 6], [6, 1, 6, 6]]
+gain: [[1, 1, 1, 1], [1, 0, 1, 1]]
 c: 1
 </code></pre>
-<p>The meaning is the same. The function version is preferred in the course,
-because it names the inner pattern and makes the algorithm design (one
-function per nested theorem) straightforward.</p>
+<p>The meaning is the same. The function version is usually clearer, because it
+names the inner pattern and makes the algorithm design (one function per nested
+theorem) straightforward.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="postconditions-and-theorems"><a class="header" href="#postconditions-and-theorems">Postconditions and theorems</a></h1>
 <p>The <strong>postcondition</strong> (<code>Post:</code>, Hungarian <code>Uf:</code>) is the most important part of
@@ -1935,18 +1907,18 @@ has to mention every input variable (see
 <a href="#the-all-variables-rule">The all-variables rule</a>).</p>
 <p>You could write every postcondition with quantifiers alone, and
 <a href="#postconditions-without-theorems">Postconditions without theorems</a> shows how. Most
-course tasks, though, are instances of a small number of standard
+tasks, though, are instances of a small number of standard
 <strong>programming theorems</strong> (<em>programozási tételek</em>). Each one is an algorithmic
 pattern with a known, proven algorithm. The editor has a macro for each, so the
 postcondition can name the pattern directly:</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: sum∈N
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
+Out: total∈N
 Pre: -
-Post: sum=SUM(i=1..n, nums[i])
+Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-nums: [5, 1, 4, 2]
-sum: 12
+kg: [12, 3, 9, 6]
+total: 30
 </code></pre>
 <p>Recognising the theorem in the task <em>is</em> the algorithm design: once the
 postcondition says <code>SUM</code>, the algorithm is the summation algorithm.</p>
@@ -2060,21 +2032,21 @@ point, <code>i&gt;=b</code>.</p>
 </div>
 
 <p>If the property of an element is <em>itself</em> a question about many elements
-(for example “every coffee break of the day was above 5 litres”), you need
+(for example “this frame position is ripe in every box”), you need
 two theorems, one inside the other. See
 <a href="#combining-theorems">Combining theorems</a>.</p>
 <h2 id="reading-a-theorem-macro"><a class="header" href="#reading-a-theorem-macro">Reading a theorem macro</a></h2>
-<p>Take <code>cnt=COUNT(i=1..n, nums[i] mod 2 = 1)</code>:</p>
+<p>Take <code>light=COUNT(i=1..n, jars[i]&lt;450)</code>:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Part</th><th>Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>cnt=</code></td><td>the result is bound to the output variable <code>cnt</code></td></tr>
+<tr><td><code>light=</code></td><td>the result is bound to the output variable <code>light</code></td></tr>
 <tr><td><code>COUNT</code></td><td>the theorem: counting</td></tr>
 <tr><td><code>i=1..n</code></td><td>loop variable <code>i</code> runs over 1, 2, …, n</td></tr>
-<tr><td><code>nums[i] mod 2 = 1</code></td><td>the condition checked for each <code>i</code></td></tr>
+<tr><td><code>jars[i]&lt;450</code></td><td>the condition checked for each <code>i</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -2108,20 +2080,20 @@ auxiliary variable. This is how multi-step tasks are written. See
 
 <h2 id="example-the-total-of-an-array"><a class="header" href="#example-the-total-of-an-array">Example: the total of an array</a></h2>
 <blockquote>
-<p><em>We know how much money we spent on each of n days. How much did we spend in
-total?</em></p>
+<p><em>We know how many kilograms of honey Borbála extracted on each of n days. How
+much did she extract in total?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, spent∈N[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: total∈N
 Pre: -
-Post: total=SUM(i=1..n, spent[i])
+Post: total=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-spent: [1200, 0, 3500, 800, 450]
-total: 5950
+kg: [12, 0, 35, 8, 4]
+total: 59
 </code></pre>
 <pre><code class="language-yaml">n: 0
-spent: []
+kg: []
 total: 0
 </code></pre>
 <h2 id="the-summed-value-can-be-any-expression"><a class="header" href="#the-summed-value-can-be-any-expression">The summed value can be any expression</a></h2>
@@ -2136,44 +2108,51 @@ s: 30
 </code></pre>
 <h2 id="the-filtered-form"><a class="header" href="#the-filtered-form">The filtered form</a></h2>
 <p>With a <strong>third argument</strong>, a condition, only the terms for which the
-condition holds are added. <em>Sum of the even elements:</em></p>
-<pre><code class="language-speci">In: n∈N, x∈N[1..n]
+condition holds are added. <em>The honey of the hives rated 4 or higher:</em></p>
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n], rating∈N[1..n]
 Out: s∈N
 Pre: -
-Post: s=SUM(i=1..n, x[i], x[i] mod 2 = 0)
+Post: s=SUM(i=1..n, kg[i], rating[i]≥4)
 </code></pre>
-<pre><code class="language-yaml">n: 5
-x: [1, 2, 3, 4, 10]
-s: 16
+<pre><code class="language-yaml">n: 4
+kg: [10, 20, 30, 40]
+rating: [4, 2, 5, 3]
+s: 40
 </code></pre>
-<p><em>Sum of the divisors of n</em> combines the filter with the divisibility relation <code>|</code>:</p>
-<pre><code class="language-speci">In: n∈N
+<p><em>The jars in the orders that fill six-packs exactly</em> combines the filter with the
+divisibility relation <code>|</code>:</p>
+<pre><code class="language-speci">In: n∈N, q∈N[1..n]
 Out: s∈N
-Pre: n≥1
-Post: s=SUM(i=1..n, i, i|n)
+Pre: -
+Post: s=SUM(i=1..n, q[i], 6|q[i])
 </code></pre>
-<pre><code class="language-yaml">n: 12
-s: 28
+<pre><code class="language-yaml">n: 4
+q: [12, 7, 6, 10]
+s: 18
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Put every restriction into the filter.</strong> “Sum of the <em>odd divisors</em> of n”
-has two conditions. <code>SUM(i=1..n, i, i mod 2 = 1)</code> adds <em>every</em> odd number up to
-n (25 for n = 10) instead of the odd divisors (1 + 5 = 6). The correct
-filter is <code>i mod 2 = 1 and i|n</code>.</p>
+<p><strong>Put every restriction into the filter.</strong> “The honey of the hives rated 4 or
+higher <em>that are not under treatment</em>” has two conditions.
+<code>SUM(i=1..n, kg[i], rating[i]≥4)</code> also adds the treated hives (70 in the test
+below) instead of only the others (40). The correct filter is
+<code>rating[i]≥4 and not treated[i]</code>.</p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n], rating∈N[1..n], treated∈L[1..n]
 Out: s∈N
-Pre: n≥1
-Post: s=SUM(i=1..n, i, i mod 2 = 1 and i|n)
+Pre: -
+Post: s=SUM(i=1..n, kg[i], rating[i]≥4 and not treated[i])
 </code></pre>
-<pre><code class="language-yaml">n: 10
-s: 6
+<pre><code class="language-yaml">n: 3
+kg: [40, 30, 20]
+rating: [4, 5, 2]
+treated: [false, true, false]
+s: 40
 </code></pre>
 <h2 id="a-window-of-the-array"><a class="header" href="#a-window-of-the-array">A window of the array</a></h2>
-<p>The range doesn’t have to cover the whole array. <em>Sum of the d values before
-index i</em> is <code>SUM(j=i-d..i-1, x[j])</code>. This is the inner part of
-<a href="#trurls-robots">Trurl’s robots</a>.</p>
+<p>The range doesn’t have to cover the whole array. <em>Sum of the last d values, ending
+at index i</em> is <code>SUM(j=i-d+1..i, x[j])</code>. This is the inner part of
+<a href="#the-nectar-flow">The nectar flow</a>.</p>
 <h2 id="averages"><a class="header" href="#averages">Averages</a></h2>
 <p>There’s no separate macro for averages. Divide the sum by the count:</p>
 <pre><code class="language-speci">In: n∈N, x∈N[1..n]
@@ -2204,50 +2183,52 @@ condition.</p>
 <strong>Empty range:</strong> 0</p>
 </div>
 
-<h2 id="example-odd-numbers"><a class="header" href="#example-odd-numbers">Example: odd numbers</a></h2>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<h2 id="example-light-jars"><a class="header" href="#example-light-jars">Example: light jars</a></h2>
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <pre><code class="language-yaml">n: 3
-nums: [2, 4, 6]
-cnt: 0
+jars: [450, 500, 480]
+light: 0
 </code></pre>
-<p>This is the official course example
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">open in the editor</a>).</p>
+<p>The jar of exactly 450 g doesn’t count, because the condition is <code>&lt;</code>.</p>
 <h2 id="the-hungarian-name"><a class="header" href="#the-hungarian-name">The Hungarian name</a></h2>
 <p><code>DARAB</code> (“piece”, as in <em>hány darab</em>: “how many”) means exactly the same as
-<code>COUNT</code>. <em>How many divisors does a number have?</em></p>
-<pre><code class="language-speci">Be: szam∈N
-Ki: osztok∈N
-Ef: szam&gt;=1
-Uf: osztok=DARAB(i=1..szam, i|szam)    // i divides szam
+<code>COUNT</code>. <em>On how many of the first d days does an inspection fall, if there is one
+every a days?</em></p>
+<pre><code class="language-speci">Be: d∈N, a∈N
+Ki: db∈N
+Ef: a&gt;=1
+Uf: db=DARAB(i=1..d, a|i)    // a divides i
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 3
+db: 4
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 10
+a: 11
+db: 0
 </code></pre>
 <h2 id="counting-with-a-complex-condition"><a class="header" href="#counting-with-a-complex-condition">Counting with a complex condition</a></h2>
 <p>The condition can be any logical expression: it may compare neighbours,
-call functions or contain quantifiers. <em>How many times did the temperature
-rise from one day to the next?</em></p>
-<pre><code class="language-speci">In: n∈N, t∈Z[1..n]
+call functions or contain quantifiers. <em>How many times did the hive get heavier from
+one evening to the next?</em></p>
+<pre><code class="language-speci">In: n∈N, kg∈Z[1..n]
 Out: rises∈N
 Pre: -
-Post: rises=COUNT(i=1..n-1, t[i]&lt;t[i+1])
+Post: rises=COUNT(i=1..n-1, kg[i]&lt;kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [3, 5, 4, 4, 8, 9]
+kg: [30, 32, 31, 31, 35, 36]
 rises: 3
 </code></pre>
-<p>Note the range <code>1..n-1</code>: for <code>i = n</code>, <code>t[i+1]</code> wouldn’t exist.</p>
+<p>Note the range <code>1..n-1</code>: for <code>i = n</code>, <code>kg[i+1]</code> wouldn’t exist.</p>
 <h2 id="count-versus-sum"><a class="header" href="#count-versus-sum">COUNT versus SUM</a></h2>
 <p><code>COUNT(i=b..e, β(i))</code> is the same as <code>SUM(i=b..e, 1, β(i))</code>: add 1 for each
 matching index. Use <code>COUNT</code>, though. It names the theorem.</p>
@@ -2270,22 +2251,23 @@ same for the smallest.</p>
 <strong>Empty range:</strong> not allowed. The precondition must guarantee at least one element.</p>
 </div>
 
-<h2 id="example-the-warmest-day"><a class="header" href="#example-the-warmest-day">Example: the warmest day</a></h2>
+<h2 id="example-the-warmest-dawn"><a class="header" href="#example-the-warmest-dawn">Example: the warmest dawn</a></h2>
 <pre><code class="language-speci">In: n∈N, t∈Z[1..n]
 Out: day∈N, temp∈Z
 Pre: n&gt;0
 Post: (day,temp)=MAX(i=1..n, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 day: 2
-temp: 17
+temp: 13
 </code></pre>
-<p>The maximum, 17, occurs on days 2 and 4. <code>MAX</code> chooses the first, day 2.</p>
+<p>Borbála reads the thermometer at the hive entrance every dawn. The maximum, 13,
+occurs on days 2 and 4. <code>MAX</code> chooses the first, day 2.</p>
 <pre><code class="language-yaml red">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 day: 4
-temp: 17
+temp: 13
 </code></pre>
 <h2 id="keeping-only-one-of-the-two-results"><a class="header" href="#keeping-only-one-of-the-two-results">Keeping only one of the two results</a></h2>
 <p>Leave an empty slot in the tuple:</p>
@@ -2335,8 +2317,8 @@ Post: v=MAX(i=1..n, t[i]).maxval
 t: [4, 9, 1]
 v: 9
 </code></pre>
-<p><a href="#yossarians-map">Yossarian’s map</a> uses this to find the maximum of a
-matrix.</p>
+<p><a href="#the-most-reliable-hive">The most reliable hive</a> uses <code>.minval</code> and <code>.minind</code> the same
+way, over a matrix.</p>
 <h2 id="common-mistakes-2"><a class="header" href="#common-mistakes-2">Common mistakes</a></h2>
 <ul>
 <li><strong>Missing precondition.</strong> The maximum of nothing doesn’t exist. With
@@ -2360,41 +2342,40 @@ index with a property (<code>EXISTS</code>), or do all of them have it (<code>FO
 
 <h2 id="exists-is-there"><a class="header" href="#exists-is-there">EXISTS: is there…?</a></h2>
 <blockquote>
-<p><em>Is there an odd number among the numbers?</em></p>
+<p><em>Is there a hive with more than 50 mites?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, numbers∈N[1..n]
-Out: odd∈L
+<pre><code class="language-speci">In: n∈N, mites∈N[1..n]
+Out: alarm∈L
 Pre: -
-Post: odd=EXISTS(i=1..n, numbers[i] mod 2 = 1)
+Post: alarm=EXISTS(i=1..n, mites[i]&gt;50)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-numbers: [2, 8, 7, 4]
-odd: true
+mites: [12, 8, 70, 4]
+alarm: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [2, 8, 4]
-odd: false
+mites: [12, 50, 4]
+alarm: false
 </code></pre>
 <h2 id="forall-is-every"><a class="header" href="#forall-is-every">FORALL: is every…?</a></h2>
 <blockquote>
-<p><em>Are all the numbers positive?</em></p>
+<p><em>Did every hive gain weight?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, numbers∈Z[1..n]
-Out: positive∈L
+<pre><code class="language-speci">In: n∈N, gain∈Z[1..n]
+Out: allGrew∈L
 Pre: -
-Post: positive=FORALL(i=1..n, numbers[i]&gt;0)
+Post: allGrew=FORALL(i=1..n, gain[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [5, 1, 9]
-positive: true
+gain: [5, 1, 9]
+allGrew: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-numbers: [5, 0, 9]
-positive: false
+gain: [5, 0, 9]
+allGrew: false
 </code></pre>
 <h2 id="the-two-are-related"><a class="header" href="#the-two-are-related">The two are related</a></h2>
-<p>“Not every element is positive” is the same as “some element is not
-positive”:</p>
+<p>“Not every hive grew” is the same as “some hive did not grow”:</p>
 <pre><code class="language-text">not FORALL(i=1..n, β(i))   =   EXISTS(i=1..n, not β(i))
 </code></pre>
 <p>Use whichever reads more naturally for the task.</p>
@@ -2414,18 +2395,18 @@ b: true
 The quantifier is a purely logical statement. Preconditions usually use the
 quantifier, and postconditions that define an output use the macro.</p>
 <h2 id="as-a-building-block"><a class="header" href="#as-a-building-block">As a building block</a></h2>
-<p>Decision is often the <em>inner</em> part of a compound task. <em>Find a day on which
-every coffee break was above 5 litres</em> is a search whose condition is a
-<code>FORALL</code>. See <a href="#catberts-coffee-breaks">Catbert’s coffee breaks</a>.</p>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
-Out: someDay∈L
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+<p>Decision is often the <em>inner</em> part of a compound task. <em>Find a frame position that
+is ripe in every box</em> is a search whose condition is a
+<code>FORALL</code>. See <a href="#harvest-day">Harvest day</a>.</p>
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
+Out: anyRipe∈L
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
 Pre: -
-Post: someDay=EXISTS(i=1..n, more5(i))
+Post: anyRipe=EXISTS(p=1..5, ripe(p))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-coffe: [[6, 6, 6, 5], [7, 8, 9, 6]]
-someDay: true
+capped: [[90, 70, 85, 10, 0], [85, 95, 20, 90, 0]]
+anyRipe: true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="selection-select"><a class="header" href="#selection-select">Selection: SELECT</a></h1>
@@ -2445,49 +2426,49 @@ error (“Expected “&gt;=” but “≥” found“), even though <code>≥</c
 <p>Unlike the other theorems, <code>SELECT</code> has <strong>no upper bound</strong>. It only says where
 to start. That is exactly why existence must be guaranteed: without it, the
 search could run forever.</p>
-<h2 id="example-the-first-odd-number"><a class="header" href="#example-the-first-odd-number">Example: the first odd number</a></h2>
-<p>This is the official course example
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">open in the editor</a>):</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<h2 id="example-the-first-hive-over-40-kg"><a class="header" href="#example-the-first-hive-over-40-kg">Example: the first hive over 40 kg</a></h2>
+<p>Borbála knows she has at least one strong hive:</p>
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: ind∈N
-Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
-</code></pre>
-<pre><code class="language-yaml">n: 5
-nums: [23, 25, 26, 28, 29]
-ind: 1
+Pre: ∃i∈[1..n]:(kg[i]&gt;40)
+Post: ind=SELECT(i&gt;=1, kg[i]&gt;40) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-nums: [2, 4, 7, 9]
+kg: [23, 41, 26, 58]
+ind: 2
+</code></pre>
+<pre><code class="language-yaml">n: 3
+kg: [10, 20, 90]
 ind: 3
 </code></pre>
 <p>Two things to notice:</p>
 <ol>
-<li><strong>The precondition</strong> <code>∃i∈[1..n]:(nums[i] mod 2 = 1)</code> guarantees that there
-is an odd number. Without it, <code>SELECT</code> would be wrong.</li>
+<li><strong>The precondition</strong> <code>∃i∈[1..n]:(kg[i]&gt;40)</code> guarantees that there
+is such a hive. Without it, <code>SELECT</code> would be wrong.</li>
 <li><strong><code>and n=n</code></strong>: <code>n</code> doesn’t appear in <code>SELECT</code> (there is no upper bound),
 so the identity <code>n=n</code> is needed to satisfy the
 <a href="#the-all-variables-rule">all-variables rule</a>.</li>
 </ol>
-<p>Input with no odd number violates the precondition, so the test is red:</p>
+<p>Input with no such hive violates the precondition, so the test is red:</p>
 <pre><code class="language-yaml red">n: 2
-nums: [2, 4]
+kg: [23, 40]
 ind: 1
 </code></pre>
 <h2 id="selection-without-an-array"><a class="header" href="#selection-without-an-array">Selection without an array</a></h2>
 <p><code>SELECT</code> is natural for “the first number with a property” questions where
-the answer is guaranteed mathematically. <em>The smallest divisor of n greater
-than 1</em> (for n ≥ 2, n itself is always a divisor):</p>
-<pre><code class="language-speci">In: n∈N
-Out: d∈N
-Pre: n≥2
-Post: d=SELECT(i&gt;=2, i|n)
+the answer is guaranteed mathematically. <em>Jars are sold in six-packs. What is the
+smallest number of jars, at least as many as we have, that fills them exactly?</em>
+There is always a multiple of 6:</p>
+<pre><code class="language-speci">In: jars∈N
+Out: packed∈N
+Pre: -
+Post: packed=SELECT(i&gt;=jars, 6|i)
 </code></pre>
-<pre><code class="language-yaml">n: 35
-d: 5
+<pre><code class="language-yaml">jars: 20
+packed: 24
 </code></pre>
-<pre><code class="language-yaml">n: 13
-d: 13
+<pre><code class="language-yaml">jars: 24
+packed: 24
 </code></pre>
 <h2 id="select-or-search"><a class="header" href="#select-or-search">SELECT or SEARCH?</a></h2>
 <div class="table-wrapper">
@@ -2535,8 +2516,8 @@ ind: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Don’t call the flag <code>exists</code>.</strong> Older manuals and screenshots use
-<code>Aux: exists∈L</code>, but <code>exists</code> is a reserved word (the ASCII form of <code>∃</code>), and
+<p><strong>Don’t call the flag <code>exists</code>.</strong> You may run into <code>Aux: exists∈L</code> in older
+material, but <code>exists</code> is a reserved word (the ASCII form of <code>∃</code>), and
 the current editor rejects it with
 <code>incomplite type for exists: undefined is not boolean</code>. Use <code>found</code>, <code>van</code>
 or <code>talalt</code>.</p>
@@ -2557,24 +2538,25 @@ ind: 4
 </code></pre>
 <h2 id="making-the-output-depend-on-the-result"><a class="header" href="#making-the-output-depend-on-the-result">Making the output depend on the result</a></h2>
 <p>Often the task wants something <em>derived</em> from the found element, and only if
-there is one. Use an implication. Wrap it in parentheses:</p>
-<pre><code class="language-speci">In: n∈N, names∈S[1..n], ages∈N[1..n]
+there is one. <em>What is the name of the first hive whose queen is at least 3 years
+old?</em> Use an implication. Wrap it in parentheses:</p>
+<pre><code class="language-speci">In: n∈N, names∈S[1..n], age∈N[1..n]
 Aux: found∈L, ind∈N
 Out: name∈S
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, ages[i]&lt;18) and
+Post: (found,ind)=SEARCH(i=1..n, age[i]≥3) and
       (found -&gt; name=names[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-names: [Anna, Bence, Cili]
-ages: [21, 17, 15]
+names: [Akac, Bodza, Repce]
+age: [1, 3, 4]
 found: true
 ind: 2
-name: Bence
+name: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-names: [Anna, Dani]
-ages: [21, 30]
+names: [Akac, Hars]
+age: [1, 2]
 found: false
 ind: 1
 name: ""
@@ -2592,35 +2574,35 @@ write <code>and (found -&gt; …)</code>.</p>
 <p>Some tasks don’t want a logical value. They want a special output, usually −1,
 when there is no match:</p>
 <blockquote>
-<p><em>Print the index of the first tree cheaper than K forints, or −1 if there is
+<p><em>Print the number of the first hive with more than K mites, or −1 if there is
 none.</em></p>
 </blockquote>
 <p>Two changes are needed. The output must be <code>Z</code> (−1 isn’t a natural number),
 and the postcondition must produce the −1 itself:</p>
-<pre><code class="language-speci">In: n∈N, k∈N, price∈N[1..n]
+<pre><code class="language-speci">In: n∈N, k∈N, mites∈N[1..n]
 Aux: found∈L, ind∈N
 Out: res∈Z
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, price[i]&lt;k) and
+Post: (found,ind)=SEARCH(i=1..n, mites[i]&gt;k) and
       (found -&gt; res=ind) and
       (not found -&gt; res=-1)
 </code></pre>
-<pre><code class="language-yaml">n: 6
-k: 2000
-price: [2500, 5300, 1900, 2400, 8800, 5300]
+<pre><code class="language-yaml">n: 5
+k: 30
+mites: [12, 30, 45, 7, 60]
 found: true
 ind: 3
 res: 3
 </code></pre>
 <pre><code class="language-yaml">n: 3
 k: 100
-price: [2500, 5300, 1900]
+mites: [12, 30, 45]
 found: false
 ind: 1
 res: -1
 </code></pre>
-<p>The worked example <a href="#christmas-trees">Christmas trees</a> solves the same task
-without <code>SEARCH</code> as well.</p>
+<p>The worked example <a href="#the-overflowing-tank">The overflowing tank</a> uses the same −1 technique,
+and solves its task without <code>SEARCH</code> as well.</p>
 <h2 id="searching-from-the-back"><a class="header" href="#searching-from-the-back">Searching from the back</a></h2>
 <p>To find the <strong>last</strong> matching index, run the search backwards. The trick is to
 negate the indices: let <code>i</code> run from <code>-n</code> to <code>-1</code>, look at <code>x[-i]</code>, and take the
@@ -2641,8 +2623,8 @@ the end. The first hit is at <code>i = -4</code>, which gives <code>-ind = -4</c
 The general form is <code>(found,-ind)=SEARCH(i=-e..-b, β(-i))</code>.</p>
 <h2 id="searching-in-a-compound-condition"><a class="header" href="#searching-in-a-compound-condition">Searching in a compound condition</a></h2>
 <p>The condition is often a function containing another theorem, for example
-<em>find a day on which every coffee break was above 5 litres</em>. That’s in
-<a href="#catberts-coffee-breaks">Catbert’s coffee breaks</a>.</p>
+<em>find a frame position that is ripe in every box</em>. That’s in
+<a href="#harvest-day">Harvest day</a>.</p>
 <h2 id="search-select-exists"><a class="header" href="#search-select-exists">SEARCH, SELECT, EXISTS</a></h2>
 <div class="table-wrapper">
 <table>
@@ -2678,27 +2660,27 @@ target: [3, 5, 0, 1]
 <p>The output array is declared with the same size as the input: <code>N[1..n]</code>.</p>
 <h2 id="example-converting-units"><a class="header" href="#example-converting-units">Example: converting units</a></h2>
 <blockquote>
-<p><em>We have n temperatures in Celsius. Give them in Fahrenheit.</em></p>
+<p><em>We have the weights of n jars in grams. Give them in kilograms.</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, c∈R[1..n]
-Out: f∈R[1..n]
+<pre><code class="language-speci">In: n∈N, g∈R[1..n]
+Out: kg∈R[1..n]
 Pre: -
-Post: f=COPY(i=1..n, c[i]*9/5+32)
+Post: kg=COPY(i=1..n, g[i]/1000)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-c: [0, 100, -40]
-f: [32, 212, -40]
+g: [1500, 250, 0]
+kg: [1.5, 0.25, 0]
 </code></pre>
 <h2 id="extracting-a-field"><a class="header" href="#extracting-a-field">Extracting a field</a></h2>
 <p><code>COPY</code> can also pick one field out of an array of records:</p>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: names∈S[1..n]
 Pre: -
-Post: names=COPY(i=1..n, st[i].name)
+Post: names=COPY(i=1..n, hv[i].name)
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 5}, {name: Bence, grade: 3}]
-names: [Anna, Bence]
+hv: [{name: Akac, rating: 5}, {name: Bodza, rating: 3}]
+names: [Akac, Bodza]
 </code></pre>
 <h2 id="copy-versus-mis"><a class="header" href="#copy-versus-mis">COPY versus MIS</a></h2>
 <p><code>COPY</code> keeps <strong>every</strong> element. When only some elements should go into the
@@ -2718,7 +2700,7 @@ the collected items themselves.</p>
 count variable as the bound.</p>
 <h2 id="the-two-argument-form-matching-indices"><a class="header" href="#the-two-argument-form-matching-indices">The two-argument form: matching indices</a></h2>
 <blockquote>
-<p><em>On which days was it below freezing?</em></p>
+<p><em>At which dawns was it below freezing at the hive entrance?</em></p>
 </blockquote>
 <pre><code class="language-speci">In: n∈N, t∈Z[1..n]
 Out: c∈N, days∈N[1..c]
@@ -2726,12 +2708,12 @@ Pre: -
 Post: (c,days)=MIS(i=1..n, t[i]&lt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 c: 3
 days: [2, 3, 6]
 </code></pre>
 <pre><code class="language-yaml">n: 2
-t: [5, 7]
+t: [6, 9]
 c: 0
 days: []
 </code></pre>
@@ -2749,9 +2731,9 @@ Pre: -
 Post: (c,cold)=MIS(i=1..n, t[i]&lt;0, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 c: 3
-cold: [-1, -4, -2]
+cold: [-2, -5, -1]
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -2760,52 +2742,49 @@ collected value <em>third</em>. In the filtered <code>SUM</code> it’s the othe
 <code>SUM(i=…, value, condition)</code>.</p>
 </blockquote>
 <h3 id="example-fields-of-records"><a class="header" href="#example-fields-of-records">Example: fields of records</a></h3>
-<p>Collect the location of every run longer than 30 minutes. This is a course
-example. Note the comment that maps the general form onto the task:</p>
-<pre><code class="language-speci">In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]
-Out: cnt∈N, location∈S[1..cnt]
+<p>Collect the name of every hive heavier than 30 kg. Note the comment that maps the
+general form onto the task:</p>
+<pre><code class="language-speci">In: Thive=(kg:N x name:S), n∈N, hives∈Thive[1..n]
+Out: c∈N, names∈S[1..c]
 Pre: -
-Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
+Post: (c,names)=MIS(i=1..n, hives[i].kg&gt;30, hives[i].name)
+/* (c,y)=MIS(i=b..e, A(i), f(i))
+   c, y   ~ c, names
    b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+   A(i)   ~ hives[i].kg&gt;30
+   f(i)   ~ hives[i].name
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-runs:
-  - time: 15
-    loc: office
-  - time: 35
-    loc: restaurant
-  - time: 40
-    loc: gym
-  - time: 5
-    loc: shop
-cnt: 2
-location: [restaurant, gym]
+hives:
+  - kg: 22
+    name: Akac
+  - kg: 35
+    name: Bodza
+  - kg: 41
+    name: Repce
+  - kg: 30
+    name: Hars
+c: 2
+names: [Bodza, Repce]
 </code></pre>
 <h2 id="combining-with-other-theorems"><a class="header" href="#combining-with-other-theorems">Combining with other theorems</a></h2>
-<p>The collected array can feed another theorem. <em>Among the cities farthest away,
-what is the cheapest ticket?</em> <code>MAX</code> finds the farthest distance, <code>MIS</code>
-collects the prices at that distance, and <code>MIN</code> picks the cheapest:</p>
-<pre><code class="language-speci">In: n∈N, city∈City[1..n], City=(dist:N x price:N)
-Aux: far∈N, cnt∈N, prices∈N[1..cnt]
-Out: ticket∈N
-Pre: n&gt;0
-Post: (,far)=MAX(i=1..n, city[i].dist) and
-      (cnt,prices)=MIS(i=1..n, city[i].dist=far, city[i].price) and
-      (,ticket)=MIN(i=1..cnt, prices[i])
+<p>The collected array can feed another theorem. <em>How much honey came from the hives
+rated 4 or higher?</em> <code>MIS</code> collects their yields, and <code>SUM</code> adds them up:</p>
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(kg:N x rating:N)
+Aux: cnt∈N, yields∈N[1..cnt]
+Out: total∈N
+Pre: -
+Post: (cnt,yields)=MIS(i=1..n, hv[i].rating≥4, hv[i].kg) and
+      total=SUM(i=1..cnt, yields[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-city: [{dist: 500, price: 90}, {dist: 900, price: 120}, {dist: 900, price: 80}, {dist: 300, price: 20}]
-far: 900
+hv: [{kg: 50, rating: 2}, {kg: 90, rating: 4}, {kg: 80, rating: 5}, {kg: 30, rating: 1}]
 cnt: 2
-prices: [120, 80]
-ticket: 80
+yields: [90, 80]
+total: 170
 </code></pre>
-<p>The auxiliary variables (<code>far</code>, <code>cnt</code>, <code>prices</code>) also have to appear in the
+<p>The auxiliary variables (<code>cnt</code>, <code>yields</code>) also have to appear in the
 test case, with their expected values.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="conditional-maximum-condmax-condmin"><a class="header" href="#conditional-maximum-condmax-condmin">Conditional maximum: CONDMAX, CONDMIN</a></h1>
@@ -2868,20 +2847,20 @@ warmest: 2
 </code></pre>
 <p>(Here <code>CONDMIN</code> gives the <em>smallest</em> positive temperature.)</p>
 <h2 id="conditions-on-neighbouring-elements"><a class="header" href="#conditions-on-neighbouring-elements">Conditions on neighbouring elements</a></h2>
-<p>The condition and the value can both look at several elements. In
-<a href="#dogberts-star">Dogbert’s star</a>, the value is the change between two
-consecutive measurements, and the condition requires both to be above a
-threshold:</p>
-<pre><code class="language-speci">In: k∈N, data∈Z[1..]
-Out: found∈L, maxval∈Z
-Pre: -
-Post: (found,,maxval)=CONDMAX(i=1..length(data)-1,
-      data[i]-data[i+1], data[i]&gt;k and data[i+1]&gt;k)
+<p>The condition and the value can both look at several elements. <em>What was the
+largest gain from one evening to the next, counting only the evenings without
+rain?</em> Scale readings on rainy evenings are unreliable. Two open arrays must have the
+same length, so the precondition says that:</p>
+<pre><code class="language-speci">In: w∈N[], rainy∈L[]
+Out: found∈L, gain∈Z
+Pre: length(w)=length(rainy)
+Post: (found,,gain)=CONDMAX(i=2..length(w),
+      w[i]-w[i-1], not rainy[i])
 </code></pre>
-<pre><code class="language-yaml">k: 10
-data: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
+<pre><code class="language-yaml">w: [30, 33, 40, 38, 41]
+rainy: [false, false, true, false, false]
 found: true
-maxval: 6
+gain: 3
 </code></pre>
 <h2 id="when-nothing-matches"><a class="header" href="#when-nothing-matches">When nothing matches</a></h2>
 <p>When <code>found</code> is false, <code>ind</code> and <code>val</code> carry no meaning, and any value in the
@@ -2898,38 +2877,38 @@ postcondition with implications, as in
 <p>Real tasks rarely fit a single theorem. They combine theorems in two ways:</p>
 <ul>
 <li><strong>nesting</strong>: the condition or value of one theorem is itself a theorem
-(“find a day on which <em>every</em> break…”),</li>
+(“find a position that is ripe in <em>every</em> box…”),</li>
 <li><strong>sequencing</strong>: the result of one theorem is the input of the next
 (“find the maximum, then collect everything equal to it”).</li>
 </ul>
 <h2 id="nesting-1"><a class="header" href="#nesting-1">Nesting</a></h2>
 <p>Put the inner theorem in a <a href="#patterns-inside-functions">function</a> of the outer loop
-variable. <em>Find a day on which every coffee break was above 5 litres:</em></p>
+variable. <em>Find a frame position that is ripe in every box:</em></p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Level</th><th>Question</th><th>Theorem</th></tr>
 </thead>
 <tbody>
-<tr><td>outer</td><td>which day?</td><td><code>SEARCH</code> over days</td></tr>
-<tr><td>inner</td><td>was every break of day <em>i</em> above 5?</td><td><code>FORALL</code> over breaks</td></tr>
+<tr><td>outer</td><td>which position?</td><td><code>SEARCH</code> over positions</td></tr>
+<tr><td>inner</td><td>is position <em>p</em> at least 80 in every box?</td><td><code>FORALL</code> over boxes</td></tr>
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
 Aux: found∈L
-Out: ind∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+Out: pos∈N
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, more5(i))
+Post: (found,pos)=SEARCH(p=1..5, ripe(p))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-coffe: [[4, 5, 7, 5], [6, 8, 7, 9], [4, 5, 7, 5]]
+<pre><code class="language-yaml">n: 2
+capped: [[70, 85, 90, 0, 0], [90, 60, 80, 0, 0]]
 found: true
-ind: 2
+pos: 3
 </code></pre>
-<p>The task type in the course material is written as <em>“compound pattern; search
-is the main pattern, and decision all is the nested pattern”</em>.</p>
+<p>You can describe such a task as a <em>compound pattern</em>: search is the main pattern,
+and decision (all) is the nested pattern.</p>
 <h2 id="sequencing-with-auxiliary-variables"><a class="header" href="#sequencing-with-auxiliary-variables">Sequencing with auxiliary variables</a></h2>
 <p>When a later step needs an earlier result, store it in an <strong>auxiliary</strong>
 variable (<code>Aux:</code>) and refer to it.</p>
@@ -2969,10 +2948,10 @@ fails only the inner check, one that passes it, and an empty input.</li>
 <tr><th>Task</th><th>Combination</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#yossarians-map">Yossarian’s map</a></td><td><code>MAX</code> of a function returning row maxima</td></tr>
-<tr><td><a href="#trurls-robots">Trurl’s robots</a></td><td><code>MIS</code> with a nested <code>SUM</code></td></tr>
-<tr><td><a href="#catberts-coffee-breaks">Catbert’s coffee breaks</a></td><td><code>SEARCH</code> with a nested <code>FORALL</code></td></tr>
-<tr><td><a href="#the-travel-agency">The travel agency</a></td><td><code>MAX</code>, then <code>MIS</code>, then <code>MIN</code></td></tr>
+<tr><td><a href="#the-most-reliable-hive">The most reliable hive</a></td><td><code>MAX</code> of a function returning row minima</td></tr>
+<tr><td><a href="#the-nectar-flow">The nectar flow</a></td><td><code>MIS</code> with a nested <code>SUM</code></td></tr>
+<tr><td><a href="#harvest-day">Harvest day</a></td><td><code>SEARCH</code> with a nested <code>FORALL</code></td></tr>
+<tr><td><a href="#the-honey-fair">The honey fair</a></td><td><code>MAX</code> with a nested filtered <code>SUM</code></td></tr>
 <tr><td><a href="#more-short-examples">More short examples</a></td><td><code>COUNT</code> with a nested <code>FORALL</code>, <code>MIS</code> with a nested <code>FORALL</code></td></tr>
 </tbody>
 </table>
@@ -2981,42 +2960,37 @@ fails only the inner check, one that passes it, and an empty input.</li>
 <h1 id="postconditions-without-theorems"><a class="header" href="#postconditions-without-theorems">Postconditions without theorems</a></h1>
 <p>A postcondition doesn’t <em>have</em> to use theorem macros. Any logical statement
 over the input and output is valid, and the editor evaluates it directly. This
-<strong>relational</strong> style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>-&gt;</code>, is the
-notation of the lectures, and some assignments ask for it explicitly.</p>
+style, built from <code>∀</code>, <code>∃</code>, <code>and</code>, <code>or</code> and <code>-&gt;</code>, is called <strong>relational</strong>.</p>
 <h2 id="the-same-task-in-both-styles"><a class="header" href="#the-same-task-in-both-styles">The same task in both styles</a></h2>
 <blockquote>
-<p><em>A travel agency sells tickets to n cities. Give the price of the ticket to
-the farthest city. If several are equally far, the cheapest among them.</em></p>
+<p><em>Borbála weighed n jars from one batch. Give the second heaviest weight: the
+largest one that is below the maximum. The jars are not all the same weight.</em></p>
 </blockquote>
-<p><strong>With theorems.</strong> Find the maximum distance, collect the prices at that
-distance, and take the minimum:</p>
-<pre><code class="language-speci">In: n∈N, city∈City[1..n], City=(dist:N x price:N)
-Aux: far∈N, cnt∈N, prices∈N[1..cnt]
-Out: ticket∈N
-Pre: n&gt;0
-Post: (,far)=MAX(i=1..n, city[i].dist) and
-      (cnt,prices)=MIS(i=1..n, city[i].dist=far, city[i].price) and
-      (,ticket)=MIN(i=1..cnt, prices[i])
+<p><strong>With theorems.</strong> Find the maximum, then take the largest of the values below it:</p>
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
+Aux: top∈N, found∈L
+Out: second∈N
+Pre: ∃i∈[1..n]:(w[i]≠w[1])
+Post: (,top)=MAX(i=1..n, w[i]) and
+      (found,,second)=CONDMAX(i=1..n, w[i], w[i]&lt;top)
 </code></pre>
-<pre><code class="language-yaml">n: 3
-city: [{dist: 1000, price: 500}, {dist: 1000, price: 250}, {dist: 500, price: 100}]
-far: 1000
-cnt: 2
-prices: [500, 250]
-ticket: 250
+<pre><code class="language-yaml">n: 4
+w: [450, 480, 480, 465]
+top: 480
+found: true
+second: 465
 </code></pre>
-<p><strong>Relational.</strong> <em>There is a city i whose price is the answer, and every other
-city j is either nearer, or equally far and not cheaper:</em></p>
-<pre><code class="language-speci">In: n∈N, dist∈N[1..n], price∈N[1..n]
-Out: ticket∈N
-Pre: n&gt;0
-Post: ∃i∈[1..n]:(price[i]=ticket and
-        ∀j∈[1..n]:(dist[j]&lt;dist[i] or (dist[j]=dist[i] and price[j]≥price[i])))
+<p><strong>Relational.</strong> <em>The answer occurs among the weights, some jar is heavier than the
+answer, and every jar is either no heavier than the answer, or is a heaviest jar:</em></p>
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
+Out: second∈N
+Pre: ∃i∈[1..n]:(w[i]≠w[1])
+Post: ∃i∈[1..n]:(w[i]=second) and ∃j∈[1..n]:(w[j]&gt;second) and
+      ∀k∈[1..n]:(w[k]≤second or ∀m∈[1..n]:(w[m]≤w[k]))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-dist: [1000, 1000, 500]
-price: [500, 250, 100]
-ticket: 250
+<pre><code class="language-yaml">n: 4
+w: [450, 480, 480, 465]
+second: 465
 </code></pre>
 <h2 id="how-to-write-a-relational-postcondition"><a class="header" href="#how-to-write-a-relational-postcondition">How to write a relational postcondition</a></h2>
 <p>The typical shape: <strong>an <code>∃</code> that names a witness, plus <code>∀</code>s that say why the
@@ -3029,24 +3003,25 @@ witness is the right one.</strong></p>
 <code>(out=-1 and ∀i∈[…]:(not P(i))) or ∃i∈[…]:(…)</code></li>
 </ul>
 <h3 id="example-first-match-or-1"><a class="header" href="#example-first-match-or-1">Example: first match or −1</a></h3>
-<pre><code class="language-speci">In: n∈N, k∈N, price∈N[1..n]
+<p><em>The first hive with fewer than k kilograms, or −1:</em></p>
+<pre><code class="language-speci">In: n∈N, k∈N, kg∈N[1..n]
 Out: res∈Z
 Pre: -
-Post: (res=-1 and ∀i∈[1..n]:(price[i]≥k)) or
-      ∃i∈[1..n]:(res=i and price[i]&lt;k and ∀j∈[1..i-1]:(price[j]≥k))
+Post: (res=-1 and ∀i∈[1..n]:(kg[i]≥k)) or
+      ∃i∈[1..n]:(res=i and kg[i]&lt;k and ∀j∈[1..i-1]:(kg[j]≥k))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 5000
-price: [6000, 3000, 1000, 200]
+k: 30
+kg: [40, 25, 18, 10]
 res: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 100
-price: [2500, 5300]
+k: 10
+kg: [40, 25]
 res: -1
 </code></pre>
 <p>The output is bound <em>through the witness</em> (<code>res=i</code>), so the formula never reads
-<code>price[res]</code> when <code>res</code> is −1. Writing <code>price[res]&lt;k</code> would be an out-of-range
+<code>kg[res]</code> when <code>res</code> is −1. Writing <code>kg[res]&lt;k</code> would be an out-of-range
 read on the failing branch.</p>
 <h2 id="which-style-should-i-use"><a class="header" href="#which-style-should-i-use">Which style should I use?</a></h2>
 <div class="table-wrapper">
@@ -3056,7 +3031,7 @@ read on the failing branch.</p>
 </thead>
 <tbody>
 <tr><td><strong>theorems</strong></td><td>the specification should lead to an algorithm: each macro becomes a known algorithm in the design phase</td></tr>
-<tr><td><strong>relational</strong></td><td>the output is defined by a property, the assignment asks for the relational form, or the theorem version would need many auxiliary variables</td></tr>
+<tr><td><strong>relational</strong></td><td>the output is defined by a property, or the theorem version would need many auxiliary variables</td></tr>
 </tbody>
 </table>
 </div>
@@ -3102,8 +3077,7 @@ them out, a test that repeats them is red.</p>
 <li>clicking a tab selects it. The Visualization pane always shows the
 selected test.</li>
 </ul>
-<p>The course recommends <strong>at least three test cases</strong> for every
-specification.</p>
+<p>Write <strong>at least three test cases</strong> for every specification.</p>
 <h2 id="in-this-chapter-3"><a class="header" href="#in-this-chapter-3">In this chapter</a></h2>
 <ul>
 <li><a href="#the-data-format">The data format</a>: how to write numbers, strings,
@@ -3133,7 +3107,7 @@ in the right format.</p>
 <tr><td><code>N</code>, <code>Z</code></td><td><code>n: 5</code>, <code>d: -3</code></td></tr>
 <tr><td><code>R</code></td><td><code>avg: 2.75</code></td></tr>
 <tr><td><code>L</code></td><td><code>found: true</code>, <code>found: false</code></td></tr>
-<tr><td><code>S</code></td><td><code>name: Anna</code>, <code>name: "Anna Kiss"</code>, <code>empty: ""</code></td></tr>
+<tr><td><code>S</code></td><td><code>name: Akac</code>, <code>name: "Old Akac"</code>, <code>empty: ""</code></td></tr>
 <tr><td><code>C</code></td><td><code>c: 'x'</code></td></tr>
 </tbody>
 </table>
@@ -3142,47 +3116,47 @@ in the right format.</p>
 characters YAML treats specially (<code>:</code>, <code>#</code>, leading spaces, …).</p>
 <h2 id="arrays-1"><a class="header" href="#arrays-1">Arrays</a></h2>
 <p>In square brackets, separated by commas:</p>
-<pre><code class="language-yaml fragment">nums: [3, 72, 81, 4, 5]
-names: [Anna, Bence, "Cili Kovács"]
+<pre><code class="language-yaml fragment">jars: [452, 438, 450, 447, 461]
+names: [Akac, Bodza, "Old Repce"]
 empty: []
 </code></pre>
 <p>The YAML list form, one item per line with a dash, also works:</p>
-<pre><code class="language-yaml fragment">nums:
-  - 3
-  - 72
-  - 81
+<pre><code class="language-yaml fragment">jars:
+  - 452
+  - 438
+  - 450
 </code></pre>
 <h2 id="matrices-1"><a class="header" href="#matrices-1">Matrices</a></h2>
 <p>A list of rows. It can be written on several lines for readability, or on a single line:</p>
-<pre><code class="language-yaml fragment">coffee: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+<pre><code class="language-yaml fragment">capped: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 </code></pre>
-<pre><code class="language-yaml fragment">coffee: [[4,5,7,5],[6,8,7,9],[4,5,7,5]]
+<pre><code class="language-yaml fragment">capped: [[75,70,85,40,95],[80,90,85,85,80],[88,65,90,90,81]]
 </code></pre>
 <p>Every row must have the declared number of columns.</p>
 <h2 id="records-1"><a class="header" href="#records-1">Records</a></h2>
 <p><strong>Multi-line form.</strong> Each field on its own line, indented under the variable:</p>
 <pre><code class="language-yaml fragment">r:
-  name: Anna
-  grade: 5
+  name: Akac
+  rating: 5
 </code></pre>
 <p><strong>Compact form</strong>, in braces:</p>
-<pre><code class="language-yaml fragment">r: {name: Anna, grade: 5}
+<pre><code class="language-yaml fragment">r: {name: Akac, rating: 5}
 </code></pre>
 <h2 id="arrays-of-records-1"><a class="header" href="#arrays-of-records-1">Arrays of records</a></h2>
 <p>The multi-line form uses a dash for each element, with that element’s
 fields indented under it:</p>
-<pre><code class="language-yaml fragment">races:
-  - name: AS
-    time: 37
-  - name: BE
-    time: 31
+<pre><code class="language-yaml fragment">hives:
+  - name: Akac
+    kg: 37
+  - name: Bodza
+    kg: 31
 </code></pre>
 <p>In the compact form, a list of <code>{…}</code> items:</p>
-<pre><code class="language-yaml fragment">races: [{name: AS, time: 37}, {name: BE, time: 31}]
+<pre><code class="language-yaml fragment">hives: [{name: Akac, kg: 37}, {name: Bodza, kg: 31}]
 </code></pre>
 <p>Both are equivalent. The multi-line form is easier to read, and the compact
 form fits large data into less space.</p>
@@ -3192,32 +3166,32 @@ form fits large data into less space.</p>
 exactly. Use spaces, not tabs.</p>
 </blockquote>
 <h2 id="a-complete-example"><a class="header" href="#a-complete-example">A complete example</a></h2>
-<pre><code class="language-speci">In: n∈N, races∈Race[1..n], Race=(name:S x time:N), limit∈R
+<pre><code class="language-speci">In: n∈N, hives∈Hive[1..n], Hive=(name:S x kg:N), limit∈R
 Aux: found∈L, ind∈N
-Out: winner∈S
+Out: light∈S
 Pre: n&gt;0
-Post: (found,ind)=SEARCH(i=1..n, races[i].time&lt;limit) and
-      (found -&gt; winner=races[ind].name)
+Post: (found,ind)=SEARCH(i=1..n, hives[i].kg&lt;limit) and
+      (found -&gt; light=hives[ind].name)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-races:
-  - name: AS
-    time: 37
-  - name: BE
-    time: 31
-  - name: FG
-    time: 30
+hives:
+  - name: Akac
+    kg: 37
+  - name: Bodza
+    kg: 31
+  - name: Repce
+    kg: 30
 limit: 31.5
 found: true
 ind: 2
-winner: BE
+light: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-races: [{name: AS, time: 37}, {name: BE, time: 41}]
+hives: [{name: Akac, kg: 37}, {name: Bodza, kg: 41}]
 limit: 30
 found: false
 ind: 0
-winner: ""
+light: ""
 </code></pre>
 <h2 id="common-data-errors"><a class="header" href="#common-data-errors">Common data errors</a></h2>
 <div class="table-wrapper">
@@ -3297,8 +3271,7 @@ expected output in a copy of a green test and check that it turns red. If it
 doesn’t, the specification doesn’t constrain that output.</li>
 <li><strong>Test the precondition’s edges.</strong> If <code>Pre: n&gt;0</code>, a test with <code>n: 1</code> is
 more interesting than one with <code>n: 10</code>.</li>
-<li><strong>Use the example from the task statement</strong> as one of the tests. Teachers
-usually check it first.</li>
+<li><strong>Use the example from the task statement</strong> as one of the tests.</li>
 <li><strong>Exact-threshold values</strong> (a value equal to <code>k</code>) catch <code>&lt;</code> vs <code>≤</code>
 mistakes, which are among the most common errors.</li>
 </ul>
@@ -3360,22 +3333,17 @@ evaluation on or off.</p>
 <h2 id="reading-the-steps"><a class="header" href="#reading-the-steps">Reading the steps</a></h2>
 <p>Each step is the postcondition with one part replaced by its value. The part
 that changed in the step is <strong>highlighted in yellow</strong>. Here is the step list of
-a search (“find a day on which every coffee break was above 5”):</p>
-<figure>
-<img src="img/step-list.png" alt="The step list of a SEARCH with a nested function">
-<figcaption>The step list. The yellow highlight marks the part evaluated in
-each step, and ↓/↑ mark entering and leaving a function.</figcaption>
-</figure>
-<p>The steps, in order:</p>
-<pre><code class="language-text">Post: (exists,ind)=SEARCH(i=1..n, more5(i))     the original statement
-Post: (true,2)=SEARCH(i=1..n, more5(i))         the outputs are substituted
-Post: (true,2)=SEARCH(i=1..n, more5(i))         the lower bound: 1
-Post: (true,2)=SEARCH(i=1..3, more5(i))         the upper bound: n = 3
-Post: (true,2)=SEARCH(i=1..3, more5(1))         first iteration: i = 1
-Post: (true,2)=SEARCH(i=1..3, ↓)                entering more5(1)…
-Post: (true,2)=SEARCH(i=1..3, more5(2))         …false, next iteration: i = 2
-Post: (true,2)=SEARCH(i=1..3, ↑)                more5(2) returned true
-Post: (true,2)=(true,2)                         SEARCH gives (true, 2)
+the first test of <a href="#harvest-day">Harvest day</a> (“find a frame position that is
+ripe in every box”). In outline, with the steps inside the functions left out:</p>
+<pre><code class="language-text">Post: (found,pos)=SEARCH(p=1..5, ripe(p))       the original statement
+Post: (true,3)=SEARCH(p=1..5, ripe(p))          the outputs are substituted
+Post: (true,3)=SEARCH(p=1..5, ripe(p))          the bounds of the range: 1..5
+Post: (true,3)=SEARCH(p=1..5, ripe(1))          first iteration: p = 1
+Post: (true,3)=SEARCH(p=1..5, ↓)                entering ripe(1)…
+Post: (true,3)=SEARCH(p=1..5, ripe(2))          …false, next iteration: p = 2
+Post: (true,3)=SEARCH(p=1..5, ripe(3))          …false, next iteration: p = 3
+Post: (true,3)=SEARCH(p=1..5, ↑)                ripe(3) returned true
+Post: (true,3)=(true,3)                         SEARCH gives (true, 3)
 Post: ↑                                         the comparison is true
 </code></pre>
 <h2 id="entering-and-leaving-functions--and-"><a class="header" href="#entering-and-leaving-functions--and-">Entering and leaving functions: ↓ and ↑</a></h2>
@@ -3406,7 +3374,7 @@ shows the formula with the evaluated part highlighted, the value, and the
 current loop variables. The ↓/↑ marks and the step list work the same way.
 Its error messages also say <em>which</em> part of the postcondition is false and
 what the specification computes, for example
-“<code>cnt</code>: the test case says 2, the specification gives 3”.</p>
+“<code>light</code>: the test case says 3, the specification gives 2”.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="error-messages-and-common-mistakes"><a class="header" href="#error-messages-and-common-mistakes">Error messages and common mistakes</a></h1>
 <h2 id="messages-from-the-online-editor"><a class="header" href="#messages-from-the-online-editor">Messages from the online editor</a></h2>
@@ -3442,7 +3410,7 @@ or <code>van</code>, everywhere: in the declaration, the postcondition and the t
 <tbody>
 <tr><td style="text-align: right">1</td><td>no space after a header on the same line (<code>In:n∈N</code>)</td><td>syntax error on line 1</td><td><code>In: n∈N</code>, or put the header on its own line</td></tr>
 <tr><td style="text-align: right">2</td><td>a declared variable not used in <code>Post:</code></td><td>“… is missing from the post condition!”</td><td>use it, or <code>and n=n</code></td></tr>
-<tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Student=(…)</code></td></tr>
+<tr><td style="text-align: right">3</td><td><code>:=</code> instead of <code>=</code></td><td>syntax error in <code>Fn:</code> or a set definition</td><td><code>f(x)=x*2</code>, <code>Hive=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>matrix vs. array of arrays</td><td>indexing errors</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>index range off by one (<code>0..</code> vs <code>1..</code>)</td><td>out-of-range index</td><td>check <code>from</code>/<code>to</code>, or loop over <code>from(x)..to(x)</code></td></tr>
 <tr><td style="text-align: right">6</td><td>comparing neighbours up to <code>n</code></td><td><code>x[i+1]</code> out of range</td><td>loop to <code>n-1</code></td></tr>
@@ -3478,20 +3446,22 @@ Fix: Rename it everywhere (declaration, postcondition and test data), e.g. to `v
 Fix: Check the loop bounds; when you look at `x[i+1]`, the loop must stop at n-1.
 </code></pre>
 <p>A red test tells you <em>which</em> part is false, and what the specification computes:</p>
-<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `cnt=COUNT(i=1..n, nums[i] mod 2 = 1)` does not hold
- 4 | Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `light=COUNT(i=1..n, jars[i]&lt;450)` does not hold
+ 4 | Post: light=COUNT(i=1..n, jars[i]&lt;450)
    |       ^
-Values used: cnt = 2, n = 5, nums = [3, 72, 81, 4, 5].
-`cnt`: the test case says 2, the specification gives 3
+Values used: light = 3, n = 5, jars = [452, 438, 450, 447, 461].
+`light`: the test case says 3, the specification gives 2
 Fix: Either the expected output in the test case is wrong, or the postcondition does not describe the task.
 </code></pre>
 <p>When an online error message is hard to understand, paste the specification into
 speci-local. Its explanation usually makes the problem clear.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="solving-tasks-step-by-step"><a class="header" href="#solving-tasks-step-by-step">Solving tasks step by step</a></h1>
-<p>This part solves complete tasks, most of them from the course material,
-from the problem statement to a green test suite. Each one follows the same
-method:</p>
+<p>This part solves complete tasks from the problem statement to a green test
+suite. Every task was invented for this book. They all take place in Borbála’s
+apiary in Hive Valley, a place that exists only here, so the data stays
+familiar and you can concentrate on the specification. Each one follows the
+same method:</p>
 <ol>
 <li><strong>Read the task</strong> and underline what is given and what is asked.</li>
 <li><strong>Declare the data.</strong> Inputs, outputs, and any auxiliary values the
@@ -3510,743 +3480,769 @@ Look for nesting (“for each … every …”) and for steps (“first … then
 <tr><th>Task</th><th>Theorems</th><th>Data</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#the-discworld-libraries">The Discworld libraries</a></td><td><code>SEARCH</code> + implication</td><td>array of records</td></tr>
-<tr><td><a href="#yossarians-map">Yossarian’s map</a></td><td><code>MAX</code> of <code>MAX</code></td><td>matrix</td></tr>
-<tr><td><a href="#trurls-robots">Trurl’s robots</a></td><td><code>MIS</code> + nested <code>SUM</code></td><td>array</td></tr>
-<tr><td><a href="#catberts-coffee-breaks">Catbert’s coffee breaks</a></td><td><code>SEARCH</code> + nested <code>FORALL</code></td><td>matrix</td></tr>
-<tr><td><a href="#dogberts-star">Dogbert’s star</a></td><td><code>CONDMAX</code>, slot skipping</td><td>open array</td></tr>
-<tr><td><a href="#the-travel-agency">The travel agency</a></td><td>relational, or <code>MAX</code>+<code>MIS</code>+<code>MIN</code></td><td>parallel arrays</td></tr>
-<tr><td><a href="#divisors">Divisors</a></td><td><code>DARAB</code>, filtered <code>SUM</code></td><td>a single number</td></tr>
-<tr><td><a href="#card-values">Card values</a></td><td>relational, lookup table</td><td>constant arrays</td></tr>
-<tr><td><a href="#christmas-trees">Christmas trees</a></td><td><code>SEARCH</code> with a −1 result, relational</td><td>array</td></tr>
+<tr><td><a href="#the-swarm-on-the-scale">The swarm on the scale</a></td><td><code>SEARCH</code> + implication</td><td>array of records</td></tr>
+<tr><td><a href="#the-most-reliable-hive">The most reliable hive</a></td><td><code>MAX</code> of <code>MIN</code></td><td>matrix</td></tr>
+<tr><td><a href="#the-nectar-flow">The nectar flow</a></td><td><code>MIS</code> + nested <code>SUM</code></td><td>array</td></tr>
+<tr><td><a href="#harvest-day">Harvest day</a></td><td><code>SEARCH</code> + nested <code>FORALL</code> over columns</td><td>matrix</td></tr>
+<tr><td><a href="#the-coldest-flight">The coldest flight</a></td><td><code>CONDMIN</code>, slot skipping</td><td>open array of records</td></tr>
+<tr><td><a href="#the-honey-fair">The honey fair</a></td><td><code>MAX</code> + filtered <code>SUM</code>, or relational</td><td>parallel arrays</td></tr>
+<tr><td><a href="#the-feeding-calendar">The feeding calendar</a></td><td><code>DARAB</code>, filtered <code>SUM</code></td><td>a few numbers</td></tr>
+<tr><td><a href="#the-bloom-calendar">The bloom calendar</a></td><td>relational, lookup table</td><td>constant arrays</td></tr>
+<tr><td><a href="#the-overflowing-tank">The overflowing tank</a></td><td><code>SEARCH</code> with a −1 result, relational</td><td>array</td></tr>
 <tr><td><a href="#more-short-examples">More short examples</a></td><td><code>COUNT</code>+<code>FORALL</code>, <code>MIS</code>+<code>FORALL</code>, …</td><td>various</td></tr>
 </tbody>
 </table>
 </div>
-<p>The examples are written in the style of their source: the official manual’s
-tasks in English, the Hungarian course tasks with Hungarian keywords and
-names.</p>
+<p>Most tasks use English keywords. A few are written with Hungarian keywords and
+names, to show that style too.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="the-discworld-libraries"><a class="header" href="#the-discworld-libraries">The Discworld libraries</a></h1>
+<h1 id="the-swarm-on-the-scale"><a class="header" href="#the-swarm-on-the-scale">The swarm on the scale</a></h1>
 <blockquote>
-<p><em>The Librarian of the Unseen University stores the name and the coordinates
-of each Library in the Discworld. Give the first library in the list that is
-further north (its y coordinate is smaller) than the next one.</em></p>
+<p><em>Borbála keeps a scale under her best hive. Every evening she writes down its
+weight in kilograms and a short note. When a colony swarms, the hive suddenly
+gets lighter. Give the note from the first evening on which the hive was more
+than 3 kg lighter than on the evening before.</em></p>
 </blockquote>
-<p><strong>Task type:</strong> search over an array of records.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=6117a7d1-fd33-48e3-8f5b-55bafbb65a64">Official solution</a>.</p>
+<p><strong>Task type:</strong> search over an array of records.</p>
 <h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> n libraries, each with a name and two coordinates. That calls for
-a record <code>Tpl=(name:S x x:N x y:N)</code> and an array of them.</li>
-<li><strong>Question.</strong> <em>The first library that…</em> We look for one element, and there may
-be none. That’s <strong>search</strong>.</li>
-<li><strong>Condition.</strong> Library <em>i</em> is further north than library <em>i+1</em>. Wait:
-“further north” means a <em>smaller</em> y. Compare that with the official
-solution’s condition, <code>pl[i].y&lt;pl[i+1].y</code>, which says y of <em>i</em> is smaller than y
-of <em>i+1</em>. Library <em>i</em> has the smaller y, so it is the one further north. Good.</li>
-<li><strong>Range.</strong> Because we compare with the next one, <code>i</code> runs only to <code>n-1</code>.</li>
-<li><strong>Output.</strong> The library’s <em>name</em>, which only exists if the search
-succeeds. That calls for an implication.</li>
+<li><strong>Data.</strong> n readings, each with a note and a weight. That calls for a record
+<code>Reading=(note:S x kg:N)</code> and an array of them.</li>
+<li><strong>Question.</strong> <em>The first evening on which…</em> We look for one element, and
+there may be none. That’s <code>SEARCH</code>.</li>
+<li><strong>Condition.</strong> Evening <code>i</code> compared with the evening before it:
+<code>log[i-1].kg-log[i].kg&gt;3</code>. “More than 3” means that a drop of exactly 3 doesn’t count.</li>
+<li><strong>Range.</strong> Evening <code>i</code> looks back at <code>i-1</code>, so <code>i</code> starts at 2. (Looking
+forward would mean stopping at <code>n-1</code> instead.)</li>
+<li><strong>Output.</strong> The note only exists if the search succeeds. That calls for an
+implication.</li>
 </ul>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, pl∈Tpl[1..n], Tpl=(name:S x x:N x y:N)
+<pre><code class="language-speci">In: n∈N, log∈Reading[1..n], Reading=(note:S x kg:N)
 Aux: found∈L, ind∈N
-Out: lib∈S
-Pre: ∀i∈[1..n]:(pl[i].x≥0 and pl[i].y≥0)
-Post: (found,ind)=SEARCH(i=1..n-1, pl[i].y&lt;pl[i+1].y) and
-      (found -&gt; lib=pl[ind].name)
+Out: msg∈S
+Pre: n≥1
+Post: (found,ind)=SEARCH(i=2..n, log[i-1].kg-log[i].kg&gt;3) and
+      (found -&gt; msg=log[ind].note)
 </code></pre>
 <h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>The statement’s example, where L4 (y = 4) is followed by L5 (y = 47):</p>
+<p>The nominal case. The weight drops by 2 on evening 3, then by 5 on evening 4:</p>
 <pre><code class="language-yaml">n: 5
-pl: [
-  {name: "L1", x: 12, y: 24},
-  {name: "L2", x: 5, y: 15},
-  {name: "L3", x: 69, y: 4},
-  {name: "L4", x: 12, y: 4},
-  {name: "L5", x: 212, y: 47}
-]
-lib: L4
+log:
+  - note: calm
+    kg: 41
+  - note: calm
+    kg: 42
+  - note: rain
+    kg: 40
+  - note: bees everywhere
+    kg: 35
+  - note: quiet
+    kg: 34
 found: true
 ind: 4
+msg: bees everywhere
 </code></pre>
-<p>Negative, where every library is further south than the previous one:</p>
-<pre><code class="language-yaml">n: 4
-pl: [
-  {name: "L1", x: 10, y: 50},
-  {name: "L2", x: 20, y: 40},
-  {name: "L3", x: 30, y: 30},
-  {name: "L4", x: 40, y: 20}
-]
-lib: ""
+<p>Negative, a slow decline that never drops by more than 1 kg:</p>
+<pre><code class="language-yaml">n: 3
+log: [{note: a, kg: 30}, {note: b, kg: 29}, {note: c, kg: 28}]
 found: false
 ind: 4
+msg: ""
 </code></pre>
-<p>Boundary, with a single library (the range <code>1..0</code> is empty):</p>
-<pre><code class="language-yaml">n: 1
-pl: [{name: "L1", x: 0, y: 10}]
-lib: ""
+<p>Boundary, a drop of exactly 3 kg, which is not <em>more than</em> 3:</p>
+<pre><code class="language-yaml">n: 2
+log: [{note: a, kg: 30}, {note: b, kg: 27}]
 found: false
-ind: 1
+ind: 3
+msg: ""
 </code></pre>
-<p>A wrong expectation must be caught:</p>
+<p>Boundary, a single evening (the range <code>2..1</code> is empty):</p>
+<pre><code class="language-yaml">n: 1
+log: [{note: first day, kg: 20}]
+found: false
+ind: 2
+msg: ""
+</code></pre>
+<p>A wrong expectation must be caught. This one claims the 2 kg drop on evening 3:</p>
 <pre><code class="language-yaml red">n: 5
-pl: [
-  {name: "L1", x: 12, y: 24},
-  {name: "L2", x: 5, y: 15},
-  {name: "L3", x: 69, y: 4},
-  {name: "L4", x: 12, y: 4},
-  {name: "L5", x: 212, y: 47}
-]
-lib: L3
+log: [{note: calm, kg: 41}, {note: calm, kg: 42}, {note: rain, kg: 40}, {note: bees everywhere, kg: 35}, {note: quiet, kg: 34}]
 found: true
 ind: 3
+msg: rain
 </code></pre>
 <h2 id="walkthrough"><a class="header" href="#walkthrough">Walkthrough</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">y[i]</th><th style="text-align: right">y[i+1]</th><th style="text-align: center">y[i] &lt; y[i+1]?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center"><code>log[i-1].kg</code></th><th style="text-align: center"><code>log[i].kg</code></th><th style="text-align: center">drop</th><th style="text-align: center">more than 3?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">24</td><td style="text-align: right">15</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">15</td><td style="text-align: right">4</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">47</td><td style="text-align: center"><strong>yes</strong></td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">41</td><td style="text-align: center">42</td><td style="text-align: center">−1</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">42</td><td style="text-align: center">40</td><td style="text-align: center">2</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">40</td><td style="text-align: center">35</td><td style="text-align: center">5</td><td style="text-align: center"><strong>yes</strong></td></tr>
 </tbody>
 </table>
 </div>
-<p>The search stops at i = 4, so <code>found = true</code> and <code>ind = 4</code>, and the
-implication requires <code>lib = pl[4].name = "L4"</code>.</p>
+<p>The search stops at <code>i = 4</code>, so <code>found = true</code> and <code>ind = 4</code>, and the
+implication requires <code>msg = log[4].note</code>.</p>
 <h2 id="about-the-parentheses"><a class="header" href="#about-the-parentheses">About the parentheses</a></h2>
-<p>The official solution writes the last line without parentheses:</p>
-<pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists -&gt; lib=pl[ind].name
+<p>Leaving out the parentheses around the implication is an easy mistake:</p>
+<pre><code class="language-speci fragment">Post: (found,ind)=SEARCH(i=2..n, log[i-1].kg-log[i].kg&gt;3) and
+      found -&gt; msg=log[ind].note
 </code></pre>
 <p>Because <code>-&gt;</code> binds more weakly than <code>and</code>, this means
-<code>(SEARCH… and exists) -&gt; lib=…</code>. If a test case has wrong values for <code>exists</code> or
-<code>ind</code>, the left side is false and the whole statement is <em>true</em>, so
-the error goes unnoticed. With the parentheses, as above, the red test is
-correctly red. (The official solution also names the flag <code>exists</code>, which the
-current editor rejects. See <a href="#search-search">Search</a>.)</p>
+<code>(SEARCH… and found) -&gt; msg=…</code>. If a test case has wrong values for <code>found</code> or
+<code>ind</code>, the left side is false and the whole statement is <strong>true</strong>, so the error
+goes unnoticed. With the parentheses, as above, the red test is correctly red.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="yossarians-map"><a class="header" href="#yossarians-map">Yossarian’s map</a></h1>
+<h1 id="the-most-reliable-hive"><a class="header" href="#the-most-reliable-hive">The most reliable hive</a></h1>
 <blockquote>
-<p><em>Yossarian marked on a grid map (n × m) how many times he had been to each
-place. Which place had he been to the most? Give the “coordinates” of the
-first such place.</em></p>
+<p><em>Borbála weighs the honey from each of her n hives in each of m weeks. A
+single great week means little to her: she trusts the hive whose <strong>worst</strong>
+week was the best. Which hive is that, and in which week did it have its
+worst result? If there are several, give the first.</em></p>
 </blockquote>
-<p><strong>Task type:</strong> maximum selection in a matrix.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=0ae47017-4755-40de-82b5-00ba484d7637">Official solution</a>.</p>
+<p><strong>Task type:</strong> maximum of minimums in a matrix.</p>
 <h2 id="analysis-1"><a class="header" href="#analysis-1">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> An n × m matrix of natural numbers: <code>map∈N[1..n,1..m]</code>.</li>
-<li><strong>Question.</strong> The position of the largest value: a <strong>maximum</strong>, but over two
-indices.</li>
-<li><strong>Decomposition.</strong> First find the maximum of each row (inner <code>MAX</code> over the
-columns), then the row with the largest row-maximum (outer <code>MAX</code> over the
-rows). The inner one becomes a function returning (column, value).</li>
-<li><strong>“The first such place”</strong>: <code>MAX</code> already takes the first maximum, in both
-the row and the column.</li>
+<li><strong>Data.</strong> An n × m matrix of natural numbers, <code>y∈N[1..n,1..m]</code>, with one row per hive.</li>
+<li><strong>Question.</strong> Two questions, one inside the other. For each hive: what was
+its worst week? (<code>MIN</code> over the columns.) Then: which hive has the best such
+value? (<code>MAX</code> over the rows.)</li>
+<li><strong>Decomposition.</strong> The inner <code>MIN</code> becomes a function of the hive. It returns
+a (week, value) pair, whose parts are called <code>.minind</code> and <code>.minval</code>.</li>
+<li><strong>“The first.”</strong> <code>MAX</code> and <code>MIN</code> both take the first index on a tie, so
+nothing extra is needed.</li>
 </ul>
 <h2 id="specification-1"><a class="header" href="#specification-1">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, m∈N, map∈N[1..n,1..m]
-Out: mpx∈N, mpy∈N
-Fn: maxcol:N-&gt;N x N, maxcol(i)=MAX(j=1..m, map[i,j])
+<pre><code class="language-speci">In: n∈N, m∈N, y∈N[1..n,1..m]
+Out: hive∈N, week∈N
+Fn: worst:N-&gt;N x N, worst(h)=MIN(w=1..m, y[h,w])
 Pre: n&gt;0 and m&gt;0
-Post: (mpx,)=MAX(i=1..n, maxcol(i).maxval) and
-      mpy=maxcol(mpx).maxind
+Post: (hive,)=MAX(h=1..n, worst(h).minval) and
+      week=worst(hive).minind
 </code></pre>
 <ul>
-<li><code>maxcol(i)</code> is the pair (column of the maximum, maximum) for row <em>i</em>.</li>
-<li><code>maxcol(i).maxval</code> is the maximum of row <em>i</em>. The outer <code>MAX</code> keeps only the
-row index: <code>(mpx,)</code>.</li>
-<li><code>maxcol(mpx).maxind</code> is the column of the maximum within the chosen row.</li>
+<li><code>worst(h)</code> is the pair (week of the minimum, minimum) for hive <code>h</code>.</li>
+<li><code>worst(h).minval</code> is the worst result of hive <code>h</code>. The outer <code>MAX</code> keeps only
+the hive’s index: <code>(hive,)</code>.</li>
+<li><code>worst(hive).minind</code> is the week of the worst result of the chosen hive.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The official solution’s precondition is <code>∀i∈[1..n]:(∀j∈[1..m]:(map[i,j]≥0))</code>,
-which is always true for <code>N</code>. What <code>MAX</code> actually needs is a non-empty
-matrix, so this version says <code>n&gt;0 and m&gt;0</code>.</p>
+<p><code>MIN</code> and <code>MAX</code> need a non-empty range. That’s why the precondition requires
+<code>n&gt;0 and m&gt;0</code>. <code>n∈N</code> alone would allow <code>n: 0</code>.</p>
 </blockquote>
 <h2 id="tests-1"><a class="header" href="#tests-1">Tests</a></h2>
-<p>The statement’s example, where the maximum 23 occurs in rows 2 and 4 (the first
-one wins):</p>
-<pre><code class="language-yaml">n: 6
-m: 4
-map: [
-  [12, 3, 1, 4],
-  [3, 2, 23, 5],
-  [4, 2, 2, 1],
-  [5, 2, 23, 0],
-  [0, 2, 4, 1],
-  [0, 0, 0, 1]
-]
-mpx: 2
-mpy: 3
-</code></pre>
-<p>The maximum in the top-left corner:</p>
+<p>The nominal case. Hive 3 has the highest single weeks, but hive 2 has the best worst week:</p>
 <pre><code class="language-yaml">n: 3
-m: 3
-map: [[99, 10, 5], [20, 30, 40], [15, 25, 35]]
-mpx: 1
-mpy: 1
+m: 4
+y: [
+  [9, 2, 7, 8],
+  [5, 6, 4, 5],
+  [3, 9, 9, 9]
+]
+hive: 2
+week: 3
 </code></pre>
-<p>All cells equal, so the first cell is chosen:</p>
+<p>A tie between hives, so the first hive wins:</p>
 <pre><code class="language-yaml">n: 2
 m: 2
-map: [[7, 7], [7, 7]]
-mpx: 1
-mpy: 1
+y: [[4, 5], [5, 4]]
+hive: 1
+week: 1
 </code></pre>
-<p>The second occurrence is <em>not</em> accepted:</p>
-<pre><code class="language-yaml red">n: 2
-m: 2
-map: [[1, 9], [9, 1]]
-mpx: 2
-mpy: 1
+<p>A single hive with two equally bad weeks, so the first of them counts:</p>
+<pre><code class="language-yaml">n: 1
+m: 3
+y: [[6, 3, 3]]
+hive: 1
+week: 2
+</code></pre>
+<p>The hive with the largest single value is not the answer:</p>
+<pre><code class="language-yaml red">n: 3
+m: 4
+y: [[9, 2, 7, 8], [5, 6, 4, 5], [3, 9, 9, 9]]
+hive: 3
+week: 1
 </code></pre>
 <h2 id="walkthrough-first-test"><a class="header" href="#walkthrough-first-test">Walkthrough (first test)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">row i</th><th style="text-align: center"><code>maxcol(i)</code></th><th style="text-align: right"><code>.maxval</code></th></tr>
+<tr><th style="text-align: center">hive h</th><th style="text-align: center"><code>worst(h)</code></th><th style="text-align: center"><code>.minval</code></th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: center">(1, 12)</td><td style="text-align: right">12</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: center">(3, 23)</td><td style="text-align: right"><strong>23</strong></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: center">(1, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: center">(3, 23)</td><td style="text-align: right">23</td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: center">(3, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: center">(4, 1)</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">(2, 2)</td><td style="text-align: center">2</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">(3, 4)</td><td style="text-align: center"><strong>4</strong></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">(1, 3)</td><td style="text-align: center">3</td></tr>
 </tbody>
 </table>
 </div>
-<p>The outer <code>MAX</code> finds 23 first in row 2, so <code>mpx = 2</code>. Then
-<code>maxcol(2).maxind = 3</code>, so <code>mpy = 3</code>.</p>
+<p>The outer <code>MAX</code> finds 4 in row 2, so <code>hive = 2</code>. Then
+<code>worst(2).minind = 3</code>, so <code>week = 3</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="trurls-robots"><a class="header" href="#trurls-robots">Trurl’s robots</a></h1>
+<h1 id="the-nectar-flow"><a class="header" href="#the-nectar-flow">The nectar flow</a></h1>
 <blockquote>
-<p><em>For n days, Trurl recorded how many robots he built. List the days on which
-he built more robots than the total number of robots built in the previous d
-days (1 &lt; d &lt; n).</em></p>
+<p><em>Borbála records how much nectar her colonies brought in on each of n days.
+She calls a stretch of d consecutive days a <strong>flow</strong> if at least <code>goal</code> units
+arrived during it. List the last day of every flow.</em></p>
 </blockquote>
 <p><strong>Task type:</strong> compound pattern. Multiple item selection is the main pattern,
 and summation is the nested pattern.</p>
 <h2 id="analysis-2"><a class="header" href="#analysis-2">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> <code>n</code>, <code>d</code>, and the daily counts <code>tr∈N[1..n]</code>.</li>
-<li><strong>Question.</strong> <em>List the days on which…</em> means collecting several indices, so
-<strong>MIS</strong>.</li>
-<li><strong>Condition for day i.</strong> <code>tr[i]</code> is greater than the sum of the previous <em>d</em>
-days, <code>tr[i-d] + … + tr[i-1]</code>. That’s a <strong>SUM</strong>, which becomes a function.</li>
-<li><strong>Range.</strong> Day <em>i</em> needs <em>d</em> previous days, so <code>i</code> starts at <code>d+1</code>.</li>
-<li><strong>Precondition.</strong> The statement says <code>1 &lt; d &lt; n</code>.</li>
+<li><strong>Data.</strong> <code>n</code>, <code>d</code>, <code>goal</code>, and the daily amounts <code>nectar∈N[1..n]</code>.</li>
+<li><strong>Question.</strong> <em>List the days on which…</em> means collecting several indices, so <code>MIS</code>.</li>
+<li><strong>Condition for day i.</strong> The last d days, ending with day <code>i</code>, add up to at
+least <code>goal</code>. That’s a <code>SUM</code>, which becomes a function:
+<code>nectar[i-d+1] + … + nectar[i]</code>.</li>
+<li><strong>Range.</strong> Day <code>i</code> needs <code>d</code> days ending with itself, so the first possible
+last day is <code>d</code>.</li>
+<li><strong>Precondition.</strong> The stretch must fit: <code>1≤d≤n</code>.</li>
 </ul>
 <h2 id="specification-2"><a class="header" href="#specification-2">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, d∈N, tr∈N[1..n]
-Out: cnt∈N, days∈N[1..cnt]
-Fn: total:N-&gt;N, total(i)=SUM(j=i-d..i-1, tr[j])
-Pre: 1&lt;d&lt;n
-Post: (cnt,days)=MIS(i=d+1..n, total(i)&lt;tr[i], i)
+<pre><code class="language-speci">In: n∈N, d∈N, goal∈N, nectar∈N[1..n]
+Out: c∈N, days∈N[1..c]
+Fn: flow:N-&gt;N, flow(i)=SUM(j=i-d+1..i, nectar[j])
+Pre: 1≤d≤n
+Post: (c,days)=MIS(i=d..n, flow(i)≥goal)
 </code></pre>
-<p>The third argument of <code>MIS</code>, <code>i</code>, collects the day numbers. With two
-arguments the result would be the same, because two-argument <code>MIS</code> collects the
-indices anyway. The course solution writes it out explicitly.</p>
+<p>Getting the window right is the whole task. For <code>d = 3</code> and <code>i = 7</code>, the range
+<code>i-d+1..i</code> is <code>5..7</code>, which is exactly three days.</p>
 <h2 id="tests-2"><a class="header" href="#tests-2">Tests</a></h2>
-<p>The nominal case, with two matching days:</p>
-<pre><code class="language-yaml">n: 10
+<p>The nominal case, with two flows:</p>
+<pre><code class="language-yaml">n: 7
 d: 3
-tr: [2, 4, 5, 1, 13, 1, 1, 1, 4, 5]
-cnt: 2
-days: [5, 9]
+goal: 20
+nectar: [5, 9, 8, 1, 0, 12, 9]
+c: 2
+days: [3, 7]
 </code></pre>
-<p>Negative, with production declining:</p>
-<pre><code class="language-yaml">n: 5
+<p>Negative, a poor week:</p>
+<pre><code class="language-yaml">n: 4
 d: 2
-tr: [100, 50, 20, 10, 5]
-cnt: 0
+goal: 100
+nectar: [1, 2, 3, 4]
+c: 0
 days: []
 </code></pre>
-<p>Boundary, <code>d = n-1</code>, so only the last day can qualify:</p>
-<pre><code class="language-yaml">n: 4
+<p>Boundary, <code>d = n</code>, and a total of exactly <code>goal</code>, which counts:</p>
+<pre><code class="language-yaml">n: 3
 d: 3
-tr: [1, 1, 1, 10]
-cnt: 1
-days: [4]
+goal: 6
+nectar: [1, 2, 3]
+c: 1
+days: [3]
 </code></pre>
-<p>The precondition excludes <code>d = 1</code>:</p>
-<pre><code class="language-yaml red">n: 4
-d: 1
-tr: [1, 2, 3, 4]
-cnt: 3
-days: [2, 3, 4]
+<p>The precondition excludes <code>d = 0</code>:</p>
+<pre><code class="language-yaml red">n: 3
+d: 0
+goal: 1
+nectar: [1, 2, 3]
+c: 0
+days: []
 </code></pre>
 <h2 id="walkthrough-first-test-d--3"><a class="header" href="#walkthrough-first-test-d--3">Walkthrough (first test, d = 3)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">day i</th><th>previous days</th><th style="text-align: right">total(i)</th><th style="text-align: right">tr[i]</th><th style="text-align: center">total(i) &lt; tr[i]?</th></tr>
+<tr><th style="text-align: center">day i</th><th style="text-align: center">window</th><th style="text-align: center"><code>flow(i)</code></th><th style="text-align: center">at least 20?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">4</td><td>2 + 4 + 5</td><td style="text-align: right">11</td><td style="text-align: right">1</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">5</td><td>4 + 5 + 1</td><td style="text-align: right">10</td><td style="text-align: right">13</td><td style="text-align: center"><strong>yes</strong></td></tr>
-<tr><td style="text-align: right">6</td><td>5 + 1 + 13</td><td style="text-align: right">19</td><td style="text-align: right">1</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">7</td><td>1 + 13 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">8</td><td>13 + 1 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">9</td><td>1 + 1 + 1</td><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: center"><strong>yes</strong></td></tr>
-<tr><td style="text-align: right">10</td><td>1 + 1 + 4</td><td style="text-align: right">6</td><td style="text-align: right">5</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">5 + 9 + 8</td><td style="text-align: center">22</td><td style="text-align: center"><strong>yes</strong></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">9 + 8 + 1</td><td style="text-align: center">18</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">8 + 1 + 0</td><td style="text-align: center">9</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">1 + 0 + 12</td><td style="text-align: center">13</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">0 + 12 + 9</td><td style="text-align: center">21</td><td style="text-align: center"><strong>yes</strong></td></tr>
 </tbody>
 </table>
 </div>
-<p>Days 5 and 9 match, so <code>cnt = 2</code> and <code>days = [5, 9]</code>.</p>
+<p>Days 3 and 7 match, so <code>c = 2</code> and <code>days = [3, 7]</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="catberts-coffee-breaks"><a class="header" href="#catberts-coffee-breaks">Catbert’s coffee breaks</a></h1>
+<h1 id="harvest-day"><a class="header" href="#harvest-day">Harvest day</a></h1>
 <blockquote>
-<p><em>Catbert organised a multi-day conference with four coffee breaks each day.
-She recorded how much coffee was consumed during each break. Find a day on
-which the participants drank more than 5 litres of coffee in each of the
-coffee breaks.</em></p>
+<p><em>Each of Borbála’s n hive boxes holds five frames, in positions 1 to 5. She
+notes what percentage of each frame is capped with wax. Her extractor lifts
+the same position from every box at once, and honey is only ripe from 80%
+upwards. Find a position where the frames of all boxes are ripe.</em></p>
 </blockquote>
-<p><strong>Task type:</strong> compound pattern. Search is the main pattern, and decision
-(all) is the nested pattern.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=96a3095f-cd78-482b-91cf-89e8a92229ab">Official solution</a>.</p>
+<p><strong>Task type:</strong> compound pattern. Search is the main pattern, and decision (all)
+is the nested pattern.</p>
 <h2 id="analysis-3"><a class="header" href="#analysis-3">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> n days × 4 breaks, a matrix <code>coffe∈N[1..n,1..4]</code>. (The course
-solution spells it <code>coffe</code>.)</li>
-<li><strong>Question.</strong> <em>Find a day</em>, which may not exist, so <strong>search</strong>.</li>
-<li><strong>Condition for day i.</strong> <em>Each</em> of the four breaks was above 5, so
-<strong>FORALL</strong>, as a function of the day.</li>
+<li><strong>Data.</strong> n boxes × 5 positions, a matrix <code>capped∈N[1..n,1..5]</code>.</li>
+<li><strong>Question.</strong> <em>Find a position</em>, which may not exist, so <code>SEARCH</code>.</li>
+<li><strong>The outer loop runs over columns.</strong> We ask about positions, so the outer
+variable <code>p</code> runs along the second index. Most matrix tasks go row by row, so this is easy to get backwards.</li>
+<li><strong>Condition for position p.</strong> All boxes have at least 80 there, so <code>FORALL</code>
+over the rows, as a function of the position.</li>
+<li><strong>Precondition.</strong> Percentages go up to 100. And <code>n≥1</code>: with no boxes, <code>FORALL</code>
+is true on the empty range, so position 1 would count as ripe.</li>
 </ul>
 <h2 id="specification-3"><a class="header" href="#specification-3">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
 Aux: found∈L
-Out: ind∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
-Pre: -
-Post: (found,ind)=SEARCH(i=1..n, more5(i))
+Out: pos∈N
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
+Pre: n≥1 and ∀b∈[1..n]:(∀p∈[1..5]:(capped[b,p]≤100))
+Post: (found,pos)=SEARCH(p=1..5, ripe(p))
 </code></pre>
 <h2 id="tests-3"><a class="header" href="#tests-3">Tests</a></h2>
-<p>Day 2 is the only day with all four breaks above 5:</p>
+<p>Position 3 is the first where every box reaches 80:</p>
 <pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+capped: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 found: true
-ind: 2
+pos: 3
 </code></pre>
-<p>No such day. Day 2 has a break of exactly 5, which is not <em>more</em> than 5:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [
-  [4, 3, 5, 6],
-  [6, 7, 5, 6],
-  [5, 6, 5, 6]
+<p>No such position. A 79 is not enough, and each position fails in some box:</p>
+<pre><code class="language-yaml">n: 2
+capped: [
+  [79, 90, 90, 10, 90],
+  [90, 79, 10, 90, 79]
 ]
 found: false
-ind: 0
+pos: 6
 </code></pre>
-<p>The official example of a failed search. It writes <code>ind: 4</code> (n + 1), which is
-what the step list shows:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [
-  [5, 6, 7, 4],
-  [6, 4, 6, 8],
-  [1, 2, 3, 4]
-]
-found: false
-ind: 4
-</code></pre>
-<p>Several good days, so the first one must be chosen:</p>
-<pre><code class="language-yaml">n: 3
-coffe: [[1, 1, 1, 1], [6, 6, 6, 6], [9, 9, 9, 9]]
+<p>Boundary, exactly 80 counts:</p>
+<pre><code class="language-yaml">n: 1
+capped: [[10, 80, 100, 0, 0]]
 found: true
-ind: 2
+pos: 2
+</code></pre>
+<p>Every position is ripe, so the first one must be chosen:</p>
+<pre><code class="language-yaml">n: 2
+capped: [[85, 85, 85, 85, 85], [85, 85, 85, 85, 85]]
+found: true
+pos: 1
 </code></pre>
 <h2 id="in-the-step-list"><a class="header" href="#in-the-step-list">In the step list</a></h2>
-<p>The step list of the official solution is explained line by line in
+<p>The evaluation of the first test is explained line by line in
 <a href="#stepper-and-step-list">Stepper and step list</a>. It shows the evaluation entering
-<code>more5</code> (↓) for each day and returning (↑) with the result.</p>
+<code>ripe</code> (↓) for each position and returning (↑) with the result.</p>
 <h2 id="variants"><a class="header" href="#variants">Variants</a></h2>
 <ul>
-<li><em>How many days</em> had every break above 5? Use <code>COUNT</code> instead of <code>SEARCH</code>:
-<code>c=COUNT(i=1..n, more5(i))</code>.</li>
-<li><em>Was there a day</em> with a break under 5? Use <code>EXISTS</code> with a nested <code>EXISTS</code>:
-<code>l=EXISTS(i=1..n, EXISTS(j=1..4, coffe[i,j]&lt;5))</code>.</li>
-<li><em>Which</em> days? Use <code>MIS</code>: <code>(c,days)=MIS(i=1..n, more5(i))</code>.</li>
+<li><em>How many positions are ripe?</em> Use <code>COUNT</code> instead of <code>SEARCH</code>:
+<code>c=COUNT(p=1..5, ripe(p))</code>.</li>
+<li><em>Is some frame below 20% anywhere?</em> Use <code>EXISTS</code> with a nested <code>EXISTS</code>:
+<code>l=EXISTS(b=1..n, EXISTS(p=1..5, capped[b,p]&lt;20))</code>.</li>
+<li><em>Which positions?</em> Use <code>MIS</code>: <code>(c,ps)=MIS(p=1..5, ripe(p))</code>.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="dogberts-star"><a class="header" href="#dogberts-star">Dogbert’s star</a></h1>
+<h1 id="the-coldest-flight"><a class="header" href="#the-coldest-flight">The coldest flight</a></h1>
 <blockquote>
-<p><em>Dogbert measured a star’s brightness at regular intervals. Measurements below
-k indicate cloud cover. Determine the maximum change in brightness between two
-consecutive measurements taken under clear skies (no cloud cover).</em></p>
+<p><em>Borbála sits by the hive entrance with a thermometer and a clicker. For each
+observation she notes the temperature and how many bees left in a minute.
+She counts it as a real flight if more than k bees left. What is the lowest
+temperature at which a real flight happened?</em></p>
 </blockquote>
-<p><strong>Task type:</strong> conditional maximum selection in a sequence.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=e0d5b6d7-8231-455d-aed5-e8a7f5420c5e">Official solution</a>.</p>
+<p><strong>Task type:</strong> conditional minimum selection.</p>
 <h2 id="analysis-4"><a class="header" href="#analysis-4">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> The threshold <code>k</code> and the measurements. Their number isn’t given
-separately, so the array is open-ended: <code>data∈Z[1..]</code>, with
-<code>length(data)</code> as its size.</li>
-<li><strong>Question.</strong> <em>The maximum change</em>, but only between pairs where <strong>both</strong>
-measurements are clear. That’s a maximum with a condition, so <strong>CONDMAX</strong>.</li>
-<li><strong>Value for pair i.</strong> <code>data[i]-data[i+1]</code>.</li>
-<li><strong>Condition for pair i.</strong> <code>data[i]&gt;k and data[i+1]&gt;k</code>.</li>
-<li><strong>Range.</strong> Pairs (i, i+1), so <code>i</code> runs to <code>length(data)-1</code>.</li>
-<li><strong>Output.</strong> Whether there was any clear pair, and the maximum. The index isn’t
-asked for, so its slot is skipped: <code>(found,,maxval)</code>.</li>
+<li><strong>Data.</strong> The threshold <code>k</code> and the observations. Their number isn’t given
+separately, so the array is open-ended: <code>obs∈Obs[]</code>, with <code>length(obs)</code> as
+its size. Temperatures can be negative, so the field is <code>Z</code>.</li>
+<li><strong>Question.</strong> The minimum temperature, but only among the real flights. That’s
+a minimum with a condition, so <code>CONDMIN</code>. A plain <code>MIN</code> would find the coldest
+observation, which is usually one with no bees at all.</li>
+<li><strong>Value for i.</strong> <code>obs[i].temp</code>.</li>
+<li><strong>Condition for i.</strong> <code>obs[i].bees&gt;k</code>.</li>
+<li><strong>Output.</strong> Whether there was any flight, and the temperature. The index isn’t
+asked for, so its slot is skipped: <code>(any,,coldest)</code>.</li>
 </ul>
 <h2 id="specification-4"><a class="header" href="#specification-4">Specification</a></h2>
-<pre><code class="language-speci">In: k∈N, data∈Z[1..]
-Out: found∈L, maxval∈Z
+<pre><code class="language-speci">In: k∈N, obs∈Obs[], Obs=(temp:Z x bees:N)
+Out: any∈L, coldest∈Z
 Pre: -
-Post: (found,,maxval)=CONDMAX(i=1..length(data)-1,
-      data[i]-data[i+1], data[i]&gt;k and data[i+1]&gt;k)
+Post: (any,,coldest)=CONDMIN(i=1..length(obs), obs[i].temp, obs[i].bees&gt;k)
 </code></pre>
 <h2 id="tests-4"><a class="header" href="#tests-4">Tests</a></h2>
-<p>The nominal case, with several clear pairs and a maximum change of 6:</p>
-<pre><code class="language-yaml">k: 10
-data: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-found: true
-maxval: 6
-</code></pre>
-<p>The same data under heavier clouds, with no clear pair at all:</p>
+<p>The nominal case. The −1 °C and 3 °C observations don’t count as flights:</p>
 <pre><code class="language-yaml">k: 50
-data: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-found: false
-maxval: 0
+obs:
+  - temp: 14
+    bees: 120
+  - temp: 6
+    bees: 60
+  - temp: 3
+    bees: 10
+  - temp: -1
+    bees: 0
+  - temp: 9
+    bees: 80
+any: true
+coldest: 6
 </code></pre>
-<p>Exactly two measurements, both clear:</p>
-<pre><code class="language-yaml">k: 10
-data: [45, 20]
-found: true
-maxval: 25
+<p>Boundary, the same data with <code>k: 60</code>, where exactly 60 bees is no longer a flight:</p>
+<pre><code class="language-yaml">k: 60
+obs: [{temp: 14, bees: 120}, {temp: 6, bees: 60}, {temp: 3, bees: 10}, {temp: -1, bees: 0}, {temp: 9, bees: 80}]
+any: true
+coldest: 9
 </code></pre>
-<h2 id="walkthrough-first-test-k--10"><a class="header" href="#walkthrough-first-test-k--10">Walkthrough (first test, k = 10)</a></h2>
+<p>Negative, no flight at all:</p>
+<pre><code class="language-yaml">k: 500
+obs: [{temp: 14, bees: 120}, {temp: 6, bees: 60}]
+any: false
+coldest: 0
+</code></pre>
+<p>A real flight below freezing, to check that the output really is <code>Z</code>:</p>
+<pre><code class="language-yaml">k: 0
+obs: [{temp: 2, bees: 5}, {temp: -3, bees: 1}]
+any: true
+coldest: -3
+</code></pre>
+<h2 id="walkthrough-first-test-k--50"><a class="header" href="#walkthrough-first-test-k--50">Walkthrough (first test, k = 50)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">data[i]</th><th style="text-align: right">data[i+1]</th><th style="text-align: center">both &gt; 10?</th><th style="text-align: right">change</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">temp</th><th style="text-align: center">bees</th><th style="text-align: center">more than 50?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">34</td><td style="text-align: right">30</td><td style="text-align: center">yes</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">30</td><td style="text-align: right">1</td><td style="text-align: center">no</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">1</td><td style="text-align: right">2</td><td style="text-align: center">no</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">2</td><td style="text-align: right">1</td><td style="text-align: center">no</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: right">1</td><td style="text-align: right">30</td><td style="text-align: center">no</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: right">30</td><td style="text-align: right">33</td><td style="text-align: center">yes</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">7</td><td style="text-align: right">33</td><td style="text-align: right">27</td><td style="text-align: center">yes</td><td style="text-align: right"><strong>6</strong></td></tr>
-<tr><td style="text-align: right">8</td><td style="text-align: right">27</td><td style="text-align: right">30</td><td style="text-align: center">yes</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">9</td><td style="text-align: right">30</td><td style="text-align: right">32</td><td style="text-align: center">yes</td><td style="text-align: right">−2</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">14</td><td style="text-align: center">120</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">6</td><td style="text-align: center">60</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3</td><td style="text-align: center">10</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">−1</td><td style="text-align: center">0</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">9</td><td style="text-align: center">80</td><td style="text-align: center">yes</td></tr>
 </tbody>
 </table>
 </div>
-<p>The largest change among the clear pairs is 6 (at i = 7).</p>
+<p>The lowest temperature among the matching rows is 6.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>This specification measures the change as <code>data[i]-data[i+1]</code>, a <em>signed</em>
-difference, exactly like the official solution. If “change” should mean
-the size of the change in either direction, use
-<code>abs(data[i]-data[i+1])</code>. Then the answer for the first test is still 6,
-but for <code>data: [20, 45]</code> it would be 25 instead of −25.</p>
+<p>When <code>any</code> is false, <code>coldest</code> carries no meaning and any value passes, so
+writing 0 is only a convention. If the task wanted a specific “no answer”
+value, the postcondition would have to produce it, as in
+<a href="#the-overflowing-tank">The overflowing tank</a>.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="the-travel-agency"><a class="header" href="#the-travel-agency">The travel agency</a></h1>
+<h1 id="the-honey-fair"><a class="header" href="#the-honey-fair">The honey fair</a></h1>
 <blockquote>
-<p><em>A travel agency stores which cities it sells plane tickets to, how far away
-they are, and at what price. Give the price of the ticket to the farthest
-city! If several cities are equally far, give the cheapest of them.</em></p>
-<p><strong>Input:</strong> N (1 ≤ N ≤ 100), then N lines with the distance
-(1 ≤ T ≤ 20 000) and the price (1 ≤ Á ≤ 2 000 000).
-<strong>Output:</strong> one integer, the price.</p>
+<p><em>At the Hive Valley honey fair Borbála noted N sales. For each one she wrote
+down the honey type (numbered 1 to K), the number of jars and the price of a
+jar. Which honey type earned the most? If several earned the same, give the
+smallest number.</em></p>
+<p><strong>Input:</strong> N (1 ≤ N ≤ 100) and K (1 ≤ K ≤ 10), then N lines with the type
+(1 ≤ F ≤ K), the jars (1 ≤ D ≤ 50) and the price (1 ≤ Á ≤ 9000).
+<strong>Output:</strong> one integer, the type.</p>
 </blockquote>
-<p>This Hungarian course task was verified on the live editor. It is written in
-the canonical Hungarian style: Hungarian headers and names, one declaration per
-line, a blank line between blocks.</p>
+<p>This task is written in the Hungarian style: Hungarian headers and names, one
+declaration per line, a blank line between blocks. <code>fajta</code> is the type, <code>db</code> the
+number of jars, <code>ar</code> the price, <code>bev</code> the revenue and <code>legjobb</code> the best type.</p>
 <h2 id="analysis-5"><a class="header" href="#analysis-5">Analysis</a></h2>
 <ul>
-<li><strong>Data.</strong> The input comes as N lines of (distance, price). Two parallel
-arrays, <code>tav</code> (distance) and <code>ar</code> (price), mirror that directly.</li>
-<li><strong>Question.</strong> A single price, defined by a property: the price of a city
-that is farthest, and cheapest among the farthest ones.</li>
-<li><strong>Style.</strong> The property translates directly into a relational postcondition. A
-theorem version is shown below too.</li>
+<li><strong>Data.</strong> The input comes as N lines of (type, jars, price). Three parallel
+arrays mirror that directly. <code>k</code> says how many types exist.</li>
+<li><strong>Question.</strong> The outer pattern is a maximum over the <strong>types</strong>, not over the
+sales. That’s the key step: the loop variable <code>t</code> runs over <code>1..k</code>.</li>
+<li><strong>Inner pattern.</strong> The revenue of type <code>t</code> is the sum of <code>db[i]*ar[i]</code> over the
+sales of that type, so a filtered <code>SUM</code>, which becomes a function.</li>
+<li><strong>Ties.</strong> <code>MAX</code> takes the first index, which is the smallest type number.</li>
 </ul>
-<h2 id="specification-relational"><a class="header" href="#specification-relational">Specification (relational)</a></h2>
+<h2 id="specification-with-theorems"><a class="header" href="#specification-with-theorems">Specification (with theorems)</a></h2>
 <pre><code class="language-speci">Be:
 n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
 Ki:
-max∈N
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
 Ef:
-1&lt;=n and n&lt;=100 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=2000000 and 1&lt;=tav[i] and tav[i]&lt;=20000)
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
 
 Uf:
-∃i∈[1..n]:(∀j∈[1..n]:(tav[j]&lt;tav[i] vagy (tav[j]=tav[i] és ar[j]&gt;=ar[i])) és ar[i]=max)
+(legjobb,)=MAX(t=1..k, bev(t))
 </code></pre>
-<p>Read the postcondition as: <em>there is a city i such that every city j is either
-nearer than i, or equally far but not cheaper, and the answer is the price of i.</em></p>
+<p>Note that <code>n</code>, <code>db</code> and <code>ar</code> appear in the postcondition only through <code>bev</code>. That
+satisfies the <a href="#the-all-variables-rule">all-variables rule</a>.</p>
 <h2 id="tests-5"><a class="header" href="#tests-5">Tests</a></h2>
-<p>The statement’s sample. The farthest city is no. 6 (2100), at 30 000:</p>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-max: 30000
+<p>The nominal case. Type 1 earns 9000, type 2 earns 10 000, type 3 earns 4000:</p>
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<p>A tie on the farthest distance, so the cheaper of the two is the answer:</p>
-<pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 250
+<p>A tie, so the smaller type number is the answer:</p>
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>A single city:</p>
+<p>The same tie with the larger number must be red:</p>
+<pre><code class="language-yaml red">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 2
+</code></pre>
+<p>Types with no sale at all earn 0 and can’t win:</p>
 <pre><code class="language-yaml">n: 1
-ar: [1]
-tav: [1]
-max: 1
-</code></pre>
-<p>All cities equally far, with the cheapest one last:</p>
-<pre><code class="language-yaml">n: 4
-ar: [100, 100, 2000000, 1]
-tav: [20000, 20000, 20000, 20000]
-max: 1
-</code></pre>
-<p>Not the cheapest of the farthest:</p>
-<pre><code class="language-yaml red">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 500
+k: 3
+fajta: [3]
+db: [1]
+ar: [5]
+legjobb: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Check every bound.</strong> It’s easy to copy the price limit (2 000 000) onto the
-distance as well. Such a precondition is too loose, and no test will turn
-red because of it. Compare each bound in <code>Ef:</code> with the statement.</p>
+<p><strong>Check every bound.</strong> It’s easy to copy the price limit (9000) onto the jars
+as well. Such a precondition is too loose, and no test will turn red because of
+it. Compare each bound in <code>Ef:</code> with the statement.</p>
 </blockquote>
-<h2 id="specification-with-theorems"><a class="header" href="#specification-with-theorems">Specification (with theorems)</a></h2>
-<p>The same task in three steps: the largest distance (<code>MAX</code>), the prices at
-that distance (<code>MIS</code>), and the smallest of those (<code>MIN</code>):</p>
+<h2 id="specification-relational"><a class="header" href="#specification-relational">Specification (relational)</a></h2>
+<p>The same task as a property: <em>there is a type t that is the answer, no type earned
+more than t, and every type before t earned strictly less.</em></p>
 <pre><code class="language-speci">Be:
 n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
-
-Sa:
-legtav∈N,
-db∈N,
-arak∈N[1..db]
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
 Ki:
-max∈N
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
 Ef:
-1&lt;=n and n&lt;=100 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=2000000 and 1&lt;=tav[i] and tav[i]&lt;=20000)
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
 
 Uf:
-(,legtav)=MAX(i=1..n, tav[i]) és
-(db,arak)=MIS(i=1..n, tav[i]=legtav, ar[i]) és
-(,max)=MIN(i=1..db, arak[i])
+∃t∈[1..k]:(legjobb=t és ∀u∈[1..k]:(bev(u)&lt;=bev(t)) és ∀u∈[1..t-1]:(bev(u)&lt;bev(t)))
 </code></pre>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-legtav: 2100
-db: 1
-arak: [30000]
-max: 30000
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-legtav: 1000
-db: 2
-arak: [500, 250]
-max: 250
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>The output variable is called <code>max</code>, and that’s fine: <code>MAX</code> the theorem is
-uppercase, so the two don’t collide.</p>
+<p>Without the last <code>∀</code>, both types of a tie would be accepted. Always include a
+test that makes the tie-break matter.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="divisors"><a class="header" href="#divisors">Divisors</a></h1>
-<p>Three short Hungarian course tasks about the divisors of a number. They show
-the Hungarian counting macro <code>DARAB</code>, the divisibility relation <code>|</code> and the
-filtered <code>SUM</code>.</p>
-<h2 id="number-of-divisors"><a class="header" href="#number-of-divisors">Number of divisors</a></h2>
+<h1 id="the-feeding-calendar"><a class="header" href="#the-feeding-calendar">The feeding calendar</a></h1>
+<p>Three short tasks about Borbála’s autumn calendar. Starting from day 1, she feeds
+the colonies every a days and inspects them every b days. They show the Hungarian
+counting macro <code>DARAB</code>, the divisibility relation <code>|</code> and the filtered <code>SUM</code>.
+<code>nap</code> means day, and <code>szirup</code> means syrup.</p>
+<h2 id="busy-days"><a class="header" href="#busy-days">Busy days</a></h2>
 <blockquote>
-<p><em>Ask for an integer, then print the number of its divisors!</em></p>
+<p><em>On how many of the first d days does she both feed and inspect?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: szam∈N
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: osztok∈N
+Ki: db∈N
 
-Ef: szam&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: osztok=DARAB(i=1..szam, i|szam)    // szam mod i = 0
+Uf: db=DARAB(i=1..d, a|i és b|i)    // i is a multiple of both
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+db: 2
 </code></pre>
-<pre><code class="language-yaml">szam: 1
-osztok: 1
+<pre><code class="language-yaml">d: 10
+a: 4
+b: 7
+db: 0
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 7
+a: 1
+b: 7
+db: 1
 </code></pre>
 <ul>
 <li><code>DARAB</code> is the Hungarian spelling of <code>COUNT</code>.</li>
-<li><code>i|szam</code> reads “i divides szam”, the same as <code>szam mod i = 0</code>. The line
-comment says so.</li>
-<li>The precondition excludes 0, which would have infinitely many divisors.</li>
+<li><code>a|i</code> reads “a divides i”, the same as <code>i mod a = 0</code>.</li>
+<li>The precondition excludes 0: nothing can be done “every 0 days”.</li>
 </ul>
-<h2 id="sum-of-divisors"><a class="header" href="#sum-of-divisors">Sum of divisors</a></h2>
+<h2 id="syrup-for-the-whole-autumn"><a class="header" href="#syrup-for-the-whole-autumn">Syrup for the whole autumn</a></h2>
 <blockquote>
-<p><em>Ask for an integer, then print the sum of its divisors!</em></p>
+<p><em>On day i a colony gets i decilitres of syrup, because it needs more as the cold
+approaches. How much syrup does one colony get in the first d days?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N
+<pre><code class="language-speci">Be: d∈N, a∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1
 
-Uf: sum=SUM(i=1..n, i, i|n)
+Uf: szirup=SUM(i=1..d, i, a|i)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 28
+<pre><code class="language-yaml">d: 12
+a: 3
+szirup: 30
 </code></pre>
-<pre><code class="language-yaml">n: 1
-sum: 1
+<pre><code class="language-yaml">d: 2
+a: 3
+szirup: 0
 </code></pre>
-<p>The third argument of <code>SUM</code> is the filter: only the divisors are added.</p>
-<h2 id="sum-of-the-odd-divisors"><a class="header" href="#sum-of-the-odd-divisors">Sum of the odd divisors</a></h2>
+<p>The third argument of <code>SUM</code> is the filter: only the feeding days are added.</p>
+<h2 id="no-feeding-on-inspection-days"><a class="header" href="#no-feeding-on-inspection-days">No feeding on inspection days</a></h2>
 <blockquote>
-<p><em>Ask for an integer, then print the sum of its odd divisors!</em></p>
+<p><em>Opening the hive disturbs the bees, so on inspection days she skips the feeding.
+How much syrup does a colony get now?</em></p>
 </blockquote>
-<p>A solution that circulated in the course:</p>
-<pre><code class="language-speci">Be: n∈N
+<p>A tempting solution, with the wrong operator:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: sum = SUM(i=1..n,i,i%2=1)
+Uf: szirup=SUM(i=1..d, i, a|i vagy nem (b|i))
 </code></pre>
-<pre><code class="language-yaml red">n: 10
-sum: 6
+<pre><code class="language-yaml red">d: 12
+a: 2
+b: 3
+szirup: 24
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>This doesn’t solve the task. The filter <code>i%2=1</code> keeps <em>every odd number</em>
-up to n. For n = 10 it gives 1+3+5+7+9 = 25, not the odd divisors
-1+5 = 6. The test with the correct answer is red, which exposes the bug.</p>
+<p>This doesn’t solve the task. <code>vagy</code> (or) also keeps every day that is simply
+not an inspection day, even when no feeding is due. For d = 12 it adds
+1+2+4+5+6+7+8+10+11+12 = 66, not the 2+4+8+10 = 24 we want. The test with the
+correct answer is red, which exposes the bug.</p>
 </blockquote>
-<p>The correct filter has both conditions:</p>
-<pre><code class="language-speci">Be: n∈N
+<p>The correct filter needs both conditions at once:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: sum=SUM(i=1..n, i, i%2=1 and i|n)
+Uf: szirup=SUM(i=1..d, i, a|i és nem (b|i))
 </code></pre>
-<pre><code class="language-yaml">n: 10
-sum: 6
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+szirup: 24
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 4
+<pre><code class="language-yaml">d: 6
+a: 3
+b: 3
+szirup: 0
 </code></pre>
-<p><code>%</code> and <code>mod</code> are interchangeable.</p>
+<p>The second test is a good boundary: every feeding day is also an inspection day.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="card-values"><a class="header" href="#card-values">Card values</a></h1>
+<h1 id="the-bloom-calendar"><a class="header" href="#the-bloom-calendar">The bloom calendar</a></h1>
 <blockquote>
-<p><em>Write a program that tells you how much a Hungarian card is worth in the
-game of 21!</em> The cards are <code>also, felso, kiraly, VII, VIII, IX, X, asz</code>, worth
-<code>2, 3, 4, 7, 8, 9, 10, 11</code>.</p>
+<p><em>Write a program that tells Borbála in which month a honey plant starts to bloom.
+The plants are rapeseed (<code>repce</code>), acacia (<code>akac</code>), linden (<code>hars</code>), sunflower
+(<code>napraforgo</code>) and goldenrod (<code>aranyvessző</code>), starting in months 4, 5, 6, 7
+and 8.</em></p>
 </blockquote>
 <h2 id="analysis-6"><a class="header" href="#analysis-6">Analysis</a></h2>
 <ul>
-<li>The card names and their values are <strong>fixed data</strong>, part of the task rather
+<li>The plant names and their months are fixed data, part of the task rather
 than the input. They become <strong>constant arrays</strong> declared with their values.</li>
-<li>The real input is a single card name <code>lap</code>.</li>
+<li>The real input is a single plant name, <code>virag</code> (“flower”).</li>
 <li>The answer is “the value at the position where the name matches”. A
 relational postcondition with <code>∃</code> finds the position and binds the value at once.</li>
 </ul>
 <h2 id="specification-5"><a class="header" href="#specification-5">Specification</a></h2>
 <pre><code class="language-speci">Be:
 
-lapok∈S[1..8]=["also","felso","kiraly","VII","VIII","IX","X","asz"],
+nevek∈S[1..5]=["repce","akac","hars","napraforgo","aranyvessző"],
 
-ertekek∈N[1..8]=[2,3,4,7,8,9,10,11], lap∈S
+honapok∈N[1..5]=[4,5,6,7,8], virag∈S
 
 Ki:
 
-ertek∈N
+honap∈N
 
 Ef:
 
-lap!="" and ∃i∈[1..8]:(lapok[i]=lap)
+virag!="" and ∃i∈[1..5]:(nevek[i]=virag)
 
 Uf:
 
-∃i∈[1..8]:(lapok[i]=lap and ertek=ertekek[i])
+∃i∈[1..5]:(nevek[i]=virag and honap=honapok[i])
 </code></pre>
 <ul>
-<li><strong>Blank lines</strong> inside the <code>Be:</code> block are allowed.</li>
-<li>The precondition guarantees the card exists, so the postcondition’s <code>∃</code> can
+<li>Blank lines inside the <code>Be:</code> block are allowed.</li>
+<li>The precondition guarantees the plant exists, so the postcondition’s <code>∃</code> can
 always be satisfied.</li>
 <li>No <code>Sa:</code> and no <code>Fv:</code> are needed: the mapping is data, not logic.</li>
 </ul>
 <h2 id="tests-6"><a class="header" href="#tests-6">Tests</a></h2>
 <p>The constant arrays get their values from the declaration, so the test data
-gives only <code>lap</code> and <code>ertek</code>:</p>
-<pre><code class="language-yaml">lap: "asz"
-ertek: 11
+gives only <code>virag</code> and <code>honap</code>:</p>
+<pre><code class="language-yaml">virag: "hars"
+honap: 6
 </code></pre>
-<pre><code class="language-yaml">lap: "also"
-ertek: 2
+<pre><code class="language-yaml">virag: "repce"
+honap: 4
 </code></pre>
-<p>A card that doesn’t exist violates the precondition:</p>
-<pre><code class="language-yaml red">lap: "joker"
-ertek: 0
+<p>The wrong month is caught:</p>
+<pre><code class="language-yaml red">virag: "akac"
+honap: 6
+</code></pre>
+<p>A plant that isn’t in the table violates the precondition:</p>
+<pre><code class="language-yaml red">virag: "tulipan"
+honap: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>The template that <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> generates
 may list the constant arrays too. Delete those two lines: a test that repeats
-them is red with “data cannot contain item with the same name: lapok”.</p>
+them is red with “data cannot contain item with the same name: nevek”.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="christmas-trees"><a class="header" href="#christmas-trees">Christmas trees</a></h1>
+<h1 id="the-overflowing-tank"><a class="header" href="#the-overflowing-tank">The overflowing tank</a></h1>
 <blockquote>
-<p><em>A Christmas market sells N fir trees. Write a program that gives a tree
-cheaper than K forints!</em></p>
-<p><strong>Input:</strong> N (1 ≤ N ≤ 100) and K (1 ≤ K ≤ 10 000), then the N prices
-(1 ≤ Ár ≤ 10 000).
-<strong>Output:</strong> the index of a tree cheaper than K; <strong>−1</strong> if there is none; the
-<strong>smallest</strong> index if there are several.</p>
+<p><em>Borbála pours N buckets of honey into a settling tank, one after the other. The
+tank holds K litres. Which bucket is the first to make it overflow?</em></p>
+<p><strong>Input:</strong> N (1 ≤ N ≤ 100) and K (1 ≤ K ≤ 10 000), then the N bucket sizes
+(1 ≤ V ≤ 500).
+<strong>Output:</strong> the number of the first bucket after which the tank holds more than
+K litres; −1 if that never happens.</p>
+<p><strong>Sample:</strong> N = 5, K = 40, buckets 10, 15, 10, 8, 20 → 4.</p>
 </blockquote>
-<p>Sample: N = 6, K = 2000, prices 2500, 5300, 1900, 2400, 8800, 5300 → <strong>3</strong>.</p>
+<p><code>sorszam</code> is the bucket’s number, <code>v</code> the bucket sizes, and <code>osszes</code> the total so far.</p>
 <h2 id="analysis-7"><a class="header" href="#analysis-7">Analysis</a></h2>
 <ul>
-<li>The question is <em>the first index with a property, which may not exist</em>, so a
-<strong>search</strong>.</li>
-<li>But the output isn’t a found/not-found flag. It’s an index <strong>or −1</strong>. So:
+<li>The question is the <em>first index with a property</em>, which may not exist, so a
+search.</li>
+<li>The property isn’t about one element. It’s about all the buckets so far, so
+the condition contains a <code>SUM</code> over the <strong>prefix</strong> <code>1..i</code>.</li>
+<li>The output isn’t a found/not-found flag. It’s an index or −1. So:
 <ul>
 <li>the output must be <code>Z</code> (−1 is not in <code>N</code>),</li>
 <li>the postcondition itself must produce the −1.</li>
 </ul>
 </li>
 </ul>
-<p>Both formulations below were verified on the live editor.</p>
 <h2 id="solution-1-relational"><a class="header" href="#solution-1-relational">Solution 1: relational</a></h2>
 <pre><code class="language-speci">Be:
 
-n∈N, k∈N, ar∈N[1..n]
+n∈N, k∈N, v∈N[1..n]
 
 Ki:
 
@@ -4254,63 +4250,64 @@ sorszam∈Z
 
 Ef:
 
-1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=10000)
+1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=v[i] and v[i]&lt;=500)
 
 Uf:
 
-(sorszam=-1 and ∀i∈[1..n]:(ar[i]&gt;=k)) or ∃i∈[1..n]:(sorszam=i and ar[i]&lt;k and ∀j∈[1..i-1]:(ar[j]&gt;=k))
+(sorszam=-1 and SUM(j=1..n, v[j])&lt;=k) or ∃i∈[1..n]:(sorszam=i and SUM(j=1..i, v[j])&gt;k and SUM(j=1..i-1, v[j])&lt;=k)
 </code></pre>
 <p>The two sides of the <code>or</code> exclude each other:</p>
 <ul>
-<li><strong>left:</strong> no tree is cheap enough, and the answer is −1,</li>
-<li><strong>right:</strong> tree <em>i</em> is cheap enough, no earlier tree is (<code>∀j∈[1..i-1]</code>), and
-the answer is <em>i</em>.</li>
+<li>left: even all the buckets together fit, and the answer is −1,</li>
+<li>right: bucket <code>i</code> overflows the tank, but the tank wasn’t overflowing just
+before it, and the answer is <code>i</code>.</li>
 </ul>
-<p>The output is bound through the witness (<code>sorszam=i</code>), so the formula never
-reads <code>ar[-1]</code>.</p>
-<pre><code class="language-yaml">n: 6
-k: 2000
-ar: [2500, 5300, 1900, 2400, 8800, 5300]
-sorszam: 3
+<p>Every bucket holds at least 1 litre, so the total only grows. That’s why checking
+the single step before <code>i</code> is enough.</p>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 4
 </code></pre>
-<pre><code class="language-yaml">n: 3
+<p>Exactly full isn’t overflowing:</p>
+<pre><code class="language-yaml">n: 2
 k: 100
-ar: [2500, 5300, 1900]
+v: [50, 50]
 sorszam: -1
 </code></pre>
-<p>The <em>smallest</em> index, not the cheapest tree: 3000 at index 2 comes before 200
-at index 4.</p>
-<pre><code class="language-yaml">n: 4
-k: 5000
-ar: [6000, 3000, 1000, 200]
-sorszam: 2
+<p>The very first bucket overflows (the prefix <code>1..0</code> is empty, with a sum of 0):</p>
+<pre><code class="language-yaml">n: 2
+k: 5
+v: [9, 1]
+sorszam: 1
 </code></pre>
-<p><code>k = 1</code> can never be beaten, since every price is at least 1:</p>
-<pre><code class="language-yaml">n: 4
-k: 1
-ar: [1, 1, 10000, 7]
-sorszam: -1
-</code></pre>
-<p>A single tree, matching:</p>
+<p>A single bucket that fits:</p>
 <pre><code class="language-yaml">n: 1
 k: 3000
-ar: [2500]
-sorszam: 1
+v: [500]
+sorszam: -1
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>Without <code>∀j∈[1..i-1]:(ar[j]&gt;=k)</code>, <em>any</em> qualifying index would be accepted.
-The sample would still pass, but <code>sorszam: 4</code> would also be green on the third
-test. Always include a test where several elements qualify.</p>
+<p>Without <code>SUM(j=1..i-1, v[j])&lt;=k</code>, any overflowing bucket would be accepted.
+The sample would still pass with the correct answer, but <code>sorszam: 5</code> would also
+be green on it. Always include a test where several elements qualify, and check
+a wrong answer too:</p>
 </blockquote>
+<pre><code class="language-yaml red">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 5
+</code></pre>
 <h2 id="solution-2-with-search-every-hungarian-block"><a class="header" href="#solution-2-with-search-every-hungarian-block">Solution 2: with SEARCH, every Hungarian block</a></h2>
-<p>This version uses all six Hungarian blocks at once. The extra input <code>egyeb</code> and
-output <code>db</code> are only there to show every feature:</p>
+<p>This version uses all six Hungarian blocks at once. It also answers how many
+buckets fit (<code>db</code>), and it carries a free-text remark <code>megj</code>, which is only there to
+show the identity trick:</p>
 <pre><code class="language-speci">Be:
 n∈N,
 k∈N,
-ar∈N[1..n],
-egyeb∈N
+v∈N[1..n],
+megj∈S
 
 Sa:
 van∈L,
@@ -4321,36 +4318,36 @@ sorszam∈Z,
 db∈N
 
 Fv:
-kisebb:N-&gt;L,
-kisebb(i)=ar[i]&lt;k
+osszes:N-&gt;N,
+osszes(i)=SUM(j=1..i, v[j])
 
 Ef:
-1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and egyeb&gt;=0 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=10000)
+1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=v[i] and v[i]&lt;=500)
 
 Uf:
-(van,ind)=SEARCH(i=1..n, kisebb(i)) and
+(van,ind)=SEARCH(i=1..n, osszes(i)&gt;k) and
 (van -&gt; sorszam=ind) and
 (not van -&gt; sorszam=-1) and
-db=DARAB(i=1..n, ar[i]&lt;k) and
-egyeb=egyeb
+db=DARAB(i=1..n, osszes(i)&lt;=k) and
+megj=megj
 </code></pre>
-<pre><code class="language-yaml">n: 6
-k: 2000
-ar: [2500, 5300, 1900, 2400, 8800, 1000]
-egyeb: 0
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+megj: "linden"
 van: true
-ind: 3
-sorszam: 3
-db: 2
-</code></pre>
-<pre><code class="language-yaml">n: 3
-k: 100
-ar: [2500, 5300, 1900]
-egyeb: 5
-van: false
 ind: 4
+sorszam: 4
+db: 3
+</code></pre>
+<pre><code class="language-yaml">n: 2
+k: 100
+v: [50, 50]
+megj: ""
+van: false
+ind: 3
 sorszam: -1
-db: 0
+db: 2
 </code></pre>
 <p>What this one green run demonstrates:</p>
 <div class="table-wrapper">
@@ -4360,158 +4357,132 @@ db: 0
 </thead>
 <tbody>
 <tr><td><code>Be:</code> <code>Sa:</code> <code>Ki:</code> <code>Fv:</code> <code>Ef:</code> <code>Uf:</code></td><td>all six Hungarian headers, each with the content on the next lines</td></tr>
-<tr><td><code>kisebb:N-&gt;L,</code> with the body on the next line</td><td>a Hungarian function block, ASCII arrow</td></tr>
-<tr><td><code>kisebb(i)</code> as the <code>SEARCH</code> condition</td><td>a user function driving a theorem</td></tr>
+<tr><td><code>osszes:N-&gt;N,</code> with the body on the next line</td><td>a Hungarian function block, ASCII arrow</td></tr>
+<tr><td><code>osszes(i)</code> in the <code>SEARCH</code> condition</td><td>a user function driving a theorem</td></tr>
 <tr><td><code>van∈L</code></td><td>the flag named <code>van</code>, never <code>exists</code></td></tr>
 <tr><td><code>-&gt;</code> and <code>not</code></td><td>implication and negation</td></tr>
-<tr><td><code>egyeb=egyeb</code></td><td>the identity that satisfies the <a href="#the-all-variables-rule">all-variables rule</a></td></tr>
+<tr><td><code>megj=megj</code></td><td>the identity that satisfies the <a href="#the-all-variables-rule">all-variables rule</a></td></tr>
 </tbody>
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="more-short-examples"><a class="header" href="#more-short-examples">More short examples</a></h1>
-<h2 id="distinct-values"><a class="header" href="#distinct-values">Distinct values</a></h2>
+<h2 id="new-weight-records"><a class="header" href="#new-weight-records">New weight records</a></h2>
 <blockquote>
-<p><em>We have a list of race results (name and time). How many different finish
-times were recorded?</em></p>
+<p><em>Each evening’s hive weight is on the list. On how many evenings did the hive
+weigh more than on every earlier evening?</em></p>
 </blockquote>
-<p>A time is “new” if it didn’t occur earlier in the list. Count the new
-ones: <code>COUNT</code> with a nested <code>FORALL</code> that looks <strong>backwards</strong>.</p>
-<pre><code class="language-speci">In: n∈N, races∈Race[1..n], Race=(name:S x time:N)
-Out: cnt∈N
-Fn: nV:N-&gt;L, nV(i)=FORALL(j=1..i-1, races[i].time≠races[j].time)
+<p>An evening sets a record if everything before it was lighter. Count those: <code>COUNT</code>
+with a nested <code>FORALL</code> that looks backwards.</p>
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
+Out: c∈N
+Fn: rec:N-&gt;L, rec(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])
 Pre: -
-Post: cnt=COUNT(i=1..n, nV(i))
+Post: c=COUNT(i=1..n, rec(i))
 </code></pre>
-<pre><code class="language-yaml">n: 4
-races:
-  - name: AS
-    time: 37
-  - name: BE
-    time: 31
-  - name: FG
-    time: 30
-  - name: PS
-    time: 37
-cnt: 3
+<pre><code class="language-yaml">n: 5
+kg: [30, 28, 33, 33, 40]
+c: 3
 </code></pre>
-<pre><code class="language-yaml">n: 2
-races: [{name: AS, time: 37}, {name: BE, time: 31}]
-cnt: 2
+<pre><code class="language-yaml">n: 3
+kg: [50, 50, 50]
+c: 1
 </code></pre>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">time</th><th>earlier times</th><th style="text-align: center">new?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">kg</th><th style="text-align: center">earlier values</th><th style="text-align: center">record?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">37</td><td>(none: the range 1..0 is empty, so <code>FORALL</code> is true)</td><td style="text-align: center">yes</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">31</td><td>37</td><td style="text-align: center">yes</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">30</td><td>37, 31</td><td style="text-align: center">yes</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">37</td><td>37, 31, 30</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">30</td><td style="text-align: center">(none: the range <code>1..0</code> is empty, so <code>FORALL</code> is true)</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">28</td><td style="text-align: center">30</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">33</td><td style="text-align: center">30, 28</td><td style="text-align: center">yes</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">33</td><td style="text-align: center">30, 28, 33</td><td style="text-align: center">no</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">40</td><td style="text-align: center">30, 28, 33, 33</td><td style="text-align: center">yes</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="long-runs"><a class="header" href="#long-runs">Long runs</a></h2>
+<h2 id="heavy-hives"><a class="header" href="#heavy-hives">Heavy hives</a></h2>
 <blockquote>
-<p><em>From a running log (time, location), list the locations of the runs longer
-than 30 minutes.</em></p>
+<p><em>From the list of hives (weight, name), list the names of those heavier than 30
+kg.</em></p>
 </blockquote>
 <p>Three-argument <code>MIS</code>, collecting a field. The comment maps the general form
 onto the task:</p>
-<pre><code class="language-speci">In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]
-Out: cnt∈N, location∈S[1..cnt]
+<pre><code class="language-speci">In: Thive=(kg:N x name:S), n∈N, hives∈Thive[1..n]
+Out: c∈N, names∈S[1..c]
 Pre: -
-Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
+Post: (c,names)=MIS(i=1..n, hives[i].kg&gt;30, hives[i].name)
+/* (c,y)=MIS(i=b..e, A(i), f(i))
+   c, y   ~ c, names
    b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+   A(i)   ~ hives[i].kg&gt;30
+   f(i)   ~ hives[i].name
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-runs:
-  - time: 15
-    loc: office
-  - time: 35
-    loc: restaurant
-  - time: 40
-    loc: gym
-  - time: 5
-    loc: shop
-cnt: 2
-location: [restaurant, gym]
+hives:
+  - kg: 22
+    name: Akac
+  - kg: 35
+    name: Bodza
+  - kg: 41
+    name: Repce
+  - kg: 30
+    name: Hars
+c: 2
+names: [Bodza, Repce]
 </code></pre>
-<h2 id="sessions-where-everyone-was-late"><a class="header" href="#sessions-where-everyone-was-late">Sessions where everyone was late</a></h2>
+<h2 id="hives-that-grew-every-week"><a class="header" href="#hives-that-grew-every-week">Hives that grew every week</a></h2>
 <blockquote>
-<p><em>A matrix records how many minutes each of n students was late to each of m
-sessions. List the sessions where every student was more than k minutes
-late.</em></p>
+<p><em>A matrix holds the weight of each of n hives in each of m weeks. List the hives
+that got heavier every single week.</em></p>
 </blockquote>
-<p>This one goes over <strong>columns</strong>. The outer <code>MIS</code> runs over the sessions <code>j</code>, and
-the inner <code>FORALL</code> over the students <code>i</code>:</p>
-<pre><code class="language-speci">In: n∈N, m∈N, k∈N, lates∈N[1..n,1..m]
-Out: cnt∈N, every∈N[1..cnt]
-Fn: lt:N-&gt;L, lt(j)=FORALL(i=1..n, lates[i,j]&gt;k)
+<p>The outer <code>MIS</code> runs over the hives, and the inner <code>FORALL</code> compares neighbouring
+columns, so it starts at week 2:</p>
+<pre><code class="language-speci">In: n∈N, m∈N, y∈N[1..n,1..m]
+Out: c∈N, hives∈N[1..c]
+Fn: rising:N-&gt;L, rising(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])
 Pre: -
-Post: (cnt,every)=MIS(j=1..m, lt(j))
+Post: (c,hives)=MIS(h=1..n, rising(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-m: 4
-k: 5
-lates: [
-  [6, 8, 2, 7],
-  [7, 9, 4, 8],
-  [6, 6, 1, 9]
+m: 3
+y: [
+  [1, 2, 3],
+  [3, 3, 4],
+  [2, 5, 9]
 ]
-cnt: 3
-every: [1, 2, 4]
+c: 2
+hives: [1, 3]
 </code></pre>
-<h2 id="most-visited-place"><a class="header" href="#most-visited-place">Most visited place</a></h2>
-<blockquote>
-<p><em>n visits were recorded, each to one of the places 1..k. Which place was
-visited the most?</em></p>
-</blockquote>
-<pre><code class="language-speci">In: n∈N, k∈N, visited∈N[1..n]
-Out: best∈N
-Fn: numOfVisits:N-&gt;N, numOfVisits(p)=COUNT(j=1..n, visited[j]=p)
-Pre: k≥1 and ∀i∈[1..n]:(1≤visited[i]≤k)
-Post: (best,)=MAX(p=1..k, numOfVisits(p))
-</code></pre>
-<pre><code class="language-yaml">n: 7
-k: 4
-visited: [4, 1, 4, 2, 1, 4, 3]
-best: 4
-</code></pre>
-<h2 id="last-odd-element"><a class="header" href="#last-odd-element">Last odd element</a></h2>
-<p>A backward search:</p>
-<pre><code class="language-speci">In: n∈N, numbers∈N[1..n]
+<h2 id="the-last-treated-hive"><a class="header" href="#the-last-treated-hive">The last treated hive</a></h2>
+<p>A backward search over a logical array:</p>
+<pre><code class="language-speci">In: n∈N, treated∈L[1..n]
 Aux: found∈L
 Out: ind∈N
 Pre: -
-Post: (found,-ind)=SEARCH(i=-n..-1, numbers[-i] mod 2 = 1)
+Post: (found,-ind)=SEARCH(i=-n..-1, treated[-i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-numbers: [3, 4, 7, 8, 10]
+treated: [true, false, true, false, false]
 found: true
 ind: 3
 </code></pre>
-<h2 id="is-the-array-sorted"><a class="header" href="#is-the-array-sorted">Is the array sorted?</a></h2>
-<p>A relational postcondition with nested quantifiers. It’s enough to compare
-neighbours:</p>
-<pre><code class="language-speci">In: n∈N, x∈Z[1..n]
-Out: sorted∈L
+<h2 id="did-the-weight-ever-drop"><a class="header" href="#did-the-weight-ever-drop">Did the weight ever drop?</a></h2>
+<p>A relational postcondition. It’s enough to compare neighbours:</p>
+<pre><code class="language-speci">In: n∈N, kg∈Z[1..n]
+Out: steady∈L
 Pre: -
-Post: sorted=∀i∈[1..n-1]:(x[i]≤x[i+1])
+Post: steady=∀i∈[1..n-1]:(kg[i]≤kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-x: [-2, 0, 0, 3, 9]
-sorted: true
+kg: [12, 12, 15, 19, 40]
+steady: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-x: [1, 5, 4]
-sorted: false
+kg: [12, 18, 17]
+steady: false
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="speci-local-the-offline-editor"><a class="header" href="#speci-local-the-offline-editor">speci-local: the offline editor</a></h1>
@@ -4530,7 +4501,7 @@ when the server is slow.</li>
 <li><strong>Its error messages are more detailed.</strong> Every message shows the line, a
 caret under the problem, an explanation and a concrete fix. When a postcondition
 fails, it tells you <em>which part</em> failed and what the specification computes,
-for example “<code>cnt</code>: the test case says 2, the specification gives 3”.</li>
+for example “<code>light</code>: the test case says 3, the specification gives 2”.</li>
 <li><strong>It checks the same rules as the ELTE editor</strong>: the all-variables rule,
 reserved names such as <code>exists</code>, block order, header spelling. A
 specification that is green here should also be green there.</li>
@@ -4676,25 +4647,25 @@ for <em>Save as</em>) and open with <kbd>Ctrl</kbd>+<kbd>O</kbd>. You can also d
 onto the window. The file is evaluated as soon as it opens.</p>
 <p>A <code>.sp</code> file is plain text: the title as a comment, the specification, and each
 test case stored as a block comment:</p>
-<pre><code class="language-speci">// title: Odd numbers
+<pre><code class="language-speci">// title: Light jars
 Be:
 n∈N,
-szamok∈N[1..n]
+uvegek∈N[1..n]
 Ki:
-db∈N
+konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 
 /*--- test ---
 n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 ---*/
 
 /*--- test ---
 n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 ---*/
 </code></pre>
 <p><code>.sp</code> files and <code>SPECI1:</code> lines are speci-local’s own formats: <strong>only
@@ -5003,8 +4974,7 @@ Otherwise use <code>SEARCH</code>. See <a href="#selection-select">Selection</a>
 give a third argument: <code>MIS(i=1..n, β(i), x[i])</code>. See <a href="#multiple-item-selection-mis">MIS</a>.</p>
 <h3 id="in-or-be"><a class="header" href="#in-or-be"><code>In:</code> or <code>Be:</code>?</a></h3>
 <p>Both are valid, and they mean exactly the same thing. Use one language
-consistently in a file. Hungarian course tasks are usually solved with <code>Be:</code>,
-<code>Ki:</code>, <code>Ef:</code>, <code>Uf:</code>.</p>
+consistently in a file. Hungarian-language tasks usually use <code>Be:</code>, <code>Ki:</code>, <code>Ef:</code>, <code>Uf:</code>.</p>
 <h3 id="do-i-need-a-space-after-the-colon"><a class="header" href="#do-i-need-a-space-after-the-colon">Do I need a space after the colon?</a></h3>
 <p>When the content is on the same line, yes: <code>In: n∈N</code>. When the header stands
 on its own line, the content simply starts on the next line.</p>

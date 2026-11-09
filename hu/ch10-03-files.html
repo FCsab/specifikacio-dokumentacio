@@ -192,25 +192,25 @@ link a megosztás módja, lásd <a href="ch01-03-save-share.html">Mentés és me
 húzhatod. Megnyitás után azonnal kiértékelődik.</p>
 <p>A <code>.sp</code> fájl sima szöveg: a cím megjegyzésként, a specifikáció, és minden
 teszteset blokkmegjegyzésként:</p>
-<pre><code class="language-speci">// title: Páratlan számok
+<pre><code class="language-speci">// title: Könnyű üvegek
 Be:
 n∈N,
-szamok∈N[1..n]
+uvegek∈N[1..n]
 Ki:
-db∈N
+konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 
 /*--- test ---
 n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 ---*/
 
 /*--- test ---
 n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 ---*/
 </code></pre>
 <p>A <code>.sp</code> fájl és a <code>SPECI1:</code> sor a speci-local saját formátuma: <strong>csak a

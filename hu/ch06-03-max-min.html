@@ -188,23 +188,24 @@ teszi a legkisebbel.</p>
 <strong>Üres tartomány:</strong> nem megengedett, az előfeltételnek garantálnia kell legalább egy elemet</p>
 </div>
 
-<h2 id="példa-a-legmelegebb-nap"><a class="header" href="#példa-a-legmelegebb-nap">Példa: a legmelegebb nap</a></h2>
+<h2 id="példa-a-legmelegebb-hajnal"><a class="header" href="#példa-a-legmelegebb-hajnal">Példa: a legmelegebb hajnal</a></h2>
 <pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
 Ki: nap∈N, hom∈Z
 Ef: n&gt;0
 Uf: (nap,hom)=MAX(i=1..n, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 nap: 2
-hom: 17
+hom: 13
 </code></pre>
-<p>A maximum, a 17, a 2. és a 4. napon fordul elő. A <code>MAX</code> az elsőt választja, a
+<p>Borbála minden hajnalban leolvassa a hőmérőt a röpnyílásnál. A maximum, a 13, a 2.
+és a 4. napon fordul elő. A <code>MAX</code> az elsőt választja, a
 2. napot.</p>
 <pre><code class="language-yaml red">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 nap: 4
-hom: 17
+hom: 13
 </code></pre>
 <h2 id="csak-az-egyik-eredmény-megtartása"><a class="header" href="#csak-az-egyik-eredmény-megtartása">Csak az egyik eredmény megtartása</a></h2>
 <p>Hagyj egy üres pozíciót a tuple-ben:</p>
@@ -254,8 +255,8 @@ Uf: v=MAX(i=1..n, t[i]).maxval
 t: [4, 9, 1]
 v: 9
 </code></pre>
-<p>A <a href="ch09-02-yossarian.html">Yossarian térképe</a> ezzel keresi meg egy mátrix
-maximumát.</p>
+<p>A <a href="ch09-02-reliable.html">legmegbízhatóbb kaptár</a> a <code>.minval</code> és a <code>.minind</code> részt
+ugyanígy használja, egy mátrixon.</p>
 <h2 id="gyakori-hibák"><a class="header" href="#gyakori-hibák">Gyakori hibák</a></h2>
 <ul>
 <li><strong>Hiányzó előfeltétel.</strong> A semmi maximuma nem létezik. <code>n∈N</code> esetén az

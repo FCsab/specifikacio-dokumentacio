@@ -20,7 +20,7 @@ edit the HTML directly.
 | `donate.html` | XMR donation page |
 | `en/`, `hu/` | the two books; same file names in both, so the EN/HU switch lands on the matching page |
 | `assets/` | the landing pages' script, stylesheet and QR code |
-| `source/` | not needed on the server: `SKILL.md` and `onsite.txt` (source material: the collected reference, and the editor's built-in documentation) and `tools/check-links.py` |
+| `source/` | not needed on the server: `onsite.txt` (the editor's built-in documentation) and `tools/check-links.py` |
 
 The landing and donation pages use the books' own stylesheets (`en/css`,
 `en/theme/custom.css`) and follow the theme chosen in the books.
@@ -35,10 +35,10 @@ searchable until it is regenerated.
 python3 source/tools/check-links.py .   # every internal link and anchor
 ```
 
-Every example was last checked in the online editor
-([progalap.elte.hu/specifikacio](https://progalap.elte.hu/specifikacio/),
-version 1.5.2) in November 2026: paste the specification, paste each test into
-the Data tab, and the tab number turns green or red.
+Every example was last checked against the online editor's evaluator
+([progalap.elte.hu/specifikacio](https://progalap.elte.hu/specifikacio/)) in
+November 2026: paste the specification, paste each test into the Data tab, and
+the tab number turns green or red.
 
 To preview the site locally, run `python3 -m http.server` in the repository
 root and open <http://localhost:8000>.
@@ -54,7 +54,6 @@ rsync -av --delete --exclude source --exclude .git ./ <name>@caesar.elte.hu:publ
 
 ## Credits
 
-The text and the site are by csabi.zip. The UI screenshots come from the
-official course manual (*Manual for the Specification Editor tool*). The
-Specification Editor itself is the work of its authors at ELTE IK. This project
+The text, the site and all the tasks and test data are by csabi.zip. The tasks are
+invented for this book and are not course assignments. The Specification Editor itself is the work of its authors at ELTE IK. This project
 is not affiliated with ELTE.

@@ -227,14 +227,15 @@ benne: true
 <pre><code class="language-yaml">a: 8
 benne: false
 </code></pre>
-<p>Az oszthatósági reláció, a <code>|</code>, tömören fejezi ki az osztókat:</p>
-<pre><code class="language-speci">Be: n∈N
-Ki: d∈N
-Ef: n≥1
-Uf: d=DARAB(i=1..n, i|n)
+<p>Az oszthatósági reláció, a <code>|</code>, tömören fejezi ki a többszörösöket. <em>Pontosan
+kitöltik az üvegek a hatos csomagokat?</em></p>
+<pre><code class="language-speci">Be: uvegek∈N
+Ki: pontos∈L
+Ef: -
+Uf: pontos=(6|uvegek)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">uvegek: 24
+pontos: true
 </code></pre>
 <h2 id="logika"><a class="header" href="#logika">Logika</a></h2>
 <div class="table-wrapper">

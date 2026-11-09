@@ -198,7 +198,7 @@ változóval, a megfelelő formátumban.</p>
 <tr><td><code>N</code>, <code>Z</code></td><td><code>n: 5</code>, <code>d: -3</code></td></tr>
 <tr><td><code>R</code></td><td><code>atlag: 2.75</code></td></tr>
 <tr><td><code>L</code></td><td><code>van: true</code>, <code>van: false</code></td></tr>
-<tr><td><code>S</code></td><td><code>nev: Anna</code>, <code>nev: "Kiss Anna"</code>, <code>ures: ""</code></td></tr>
+<tr><td><code>S</code></td><td><code>nev: Akac</code>, <code>nev: "Öreg Akac"</code>, <code>ures: ""</code></td></tr>
 <tr><td><code>C</code></td><td><code>c: 'x'</code></td></tr>
 </tbody>
 </table>
@@ -207,48 +207,48 @@ változóval, a megfelelő formátumban.</p>
 számára különleges karaktert tartalmaz (<code>:</code>, <code>#</code>, kezdő szóköz, …).</p>
 <h2 id="tömbök"><a class="header" href="#tömbök">Tömbök</a></h2>
 <p>Szögletes zárójelben, vesszővel elválasztva:</p>
-<pre><code class="language-yaml fragment">szamok: [3, 72, 81, 4, 5]
-nevek: [Anna, Bence, "Kovács Cili"]
+<pre><code class="language-yaml fragment">uvegek: [452, 438, 450, 447, 461]
+nevek: [Akac, Bodza, "Öreg Repce"]
 ures: []
 </code></pre>
 <p>A YAML listás alakja is működik, soronként egy elemmel, kötőjellel:</p>
-<pre><code class="language-yaml fragment">szamok:
-  - 3
-  - 72
-  - 81
+<pre><code class="language-yaml fragment">uvegek:
+  - 452
+  - 438
+  - 450
 </code></pre>
 <h2 id="mátrixok"><a class="header" href="#mátrixok">Mátrixok</a></h2>
 <p>Sorok listája. Az olvashatóság kedvéért több sorba írható, de egy sorban is
 lehet:</p>
-<pre><code class="language-yaml fragment">kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+<pre><code class="language-yaml fragment">fedett: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 </code></pre>
-<pre><code class="language-yaml fragment">kave: [[4,5,7,5],[6,8,7,9],[4,5,7,5]]
+<pre><code class="language-yaml fragment">fedett: [[75,70,85,40,95],[80,90,85,85,80],[88,65,90,90,81]]
 </code></pre>
 <p>Minden sornak a deklarált számú oszlopa kell legyen.</p>
 <h2 id="rekordok"><a class="header" href="#rekordok">Rekordok</a></h2>
 <p><strong>Többsoros alak.</strong> Minden mező külön sorban, a változó alá behúzva:</p>
 <pre><code class="language-yaml fragment">r:
-  nev: Anna
-  jegy: 5
+  nev: Akac
+  pont: 5
 </code></pre>
 <p><strong>Tömör alak</strong>, kapcsos zárójelben:</p>
-<pre><code class="language-yaml fragment">r: {nev: Anna, jegy: 5}
+<pre><code class="language-yaml fragment">r: {nev: Akac, pont: 5}
 </code></pre>
 <h2 id="rekordok-tömbje"><a class="header" href="#rekordok-tömbje">Rekordok tömbje</a></h2>
 <p>A többsoros alakban minden elem egy kötőjellel kezdődik, alá behúzva jönnek a
 mezői:</p>
-<pre><code class="language-yaml fragment">versenyek:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
+<pre><code class="language-yaml fragment">kaptarak:
+  - nev: Akac
+    kg: 37
+  - nev: Bodza
+    kg: 31
 </code></pre>
 <p>A tömör alakban <code>{…}</code> elemek listája:</p>
-<pre><code class="language-yaml fragment">versenyek: [{nev: AS, ido: 37}, {nev: BE, ido: 31}]
+<pre><code class="language-yaml fragment">kaptarak: [{nev: Akac, kg: 37}, {nev: Bodza, kg: 31}]
 </code></pre>
 <p>A kettő egyenértékű. A többsoros alakot könnyebb olvasni, a tömörrel a nagy
 adat kisebb helyen elfér.</p>
@@ -258,32 +258,32 @@ adat kisebb helyen elfér.</p>
 kell kezdődniük. Szóközt használj, ne tabulátort.</p>
 </blockquote>
 <h2 id="egy-teljes-példa"><a class="header" href="#egy-teljes-példa">Egy teljes példa</a></h2>
-<pre><code class="language-speci">Be: n∈N, versenyek∈Verseny[1..n], Verseny=(nev:S x ido:N), hatar∈R
+<pre><code class="language-speci">Be: n∈N, kaptarak∈Kaptar[1..n], Kaptar=(nev:S x kg:N), hatar∈R
 Sa: van∈L, ind∈N
-Ki: gyoztes∈S
+Ki: konnyu∈S
 Ef: n&gt;0
-Uf: (van,ind)=SEARCH(i=1..n, versenyek[i].ido&lt;hatar) és
-    (van -&gt; gyoztes=versenyek[ind].nev)
+Uf: (van,ind)=SEARCH(i=1..n, kaptarak[i].kg&lt;hatar) és
+    (van -&gt; konnyu=kaptarak[ind].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-versenyek:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
-  - nev: FG
-    ido: 30
+kaptarak:
+  - nev: Akac
+    kg: 37
+  - nev: Bodza
+    kg: 31
+  - nev: Repce
+    kg: 30
 hatar: 31.5
 van: true
 ind: 2
-gyoztes: BE
+konnyu: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-versenyek: [{nev: AS, ido: 37}, {nev: BE, ido: 41}]
+kaptarak: [{nev: Akac, kg: 37}, {nev: Bodza, kg: 41}]
 hatar: 30
 van: false
 ind: 0
-gyoztes: ""
+konnyu: ""
 </code></pre>
 <h2 id="gyakori-adathibák"><a class="header" href="#gyakori-adathibák">Gyakori adathibák</a></h2>
 <div class="table-wrapper">

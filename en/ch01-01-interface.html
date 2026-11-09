@@ -178,11 +178,10 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-tour-of-the-interface"><a class="header" href="#a-tour-of-the-interface">A tour of the interface</a></h1>
-<p>The editor’s window is divided into panes, with a toolbar across the top. The
-numbers in the screenshot match the list below.</p>
+<p>The editor’s window is divided into panes, with a toolbar across the top. The numbers in the diagram match the list below.</p>
 <figure>
-<img src="img/ui-overview.png" alt="The Specification Editor with its parts numbered 1 to 18">
-<figcaption>The Specification Editor (version 1.5.1), with its parts numbered.</figcaption>
+<img src="img/ui-overview.svg" alt="A diagram of the Specification Editor with its parts numbered 1 to 18">
+<figcaption>The layout of the Specification Editor, with its parts numbered.</figcaption>
 </figure>
 <div class="table-wrapper">
 <table>
@@ -243,8 +242,8 @@ ones.</p>
 and the <em>expected</em> values of the output (and auxiliary) variables, in a
 YAML-like format:</p>
 <pre><code class="language-yaml fragment">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -252,11 +251,6 @@ cnt: 3
 then <kbd>Tab</kbd>. The editor inserts a template with every declared variable,
 so you only have to fill in the values.</p>
 </blockquote>
-<figure>
-<img src="img/test-tabs.png" alt="A specification with four green test case tabs">
-<figcaption>Four test cases, all passing (green tabs). The data uses the
-multi-line record format.</figcaption>
-</figure>
 <h2 id="the-visualization-pane"><a class="header" href="#the-visualization-pane">The Visualization pane</a></h2>
 <p>After you press <strong>Evaluate</strong>, this pane shows how the postcondition was
 evaluated for the selected test case. It has two views:</p>

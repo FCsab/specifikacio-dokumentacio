@@ -204,30 +204,30 @@ Pre: a≥2 and a≤7
 <p><strong>Relations between inputs.</strong> <em>1 &lt; d &lt; n:</em></p>
 <pre><code class="language-speci fragment">Pre: 1&lt;d&lt;n
 </code></pre>
-<p><strong>Guarantees the postcondition relies on.</strong> <em>There is an odd number</em>,
+<p><strong>Guarantees the postcondition relies on.</strong> <em>There is a hive over 40 kg</em>,
 required by <a href="ch06-05-select.html"><code>SELECT</code></a>:</p>
-<pre><code class="language-speci fragment">Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Pre: ∃i∈[1..n]:(kg[i]&gt;40)
 </code></pre>
 <p>Statements can be combined with <code>and</code>. Don’t forget the operator between
 them: two statements written one after the other are a syntax error.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <blockquote>
-<p><em>We are given the heights of n ≥ 1 children in centimetres (each between 50
-and 250). What is the average height?</em></p>
+<p><em>We are given the weights of n ≥ 1 hives in kilograms (each between 5
+and 90). What is the average weight?</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, h∈N[1..n]
+<pre><code class="language-speci">In: n∈N, w∈N[1..n]
 Out: avg∈R
-Pre: n≥1 and ∀i∈[1..n]:(50≤h[i]≤250)
-Post: avg=SUM(i=1..n, h[i])/n
+Pre: n≥1 and ∀i∈[1..n]:(5≤w[i]≤90)
+Post: avg=SUM(i=1..n, w[i])/n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-h: [120, 130, 125, 135]
-avg: 127.5
+w: [40, 43, 38, 44]
+avg: 41.25
 </code></pre>
 <p>Input that violates the precondition makes the test red:</p>
 <pre><code class="language-yaml red">n: 2
-h: [120, 300]
-avg: 210
+w: [40, 300]
+avg: 170
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>

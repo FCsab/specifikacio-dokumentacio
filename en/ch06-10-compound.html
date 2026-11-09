@@ -181,38 +181,38 @@
 <p>Real tasks rarely fit a single theorem. They combine theorems in two ways:</p>
 <ul>
 <li><strong>nesting</strong>: the condition or value of one theorem is itself a theorem
-(“find a day on which <em>every</em> break…”),</li>
+(“find a position that is ripe in <em>every</em> box…”),</li>
 <li><strong>sequencing</strong>: the result of one theorem is the input of the next
 (“find the maximum, then collect everything equal to it”).</li>
 </ul>
 <h2 id="nesting"><a class="header" href="#nesting">Nesting</a></h2>
 <p>Put the inner theorem in a <a href="ch05-01-nested.html">function</a> of the outer loop
-variable. <em>Find a day on which every coffee break was above 5 litres:</em></p>
+variable. <em>Find a frame position that is ripe in every box:</em></p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Level</th><th>Question</th><th>Theorem</th></tr>
 </thead>
 <tbody>
-<tr><td>outer</td><td>which day?</td><td><code>SEARCH</code> over days</td></tr>
-<tr><td>inner</td><td>was every break of day <em>i</em> above 5?</td><td><code>FORALL</code> over breaks</td></tr>
+<tr><td>outer</td><td>which position?</td><td><code>SEARCH</code> over positions</td></tr>
+<tr><td>inner</td><td>is position <em>p</em> at least 80 in every box?</td><td><code>FORALL</code> over boxes</td></tr>
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci">In: n∈N, coffe∈N[1..n,1..4]
+<pre><code class="language-speci">In: n∈N, capped∈N[1..n,1..5]
 Aux: found∈L
-Out: ind∈N
-Fn: more5:N-&gt;L, more5(i)=FORALL(j=1..4, coffe[i,j]&gt;5)
+Out: pos∈N
+Fn: ripe:N-&gt;L, ripe(p)=FORALL(b=1..n, capped[b,p]≥80)
 Pre: -
-Post: (found,ind)=SEARCH(i=1..n, more5(i))
+Post: (found,pos)=SEARCH(p=1..5, ripe(p))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-coffe: [[4, 5, 7, 5], [6, 8, 7, 9], [4, 5, 7, 5]]
+<pre><code class="language-yaml">n: 2
+capped: [[70, 85, 90, 0, 0], [90, 60, 80, 0, 0]]
 found: true
-ind: 2
+pos: 3
 </code></pre>
-<p>The task type in the course material is written as <em>“compound pattern; search
-is the main pattern, and decision all is the nested pattern”</em>.</p>
+<p>You can describe such a task as a <em>compound pattern</em>: search is the main pattern,
+and decision (all) is the nested pattern.</p>
 <h2 id="sequencing-with-auxiliary-variables"><a class="header" href="#sequencing-with-auxiliary-variables">Sequencing with auxiliary variables</a></h2>
 <p>When a later step needs an earlier result, store it in an <strong>auxiliary</strong>
 variable (<code>Aux:</code>) and refer to it.</p>
@@ -252,10 +252,10 @@ fails only the inner check, one that passes it, and an empty input.</li>
 <tr><th>Task</th><th>Combination</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="ch09-02-yossarian.html">Yossarian’s map</a></td><td><code>MAX</code> of a function returning row maxima</td></tr>
-<tr><td><a href="ch09-03-trurl.html">Trurl’s robots</a></td><td><code>MIS</code> with a nested <code>SUM</code></td></tr>
-<tr><td><a href="ch09-04-catbert.html">Catbert’s coffee breaks</a></td><td><code>SEARCH</code> with a nested <code>FORALL</code></td></tr>
-<tr><td><a href="ch09-06-travel.html">The travel agency</a></td><td><code>MAX</code>, then <code>MIS</code>, then <code>MIN</code></td></tr>
+<tr><td><a href="ch09-02-reliable.html">The most reliable hive</a></td><td><code>MAX</code> of a function returning row minima</td></tr>
+<tr><td><a href="ch09-03-flow.html">The nectar flow</a></td><td><code>MIS</code> with a nested <code>SUM</code></td></tr>
+<tr><td><a href="ch09-04-harvest.html">Harvest day</a></td><td><code>SEARCH</code> with a nested <code>FORALL</code></td></tr>
+<tr><td><a href="ch09-06-fair.html">The honey fair</a></td><td><code>MAX</code> with a nested filtered <code>SUM</code></td></tr>
 <tr><td><a href="ch09-10-more.html">More short examples</a></td><td><code>COUNT</code> with a nested <code>FORALL</code>, <code>MIS</code> with a nested <code>FORALL</code></td></tr>
 </tbody>
 </table>

@@ -178,9 +178,11 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="solving-tasks-step-by-step"><a class="header" href="#solving-tasks-step-by-step">Solving tasks step by step</a></h1>
-<p>This part solves complete tasks, most of them from the course material,
-from the problem statement to a green test suite. Each one follows the same
-method:</p>
+<p>This part solves complete tasks from the problem statement to a green test
+suite. Every task was invented for this book. They all take place in Borbála’s
+apiary in Hive Valley, a place that exists only here, so the data stays
+familiar and you can concentrate on the specification. Each one follows the
+same method:</p>
 <ol>
 <li><strong>Read the task</strong> and underline what is given and what is asked.</li>
 <li><strong>Declare the data.</strong> Inputs, outputs, and any auxiliary values the
@@ -199,22 +201,21 @@ Look for nesting (“for each … every …”) and for steps (“first … then
 <tr><th>Task</th><th>Theorems</th><th>Data</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="ch09-01-discworld.html">The Discworld libraries</a></td><td><code>SEARCH</code> + implication</td><td>array of records</td></tr>
-<tr><td><a href="ch09-02-yossarian.html">Yossarian’s map</a></td><td><code>MAX</code> of <code>MAX</code></td><td>matrix</td></tr>
-<tr><td><a href="ch09-03-trurl.html">Trurl’s robots</a></td><td><code>MIS</code> + nested <code>SUM</code></td><td>array</td></tr>
-<tr><td><a href="ch09-04-catbert.html">Catbert’s coffee breaks</a></td><td><code>SEARCH</code> + nested <code>FORALL</code></td><td>matrix</td></tr>
-<tr><td><a href="ch09-05-dogbert.html">Dogbert’s star</a></td><td><code>CONDMAX</code>, slot skipping</td><td>open array</td></tr>
-<tr><td><a href="ch09-06-travel.html">The travel agency</a></td><td>relational, or <code>MAX</code>+<code>MIS</code>+<code>MIN</code></td><td>parallel arrays</td></tr>
-<tr><td><a href="ch09-07-divisors.html">Divisors</a></td><td><code>DARAB</code>, filtered <code>SUM</code></td><td>a single number</td></tr>
-<tr><td><a href="ch09-08-cards.html">Card values</a></td><td>relational, lookup table</td><td>constant arrays</td></tr>
-<tr><td><a href="ch09-09-trees.html">Christmas trees</a></td><td><code>SEARCH</code> with a −1 result, relational</td><td>array</td></tr>
+<tr><td><a href="ch09-01-swarm.html">The swarm on the scale</a></td><td><code>SEARCH</code> + implication</td><td>array of records</td></tr>
+<tr><td><a href="ch09-02-reliable.html">The most reliable hive</a></td><td><code>MAX</code> of <code>MIN</code></td><td>matrix</td></tr>
+<tr><td><a href="ch09-03-flow.html">The nectar flow</a></td><td><code>MIS</code> + nested <code>SUM</code></td><td>array</td></tr>
+<tr><td><a href="ch09-04-harvest.html">Harvest day</a></td><td><code>SEARCH</code> + nested <code>FORALL</code> over columns</td><td>matrix</td></tr>
+<tr><td><a href="ch09-05-coldest.html">The coldest flight</a></td><td><code>CONDMIN</code>, slot skipping</td><td>open array of records</td></tr>
+<tr><td><a href="ch09-06-fair.html">The honey fair</a></td><td><code>MAX</code> + filtered <code>SUM</code>, or relational</td><td>parallel arrays</td></tr>
+<tr><td><a href="ch09-07-calendar.html">The feeding calendar</a></td><td><code>DARAB</code>, filtered <code>SUM</code></td><td>a few numbers</td></tr>
+<tr><td><a href="ch09-08-bloom.html">The bloom calendar</a></td><td>relational, lookup table</td><td>constant arrays</td></tr>
+<tr><td><a href="ch09-09-tank.html">The overflowing tank</a></td><td><code>SEARCH</code> with a −1 result, relational</td><td>array</td></tr>
 <tr><td><a href="ch09-10-more.html">More short examples</a></td><td><code>COUNT</code>+<code>FORALL</code>, <code>MIS</code>+<code>FORALL</code>, …</td><td>various</td></tr>
 </tbody>
 </table>
 </div>
-<p>The examples are written in the style of their source: the official manual’s
-tasks in English, the Hungarian course tasks with Hungarian keywords and
-names.</p>
+<p>Most tasks use English keywords. A few are written with Hungarian keywords and
+names, to show that style too.</p>
 
                     </main>
 
@@ -224,7 +225,7 @@ names.</p>
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-01-discworld.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-01-swarm.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -238,7 +239,7 @@ names.</p>
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-01-discworld.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-01-swarm.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

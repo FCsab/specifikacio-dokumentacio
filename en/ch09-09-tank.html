@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Card values - The Specification Editor Book</title>
+        <title>The overflowing tank - The Specification Editor Book</title>
 
 
         <!-- Custom HTML head -->
@@ -177,74 +177,166 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="card-values"><a class="header" href="#card-values">Card values</a></h1>
+                        <h1 id="the-overflowing-tank"><a class="header" href="#the-overflowing-tank">The overflowing tank</a></h1>
 <blockquote>
-<p><em>Write a program that tells you how much a Hungarian card is worth in the
-game of 21!</em> The cards are <code>also, felso, kiraly, VII, VIII, IX, X, asz</code>, worth
-<code>2, 3, 4, 7, 8, 9, 10, 11</code>.</p>
+<p><em>Borbála pours N buckets of honey into a settling tank, one after the other. The
+tank holds K litres. Which bucket is the first to make it overflow?</em></p>
+<p><strong>Input:</strong> N (1 ≤ N ≤ 100) and K (1 ≤ K ≤ 10 000), then the N bucket sizes
+(1 ≤ V ≤ 500).
+<strong>Output:</strong> the number of the first bucket after which the tank holds more than
+K litres; −1 if that never happens.</p>
+<p><strong>Sample:</strong> N = 5, K = 40, buckets 10, 15, 10, 8, 20 → 4.</p>
 </blockquote>
+<p><code>sorszam</code> is the bucket’s number, <code>v</code> the bucket sizes, and <code>osszes</code> the total so far.</p>
 <h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li>The card names and their values are <strong>fixed data</strong>, part of the task rather
-than the input. They become <strong>constant arrays</strong> declared with their values.</li>
-<li>The real input is a single card name <code>lap</code>.</li>
-<li>The answer is “the value at the position where the name matches”. A
-relational postcondition with <code>∃</code> finds the position and binds the value at once.</li>
+<li>The question is the <em>first index with a property</em>, which may not exist, so a
+search.</li>
+<li>The property isn’t about one element. It’s about all the buckets so far, so
+the condition contains a <code>SUM</code> over the <strong>prefix</strong> <code>1..i</code>.</li>
+<li>The output isn’t a found/not-found flag. It’s an index or −1. So:
+<ul>
+<li>the output must be <code>Z</code> (−1 is not in <code>N</code>),</li>
+<li>the postcondition itself must produce the −1.</li>
 </ul>
-<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+</li>
+</ul>
+<h2 id="solution-1-relational"><a class="header" href="#solution-1-relational">Solution 1: relational</a></h2>
 <pre><code class="language-speci">Be:
 
-lapok∈S[1..8]=["also","felso","kiraly","VII","VIII","IX","X","asz"],
-
-ertekek∈N[1..8]=[2,3,4,7,8,9,10,11], lap∈S
+n∈N, k∈N, v∈N[1..n]
 
 Ki:
 
-ertek∈N
+sorszam∈Z
 
 Ef:
 
-lap!="" and ∃i∈[1..8]:(lapok[i]=lap)
+1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=v[i] and v[i]&lt;=500)
 
 Uf:
 
-∃i∈[1..8]:(lapok[i]=lap and ertek=ertekek[i])
+(sorszam=-1 and SUM(j=1..n, v[j])&lt;=k) or ∃i∈[1..n]:(sorszam=i and SUM(j=1..i, v[j])&gt;k and SUM(j=1..i-1, v[j])&lt;=k)
 </code></pre>
+<p>The two sides of the <code>or</code> exclude each other:</p>
 <ul>
-<li><strong>Blank lines</strong> inside the <code>Be:</code> block are allowed.</li>
-<li>The precondition guarantees the card exists, so the postcondition’s <code>∃</code> can
-always be satisfied.</li>
-<li>No <code>Sa:</code> and no <code>Fv:</code> are needed: the mapping is data, not logic.</li>
+<li>left: even all the buckets together fit, and the answer is −1,</li>
+<li>right: bucket <code>i</code> overflows the tank, but the tank wasn’t overflowing just
+before it, and the answer is <code>i</code>.</li>
 </ul>
-<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>The constant arrays get their values from the declaration, so the test data
-gives only <code>lap</code> and <code>ertek</code>:</p>
-<pre><code class="language-yaml">lap: "asz"
-ertek: 11
+<p>Every bucket holds at least 1 litre, so the total only grows. That’s why checking
+the single step before <code>i</code> is enough.</p>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 4
 </code></pre>
-<pre><code class="language-yaml">lap: "also"
-ertek: 2
+<p>Exactly full isn’t overflowing:</p>
+<pre><code class="language-yaml">n: 2
+k: 100
+v: [50, 50]
+sorszam: -1
 </code></pre>
-<p>A card that doesn’t exist violates the precondition:</p>
-<pre><code class="language-yaml red">lap: "joker"
-ertek: 0
+<p>The very first bucket overflows (the prefix <code>1..0</code> is empty, with a sum of 0):</p>
+<pre><code class="language-yaml">n: 2
+k: 5
+v: [9, 1]
+sorszam: 1
 </code></pre>
-<blockquote class="blockquote-tag blockquote-tag-note">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The template that <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> generates
-may list the constant arrays too. Delete those two lines: a test that repeats
-them is red with “data cannot contain item with the same name: lapok”.</p>
+<p>A single bucket that fits:</p>
+<pre><code class="language-yaml">n: 1
+k: 3000
+v: [500]
+sorszam: -1
+</code></pre>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>Without <code>SUM(j=1..i-1, v[j])&lt;=k</code>, any overflowing bucket would be accepted.
+The sample would still pass with the correct answer, but <code>sorszam: 5</code> would also
+be green on it. Always include a test where several elements qualify, and check
+a wrong answer too:</p>
 </blockquote>
+<pre><code class="language-yaml red">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 5
+</code></pre>
+<h2 id="solution-2-with-search-every-hungarian-block"><a class="header" href="#solution-2-with-search-every-hungarian-block">Solution 2: with SEARCH, every Hungarian block</a></h2>
+<p>This version uses all six Hungarian blocks at once. It also answers how many
+buckets fit (<code>db</code>), and it carries a free-text remark <code>megj</code>, which is only there to
+show the identity trick:</p>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+v∈N[1..n],
+megj∈S
+
+Sa:
+van∈L,
+ind∈N
+
+Ki:
+sorszam∈Z,
+db∈N
+
+Fv:
+osszes:N-&gt;N,
+osszes(i)=SUM(j=1..i, v[j])
+
+Ef:
+1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=v[i] and v[i]&lt;=500)
+
+Uf:
+(van,ind)=SEARCH(i=1..n, osszes(i)&gt;k) and
+(van -&gt; sorszam=ind) and
+(not van -&gt; sorszam=-1) and
+db=DARAB(i=1..n, osszes(i)&lt;=k) and
+megj=megj
+</code></pre>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+megj: "linden"
+van: true
+ind: 4
+sorszam: 4
+db: 3
+</code></pre>
+<pre><code class="language-yaml">n: 2
+k: 100
+v: [50, 50]
+megj: ""
+van: false
+ind: 3
+sorszam: -1
+db: 2
+</code></pre>
+<p>What this one green run demonstrates:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Element</th><th>Shows</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Be:</code> <code>Sa:</code> <code>Ki:</code> <code>Fv:</code> <code>Ef:</code> <code>Uf:</code></td><td>all six Hungarian headers, each with the content on the next lines</td></tr>
+<tr><td><code>osszes:N-&gt;N,</code> with the body on the next line</td><td>a Hungarian function block, ASCII arrow</td></tr>
+<tr><td><code>osszes(i)</code> in the <code>SEARCH</code> condition</td><td>a user function driving a theorem</td></tr>
+<tr><td><code>van∈L</code></td><td>the flag named <code>van</code>, never <code>exists</code></td></tr>
+<tr><td><code>-&gt;</code> and <code>not</code></td><td>implication and negation</td></tr>
+<tr><td><code>megj=megj</code></td><td>the identity that satisfies the <a href="ch02-03-all-variables.html">all-variables rule</a></td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-07-divisors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-08-bloom.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-09-trees.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-10-more.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -254,11 +346,11 @@ them is red with “data cannot contain item with the same name: lapok”.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-07-divisors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-08-bloom.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-09-trees.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-10-more.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

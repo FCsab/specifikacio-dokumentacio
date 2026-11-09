@@ -198,7 +198,7 @@ in the right format.</p>
 <tr><td><code>N</code>, <code>Z</code></td><td><code>n: 5</code>, <code>d: -3</code></td></tr>
 <tr><td><code>R</code></td><td><code>avg: 2.75</code></td></tr>
 <tr><td><code>L</code></td><td><code>found: true</code>, <code>found: false</code></td></tr>
-<tr><td><code>S</code></td><td><code>name: Anna</code>, <code>name: "Anna Kiss"</code>, <code>empty: ""</code></td></tr>
+<tr><td><code>S</code></td><td><code>name: Akac</code>, <code>name: "Old Akac"</code>, <code>empty: ""</code></td></tr>
 <tr><td><code>C</code></td><td><code>c: 'x'</code></td></tr>
 </tbody>
 </table>
@@ -207,47 +207,47 @@ in the right format.</p>
 characters YAML treats specially (<code>:</code>, <code>#</code>, leading spaces, …).</p>
 <h2 id="arrays"><a class="header" href="#arrays">Arrays</a></h2>
 <p>In square brackets, separated by commas:</p>
-<pre><code class="language-yaml fragment">nums: [3, 72, 81, 4, 5]
-names: [Anna, Bence, "Cili Kovács"]
+<pre><code class="language-yaml fragment">jars: [452, 438, 450, 447, 461]
+names: [Akac, Bodza, "Old Repce"]
 empty: []
 </code></pre>
 <p>The YAML list form, one item per line with a dash, also works:</p>
-<pre><code class="language-yaml fragment">nums:
-  - 3
-  - 72
-  - 81
+<pre><code class="language-yaml fragment">jars:
+  - 452
+  - 438
+  - 450
 </code></pre>
 <h2 id="matrices"><a class="header" href="#matrices">Matrices</a></h2>
 <p>A list of rows. It can be written on several lines for readability, or on a single line:</p>
-<pre><code class="language-yaml fragment">coffee: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+<pre><code class="language-yaml fragment">capped: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 </code></pre>
-<pre><code class="language-yaml fragment">coffee: [[4,5,7,5],[6,8,7,9],[4,5,7,5]]
+<pre><code class="language-yaml fragment">capped: [[75,70,85,40,95],[80,90,85,85,80],[88,65,90,90,81]]
 </code></pre>
 <p>Every row must have the declared number of columns.</p>
 <h2 id="records"><a class="header" href="#records">Records</a></h2>
 <p><strong>Multi-line form.</strong> Each field on its own line, indented under the variable:</p>
 <pre><code class="language-yaml fragment">r:
-  name: Anna
-  grade: 5
+  name: Akac
+  rating: 5
 </code></pre>
 <p><strong>Compact form</strong>, in braces:</p>
-<pre><code class="language-yaml fragment">r: {name: Anna, grade: 5}
+<pre><code class="language-yaml fragment">r: {name: Akac, rating: 5}
 </code></pre>
 <h2 id="arrays-of-records"><a class="header" href="#arrays-of-records">Arrays of records</a></h2>
 <p>The multi-line form uses a dash for each element, with that element’s
 fields indented under it:</p>
-<pre><code class="language-yaml fragment">races:
-  - name: AS
-    time: 37
-  - name: BE
-    time: 31
+<pre><code class="language-yaml fragment">hives:
+  - name: Akac
+    kg: 37
+  - name: Bodza
+    kg: 31
 </code></pre>
 <p>In the compact form, a list of <code>{…}</code> items:</p>
-<pre><code class="language-yaml fragment">races: [{name: AS, time: 37}, {name: BE, time: 31}]
+<pre><code class="language-yaml fragment">hives: [{name: Akac, kg: 37}, {name: Bodza, kg: 31}]
 </code></pre>
 <p>Both are equivalent. The multi-line form is easier to read, and the compact
 form fits large data into less space.</p>
@@ -257,32 +257,32 @@ form fits large data into less space.</p>
 exactly. Use spaces, not tabs.</p>
 </blockquote>
 <h2 id="a-complete-example"><a class="header" href="#a-complete-example">A complete example</a></h2>
-<pre><code class="language-speci">In: n∈N, races∈Race[1..n], Race=(name:S x time:N), limit∈R
+<pre><code class="language-speci">In: n∈N, hives∈Hive[1..n], Hive=(name:S x kg:N), limit∈R
 Aux: found∈L, ind∈N
-Out: winner∈S
+Out: light∈S
 Pre: n&gt;0
-Post: (found,ind)=SEARCH(i=1..n, races[i].time&lt;limit) and
-      (found -&gt; winner=races[ind].name)
+Post: (found,ind)=SEARCH(i=1..n, hives[i].kg&lt;limit) and
+      (found -&gt; light=hives[ind].name)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-races:
-  - name: AS
-    time: 37
-  - name: BE
-    time: 31
-  - name: FG
-    time: 30
+hives:
+  - name: Akac
+    kg: 37
+  - name: Bodza
+    kg: 31
+  - name: Repce
+    kg: 30
 limit: 31.5
 found: true
 ind: 2
-winner: BE
+light: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-races: [{name: AS, time: 37}, {name: BE, time: 41}]
+hives: [{name: Akac, kg: 37}, {name: Bodza, kg: 41}]
 limit: 30
 found: false
 ind: 0
-winner: ""
+light: ""
 </code></pre>
 <h2 id="common-data-errors"><a class="header" href="#common-data-errors">Common data errors</a></h2>
 <div class="table-wrapper">

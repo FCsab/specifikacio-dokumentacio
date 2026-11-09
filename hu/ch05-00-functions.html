@@ -203,8 +203,7 @@ vissza.</li>
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>A nyilat ASCII alakban, <code>-&gt;</code>-ként írd. Az Insert sávon nincs nyíl gomb, és a
 Unicode <code>→</code> mindenhol szintaktikai hiba: a szignatúrában és implikációként is.
-A képernyőképeken látható nyilak a szerkesztő betűtípusa által rajzolt <code>-&gt;</code>
-jelek.</p>
+A szerkesztőben látható nyilak a betűtípusa által rajzolt <code>-&gt;</code> jelek.</p>
 </blockquote>
 <h2 id="példák"><a class="header" href="#példák">Példák</a></h2>
 <div class="table-wrapper">
@@ -218,7 +217,7 @@ jelek.</p>
 <tr><td><code>add:Z x Z-&gt;Z, add(a,b)=a+b</code></td><td>két paraméter</td></tr>
 <tr><td><code>csere:Z x Z-&gt;Z x Z, csere(a,b)=(b,a)</code></td><td>tuple-t ad vissza</td></tr>
 <tr><td><code>f2:Z-&gt;Z, f2(p)=p+n</code></td><td>az <code>n</code> bemeneti változót használja</td></tr>
-<tr><td><code>jegy:Hallgato-&gt;N, jegy(h)=h.jegy</code></td><td>rekordparaméter</td></tr>
+<tr><td><code>pont:Kaptar-&gt;N, pont(h)=h.pont</code></td><td>rekordparaméter</td></tr>
 <tr><td><code>index:N[] x N-&gt;N, index(x,i)=x[i]</code></td><td>tömbparaméter</td></tr>
 <tr><td><code>paros:N-&gt;L, paros(i)=x[i] mod 2 = 0</code></td><td>logikai függvény</td></tr>
 </tbody>
@@ -280,14 +279,14 @@ x: [0, 2, 3, 8, 7]
 c: 2
 </code></pre>
 <h2 id="rekordparaméter"><a class="header" href="#rekordparaméter">Rekordparaméter</a></h2>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: s∈N
-Fv: jegy:Hallgato-&gt;N, jegy(e)=e.jegy
+Fv: pont:Kaptar-&gt;N, pont(e)=e.pont
 Ef: -
-Uf: s=SUM(i=1..n, jegy(h[i]))
+Uf: s=SUM(i=1..n, pont(h[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 5}, {nev: Bence, jegy: 3}]
+h: [{nev: Akac, pont: 5}, {nev: Bodza, pont: 3}]
 s: 8
 </code></pre>
 

@@ -187,50 +187,52 @@ condition.</p>
 <strong>Empty range:</strong> 0</p>
 </div>
 
-<h2 id="example-odd-numbers"><a class="header" href="#example-odd-numbers">Example: odd numbers</a></h2>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<h2 id="example-light-jars"><a class="header" href="#example-light-jars">Example: light jars</a></h2>
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <pre><code class="language-yaml">n: 3
-nums: [2, 4, 6]
-cnt: 0
+jars: [450, 500, 480]
+light: 0
 </code></pre>
-<p>This is the official course example
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">open in the editor</a>).</p>
+<p>The jar of exactly 450 g doesn’t count, because the condition is <code>&lt;</code>.</p>
 <h2 id="the-hungarian-name"><a class="header" href="#the-hungarian-name">The Hungarian name</a></h2>
 <p><code>DARAB</code> (“piece”, as in <em>hány darab</em>: “how many”) means exactly the same as
-<code>COUNT</code>. <em>How many divisors does a number have?</em></p>
-<pre><code class="language-speci">Be: szam∈N
-Ki: osztok∈N
-Ef: szam&gt;=1
-Uf: osztok=DARAB(i=1..szam, i|szam)    // i divides szam
+<code>COUNT</code>. <em>On how many of the first d days does an inspection fall, if there is one
+every a days?</em></p>
+<pre><code class="language-speci">Be: d∈N, a∈N
+Ki: db∈N
+Ef: a&gt;=1
+Uf: db=DARAB(i=1..d, a|i)    // a divides i
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 3
+db: 4
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 10
+a: 11
+db: 0
 </code></pre>
 <h2 id="counting-with-a-complex-condition"><a class="header" href="#counting-with-a-complex-condition">Counting with a complex condition</a></h2>
 <p>The condition can be any logical expression: it may compare neighbours,
-call functions or contain quantifiers. <em>How many times did the temperature
-rise from one day to the next?</em></p>
-<pre><code class="language-speci">In: n∈N, t∈Z[1..n]
+call functions or contain quantifiers. <em>How many times did the hive get heavier from
+one evening to the next?</em></p>
+<pre><code class="language-speci">In: n∈N, kg∈Z[1..n]
 Out: rises∈N
 Pre: -
-Post: rises=COUNT(i=1..n-1, t[i]&lt;t[i+1])
+Post: rises=COUNT(i=1..n-1, kg[i]&lt;kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [3, 5, 4, 4, 8, 9]
+kg: [30, 32, 31, 31, 35, 36]
 rises: 3
 </code></pre>
-<p>Note the range <code>1..n-1</code>: for <code>i = n</code>, <code>t[i+1]</code> wouldn’t exist.</p>
+<p>Note the range <code>1..n-1</code>: for <code>i = n</code>, <code>kg[i+1]</code> wouldn’t exist.</p>
 <h2 id="count-versus-sum"><a class="header" href="#count-versus-sum">COUNT versus SUM</a></h2>
 <p><code>COUNT(i=b..e, β(i))</code> is the same as <code>SUM(i=b..e, 1, β(i))</code>: add 1 for each
 matching index. Use <code>COUNT</code>, though. It names the theorem.</p>

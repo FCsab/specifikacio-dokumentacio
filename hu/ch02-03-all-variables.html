@@ -184,9 +184,7 @@
 szerkesztő ellenőrzi ezt, és ha nem teljesül, elutasítja a specifikációt.</p>
 </blockquote>
 <p>A szabály mögötti gondolat: ha egy bemenet nem befolyásolja az eredményt, akkor
-vagy nem is igazi bemenet, vagy az utófeltétel megfeledkezett róla. A hivatalos
-segédlet szerint: <em>„The postcondition must include all declared data.”</em>, vagyis
-az utófeltételnek minden deklarált adatot tartalmaznia kell.</p>
+vagy nem is igazi bemenet, vagy az utófeltétel megfeledkezett róla.</p>
 <h2 id="milyen-a-hibaüzenet"><a class="header" href="#milyen-a-hibaüzenet">Milyen a hibaüzenet?</a></h2>
 <pre><code class="language-speci error">Be: n∈N, x∈N[1..n], egyeb∈N
 Ki: s∈N
@@ -226,14 +224,14 @@ c: 2
 <p>Néha egy tételnek tényleg nincs szüksége valamelyik bemenetre. A tipikus eset a
 <a href="ch06-05-select.html"><code>SELECT</code></a>, amelynek nincs felső határa. Ilyenkor írj egy
 mindig igaz azonosságot az utófeltételbe:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ind∈N
-Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
+Ef: ∃i∈[1..n]:(kg[i]&gt;40)
+Uf: ind=SELECT(i&gt;=1, kg[i]&gt;40) és n=n
 </code></pre>
-<pre><code class="language-yaml">n: 5
-szamok: [23, 25, 26, 28, 29]
-ind: 1
+<pre><code class="language-yaml">n: 4
+kg: [23, 41, 26, 58]
+ind: 2
 </code></pre>
 <p>Az <code>n=n</code> mindig igaz, tehát nem változtat a jelentésen, de így az <code>n</code> szerepel
 az utófeltételben. Ha több változó is kimarad, fűzd őket egymás után:

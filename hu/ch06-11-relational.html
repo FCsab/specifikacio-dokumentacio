@@ -180,43 +180,38 @@
                         <h1 id="utófeltétel-tételek-nélkül"><a class="header" href="#utófeltétel-tételek-nélkül">Utófeltétel tételek nélkül</a></h1>
 <p>Az utófeltételnek nem <em>kell</em> tételmakrókat használnia. A bemenetről és a
 kimenetről szóló bármilyen logikai állítás érvényes, és a szerkesztő
-közvetlenül kiértékeli. Ez a <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>-&gt;</code> elemekből építkező
-<strong>relációs</strong> stílus az előadások jelölése, és egyes feladatok kifejezetten ezt
-kérik.</p>
+közvetlenül kiértékeli. A <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>-&gt;</code> elemekből építkező stílus
+neve <strong>relációs</strong>.</p>
 <h2 id="ugyanaz-a-feladat-mindkét-stílusban"><a class="header" href="#ugyanaz-a-feladat-mindkét-stílusban">Ugyanaz a feladat mindkét stílusban</a></h2>
 <blockquote>
-<p><em>Egy utazási iroda n városba árul repülőjegyet. Add meg a legtávolabbi
-városba szóló jegy árát. Ha több ugyanolyan messze van, a köztük legolcsóbbét.</em></p>
+<p><em>Borbála n üveget mért le egy sarzsból. Add meg a második legnagyobb súlyt: a
+maximum alatti értékek közül a legnagyobbat. Az üvegek nem mind egyforma súlyúak.</em></p>
 </blockquote>
-<p><strong>Tételekkel.</strong> Keresd meg a legnagyobb távolságot, gyűjtsd ki az ahhoz
-tartozó árakat, és vedd a minimumukat:</p>
-<pre><code class="language-speci">Be: n∈N, varos∈Varos[1..n], Varos=(tav:N x ar:N)
-Sa: leg∈N, db∈N, arak∈N[1..db]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: (,leg)=MAX(i=1..n, varos[i].tav) és
-    (db,arak)=MIS(i=1..n, varos[i].tav=leg, varos[i].ar) és
-    (,jegy)=MIN(i=1..db, arak[i])
+<p><strong>Tételekkel.</strong> Keresd meg a maximumot, aztán vedd a nála kisebb értékek legnagyobbikát:</p>
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
+Sa: leg∈N, van∈L
+Ki: masodik∈N
+Ef: ∃i∈[1..n]:(s[i]≠s[1])
+Uf: (,leg)=MAX(i=1..n, s[i]) és
+    (van,,masodik)=CONDMAX(i=1..n, s[i], s[i]&lt;leg)
 </code></pre>
-<pre><code class="language-yaml">n: 3
-varos: [{tav: 1000, ar: 500}, {tav: 1000, ar: 250}, {tav: 500, ar: 100}]
-leg: 1000
-db: 2
-arak: [500, 250]
-jegy: 250
+<pre><code class="language-yaml">n: 4
+s: [450, 480, 480, 465]
+leg: 480
+van: true
+masodik: 465
 </code></pre>
-<p><strong>Relációsan.</strong> <em>Létezik egy i város, amelynek az ára a válasz, és minden más
-j város vagy közelebb van, vagy ugyanolyan messze, de nem olcsóbb:</em></p>
-<pre><code class="language-speci">Be: n∈N, tav∈N[1..n], ar∈N[1..n]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: ∃i∈[1..n]:(ar[i]=jegy és
-      ∀j∈[1..n]:(tav[j]&lt;tav[i] vagy (tav[j]=tav[i] és ar[j]≥ar[i])))
+<p><strong>Relációsan.</strong> <em>A válasz előfordul a súlyok között, van nála nehezebb üveg, és minden
+üveg vagy nem nehezebb a válasznál, vagy a legnehezebbek egyike:</em></p>
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
+Ki: masodik∈N
+Ef: ∃i∈[1..n]:(s[i]≠s[1])
+Uf: ∃i∈[1..n]:(s[i]=masodik) és ∃j∈[1..n]:(s[j]&gt;masodik) és
+    ∀k∈[1..n]:(s[k]≤masodik vagy ∀m∈[1..n]:(s[m]≤s[k]))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-tav: [1000, 1000, 500]
-ar: [500, 250, 100]
-jegy: 250
+<pre><code class="language-yaml">n: 4
+s: [450, 480, 480, 465]
+masodik: 465
 </code></pre>
 <h2 id="hogyan-írjunk-relációs-utófeltételt"><a class="header" href="#hogyan-írjunk-relációs-utófeltételt">Hogyan írjunk relációs utófeltételt?</a></h2>
 <p>A tipikus szerkezet: <strong>egy <code>∃</code>, amely megnevez egy tanút, és <code>∀</code>-k, amelyek
@@ -229,24 +224,25 @@ elmondják, miért ő a jó tanú.</strong></p>
 <code>(ki=-1 és ∀i∈[…]:(nem P(i))) vagy ∃i∈[…]:(…)</code></li>
 </ul>
 <h3 id="példa-első-találat-vagy-1"><a class="header" href="#példa-első-találat-vagy-1">Példa: első találat vagy −1</a></h3>
-<pre><code class="language-speci">Be: n∈N, k∈N, ar∈N[1..n]
+<p><em>Az első k kilogrammnál könnyebb kaptár, vagy −1:</em></p>
+<pre><code class="language-speci">Be: n∈N, k∈N, kg∈N[1..n]
 Ki: sorszam∈Z
 Ef: -
-Uf: (sorszam=-1 és ∀i∈[1..n]:(ar[i]≥k)) vagy
-    ∃i∈[1..n]:(sorszam=i és ar[i]&lt;k és ∀j∈[1..i-1]:(ar[j]≥k))
+Uf: (sorszam=-1 és ∀i∈[1..n]:(kg[i]≥k)) vagy
+    ∃i∈[1..n]:(sorszam=i és kg[i]&lt;k és ∀j∈[1..i-1]:(kg[j]≥k))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 5000
-ar: [6000, 3000, 1000, 200]
+k: 30
+kg: [40, 25, 18, 10]
 sorszam: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 100
-ar: [2500, 5300]
+k: 10
+kg: [40, 25]
 sorszam: -1
 </code></pre>
 <p>A kimenetet <em>a tanún keresztül</em> kötjük meg (<code>sorszam=i</code>), így a formula soha nem
-olvassa az <code>ar[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. Ha <code>ar[sorszam]&lt;k</code>-t
+olvassa a <code>kg[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. Ha <code>kg[sorszam]&lt;k</code>-t
 írnánk, a sikertelen ágon tartományon kívüli olvasás történne.</p>
 <h2 id="melyik-stílust-válasszam"><a class="header" href="#melyik-stílust-válasszam">Melyik stílust válasszam?</a></h2>
 <div class="table-wrapper">
@@ -256,7 +252,7 @@ olvassa az <code>ar[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. 
 </thead>
 <tbody>
 <tr><td>a <strong>tételeket</strong></td><td>ha a specifikációból algoritmusnak kell születnie: minden makróból egy ismert algoritmus lesz a tervezési szakaszban</td></tr>
-<tr><td>a <strong>relációs</strong> alakot</td><td>ha a kimenetet egy tulajdonság definiálja, a feladat a relációs alakot kéri, vagy a tételes változathoz sok segédváltozó kellene</td></tr>
+<tr><td>a <strong>relációs</strong> alakot</td><td>ha a kimenetet egy tulajdonság definiálja, vagy a tételes változathoz sok segédváltozó kellene</td></tr>
 </tbody>
 </table>
 </div>

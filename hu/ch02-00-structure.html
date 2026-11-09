@@ -200,32 +200,33 @@ bemeneti, segéd- és kimeneti értékek összes lehetséges kombinációjának
 halmazát. Az előfeltétel kiválasztja az <em>értelmes bemeneteket</em>, az utófeltétel
 pedig mindegyikhez a <em>helyes kimeneteket</em>.</p>
 <p>Íme egy specifikáció, amely mind a hat blokkot használja:</p>
-<pre><code class="language-speci">Be: n∈N, k∈N, arak∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, hatar∈N, atka∈N[1..n]
 Sa: van∈L, ind∈N
 Ki: elso∈Z
-Fv: olcso:N-&gt;L, olcso(i)=arak[i]&lt;k
+Fv: beteg:N-&gt;L, beteg(i)=atka[i]&gt;hatar
 Ef: n≥1
-Uf: (van,ind)=SEARCH(i=1..n, olcso(i)) és
+Uf: (van,ind)=SEARCH(i=1..n, beteg(i)) és
     (van -&gt; elso=ind) és
     (nem van -&gt; elso=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-arak: [250, 90, 120, 40]
+hatar: 30
+atka: [12, 30, 45, 7]
 van: true
-ind: 2
-elso: 2
+ind: 3
+elso: 3
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 10
-arak: [250, 90]
+hatar: 50
+atka: [12, 30]
 van: false
-ind: 1
+ind: 3
 elso: -1
 </code></pre>
-<p>Így olvasd: <em>adott n, k és n darab ár, ahol n legalább 1; az elso kimenet az
-első k-nál kisebb ár indexe, vagy −1, ha nincs ilyen.</em> Ha a <code>SEARCH</code> még nem
-világos, nem baj. A saját fejezete a <a href="ch06-06-search.html">Keresés</a>.</p>
+<p>Így olvasd: <em>adott n, egy határ és n kaptár atkaszáma, ahol n legalább 1; az elso
+kimenet az első olyan kaptár indexe, amelyben a határnál több atka van, vagy −1, ha
+nincs ilyen.</em> Ha a <code>SEARCH</code> még nem világos, nem baj. A saját fejezete a
+<a href="ch06-06-search.html">Keresés</a>.</p>
 <h2 id="a-fejezet-tartalma"><a class="header" href="#a-fejezet-tartalma">A fejezet tartalma</a></h2>
 <ul>
 <li><a href="ch02-01-blocks.html">Blokkok és elrendezés</a>: a fejlécek írásmódja, a

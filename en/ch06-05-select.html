@@ -194,49 +194,49 @@ error (“Expected “&gt;=” but “≥” found“), even though <code>≥</c
 <p>Unlike the other theorems, <code>SELECT</code> has <strong>no upper bound</strong>. It only says where
 to start. That is exactly why existence must be guaranteed: without it, the
 search could run forever.</p>
-<h2 id="example-the-first-odd-number"><a class="header" href="#example-the-first-odd-number">Example: the first odd number</a></h2>
-<p>This is the official course example
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">open in the editor</a>):</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<h2 id="example-the-first-hive-over-40-kg"><a class="header" href="#example-the-first-hive-over-40-kg">Example: the first hive over 40 kg</a></h2>
+<p>Borbála knows she has at least one strong hive:</p>
+<pre><code class="language-speci">In: n∈N, kg∈N[1..n]
 Out: ind∈N
-Pre: ∃i∈[1..n]:(nums[i] mod 2 = 1)
-Post: ind=SELECT(i&gt;=1, nums[i] mod 2 = 1) and n=n
-</code></pre>
-<pre><code class="language-yaml">n: 5
-nums: [23, 25, 26, 28, 29]
-ind: 1
+Pre: ∃i∈[1..n]:(kg[i]&gt;40)
+Post: ind=SELECT(i&gt;=1, kg[i]&gt;40) and n=n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-nums: [2, 4, 7, 9]
+kg: [23, 41, 26, 58]
+ind: 2
+</code></pre>
+<pre><code class="language-yaml">n: 3
+kg: [10, 20, 90]
 ind: 3
 </code></pre>
 <p>Two things to notice:</p>
 <ol>
-<li><strong>The precondition</strong> <code>∃i∈[1..n]:(nums[i] mod 2 = 1)</code> guarantees that there
-is an odd number. Without it, <code>SELECT</code> would be wrong.</li>
+<li><strong>The precondition</strong> <code>∃i∈[1..n]:(kg[i]&gt;40)</code> guarantees that there
+is such a hive. Without it, <code>SELECT</code> would be wrong.</li>
 <li><strong><code>and n=n</code></strong>: <code>n</code> doesn’t appear in <code>SELECT</code> (there is no upper bound),
 so the identity <code>n=n</code> is needed to satisfy the
 <a href="ch02-03-all-variables.html">all-variables rule</a>.</li>
 </ol>
-<p>Input with no odd number violates the precondition, so the test is red:</p>
+<p>Input with no such hive violates the precondition, so the test is red:</p>
 <pre><code class="language-yaml red">n: 2
-nums: [2, 4]
+kg: [23, 40]
 ind: 1
 </code></pre>
 <h2 id="selection-without-an-array"><a class="header" href="#selection-without-an-array">Selection without an array</a></h2>
 <p><code>SELECT</code> is natural for “the first number with a property” questions where
-the answer is guaranteed mathematically. <em>The smallest divisor of n greater
-than 1</em> (for n ≥ 2, n itself is always a divisor):</p>
-<pre><code class="language-speci">In: n∈N
-Out: d∈N
-Pre: n≥2
-Post: d=SELECT(i&gt;=2, i|n)
+the answer is guaranteed mathematically. <em>Jars are sold in six-packs. What is the
+smallest number of jars, at least as many as we have, that fills them exactly?</em>
+There is always a multiple of 6:</p>
+<pre><code class="language-speci">In: jars∈N
+Out: packed∈N
+Pre: -
+Post: packed=SELECT(i&gt;=jars, 6|i)
 </code></pre>
-<pre><code class="language-yaml">n: 35
-d: 5
+<pre><code class="language-yaml">jars: 20
+packed: 24
 </code></pre>
-<pre><code class="language-yaml">n: 13
-d: 13
+<pre><code class="language-yaml">jars: 24
+packed: 24
 </code></pre>
 <h2 id="select-or-search"><a class="header" href="#select-or-search">SELECT or SEARCH?</a></h2>
 <div class="table-wrapper">

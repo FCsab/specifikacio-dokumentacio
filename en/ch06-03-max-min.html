@@ -188,22 +188,23 @@ same for the smallest.</p>
 <strong>Empty range:</strong> not allowed. The precondition must guarantee at least one element.</p>
 </div>
 
-<h2 id="example-the-warmest-day"><a class="header" href="#example-the-warmest-day">Example: the warmest day</a></h2>
+<h2 id="example-the-warmest-dawn"><a class="header" href="#example-the-warmest-dawn">Example: the warmest dawn</a></h2>
 <pre><code class="language-speci">In: n∈N, t∈Z[1..n]
 Out: day∈N, temp∈Z
 Pre: n&gt;0
 Post: (day,temp)=MAX(i=1..n, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 day: 2
-temp: 17
+temp: 13
 </code></pre>
-<p>The maximum, 17, occurs on days 2 and 4. <code>MAX</code> chooses the first, day 2.</p>
+<p>Borbála reads the thermometer at the hive entrance every dawn. The maximum, 13,
+occurs on days 2 and 4. <code>MAX</code> chooses the first, day 2.</p>
 <pre><code class="language-yaml red">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 day: 4
-temp: 17
+temp: 13
 </code></pre>
 <h2 id="keeping-only-one-of-the-two-results"><a class="header" href="#keeping-only-one-of-the-two-results">Keeping only one of the two results</a></h2>
 <p>Leave an empty slot in the tuple:</p>
@@ -253,8 +254,8 @@ Post: v=MAX(i=1..n, t[i]).maxval
 t: [4, 9, 1]
 v: 9
 </code></pre>
-<p><a href="ch09-02-yossarian.html">Yossarian’s map</a> uses this to find the maximum of a
-matrix.</p>
+<p><a href="ch09-02-reliable.html">The most reliable hive</a> uses <code>.minval</code> and <code>.minind</code> the same
+way, over a matrix.</p>
 <h2 id="common-mistakes"><a class="header" href="#common-mistakes">Common mistakes</a></h2>
 <ul>
 <li><strong>Missing precondition.</strong> The maximum of nothing doesn’t exist. With

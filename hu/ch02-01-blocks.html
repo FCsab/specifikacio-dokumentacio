@@ -223,38 +223,36 @@ Egy fájlban maradj egy nyelvnél.</p>
 <h2 id="a-elrendezés-minden-egy-sorban"><a class="header" href="#a-elrendezés-minden-egy-sorban">„A” elrendezés: minden egy sorban</a></h2>
 <p>A tartalom a fejléc után, ugyanabban a sorban, egy szóközzel elválasztva is
 jöhet:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
 Ki: s∈Z
 Ef: -
-Uf: s=SUM(i=1..n, szamok[i])
+Uf: s=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [4, -1, 10]
-s: 13
+kg: [7, -2, 12]
+s: 17
 </code></pre>
-<p>A hivatalos segédlet a záró szóközt a fejléc részének tekinti: „<code>In: </code> (there
-is a space at the end of the string)”. Ebben az elrendezésben a szóköz
-kötelező.</p>
+<p>Ebben az elrendezésben a kettőspont utáni szóköz kötelező.</p>
 <h2 id="b-elrendezés-a-fejléc-külön-sorban"><a class="header" href="#b-elrendezés-a-fejléc-külön-sorban">„B” elrendezés: a fejléc külön sorban</a></h2>
-<p>A fejléc állhat egyedül is, a tartalom pedig a következő sorokban jön. A magyar
-tárgyi megoldásokban gyakori, soronként egy deklarációval:</p>
+<p>A fejléc állhat egyedül is, a tartalom pedig a következő sorokban jön. Hosszabb
+specifikációknál hasznos, soronként egy deklarációval:</p>
 <pre><code class="language-speci">Be:
 n∈N,
-k∈N,
-ar∈N[1..n]
+hatar∈N,
+suly∈N[1..n]
 
 Ki:
 db∈N
 
 Ef:
-n&gt;=1 és k&gt;=1
+n&gt;=1 és hatar&gt;=1
 
 Uf:
-db=DARAB(i=1..n, ar[i]&lt;k)
+db=DARAB(i=1..n, suly[i]&lt;hatar)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-ar: [250, 90, 120, 40]
+hatar: 450
+suly: [500, 440, 470, 410]
 db: 2
 </code></pre>
 <p>Ennek az elrendezésnek a szabályai:</p>

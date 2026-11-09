@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Catbert kávészünetei - A Specifikációszerkesztő könyve</title>
+        <title>A hordás - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
@@ -177,93 +177,93 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="catbert-kávészünetei"><a class="header" href="#catbert-kávészünetei">Catbert kávészünetei</a></h1>
+                        <h1 id="a-hordás"><a class="header" href="#a-hordás">A hordás</a></h1>
 <blockquote>
-<p><em>Catbert többnapos konferenciát szervezett, naponta négy kávészünettel. Minden
-szünetben feljegyezte, mennyi kávé fogyott. Keress egy olyan napot, amikor a
-résztvevők minden kávészünetben 5 liternél több kávét ittak!</em></p>
+<p><em>Borbála feljegyzi, mennyi nektárt hordtak be a családjai n nap mindegyikén.
+<strong>Hordásnak</strong> nevez d egymást követő napot, ha közben legalább <code>cel</code> egység
+érkezett. Sorold fel minden hordás utolsó napját.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> összetett minta. A fő minta a keresés, a beágyazott az
-eldöntés (mind).
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=96a3095f-cd78-482b-91cf-89e8a92229ab">Hivatalos megoldás</a>.</p>
+<p><strong>A feladat típusa:</strong> összetett minta. A kiválogatás a fő minta, az összegzés a
+beágyazott.</p>
 <h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> n nap × 4 szünet, egy <code>kave∈N[1..n,1..4]</code> mátrix. (A hivatalos
-megoldásban <code>coffe</code> a neve.)</li>
-<li><strong>Kérdés.</strong> <em>Keress egy napot</em>, ami lehet, hogy nem létezik. Ez <strong>keresés</strong>.</li>
-<li><strong>Feltétel az i. napra.</strong> A négy szünet <em>mindegyikében</em> 5 felett, ez
-<strong>FORALL</strong>, a nap függvényeként.</li>
+<li><strong>Adatok.</strong> <code>n</code>, <code>d</code>, <code>cel</code>, és a napi mennyiségek: <code>nektar∈N[1..n]</code>.</li>
+<li><strong>Kérdés.</strong> <em>Sorold fel a napokat, amikor…</em>: több index összegyűjtése, tehát <code>MIS</code>.</li>
+<li><strong>Feltétel az i. napra.</strong> Az <code>i</code>. nappal végződő utolsó d nap összege legalább
+<code>cel</code>. Ez egy <code>SUM</code>, amiből függvény lesz:
+<code>nektar[i-d+1] + … + nektar[i]</code>.</li>
+<li><strong>Tartomány.</strong> Az <code>i</code>. naphoz d nap kell, amely önmagával végződik, tehát a
+legelső lehetséges utolsó nap a <code>d</code>.</li>
+<li><strong>Előfeltétel.</strong> A szakasznak el kell férnie: <code>1≤d≤n</code>.</li>
 </ul>
 <h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
-Sa: van∈L
-Ki: ind∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
-Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, tobb5(i))
+<pre><code class="language-speci">Be: n∈N, d∈N, cel∈N, nektar∈N[1..n]
+Ki: db∈N, napok∈N[1..db]
+Fv: hordas:N-&gt;N, hordas(i)=SUM(j=i-d+1..i, nektar[j])
+Ef: 1≤d≤n
+Uf: (db,napok)=MIS(i=d..n, hordas(i)≥cel)
 </code></pre>
+<p>Az ablak helyes megadásán áll vagy bukik a feladat. <code>d = 3</code> és <code>i = 7</code> esetén az
+<code>i-d+1..i</code> tartomány az <code>5..7</code>, vagyis pontosan három nap.</p>
 <h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>A 2. az egyetlen nap, amikor mind a négy szünet 5 felett volt:</p>
-<pre><code class="language-yaml">n: 3
-kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
-]
-van: true
-ind: 2
+<p>A szokásos eset, két hordással:</p>
+<pre><code class="language-yaml">n: 7
+d: 3
+cel: 20
+nektar: [5, 9, 8, 1, 0, 12, 9]
+db: 2
+napok: [3, 7]
 </code></pre>
-<p>Nincs ilyen nap. A 2. napon van egy pontosan 5-ös szünet, az pedig nem <em>több</em>
-5-nél:</p>
-<pre><code class="language-yaml">n: 3
-kave: [
-  [4, 3, 5, 6],
-  [6, 7, 5, 6],
-  [5, 6, 5, 6]
-]
-van: false
-ind: 0
+<p>Negatív eset, gyenge hét:</p>
+<pre><code class="language-yaml">n: 4
+d: 2
+cel: 100
+nektar: [1, 2, 3, 4]
+db: 0
+napok: []
 </code></pre>
-<p>A hivatalos sikertelen keresés példája. Ez <code>ind: 4</code>-et (n + 1) ír, mert a
-lépéslista ezt mutatja:</p>
+<p>Határeset, <code>d = n</code>, és az összeg pontosan <code>cel</code>, ami számít:</p>
 <pre><code class="language-yaml">n: 3
-kave: [
-  [5, 6, 7, 4],
-  [6, 4, 6, 8],
-  [1, 2, 3, 4]
-]
-van: false
-ind: 4
+d: 3
+cel: 6
+nektar: [1, 2, 3]
+db: 1
+napok: [3]
 </code></pre>
-<p>Több jó nap, így az elsőt kell választani:</p>
-<pre><code class="language-yaml">n: 3
-kave: [[1, 1, 1, 1], [6, 6, 6, 6], [9, 9, 9, 9]]
-van: true
-ind: 2
+<p>Az előfeltétel kizárja a <code>d = 0</code> esetet:</p>
+<pre><code class="language-yaml red">n: 3
+d: 0
+cel: 1
+nektar: [1, 2, 3]
+db: 0
+napok: []
 </code></pre>
-<h2 id="a-lépéslistában"><a class="header" href="#a-lépéslistában">A lépéslistában</a></h2>
-<p>A hivatalos megoldás lépéslistáját soronként a
-<a href="ch08-01-stepper.html">Léptető és lépéslista</a> fejezet magyarázza el. Látszik
-benne, ahogy a kiértékelés minden napra belép a <code>more5</code> függvénybe (↓), és az
-eredménnyel visszatér (↑).</p>
-<h2 id="változatok"><a class="header" href="#változatok">Változatok</a></h2>
-<ul>
-<li><em>Hány napon</em> volt minden szünet 5 felett? <code>SEARCH</code> helyett <code>DARAB</code>:
-<code>c=DARAB(i=1..n, tobb5(i))</code>.</li>
-<li><em>Volt-e olyan nap</em>, amikor valamelyik szünet 5 alatt maradt? <code>EXISTS</code>
-beágyazott <code>EXISTS</code>-szel: <code>l=EXISTS(i=1..n, EXISTS(j=1..4, kave[i,j]&lt;5))</code>.</li>
-<li><em>Melyik</em> napokon? <code>MIS</code>: <code>(db,napok)=MIS(i=1..n, tobb5(i))</code>.</li>
-</ul>
+<h2 id="végigkövetés-első-teszt-d--3"><a class="header" href="#végigkövetés-első-teszt-d--3">Végigkövetés (első teszt, d = 3)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">i. nap</th><th style="text-align: center">ablak</th><th style="text-align: center"><code>hordas(i)</code></th><th style="text-align: center">legalább 20?</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">3</td><td style="text-align: center">5 + 9 + 8</td><td style="text-align: center">22</td><td style="text-align: center"><strong>igen</strong></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">9 + 8 + 1</td><td style="text-align: center">18</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">8 + 1 + 0</td><td style="text-align: center">9</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">1 + 0 + 12</td><td style="text-align: center">13</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">0 + 12 + 9</td><td style="text-align: center">21</td><td style="text-align: center"><strong>igen</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>A 3. és a 7. nap illeszkedik, tehát <code>db = 2</code> és <code>napok = [3, 7]</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-03-trurl.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-02-reliable.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-05-dogbert.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-04-harvest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -273,11 +273,11 @@ beágyazott <code>EXISTS</code>-szel: <code>l=EXISTS(i=1..n, EXISTS(j=1..4, kave
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-03-trurl.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-02-reliable.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-05-dogbert.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-04-harvest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

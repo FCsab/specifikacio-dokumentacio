@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="hu" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>A Korongvilág könyvtárai - A Specifikációszerkesztő könyve</title>
+        <title>The honey fair - The Specification Editor Book</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
+        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
+                    <h1 class="menu-title">The Specification Editor Book</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,120 +177,140 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="a-korongvilág-könyvtárai"><a class="header" href="#a-korongvilág-könyvtárai">A Korongvilág könyvtárai</a></h1>
+                        <h1 id="the-honey-fair"><a class="header" href="#the-honey-fair">The honey fair</a></h1>
 <blockquote>
-<p><em>A Láthatatlan Egyetem Könyvtárosa tárolja a Korongvilág minden könyvtárának
-nevét és koordinátáit. Add meg a lista első olyan könyvtárát, amely északabbra
-van (kisebb az y koordinátája), mint a következő.</em></p>
+<p><em>At the Hive Valley honey fair Borbála noted N sales. For each one she wrote
+down the honey type (numbered 1 to K), the number of jars and the price of a
+jar. Which honey type earned the most? If several earned the same, give the
+smallest number.</em></p>
+<p><strong>Input:</strong> N (1 ≤ N ≤ 100) and K (1 ≤ K ≤ 10), then N lines with the type
+(1 ≤ F ≤ K), the jars (1 ≤ D ≤ 50) and the price (1 ≤ Á ≤ 9000).
+<strong>Output:</strong> one integer, the type.</p>
 </blockquote>
-<p><strong>Feladattípus:</strong> keresés rekordok tömbjében.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=6117a7d1-fd33-48e3-8f5b-55bafbb65a64">Hivatalos megoldás</a>.</p>
-<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
+<p>This task is written in the Hungarian style: Hungarian headers and names, one
+declaration per line, a blank line between blocks. <code>fajta</code> is the type, <code>db</code> the
+number of jars, <code>ar</code> the price, <code>bev</code> the revenue and <code>legjobb</code> the best type.</p>
+<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
 <ul>
-<li><strong>Adatok.</strong> n könyvtár, mindegyiknek neve és két koordinátája van. Ehhez egy
-<code>Konyvtar=(nev:S x x:N x y:N)</code> rekord kell, és ezekből egy tömb.</li>
-<li><strong>Kérdés.</strong> <em>Az első olyan könyvtár, amely…</em> Egyetlen elemet keresünk, és
-lehet, hogy nincs ilyen. Ez <strong>keresés</strong>.</li>
-<li><strong>Feltétel.</strong> Az <em>i</em>. könyvtár északabbra van, mint az <em>i+1</em>. Vigyázat:
-„északabbra” <em>kisebb</em> y-t jelent. Vessük össze a hivatalos megoldás
-feltételével, a <code>pl[i].y&lt;pl[i+1].y</code>-nal, amely szerint az <em>i</em>. y-ja kisebb, mint
-az <em>i+1</em>.-é. A kisebb y az <em>i</em>. könyvtáré, tehát ő van északabbra. Rendben.</li>
-<li><strong>Tartomány.</strong> Mivel a következővel hasonlítunk össze, az <code>i</code> csak <code>n-1</code>-ig
-megy.</li>
-<li><strong>Kimenet.</strong> A könyvtár <em>neve</em>, ami csak sikeres keresés esetén létezik. Ehhez
-implikáció kell.</li>
+<li><strong>Data.</strong> The input comes as N lines of (type, jars, price). Three parallel
+arrays mirror that directly. <code>k</code> says how many types exist.</li>
+<li><strong>Question.</strong> The outer pattern is a maximum over the <strong>types</strong>, not over the
+sales. That’s the key step: the loop variable <code>t</code> runs over <code>1..k</code>.</li>
+<li><strong>Inner pattern.</strong> The revenue of type <code>t</code> is the sum of <code>db[i]*ar[i]</code> over the
+sales of that type, so a filtered <code>SUM</code>, which becomes a function.</li>
+<li><strong>Ties.</strong> <code>MAX</code> takes the first index, which is the smallest type number.</li>
 </ul>
-<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, kt∈Konyvtar[1..n], Konyvtar=(nev:S x x:N x y:N)
-Sa: van∈L, ind∈N
-Ki: nev∈S
-Ef: ∀i∈[1..n]:(kt[i].x≥0 és kt[i].y≥0)
-Uf: (van,ind)=SEARCH(i=1..n-1, kt[i].y&lt;kt[i+1].y) és
-    (van -&gt; nev=kt[ind].nev)
+<h2 id="specification-with-theorems"><a class="header" href="#specification-with-theorems">Specification (with theorems)</a></h2>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
+
+Ki:
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
+
+Ef:
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
+
+Uf:
+(legjobb,)=MAX(t=1..k, bev(t))
 </code></pre>
-<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>A feladat példája, ahol az L4-et (y = 4) az L5 (y = 47) követi:</p>
+<p>Note that <code>n</code>, <code>db</code> and <code>ar</code> appear in the postcondition only through <code>bev</code>. That
+satisfies the <a href="ch02-03-all-variables.html">all-variables rule</a>.</p>
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
+<p>The nominal case. Type 1 earns 9000, type 2 earns 10 000, type 3 earns 4000:</p>
 <pre><code class="language-yaml">n: 5
-kt: [
-  {nev: "L1", x: 12, y: 24},
-  {nev: "L2", x: 5, y: 15},
-  {nev: "L3", x: 69, y: 4},
-  {nev: "L4", x: 12, y: 4},
-  {nev: "L5", x: 212, y: 47}
-]
-nev: L4
-van: true
-ind: 4
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<p>Negatív eset, ahol minden könyvtár délebbre van az előzőnél:</p>
-<pre><code class="language-yaml">n: 4
-kt: [
-  {nev: "L1", x: 10, y: 50},
-  {nev: "L2", x: 20, y: 40},
-  {nev: "L3", x: 30, y: 30},
-  {nev: "L4", x: 40, y: 20}
-]
-nev: ""
-van: false
-ind: 4
+<p>A tie, so the smaller type number is the answer:</p>
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>Határeset, egyetlen könyvtárral (az <code>1..0</code> tartomány üres):</p>
+<p>The same tie with the larger number must be red:</p>
+<pre><code class="language-yaml red">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 2
+</code></pre>
+<p>Types with no sale at all earn 0 and can’t win:</p>
 <pre><code class="language-yaml">n: 1
-kt: [{nev: "L1", x: 0, y: 10}]
-nev: ""
-van: false
-ind: 1
+k: 3
+fajta: [3]
+db: [1]
+ar: [5]
+legjobb: 3
 </code></pre>
-<p>A rossz elvárásnak le kell buknia:</p>
-<pre><code class="language-yaml red">n: 5
-kt: [
-  {nev: "L1", x: 12, y: 24},
-  {nev: "L2", x: 5, y: 15},
-  {nev: "L3", x: 69, y: 4},
-  {nev: "L4", x: 12, y: 4},
-  {nev: "L5", x: 212, y: 47}
-]
-nev: L3
-van: true
-ind: 3
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p><strong>Check every bound.</strong> It’s easy to copy the price limit (9000) onto the jars
+as well. Such a precondition is too loose, and no test will turn red because of
+it. Compare each bound in <code>Ef:</code> with the statement.</p>
+</blockquote>
+<h2 id="specification-relational"><a class="header" href="#specification-relational">Specification (relational)</a></h2>
+<p>The same task as a property: <em>there is a type t that is the answer, no type earned
+more than t, and every type before t earned strictly less.</em></p>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
+
+Ki:
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
+
+Ef:
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
+
+Uf:
+∃t∈[1..k]:(legjobb=t és ∀u∈[1..k]:(bev(u)&lt;=bev(t)) és ∀u∈[1..t-1]:(bev(u)&lt;bev(t)))
 </code></pre>
-<h2 id="végigkövetés"><a class="header" href="#végigkövetés">Végigkövetés</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">y[i]</th><th style="text-align: right">y[i+1]</th><th style="text-align: center">y[i] &lt; y[i+1]?</th></tr>
-</thead>
-<tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">24</td><td style="text-align: right">15</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">15</td><td style="text-align: right">4</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">47</td><td style="text-align: center"><strong>igen</strong></td></tr>
-</tbody>
-</table>
-</div>
-<p>A keresés i = 4-nél áll meg, így <code>van = true</code> és <code>ind = 4</code>, az implikáció pedig
-megköveteli, hogy <code>nev = kt[4].nev = "L4"</code>.</p>
-<h2 id="a-zárójelekről"><a class="header" href="#a-zárójelekről">A zárójelekről</a></h2>
-<p>A hivatalos megoldás az utolsó sort zárójel nélkül írja:</p>
-<pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists -&gt; lib=pl[ind].name
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<p>Mivel a <code>-&gt;</code> gyengébben köt, mint az <code>and</code>, ez azt jelenti:
-<code>(SEARCH… and exists) -&gt; lib=…</code>. Ha egy tesztesetben rossz az <code>exists</code> vagy az
-<code>ind</code> értéke, a bal oldal hamis, és az egész állítás <em>igaz</em>, így a hiba
-észrevétlen marad. A fenti zárójelezéssel a piros teszt helyesen piros. (A
-hivatalos megoldás a jelzőt is <code>exists</code>-nek nevezi, amit a mostani szerkesztő
-elutasít, lásd <a href="ch06-06-search.html">Keresés</a>.)</p>
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
+</code></pre>
+<p>Without the last <code>∀</code>, both types of a tie would be accepted. Always include a
+test that makes the tie-break matter.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-00-examples.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-05-coldest.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-02-yossarian.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-07-calendar.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -300,11 +320,11 @@ elutasít, lásd <a href="ch06-06-search.html">Keresés</a>.)</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-00-examples.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-05-coldest.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-02-yossarian.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-07-calendar.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

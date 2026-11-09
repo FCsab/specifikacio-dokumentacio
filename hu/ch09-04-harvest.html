@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="hu" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Divisors - The Specification Editor Book</title>
+        <title>Pergetés - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
+        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Specification Editor Book</h1>
+                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,104 +177,90 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="divisors"><a class="header" href="#divisors">Divisors</a></h1>
-<p>Three short Hungarian course tasks about the divisors of a number. They show
-the Hungarian counting macro <code>DARAB</code>, the divisibility relation <code>|</code> and the
-filtered <code>SUM</code>.</p>
-<h2 id="number-of-divisors"><a class="header" href="#number-of-divisors">Number of divisors</a></h2>
+                        <h1 id="pergetés"><a class="header" href="#pergetés">Pergetés</a></h1>
 <blockquote>
-<p><em>Ask for an integer, then print the number of its divisors!</em></p>
+<p><em>Borbála n kaptárfiókjának mindegyikében öt keret van, az 1–5. helyeken.
+Feljegyzi, hogy az egyes keretek hány százaléka fedett viasszal. A pergetője
+minden fiókból egyszerre ugyanazt a helyet emeli ki, és a méz csak 80%-tól érett.
+Keress egy helyet, ahol minden fiók kerete érett.</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: szam∈N
-
-Ki: osztok∈N
-
-Ef: szam&gt;=1
-
-Uf: osztok=DARAB(i=1..szam, i|szam)    // szam mod i = 0
-</code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
-</code></pre>
-<pre><code class="language-yaml">szam: 1
-osztok: 1
-</code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
-</code></pre>
+<p><strong>A feladat típusa:</strong> összetett minta. A keresés a fő minta, az eldöntés (mind) a
+beágyazott.</p>
+<h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><code>DARAB</code> is the Hungarian spelling of <code>COUNT</code>.</li>
-<li><code>i|szam</code> reads “i divides szam”, the same as <code>szam mod i = 0</code>. The line
-comment says so.</li>
-<li>The precondition excludes 0, which would have infinitely many divisors.</li>
+<li><strong>Adatok.</strong> n fiók × 5 hely, egy <code>fedett∈N[1..n,1..5]</code> mátrix.</li>
+<li><strong>Kérdés.</strong> <em>Keress egy helyet</em>, ami lehet, hogy nem létezik, tehát <code>SEARCH</code>.</li>
+<li><strong>A külső ciklus az oszlopokon fut.</strong> Helyekről kérdezünk, ezért a külső <code>p</code>
+változó a második indexen halad. A legtöbb mátrixos feladat soronként megy,
+így ezt könnyű eltéveszteni.</li>
+<li><strong>Feltétel a p. helyre.</strong> Ott minden fiókban legalább 80 van, tehát <code>FORALL</code> a
+sorokon, a hely függvényeként.</li>
+<li><strong>Előfeltétel.</strong> A százalék legfeljebb 100. És <code>n≥1</code>: fiókok nélkül a <code>FORALL</code>
+igaz az üres tartományon, így az 1. hely érettnek számítana.</li>
 </ul>
-<h2 id="sum-of-divisors"><a class="header" href="#sum-of-divisors">Sum of divisors</a></h2>
-<blockquote>
-<p><em>Ask for an integer, then print the sum of its divisors!</em></p>
-</blockquote>
-<pre><code class="language-speci">Be: n∈N
-
-Ki: sum∈N
-
-Ef: n&gt;=1
-
-Uf: sum=SUM(i=1..n, i, i|n)
+<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
+Sa: van∈L
+Ki: hely∈N
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
+Ef: n≥1 és ∀b∈[1..n]:(∀p∈[1..5]:(fedett[b,p]≤100))
+Uf: (van,hely)=SEARCH(p=1..5, erett(p))
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 28
+<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
+<p>A 3. hely az első, ahol minden fiók eléri a 80-at:</p>
+<pre><code class="language-yaml">n: 3
+fedett: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
+]
+van: true
+hely: 3
 </code></pre>
+<p>Nincs ilyen hely. A 79 nem elég, és minden hely elbukik valamelyik fiókban:</p>
+<pre><code class="language-yaml">n: 2
+fedett: [
+  [79, 90, 90, 10, 90],
+  [90, 79, 10, 90, 79]
+]
+van: false
+hely: 6
+</code></pre>
+<p>Határeset, a pontosan 80 számít:</p>
 <pre><code class="language-yaml">n: 1
-sum: 1
+fedett: [[10, 80, 100, 0, 0]]
+van: true
+hely: 2
 </code></pre>
-<p>The third argument of <code>SUM</code> is the filter: only the divisors are added.</p>
-<h2 id="sum-of-the-odd-divisors"><a class="header" href="#sum-of-the-odd-divisors">Sum of the odd divisors</a></h2>
-<blockquote>
-<p><em>Ask for an integer, then print the sum of its odd divisors!</em></p>
-</blockquote>
-<p>A solution that circulated in the course:</p>
-<pre><code class="language-speci">Be: n∈N
-
-Ki: sum∈N
-
-Ef: n&gt;=1
-
-Uf: sum = SUM(i=1..n,i,i%2=1)
+<p>Minden hely érett, tehát az elsőt kell választani:</p>
+<pre><code class="language-yaml">n: 2
+fedett: [[85, 85, 85, 85, 85], [85, 85, 85, 85, 85]]
+van: true
+hely: 1
 </code></pre>
-<pre><code class="language-yaml red">n: 10
-sum: 6
-</code></pre>
-<blockquote class="blockquote-tag blockquote-tag-warning">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>This doesn’t solve the task. The filter <code>i%2=1</code> keeps <em>every odd number</em>
-up to n. For n = 10 it gives 1+3+5+7+9 = 25, not the odd divisors
-1+5 = 6. The test with the correct answer is red, which exposes the bug.</p>
-</blockquote>
-<p>The correct filter has both conditions:</p>
-<pre><code class="language-speci">Be: n∈N
-
-Ki: sum∈N
-
-Ef: n&gt;=1
-
-Uf: sum=SUM(i=1..n, i, i%2=1 and i|n)
-</code></pre>
-<pre><code class="language-yaml">n: 10
-sum: 6
-</code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 4
-</code></pre>
-<p><code>%</code> and <code>mod</code> are interchangeable.</p>
+<h2 id="a-lépéslistában"><a class="header" href="#a-lépéslistában">A lépéslistában</a></h2>
+<p>Az első teszt kiértékelését soronként a
+<a href="ch08-01-stepper.html">Léptető és lépéslista</a> fejezet magyarázza el. Azt mutatja,
+hogyan lép be a kiértékelés minden helyre az <code>erett</code> függvénybe (↓), és hogyan tér
+vissza (↑) az eredménnyel.</p>
+<h2 id="változatok"><a class="header" href="#változatok">Változatok</a></h2>
+<ul>
+<li><em>Hány hely érett?</em> A <code>SEARCH</code> helyett <code>DARAB</code>:
+<code>c=DARAB(p=1..5, erett(p))</code>.</li>
+<li><em>Van-e valahol 20% alatti keret?</em> <code>EXISTS</code> beágyazott <code>EXISTS</code>-szel:
+<code>l=EXISTS(b=1..n, EXISTS(p=1..5, fedett[b,p]&lt;20))</code>.</li>
+<li><em>Melyik helyek?</em> <code>MIS</code>: <code>(c,hk)=MIS(p=1..5, erett(p))</code>.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-06-travel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-03-flow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-08-cards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-05-coldest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -284,11 +270,11 @@ sum: 4
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-06-travel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-03-flow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-08-cards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-05-coldest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

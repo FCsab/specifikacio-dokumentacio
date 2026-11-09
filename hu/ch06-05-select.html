@@ -194,49 +194,49 @@ szintaktikai hiba („Expected “&gt;=” but “≥” found”), pedig másho
 <p>A többi tétellel ellentétben a <code>SELECT</code>-nek <strong>nincs felső határa</strong>, csak azt
 mondja meg, honnan induljon. Éppen ezért kell garantálni a létezést: nélküle a
 keresés soha nem érne véget.</p>
-<h2 id="példa-az-első-páratlan-szám"><a class="header" href="#példa-az-első-páratlan-szám">Példa: az első páratlan szám</a></h2>
-<p>Ez a hivatalos tárgyi példa
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">megnyitás a szerkesztőben</a>):</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<h2 id="példa-az-első-40-kg-feletti-kaptár"><a class="header" href="#példa-az-első-40-kg-feletti-kaptár">Példa: az első 40 kg feletti kaptár</a></h2>
+<p>Borbála tudja, hogy legalább egy erős kaptára van:</p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ind∈N
-Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
-</code></pre>
-<pre><code class="language-yaml">n: 5
-szamok: [23, 25, 26, 28, 29]
-ind: 1
+Ef: ∃i∈[1..n]:(kg[i]&gt;40)
+Uf: ind=SELECT(i&gt;=1, kg[i]&gt;40) és n=n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [2, 4, 7, 9]
+kg: [23, 41, 26, 58]
+ind: 2
+</code></pre>
+<pre><code class="language-yaml">n: 3
+kg: [10, 20, 90]
 ind: 3
 </code></pre>
 <p>Két dolgot érdemes megfigyelni:</p>
 <ol>
-<li><strong>Az előfeltétel</strong>, az <code>∃i∈[1..n]:(szamok[i] mod 2 = 1)</code>, garantálja, hogy
-van páratlan szám. Nélküle a <code>SELECT</code> hibás lenne.</li>
+<li><strong>Az előfeltétel</strong>, az <code>∃i∈[1..n]:(kg[i]&gt;40)</code>, garantálja, hogy
+van ilyen kaptár. Nélküle a <code>SELECT</code> hibás lenne.</li>
 <li><strong><code>és n=n</code></strong>: az <code>n</code> nem szerepel a <code>SELECT</code>-ben (nincs felső határ), ezért
 kell az <code>n=n</code> azonosság a <a href="ch02-03-all-variables.html">minden-változó szabály</a>
 teljesítéséhez.</li>
 </ol>
-<p>A páratlan szám nélküli bemenet megsérti az előfeltételt, így a teszt piros:</p>
+<p>Az ilyen kaptár nélküli bemenet megsérti az előfeltételt, így a teszt piros:</p>
 <pre><code class="language-yaml red">n: 2
-szamok: [2, 4]
+kg: [23, 40]
 ind: 1
 </code></pre>
 <h2 id="kiválasztás-tömb-nélkül"><a class="header" href="#kiválasztás-tömb-nélkül">Kiválasztás tömb nélkül</a></h2>
 <p>A <code>SELECT</code> természetes választás az „első adott tulajdonságú szám” kérdésekre,
-ha a válasz matematikailag garantált. <em>n legkisebb 1-nél nagyobb osztója</em>
-(n ≥ 2 esetén maga az n mindig osztó):</p>
-<pre><code class="language-speci">Be: n∈N
-Ki: d∈N
-Ef: n≥2
-Uf: d=SELECT(i&gt;=2, i|n)
+ha a válasz matematikailag garantált. <em>Az üvegeket hatos csomagban adják el. Mi a
+legkisebb olyan üvegszám, amely nem kevesebb a meglévőnél, és pontosan kitölti a
+csomagokat?</em> A 6-nak mindig van ilyen többszöröse:</p>
+<pre><code class="language-speci">Be: uvegek∈N
+Ki: csomagolt∈N
+Ef: -
+Uf: csomagolt=SELECT(i&gt;=uvegek, 6|i)
 </code></pre>
-<pre><code class="language-yaml">n: 35
-d: 5
+<pre><code class="language-yaml">uvegek: 20
+csomagolt: 24
 </code></pre>
-<pre><code class="language-yaml">n: 13
-d: 13
+<pre><code class="language-yaml">uvegek: 24
+csomagolt: 24
 </code></pre>
 <h2 id="select-vagy-search"><a class="header" href="#select-vagy-search">SELECT vagy SEARCH?</a></h2>
 <div class="table-wrapper">

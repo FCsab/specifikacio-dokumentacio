@@ -202,20 +202,20 @@
 declare it in <code>Z</code>, not <code>N</code>.</p>
 </blockquote>
 <p>An example using several of them:</p>
-<pre><code class="language-speci">In: name∈S, age∈N, height∈R
-Out: adult∈L
-Pre: height&gt;0
-Post: adult=(age≥18) and name=name and height=height
+<pre><code class="language-speci">In: name∈S, age∈N, kg∈R
+Out: replace∈L
+Pre: kg&gt;0
+Post: replace=(age≥3) and name=name and kg=kg
 </code></pre>
-<pre><code class="language-yaml">name: Anna
-age: 19
-height: 1.68
-adult: true
+<pre><code class="language-yaml">name: Akac
+age: 3
+kg: 41.5
+replace: true
 </code></pre>
-<pre><code class="language-yaml">name: "Bence"
-age: 12
-height: 1.45
-adult: false
+<pre><code class="language-yaml">name: "Bodza"
+age: 1
+kg: 28.25
+replace: false
 </code></pre>
 <h2 id="intervals"><a class="header" href="#intervals">Intervals</a></h2>
 <p>An interval is the set of integers between two bounds, both included:</p>
@@ -223,20 +223,20 @@ adult: false
 </code></pre>
 <p><code>iv</code> can be 1, 2 or 3. The bounds can be expressions involving other
 input variables: <code>[2+3..n*2]</code>.</p>
-<p>Intervals are useful for small, fixed ranges such as grades and
+<p>Intervals are useful for small, fixed ranges such as ratings and
 months:</p>
-<pre><code class="language-speci">In: grade∈[1..5]
-Out: pass∈L
+<pre><code class="language-speci">In: rating∈[1..5]
+Out: keep∈L
 Pre: -
-Post: pass=(grade≥2)
+Post: keep=(rating≥2)
 </code></pre>
-<pre><code class="language-yaml">grade: 4
-pass: true
+<pre><code class="language-yaml">rating: 4
+keep: true
 </code></pre>
 <p>A value outside the interval makes the test case fail, because the data
 doesn’t fit its declared type:</p>
-<pre><code class="language-yaml red">grade: 6
-pass: true
+<pre><code class="language-yaml red">rating: 6
+keep: true
 </code></pre>
 <p>Intervals also show up in quantifiers, <code>∀i∈[1..n]:(…)</code>, which is covered in
 <a href="ch04-02-quantifiers.html">Quantifiers</a>, and as the index range of arrays,

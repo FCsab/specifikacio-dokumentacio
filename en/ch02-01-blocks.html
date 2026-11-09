@@ -221,38 +221,36 @@ left out.</p>
 don’t. Pick one language per file.</p>
 <h2 id="layout-a-everything-on-one-line"><a class="header" href="#layout-a-everything-on-one-line">Layout A: everything on one line</a></h2>
 <p>The payload can follow the header on the same line, after a space:</p>
-<pre><code class="language-speci">In: n∈N, nums∈Z[1..n]
+<pre><code class="language-speci">In: n∈N, kg∈Z[1..n]
 Out: s∈Z
 Pre: -
-Post: s=SUM(i=1..n, nums[i])
+Post: s=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-nums: [4, -1, 10]
-s: 13
+kg: [7, -2, 12]
+s: 17
 </code></pre>
-<p>The official manual describes each header as including the trailing space,
-“<code>In: </code> (there is a space at the end of the string)”. In this layout the
-space is required.</p>
+<p>In this layout the space after the colon is required.</p>
 <h2 id="layout-b-the-header-on-its-own-line"><a class="header" href="#layout-b-the-header-on-its-own-line">Layout B: the header on its own line</a></h2>
 <p>The header can also stand alone, with the payload on the following lines. This
-is common in Hungarian course solutions, with one declaration per line:</p>
+is handy for longer specifications, with one declaration per line:</p>
 <pre><code class="language-speci">Be:
 n∈N,
-k∈N,
-ar∈N[1..n]
+hatar∈N,
+suly∈N[1..n]
 
 Ki:
 db∈N
 
 Ef:
-n&gt;=1 és k&gt;=1
+n&gt;=1 és hatar&gt;=1
 
 Uf:
-db=DARAB(i=1..n, ar[i]&lt;k)
+db=DARAB(i=1..n, suly[i]&lt;hatar)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-ar: [250, 90, 120, 40]
+hatar: 450
+suly: [500, 440, 470, 410]
 db: 2
 </code></pre>
 <p>The rules for this layout:</p>

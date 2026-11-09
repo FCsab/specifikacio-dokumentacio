@@ -190,14 +190,14 @@ között. A szerkesztő nem csak tárolja a szöveget. <strong>Ki is értékeli<
 specifikációt a megadott tesztesetekre, és lépésről lépésre megmutatja, hogyan
 jutott az eredményre. A zöld teszt azt jelenti, hogy a specifikáció leírja a
 várt választ, a piros pedig azt, hogy nem.</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <p>A könyv végére magabiztosan fogsz olvasni és írni ilyen specifikációkat, és
 ennél jóval nehezebbeket is.</p>
@@ -218,24 +218,20 @@ típusok, kifejezések, kvantorok, függvények.</li>
 teljes példa és a szokásos hibák.</li>
 <li>A <strong>Tesztelés és kiértékelés</strong> bemutatja a tesztadatok formátumát, a
 léptetőt, és hogy mit jelentenek az egyes hibaüzenetek.</li>
-<li>A <strong>Kidolgozott példák</strong> valódi feladatokat old meg a szövegtől a zöld
-tesztkészletig.</li>
-<li>A <strong>speci-local</strong> rész az online eszközt újraimplementáló, részletesebb
-hibaüzeneteket adó offline szerkesztőt mutatja be.</li>
-<li>A <strong>függelékek</strong> gyors referenciák: nyelvtan, jelek és billentyűparancsok,
-magyar–angol szójegyzék, GYIK.</li>
+<li>A <strong>Kidolgozott példák</strong> ehhez a könyvhöz írt, teljes feladatokat old meg a
+szövegtől a zöld tesztkészletig.</li>
 </ul>
 <p>Ha már kiismered magad, a keresővel (<kbd>S</kbd> vagy <kbd>/</kbd>) azonnal
 odaugorhatsz, amire szükséged van.</p>
 <h2 id="jelölések"><a class="header" href="#jelölések">Jelölések</a></h2>
 <p>A specifikációt tartalmazó kódblokkok így néznek ki:</p>
-<pre><code class="language-speci fragment">Uf: osszeg=SUM(i=1..n, szamok[i])
+<pre><code class="language-speci fragment">Uf: osszeg=SUM(i=1..n, kg[i])
 </code></pre>
 <p>A teszteseteket (a szerkesztő <em>Data</em> paneljének tartalmát) a jobb alsó
 sarokban <strong>TESZT</strong> felirat jelöli:</p>
 <pre><code class="language-yaml fragment">n: 3
-szamok: [1, 2, 3]
-osszeg: 6
+kg: [10, 25, 7]
+osszeg: 42
 </code></pre>
 <p>A <strong>✗ PIROS</strong> jelölésű teszt <em>szándékosan</em> bukik el. Azt mutatja, mit csinál a
 szerkesztő, ha az adat nem illik a specifikációhoz.</p>
@@ -265,11 +261,12 @@ kipróbáltuk az online szerkesztőben, így bemásolhatod a szerkesztőbe, és
 ugyanazt az eredményt kapod. A <a href="#speci-local-az-offline-szerkesztő">speci-local</a> is ugyanezt
 az eredményt adja.</p>
 <h2 id="források"><a class="header" href="#források">Források</a></h2>
-<p>A könyv mindazt összegyűjti, ami az eszközről tudható. Forrásai a hivatalos
-tárgyi segédlet (<em>Manual for the Specification Editor tool</em>, 3. kiadás), a
-szerkesztő beépített dokumentációja, sok ellenőrzött tárgyi megoldás, és
-kísérletekkel igazolt viselkedés. Ahol a források ellentmondtak egymásnak, az
-élő szerkesztő viselkedése döntött. Ami még bizonytalan, azt jelöljük.</p>
+<p>A könyv összegyűjti, ami az eszközről tudható. Forrásai a szerkesztő beépített
+dokumentációja, a kézikönyve és a kísérletekkel igazolt viselkedés. Ahol a
+források ellentmondtak egymásnak, az élő szerkesztő viselkedése döntött. Ami még
+bizonytalan, azt jelöljük.</p>
+<p>A könyv minden feladata és tesztadata ehhez a könyvhöz készült. Egy kitalált
+méhészetben játszódnak, és nem tárgyi feladatok.</p>
 <p>A könyvet <a href="https://csabi.zip">csabi.zip</a> írta. A forrása a
 <a href="https://github.com/FCsab/specifikacio-dokumentacio">GitHubon</a> érhető el.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -320,11 +317,11 @@ el a munkádat.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ismerkedés-a-felülettel"><a class="header" href="#ismerkedés-a-felülettel">Ismerkedés a felülettel</a></h1>
-<p>A szerkesztő ablaka panelekre oszlik, felül egy eszköztárral. A képernyőkép
+<p>A szerkesztő ablaka panelekre oszlik, felül egy eszköztárral. Az ábra
 számai a lenti táblázat sorainak felelnek meg.</p>
 <figure>
-<img src="img/ui-overview.png" alt="A Specifikációszerkesztő, a részei 1-től 18-ig számozva">
-<figcaption>A Specifikációszerkesztő (1.5.1-es verzió), számozott részekkel.</figcaption>
+<img src="img/ui-overview.svg" alt="A Specifikációszerkesztő vázlata, a részei 1-től 18-ig számozva">
+<figcaption>A Specifikációszerkesztő elrendezése, számozott részekkel.</figcaption>
 </figure>
 <div class="table-wrapper">
 <table>
@@ -383,8 +380,8 @@ beírhatod:</p>
 <p>A Data panel minden fülén egy teszteset van: a bemeneti változók értékei, és
 a kimeneti (meg a segéd-) változók <em>elvárt</em> értékei, YAML-szerű formátumban:</p>
 <pre><code class="language-yaml fragment">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -392,11 +389,6 @@ db: 3
 majd a <kbd>Tab</kbd> billentyűt. A szerkesztő beszúr egy sablont az összes
 deklarált változóval, így csak az értékeket kell kitöltened.</p>
 </blockquote>
-<figure>
-<img src="img/test-tabs.png" alt="Specifikáció négy zöld teszteset-füllel">
-<figcaption>Négy teszteset, mind átment (zöld fülek). Az adatok a többsoros
-rekordformátumot használják.</figcaption>
-</figure>
 <h2 id="a-visualization-panel"><a class="header" href="#a-visualization-panel">A Visualization panel</a></h2>
 <p>Az <strong>Evaluate</strong> megnyomása után ez a panel mutatja, hogyan értékelődött ki az
 utófeltétel a kiválasztott tesztesetre. Két nézete van:</p>
@@ -412,19 +404,20 @@ hogyan kell olvasni.</p>
 <h1 id="az-első-specifikációd"><a class="header" href="#az-első-specifikációd">Az első specifikációd</a></h1>
 <p>Oldjunk meg egy kis feladatot teljesen, a feladat szövegétől a zöld tesztig.</p>
 <blockquote>
-<p><strong>Feladat.</strong> Adott <em>n</em> darab természetes szám. Hány páratlan van köztük?</p>
+<p><strong>Feladat.</strong> Borbála <em>n</em> üveg mézet mért le, grammban. Hány közülük könnyebb
+450 grammnál?</p>
 </blockquote>
 <h2 id="1-lépés-az-adatok"><a class="header" href="#1-lépés-az-adatok">1. lépés: az adatok</a></h2>
 <p>Olvasd el a feladatot, és gyűjtsd ki, mi <strong>megy be</strong> és mi <strong>jön ki</strong>:</p>
 <ul>
-<li>be: a számok darabszáma (<code>n</code>) és maguk a számok (<code>szamok</code>),</li>
-<li>ki: a páratlanok száma (<code>db</code>).</li>
+<li>be: az üvegek darabszáma (<code>n</code>) és a súlyuk (<code>uvegek</code>),</li>
+<li>ki: a könnyű üvegek száma (<code>konnyu</code>).</li>
 </ul>
 <p>A szerkesztőben minden adatot <em>név ∈ halmaz</em> alakban deklarálunk. Egy
 természetes szám az <code>N</code> eleme, <em>n</em> darab, 1-től <em>n</em>-ig indexelt természetes szám
 pedig az <code>N[1..n]</code> eleme:</p>
-<pre><code class="language-speci fragment">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci fragment">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 </code></pre>
 <p>A változónevek kisbetűvel, a halmaznevek (<code>N</code>, <code>Z</code>, …) nagybetűvel kezdődnek.
 Egy blokkon belül a deklarációkat vessző választja el.</p>
@@ -435,39 +428,39 @@ bármilyen bemenetnek van értelme, tehát az előfeltétel egyszerűen „igaz�
 <pre><code class="language-speci fragment">Ef: -
 </code></pre>
 <h2 id="3-lépés-az-utófeltétel"><a class="header" href="#3-lépés-az-utófeltétel">3. lépés: az utófeltétel</a></h2>
-<p>Az utófeltétel azt rögzíti, minek kell igaznak lennie a kimenetre. A <code>db</code> az
-<em>olyan 1 és n közötti i indexek száma, amelyekre szamok[i] páratlan</em>. Ez a
+<p>Az utófeltétel azt rögzíti, minek kell igaznak lennie a kimenetre. A <code>konnyu</code> az
+<em>olyan 1 és n közötti i indexek száma, amelyekre uvegek[i] 450 alatt van</em>. Ez a
 <strong>megszámolás</strong> tétele, és a szerkesztőben van rá makró:</p>
-<pre><code class="language-speci fragment">Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <p>A <code>DARAB(i=1..n, feltétel)</code> végigmegy az <code>i = 1, 2, …, n</code> értékeken, és
-megszámolja, hányszor teljesül a feltétel. A <code>mod</code> a maradékos osztás, így a
-<code>szamok[i] mod 2 = 1</code> azt jelenti, hogy „szamok[i] páratlan”.</p>
+megszámolja, hányszor teljesül a feltétel.</p>
 <p>Összerakva a specifikáció így néz ki. Gépeld be a Specification panelbe (a <code>∈</code>
 jelhez használd az <strong>Insert</strong> gombot):</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <h2 id="4-lépés-egy-teszteset"><a class="header" href="#4-lépés-egy-teszteset">4. lépés: egy teszteset</a></h2>
 <p>Kattints a Data panelbe, és írj egy tesztet. Előbb a bemeneti értékek jönnek,
 aztán az elvárt kimenet:</p>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
-<p>Az öt számból három (3, 81 és 5) páratlan, ezért <code>db: 3</code>-at várunk.</p>
+<p>Az öt üvegből kettő (a 438 g-os és a 447 g-os) könnyebb 450 grammnál, ezért
+<code>konnyu: 2</code>-t várunk. A pontosan 450 g-os üveg nem számít.</p>
 <h2 id="5-lépés-kiértékelés"><a class="header" href="#5-lépés-kiértékelés">5. lépés: kiértékelés</a></h2>
 <p>Nyomd meg az <strong>Evaluate</strong> gombot. A teszt füle <strong>zöld</strong> lesz: ezzel a
 bemenettel és ezzel a kimenettel az utófeltétel igaz.</p>
 <p>Most nézzük meg, milyen egy hiba. Adj hozzá egy második tesztesetet a <code>+</code>
 gombbal, és írj bele szándékosan rossz elvárást:</p>
 <pre><code class="language-yaml red">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 2
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 3
 </code></pre>
-<p>Ez a fül <strong>piros</strong> lesz: a <code>DARAB</code> 3-at ad, a teszt viszont 2-t mond. Nyisd meg a
+<p>Ez a fül <strong>piros</strong> lesz: a <code>DARAB</code> 2-t ad, a teszt viszont 3-at mond. Nyisd meg a
 Visualization panelt, és kövesd lépésről lépésre a kiértékelést.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
@@ -479,12 +472,12 @@ az elvárt kimenetet is beírni. A választ írod le, nem kiszámolod.</p>
 <p>Egyetlen teszt keveset bizonyít. Írj néhányat, amelyek a feladat széleit
 próbálgatják:</p>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 4, 6]
-db: 0
+uvegek: [450, 500, 480]
+konnyu: 0
 </code></pre>
 <pre><code class="language-yaml">n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 </code></pre>
 <p>A második üres bemenet. Az üres <code>1..0</code> tartományon a <code>DARAB</code> értéke 0. A
 <a href="#jó-tesztkészlet-írása">Jó tesztkészlet írása</a> fejezet megmutatja, hogyan
@@ -492,14 +485,14 @@ db: 0
 <h2 id="ugyanez-angolul"><a class="header" href="#ugyanez-angolul">Ugyanez angolul</a></h2>
 <p>A szerkesztő az angol kulcsszavakat is elfogadja. Ez a specifikáció pontosan
 ugyanazt jelenti:</p>
-<pre><code class="language-speci">In: n∈N, nums∈N[1..n]
-Out: cnt∈N
+<pre><code class="language-speci">In: n∈N, jars∈N[1..n]
+Out: light∈N
 Pre: -
-Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+Post: light=COUNT(i=1..n, jars[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-nums: [3, 72, 81, 4, 5]
-cnt: 3
+jars: [452, 438, 450, 447, 461]
+light: 2
 </code></pre>
 <p>Az <code>In</code>, <code>Out</code>, <code>Pre</code>, <code>Post</code> a <em>bemenet</em>, <em>kimenet</em>, <em>előfeltétel</em> és
 <em>utófeltétel</em> angol neve, a <code>COUNT</code> pedig a <code>DARAB</code> angol megfelelője.</p>
@@ -512,12 +505,12 @@ egyenként, részletesen elmagyarázza a nyelv elemeit.</p>
 <h2 id="mentés"><a class="header" href="#mentés">Mentés</a></h2>
 <ol>
 <li>Adj nevet a specifikációnak az ablak tetején lévő <strong>feladatnév</strong> mezőben
-(például <em>ParatlanDb</em>).</li>
+(például <em>KonnyuUvegek</em>).</li>
 <li>Kattints a <strong>Save</strong> gombra.</li>
 </ol>
 <p>A specifikáció az összes tesztesetével együtt az ELTE szerverére kerül. Mentés
 után megváltozik az oldal címe: egy egyedi azonosítót tartalmaz.</p>
-<pre><code class="language-text">https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86
+<pre><code class="language-text">https://progalap.elte.hu/specifikacio/v1/?uuid=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 </code></pre>
 <p>Ez a cím az elmentett változat <em>állandó linkje</em> (permalink).</p>
 <blockquote class="blockquote-tag blockquote-tag-important">
@@ -530,20 +523,6 @@ specifikációt ments: olyat, ami beolvasható, és átmegy a tesztjein.</p>
 oktatótól), mentés után másold ki a címet a böngésző címsorából, és küldd el.
 Aki megnyitja a linket, a specifikációt az összes tesztesetével együtt látja,
 és ki is értékelheti.</p>
-<p>Példák a hivatalos tárgyi anyagból:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Feladat</th><th>Link</th></tr>
-</thead>
-<tbody>
-<tr><td>Az első páratlan szám kiválasztása</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">ecacc1f7-…</a></td></tr>
-<tr><td>Páratlanok megszámolása</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">058de53d-…</a></td></tr>
-<tr><td>Sikertelen keresés</td><td><a href="https://progalap.elte.hu/specifikacio/v1/?uuid=3cacade4-7c80-451e-9e62-610baa01b68b">3cacade4-…</a></td></tr>
-</tbody>
-</table>
-</div>
-<p>(A megnyitásukhoz be kell jelentkezned.)</p>
 <h2 id="előzmények"><a class="header" href="#előzmények">Előzmények</a></h2>
 <p>Minden mentés új változatot hoz létre. A <kbd>H</kbd> gomb megnyitja a History
 panelt, ahol visszatérhetsz a specifikáció korábban mentett változataihoz.</p>
@@ -582,32 +561,33 @@ bemeneti, segéd- és kimeneti értékek összes lehetséges kombinációjának
 halmazát. Az előfeltétel kiválasztja az <em>értelmes bemeneteket</em>, az utófeltétel
 pedig mindegyikhez a <em>helyes kimeneteket</em>.</p>
 <p>Íme egy specifikáció, amely mind a hat blokkot használja:</p>
-<pre><code class="language-speci">Be: n∈N, k∈N, arak∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, hatar∈N, atka∈N[1..n]
 Sa: van∈L, ind∈N
 Ki: elso∈Z
-Fv: olcso:N-&gt;L, olcso(i)=arak[i]&lt;k
+Fv: beteg:N-&gt;L, beteg(i)=atka[i]&gt;hatar
 Ef: n≥1
-Uf: (van,ind)=SEARCH(i=1..n, olcso(i)) és
+Uf: (van,ind)=SEARCH(i=1..n, beteg(i)) és
     (van -&gt; elso=ind) és
     (nem van -&gt; elso=-1)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-arak: [250, 90, 120, 40]
+hatar: 30
+atka: [12, 30, 45, 7]
 van: true
-ind: 2
-elso: 2
+ind: 3
+elso: 3
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 10
-arak: [250, 90]
+hatar: 50
+atka: [12, 30]
 van: false
-ind: 1
+ind: 3
 elso: -1
 </code></pre>
-<p>Így olvasd: <em>adott n, k és n darab ár, ahol n legalább 1; az elso kimenet az
-első k-nál kisebb ár indexe, vagy −1, ha nincs ilyen.</em> Ha a <code>SEARCH</code> még nem
-világos, nem baj. A saját fejezete a <a href="#keresés-search">Keresés</a>.</p>
+<p>Így olvasd: <em>adott n, egy határ és n kaptár atkaszáma, ahol n legalább 1; az elso
+kimenet az első olyan kaptár indexe, amelyben a határnál több atka van, vagy −1, ha
+nincs ilyen.</em> Ha a <code>SEARCH</code> még nem világos, nem baj. A saját fejezete a
+<a href="#keresés-search">Keresés</a>.</p>
 <h2 id="a-fejezet-tartalma-1"><a class="header" href="#a-fejezet-tartalma-1">A fejezet tartalma</a></h2>
 <ul>
 <li><a href="#blokkok-és-elrendezés">Blokkok és elrendezés</a>: a fejlécek írásmódja, a
@@ -664,38 +644,36 @@ Egy fájlban maradj egy nyelvnél.</p>
 <h2 id="a-elrendezés-minden-egy-sorban"><a class="header" href="#a-elrendezés-minden-egy-sorban">„A” elrendezés: minden egy sorban</a></h2>
 <p>A tartalom a fejléc után, ugyanabban a sorban, egy szóközzel elválasztva is
 jöhet:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
 Ki: s∈Z
 Ef: -
-Uf: s=SUM(i=1..n, szamok[i])
+Uf: s=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [4, -1, 10]
-s: 13
+kg: [7, -2, 12]
+s: 17
 </code></pre>
-<p>A hivatalos segédlet a záró szóközt a fejléc részének tekinti: „<code>In: </code> (there
-is a space at the end of the string)”. Ebben az elrendezésben a szóköz
-kötelező.</p>
+<p>Ebben az elrendezésben a kettőspont utáni szóköz kötelező.</p>
 <h2 id="b-elrendezés-a-fejléc-külön-sorban"><a class="header" href="#b-elrendezés-a-fejléc-külön-sorban">„B” elrendezés: a fejléc külön sorban</a></h2>
-<p>A fejléc állhat egyedül is, a tartalom pedig a következő sorokban jön. A magyar
-tárgyi megoldásokban gyakori, soronként egy deklarációval:</p>
+<p>A fejléc állhat egyedül is, a tartalom pedig a következő sorokban jön. Hosszabb
+specifikációknál hasznos, soronként egy deklarációval:</p>
 <pre><code class="language-speci">Be:
 n∈N,
-k∈N,
-ar∈N[1..n]
+hatar∈N,
+suly∈N[1..n]
 
 Ki:
 db∈N
 
 Ef:
-n&gt;=1 és k&gt;=1
+n&gt;=1 és hatar&gt;=1
 
 Uf:
-db=DARAB(i=1..n, ar[i]&lt;k)
+db=DARAB(i=1..n, suly[i]&lt;hatar)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 100
-ar: [250, 90, 120, 40]
+hatar: 450
+suly: [500, 440, 470, 410]
 db: 2
 </code></pre>
 <p>Ennek az elrendezésnek a szabályai:</p>
@@ -753,10 +731,10 @@ szintaktikai hiba.</p>
 <tr><th>Helyes</th><th>Hibás</th><th>Miért hibás?</th></tr>
 </thead>
 <tbody>
-<tr><td><code>szamok</code>, <code>x1</code>, <code>latogatasDb</code></td><td><code>Szamok</code></td><td>nagybetűvel kezdődik (az halmaznév)</td></tr>
-<tr><td><code>szam</code>, <code>ar</code>, <code>tav</code></td><td><code>latogatas db</code></td><td>szóközt tartalmaz</td></tr>
+<tr><td><code>uvegek</code>, <code>x1</code>, <code>kaptarDb</code></td><td><code>Uvegek</code></td><td>nagybetűvel kezdődik (az halmaznév)</td></tr>
+<tr><td><code>kaptar</code>, <code>suly</code>, <code>atka</code></td><td><code>kaptar db</code></td><td>szóközt tartalmaz</td></tr>
 <tr><td><code>r1</code>, <code>maxert</code></td><td><code>1x</code></td><td>számjeggyel kezdődik</td></tr>
-<tr><td><code>osztok</code>, <code>db</code></td><td><code>max-ert</code></td><td><code>-</code> van benne (kivonásnak olvassa)</td></tr>
+<tr><td><code>konnyu</code>, <code>db</code></td><td><code>max-ert</code></td><td><code>-</code> van benne (kivonásnak olvassa)</td></tr>
 </tbody>
 </table>
 </div>
@@ -766,7 +744,7 @@ egyes billentyűzeteken nehézkes beírni őket.</p>
 <h2 id="halmaznevek-típusnevek"><a class="header" href="#halmaznevek-típusnevek">Halmaznevek (típusnevek)</a></h2>
 <p>A halmazok neve, a beépítetteké (<code>N</code>, <code>Z</code>, <code>R</code>, <code>L</code>, <code>S</code>, <code>C</code>) és a sajátjaidé
 (<a href="#saját-halmaznevek">Saját halmaznevek</a>) is, <strong>nagybetűvel kezdődik</strong>:
-<code>Hallgato</code>, <code>Jegy</code>, <code>Seta</code>.</p>
+<code>Kaptar</code>, <code>Pont</code>, <code>Meres</code>.</p>
 <h2 id="foglalt-szavak"><a class="header" href="#foglalt-szavak">Foglalt szavak</a></h2>
 <p>Néhány kisbetűs szó a nyelv része, ezért nem lehet változónév:</p>
 <div class="table-wrapper">
@@ -786,8 +764,7 @@ egyes billentyűzeteken nehézkes beírni őket.</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Ne nevezz el változót <code>exists</code>-nek</strong>, akkor sem, ha régi képernyőképek és
-segédletek így tesznek: <code>Aux: exists∈L</code>. A mostani szerkesztő elutasítja,
+<p><strong>Ne nevezz el változót <code>exists</code>-nek</strong>, akkor sem, ha régebbi anyagokban találkozol az <code>Aux: exists∈L</code> alakkal. A mostani szerkesztő elutasítja,
 ezzel a rejtélyes üzenettel: <code>incomplite type for exists: undefined is not boolean</code>.
 Használd helyette a <code>van</code> vagy <code>talalt</code> nevet, és nevezd át mindenhol: a
 deklarációban, az utófeltételben és minden tesztesetben.</p>
@@ -811,24 +788,26 @@ max: 9
 után is ugyanabban a sorban.</li>
 <li><code>/* … */</code> a <strong>blokkmegjegyzés</strong>, amely több soron át is tarthat.</li>
 </ul>
-<pre><code class="language-speci">/* Egy szám osztóinak száma.
-   i|n jelentése: i osztója n-nek. */
-Be: n∈N
-Ki: d∈N
-Ef: n&gt;=1          // a 0-nak végtelen sok osztója lenne
-Uf: d=DARAB(i=1..n, i|n)
+<pre><code class="language-speci">/* Melyik dobozméretbe fér el pontosan a teljes termés?
+   b[i]|uvegek jelentése: b[i] osztója uvegek-nek. */
+Be: uvegek∈N, n∈N, b∈N[1..n]
+Ki: jo∈N
+Ef: ∀i∈[1..n]:(b[i]&gt;=1)   // a 0 méretű doboznak nincs értelme
+Uf: jo=DARAB(i=1..n, b[i]|uvegek)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">uvegek: 24
+n: 4
+b: [6, 5, 8, 7]
+jo: 2
 </code></pre>
-<p>A tárgyi megoldásokban bevett szokás, hogy megjegyzésben leírják a tétel
-általános alakját, és megfeleltetik a konkrét neveknek:</p>
-<pre><code class="language-speci fragment">Uf: (db,helyek)=MIS(i=1..n, futas[i].ido&gt;30, futas[i].hely)
-/* (db,y)=MIS(i=e..u, T(i), f(i))
-   db, y  ~ db, helyek
+<p>Hasznos szokás, hogy megjegyzésben leírjuk a tétel általános alakját, és
+megfeleltetjük a konkrét neveknek:</p>
+<pre><code class="language-speci fragment">Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
    e..u   ~ 1..n
-   T(i)   ~ futas[i].ido&gt;30
-   f(i)   ~ futas[i].hely
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <p>A beépített dokumentáció <code>/** … */</code> alakot is használ a címekhez. Ez közönséges
@@ -845,9 +824,7 @@ blokkmegjegyzés.</p>
 szerkesztő ellenőrzi ezt, és ha nem teljesül, elutasítja a specifikációt.</p>
 </blockquote>
 <p>A szabály mögötti gondolat: ha egy bemenet nem befolyásolja az eredményt, akkor
-vagy nem is igazi bemenet, vagy az utófeltétel megfeledkezett róla. A hivatalos
-segédlet szerint: <em>„The postcondition must include all declared data.”</em>, vagyis
-az utófeltételnek minden deklarált adatot tartalmaznia kell.</p>
+vagy nem is igazi bemenet, vagy az utófeltétel megfeledkezett róla.</p>
 <h2 id="milyen-a-hibaüzenet"><a class="header" href="#milyen-a-hibaüzenet">Milyen a hibaüzenet?</a></h2>
 <pre><code class="language-speci error">Be: n∈N, x∈N[1..n], egyeb∈N
 Ki: s∈N
@@ -887,14 +864,14 @@ c: 2
 <p>Néha egy tételnek tényleg nincs szüksége valamelyik bemenetre. A tipikus eset a
 <a href="#kiválasztás-select"><code>SELECT</code></a>, amelynek nincs felső határa. Ilyenkor írj egy
 mindig igaz azonosságot az utófeltételbe:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ind∈N
-Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
+Ef: ∃i∈[1..n]:(kg[i]&gt;40)
+Uf: ind=SELECT(i&gt;=1, kg[i]&gt;40) és n=n
 </code></pre>
-<pre><code class="language-yaml">n: 5
-szamok: [23, 25, 26, 28, 29]
-ind: 1
+<pre><code class="language-yaml">n: 4
+kg: [23, 41, 26, 58]
+ind: 2
 </code></pre>
 <p>Az <code>n=n</code> mindig igaz, tehát nem változtat a jelentésen, de így az <code>n</code> szerepel
 az utófeltételben. Ha több változó is kimarad, fűzd őket egymás után:
@@ -937,7 +914,7 @@ c: -2
 <tr><td>Tömbök (sorozatok)</td><td><code>N[1..n]</code>, <code>Z[]</code></td><td><a href="#tömbök">Tömbök</a></td></tr>
 <tr><td>Mátrixok</td><td><code>Z[1..n,1..m]</code></td><td><a href="#mátrixok-és-tömbök-tömbjei">Mátrixok és tömbök tömbjei</a></td></tr>
 <tr><td>Rekordok (direkt szorzatok)</td><td><code>(nev:S x kor:N)</code></td><td><a href="#rekordok-és-tuple-ök">Rekordok és tuple-ök</a></td></tr>
-<tr><td>Saját nevek</td><td><code>Hallgato=(nev:S x jegy:N)</code></td><td><a href="#saját-halmaznevek">Saját halmaznevek</a></td></tr>
+<tr><td>Saját nevek</td><td><code>Kaptar=(nev:S x pont:N)</code></td><td><a href="#saját-halmaznevek">Saját halmaznevek</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -969,20 +946,20 @@ ki az előfeltételben: <code>Ef: n&gt;0</code>. Ha egy érték negatív is lehe
 „−1, ha nincs ilyen” eredmény), <code>Z</code>-ként deklaráld, ne <code>N</code>-ként.</p>
 </blockquote>
 <p>Egy példa, amely többet is használ közülük:</p>
-<pre><code class="language-speci">Be: nev∈S, kor∈N, magassag∈R
-Ki: felnott∈L
-Ef: magassag&gt;0
-Uf: felnott=(kor≥18) és nev=nev és magassag=magassag
+<pre><code class="language-speci">Be: nev∈S, kor∈N, kg∈R
+Ki: csere∈L
+Ef: kg&gt;0
+Uf: csere=(kor≥3) és nev=nev és kg=kg
 </code></pre>
-<pre><code class="language-yaml">nev: Anna
-kor: 19
-magassag: 1.68
-felnott: true
+<pre><code class="language-yaml">nev: Akac
+kor: 3
+kg: 41.5
+csere: true
 </code></pre>
-<pre><code class="language-yaml">nev: "Bence"
-kor: 12
-magassag: 1.45
-felnott: false
+<pre><code class="language-yaml">nev: "Bodza"
+kor: 1
+kg: 28.25
+csere: false
 </code></pre>
 <h2 id="intervallumok"><a class="header" href="#intervallumok">Intervallumok</a></h2>
 <p>Az intervallum két határ közötti egész számok halmaza, a határokat is
@@ -991,20 +968,20 @@ beleértve:</p>
 </code></pre>
 <p>Az <code>iv</code> értéke 1, 2 vagy 3 lehet. A határok más bemeneti változókat tartalmazó
 kifejezések is lehetnek: <code>[2+3..n*2]</code>.</p>
-<p>Az intervallumok kis, rögzített tartományokra valók, például jegyekre vagy
+<p>Az intervallumok kis, rögzített tartományokra valók, például pontszámokra vagy
 hónapokra:</p>
-<pre><code class="language-speci">Be: jegy∈[1..5]
-Ki: atment∈L
+<pre><code class="language-speci">Be: pont∈[1..5]
+Ki: marad∈L
 Ef: -
-Uf: atment=(jegy≥2)
+Uf: marad=(pont≥2)
 </code></pre>
-<pre><code class="language-yaml">jegy: 4
-atment: true
+<pre><code class="language-yaml">pont: 4
+marad: true
 </code></pre>
 <p>Az intervallumon kívüli érték bukott tesztesetet ad, mert az adat nem illik a
 deklarált típusra:</p>
-<pre><code class="language-yaml red">jegy: 6
-atment: true
+<pre><code class="language-yaml red">pont: 6
+marad: true
 </code></pre>
 <p>Az intervallumok a kvantorokban is megjelennek, <code>∀i∈[1..n]:(…)</code> alakban (lásd
 <a href="#kvantorok--és-">Kvantorok</a>), és a tömbök indextartományaként is, erről
@@ -1027,7 +1004,7 @@ zárójelben az indextartományt:</p>
 <tbody>
 <tr><td><code>x1∈N[1..3]</code></td><td>pontosan 3 elem, 1..3 indexekkel</td></tr>
 <tr><td><code>x2∈N[-1..1]</code></td><td>3 elem, −1, 0, 1 indexekkel</td></tr>
-<tr><td><code>n∈N, x∈Z[1..n]</code></td><td><em>n</em> elem, ahol <em>n</em> is bemenet (a tárgyban szokásos forma)</td></tr>
+<tr><td><code>n∈N, x∈Z[1..n]</code></td><td><em>n</em> elem, ahol <em>n</em> is bemenet (a szokásos forma)</td></tr>
 <tr><td><code>x3∈N[1..]</code></td><td>tetszőleges hosszú, 1-től indexelve; a hosszát a tesztadat dönti el</td></tr>
 <tr><td><code>x4∈N[0..]</code></td><td>tetszőleges hosszú, 0-tól indexelve</td></tr>
 <tr><td><code>x5∈N[]</code></td><td>az <code>N[1..]</code> rövidítése</td></tr>
@@ -1113,7 +1090,7 @@ d: 30
 <p>Az érték a deklarációból jön, ezért a tesztadat <strong>nem tartalmazza a <code>napok</code>-at</strong>.
 Ha a teszt megismétli, piros lesz: „data cannot contain item with the same
 name: napok”.</p>
-<p>A <a href="#kártyaértékek">Kártyaértékek</a> kidolgozott példa ugyanezt a technikát
+<p>A <a href="#a-virágzási-naptár">A virágzási naptár</a> kidolgozott példa ugyanezt a technikát
 szövegekkel használja.</p>
 <h2 id="tömbliterálok"><a class="header" href="#tömbliterálok">Tömbliterálok</a></h2>
 <p>Feltételekben közvetlenül is írhatunk tömböket, de erre ritkán van szükség:</p>
@@ -1159,11 +1136,6 @@ t: [
 s: 21
 </code></pre>
 <p>Ugyanez egy sorban is működik: <code>t: [[1,2,3],[4,5,6]]</code>.</p>
-<figure>
-<img src="img/data-matrix.png" alt="Mátrix bemenet a Data panelben">
-<figcaption>Egy 3×4-es mátrix a Data panelben. A segédvonalak a beágyazást
-mutatják.</figcaption>
-</figure>
 <h2 id="tömbök-tömbjei"><a class="header" href="#tömbök-tömbjei">Tömbök tömbjei</a></h2>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -1202,26 +1174,26 @@ m: 3
 t: [[10, 1, 2], [3, 4, 5]]
 jo: false
 </code></pre>
-<p>A <a href="#yossarian-térképe">Yossarian térképe</a> kidolgozott példa egy mátrix
-maximumát keresi meg.</p>
+<p>A <a href="#a-legmegbízhatóbb-kaptár">legmegbízhatóbb kaptár</a> kidolgozott példa egy mátrixon
+kombinál minimumot és maximumot.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="rekordok-és-tuple-ök"><a class="header" href="#rekordok-és-tuple-ök">Rekordok és tuple-ök</a></h1>
 <h2 id="rekordok"><a class="header" href="#rekordok">Rekordok</a></h2>
 <p>A <strong>rekord</strong> (struktúra) <em>különböző</em> típusú értékeket fog össze egy egységbe. A
 specifikációban a mezők halmazainak <strong>direkt szorzata</strong>, a mezők között <code>x</code>
 jellel:</p>
-<pre><code class="language-speci fragment">r1∈(nev:S x jegy:N)
+<pre><code class="language-speci fragment">r1∈(nev:S x pont:N)
 </code></pre>
-<p>Az <code>r1</code> az <em>S × N</em> egy eleme, egy név–jegy pár. A mezőket ponttal érjük el:
-<code>r1.nev</code>, <code>r1.jegy</code>.</p>
+<p>Az <code>r1</code> az <em>S × N</em> egy eleme, egy név–pont pár. A mezőket ponttal érjük el:
+<code>r1.nev</code>, <code>r1.pont</code>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Deklaráció</th><th>Jelentés</th></tr>
 </thead>
 <tbody>
-<tr><td><code>r1∈nev:S x jegy:N</code></td><td>a zárójel elhagyható</td></tr>
-<tr><td><code>r2∈(nev:S x jegy:N)</code></td><td>a szokásos forma</td></tr>
+<tr><td><code>r1∈nev:S x pont:N</code></td><td>a zárójel elhagyható</td></tr>
+<tr><td><code>r2∈(nev:S x pont:N)</code></td><td>a szokásos forma</td></tr>
 <tr><td><code>r3∈(eszak:L x kelet:L x del:L x nyugat:L)</code></td><td>tetszőleges számú mező</td></tr>
 <tr><td><code>r4∈(a:[1..2] x b:[3..4])</code></td><td>a mezők intervallumok is lehetnek: r4 az (1,3), (1,4), (2,3), (2,4) egyike</td></tr>
 </tbody>
@@ -1229,50 +1201,50 @@ jellel:</p>
 </div>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p>Az <code>x</code> mindkét oldalán szóköz kell: <code>nev:S x jegy:N</code>.</p>
+<p>Az <code>x</code> mindkét oldalán szóköz kell: <code>nev:S x pont:N</code>.</p>
 </blockquote>
 <p>A tesztadatban a rekord többsoros YAML alakban vagy tömör <code>{…}</code> alakban írható:</p>
-<pre><code class="language-speci">Be: r∈(nev:S x jegy:N)
-Ki: atment∈L
-Ef: r.jegy≥1 és r.jegy≤5
-Uf: atment=(r.jegy≥2)
+<pre><code class="language-speci">Be: r∈(nev:S x pont:N)
+Ki: marad∈L
+Ef: r.pont≥1 és r.pont≤5
+Uf: marad=(r.pont≥2)
 </code></pre>
 <pre><code class="language-yaml">r:
-  nev: Anna
-  jegy: 4
-atment: true
+  nev: Akac
+  pont: 4
+marad: true
 </code></pre>
-<pre><code class="language-yaml">r: {nev: Bence, jegy: 1}
-atment: false
+<pre><code class="language-yaml">r: {nev: Bodza, pont: 1}
+marad: false
 </code></pre>
 <h2 id="rekordok-tömbje"><a class="header" href="#rekordok-tömbje">Rekordok tömbje</a></h2>
-<p>A legtöbb valódi feladatban <strong>rekordok tömbje</strong> szerepel: hallgatók listája,
+<p>A legtöbb valódi feladatban <strong>rekordok tömbje</strong> szerepel: kaptárak listája,
 mérések sorozata. Átláthatóbb, ha a rekord típusát előbb elnevezzük (lásd
 <a href="#saját-halmaznevek">Saját halmaznevek</a>):</p>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: c∈N
-Ef: ∀i∈[1..n]:(1≤h[i].jegy≤5)
-Uf: c=DARAB(i=1..n, h[i].jegy=5)
+Ef: ∀i∈[1..n]:(1≤h[i].pont≤5)
+Uf: c=DARAB(i=1..n, h[i].pont=5)
 </code></pre>
 <pre><code class="language-yaml">n: 3
 h:
-  - nev: Anna
-    jegy: 5
-  - nev: Bence
-    jegy: 3
-  - nev: Cili
-    jegy: 5
+  - nev: Akac
+    pont: 5
+  - nev: Bodza
+    pont: 3
+  - nev: Repce
+    pont: 5
 c: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 2}, {nev: Bence, jegy: 4}]
+h: [{nev: Akac, pont: 2}, {nev: Bodza, pont: 4}]
 c: 0
 </code></pre>
-<p>A <code>h[i].jegy</code> jelentése: „a h <em>i</em>-edik elemének jegy mezője”.</p>
+<p>A <code>h[i].pont</code> jelentése: „a h <em>i</em>-edik elemének pont mezője”.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p>A tesztadat mezőneveinek pontosan egyezniük kell a deklarációval, kis- és
-nagybetűre is: a <code>jegy</code> nem <code>Jegy</code>.</p>
+nagybetűre is: a <code>pont</code> nem <code>Pont</code>.</p>
 </blockquote>
 <h2 id="tuple-ök"><a class="header" href="#tuple-ök">Tuple-ök</a></h2>
 <p>A <strong>tuple</strong> (rendezett n-es) rekord deklarálása nélkül fog össze értékeket:
@@ -1306,13 +1278,13 @@ A részletek a <a href="#maximum--és-minimumkiválasztás-max-min">Maximum- és
 vannak.</p>
 <p>A függvények is visszaadhatnak tuple-t: <code>csere:Z x Z-&gt;Z x Z, csere(a,b)=(b,a)</code>.
 A tételek eredményének komponensei <strong>névvel</strong> is elérhetők, például a <code>MAX</code>-nál
-a <code>.maxval</code> és a <code>.maxind</code>. A <a href="#yossarian-térképe">Yossarian térképe</a> példa
+a <code>.maxval</code> és a <code>.maxind</code>. A <a href="#a-legmegbízhatóbb-kaptár">legmegbízhatóbb kaptár</a> példa
 ezt használja.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="saját-halmaznevek"><a class="header" href="#saját-halmaznevek">Saját halmaznevek</a></h1>
 <p>Bármelyik halmaznak nevet adhatunk <code>Nev=Halmaz</code> alakban. A név <strong>nagybetűvel</strong>
 kezdődik, és a definíció a változók mellé, egy deklarációs blokkba kerül:</p>
-<pre><code class="language-speci">Be: j∈Jegy, Jegy=[1..5]
+<pre><code class="language-speci">Be: j∈Pont, Pont=[1..5]
 Ki: jo∈L
 Ef: -
 Uf: jo=(j≥2)
@@ -1323,18 +1295,18 @@ jo: true
 <p>A definícióhoz <code>=</code>-t használj, ne <code>:=</code>-t.</p>
 <h2 id="miért-adjunk-nevet"><a class="header" href="#miért-adjunk-nevet">Miért adjunk nevet?</a></h2>
 <p>A nevek olvashatóvá teszik a bonyolult adatokat. Hasonlítsd össze ezt:</p>
-<pre><code class="language-speci fragment">h1∈(nev:S x jegy:N)[1..]
+<pre><code class="language-speci fragment">h1∈(nev:S x pont:N)[1..]
 </code></pre>
 <p>ezzel:</p>
-<pre><code class="language-speci fragment">h2∈Hallgato[1..], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci fragment">h2∈Kaptar[1..], Kaptar=(nev:S x pont:N)
 </code></pre>
 <p>A második elmondja, <em>mi</em> az adat. Az elnevezett halmazt több helyen is
 használhatod: más deklarációkban, függvényszignatúrákban
-(<code>jegy:Hallgato-&gt;N</code>), és más elnevezett halmazok belsejében.</p>
+(<code>pont:Kaptar-&gt;N</code>), és más elnevezett halmazok belsejében.</p>
 <h2 id="láncok-és-beágyazás"><a class="header" href="#láncok-és-beágyazás">Láncok és beágyazás</a></h2>
 <p>A nevek más nevekre is hivatkozhatnak, így akár hosszú átnevezési láncok is
 készülhetnek:</p>
-<pre><code class="language-speci">Be: j2∈Erdemjegy, Erdemjegy=EgytolOtig, EgytolOtig=[1..5]
+<pre><code class="language-speci">Be: j2∈Minosites, Minosites=EgytolOtig, EgytolOtig=[1..5]
 Ki: jo∈L
 Ef: -
 Uf: jo=(j2=j2)
@@ -1343,22 +1315,21 @@ Uf: jo=(j2=j2)
 jo: true
 </code></pre>
 <p>Egymásba is ágyazhatók, így mély szerkezetek is leírhatók. Ebben a példában
-minden hallgatónak jegylistája van:</p>
-<pre><code class="language-speci">Be: csop∈Csoport, Csoport=Hallgato[], Hallgato=(nev:S x jegyek:Jegy[]), Jegy=[1..5]
+minden kaptárnak pontlistája van:</p>
+<pre><code class="language-speci">Be: mehes∈Mehes, Mehes=Kaptar[], Kaptar=(nev:S x pontok:Pont[]), Pont=[1..5]
 Ki: c∈N
 Ef: -
-Uf: c=DARAB(i=1..length(csop), length(csop[i].jegyek)&gt;0)
+Uf: c=DARAB(i=1..length(mehes), length(mehes[i].pontok)&gt;0)
 </code></pre>
-<pre><code class="language-yaml">csop:
-  - nev: Anna
-    jegyek: [5, 4, 5]
-  - nev: Bence
-    jegyek: []
+<pre><code class="language-yaml">mehes:
+  - nev: Akac
+    pontok: [5, 4, 5]
+  - nev: Bodza
+    pontok: []
 c: 1
 </code></pre>
-<p>A definíció állhat az első használat előtt és után is. A beépített
-dokumentáció a <code>j∈Jegy, Jegy=[1..5]</code> alakot használja. Egyes tárgyi megoldások
-előre veszik a rekord definícióját: <code>In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]</code>.</p>
+<p>A definíció állhat az első használat előtt és után is: a <code>j∈Pont, Pont=[1..5]</code> és
+a <code>Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]</code> alak is jó.</p>
 <h2 id="hová-kerülnek-a-definíciók"><a class="header" href="#hová-kerülnek-a-definíciók">Hová kerülnek a definíciók?</a></h2>
 <p>A definíciók a deklarációs blokkokba (<code>Be:</code>, <code>Sa:</code>, <code>Ki:</code>) kerülnek, a
 változóktól vesszővel elválasztva. Szokás szerint abba a blokkba tesszük őket,
@@ -1448,14 +1419,15 @@ benne: true
 <pre><code class="language-yaml">a: 8
 benne: false
 </code></pre>
-<p>Az oszthatósági reláció, a <code>|</code>, tömören fejezi ki az osztókat:</p>
-<pre><code class="language-speci">Be: n∈N
-Ki: d∈N
-Ef: n≥1
-Uf: d=DARAB(i=1..n, i|n)
+<p>Az oszthatósági reláció, a <code>|</code>, tömören fejezi ki a többszörösöket. <em>Pontosan
+kitöltik az üvegek a hatos csomagokat?</em></p>
+<pre><code class="language-speci">Be: uvegek∈N
+Ki: pontos∈L
+Ef: -
+Uf: pontos=(6|uvegek)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-d: 6
+<pre><code class="language-yaml">uvegek: 24
+pontos: true
 </code></pre>
 <h2 id="logika"><a class="header" href="#logika">Logika</a></h2>
 <div class="table-wrapper">
@@ -1695,30 +1667,30 @@ Ef: a≥2 és a≤7
 <p><strong>Bemenetek közötti kapcsolat.</strong> <em>1 &lt; d &lt; n:</em></p>
 <pre><code class="language-speci fragment">Ef: 1&lt;d&lt;n
 </code></pre>
-<p><strong>Garancia, amelyre az utófeltétel épít.</strong> <em>Van páratlan szám</em>, ezt a
+<p><strong>Garancia, amelyre az utófeltétel épít.</strong> <em>Van 40 kg feletti kaptár</em>, ezt a
 <a href="#kiválasztás-select"><code>SELECT</code></a> igényli:</p>
-<pre><code class="language-speci fragment">Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
+<pre><code class="language-speci fragment">Ef: ∃i∈[1..n]:(kg[i]&gt;40)
 </code></pre>
 <p>Több állítás <code>és</code>-sel kapcsolható össze. Ne felejtsd ki köztük a műveleti
 jelet: két egymás után írt állítás szintaktikai hiba.</p>
 <h2 id="példa"><a class="header" href="#példa">Példa</a></h2>
 <blockquote>
-<p><em>Adott n ≥ 1 gyerek magassága centiméterben (mindegyik 50 és 250 között).
-Mennyi az átlagmagasság?</em></p>
+<p><em>Adott n ≥ 1 kaptár súlya kilogrammban (mindegyik 5 és 90 között).
+Mennyi az átlagsúly?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, m∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
 Ki: atlag∈R
-Ef: n≥1 és ∀i∈[1..n]:(50≤m[i]≤250)
-Uf: atlag=SUM(i=1..n, m[i])/n
+Ef: n≥1 és ∀i∈[1..n]:(5≤s[i]≤90)
+Uf: atlag=SUM(i=1..n, s[i])/n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-m: [120, 130, 125, 135]
-atlag: 127.5
+s: [40, 43, 38, 44]
+atlag: 41.25
 </code></pre>
 <p>Az előfeltételt megsértő bemenet piros tesztet ad:</p>
 <pre><code class="language-yaml red">n: 2
-m: [120, 300]
-atlag: 210
+s: [40, 300]
+atlag: 170
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -1762,8 +1734,7 @@ vissza.</li>
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>A nyilat ASCII alakban, <code>-&gt;</code>-ként írd. Az Insert sávon nincs nyíl gomb, és a
 Unicode <code>→</code> mindenhol szintaktikai hiba: a szignatúrában és implikációként is.
-A képernyőképeken látható nyilak a szerkesztő betűtípusa által rajzolt <code>-&gt;</code>
-jelek.</p>
+A szerkesztőben látható nyilak a betűtípusa által rajzolt <code>-&gt;</code> jelek.</p>
 </blockquote>
 <h2 id="példák"><a class="header" href="#példák">Példák</a></h2>
 <div class="table-wrapper">
@@ -1777,7 +1748,7 @@ jelek.</p>
 <tr><td><code>add:Z x Z-&gt;Z, add(a,b)=a+b</code></td><td>két paraméter</td></tr>
 <tr><td><code>csere:Z x Z-&gt;Z x Z, csere(a,b)=(b,a)</code></td><td>tuple-t ad vissza</td></tr>
 <tr><td><code>f2:Z-&gt;Z, f2(p)=p+n</code></td><td>az <code>n</code> bemeneti változót használja</td></tr>
-<tr><td><code>jegy:Hallgato-&gt;N, jegy(h)=h.jegy</code></td><td>rekordparaméter</td></tr>
+<tr><td><code>pont:Kaptar-&gt;N, pont(h)=h.pont</code></td><td>rekordparaméter</td></tr>
 <tr><td><code>index:N[] x N-&gt;N, index(x,i)=x[i]</code></td><td>tömbparaméter</td></tr>
 <tr><td><code>paros:N-&gt;L, paros(i)=x[i] mod 2 = 0</code></td><td>logikai függvény</td></tr>
 </tbody>
@@ -1839,14 +1810,14 @@ x: [0, 2, 3, 8, 7]
 c: 2
 </code></pre>
 <h2 id="rekordparaméter"><a class="header" href="#rekordparaméter">Rekordparaméter</a></h2>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: s∈N
-Fv: jegy:Hallgato-&gt;N, jegy(e)=e.jegy
+Fv: pont:Kaptar-&gt;N, pont(e)=e.pont
 Ef: -
-Uf: s=SUM(i=1..n, jegy(h[i]))
+Uf: s=SUM(i=1..n, pont(h[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 5}, {nev: Bence, jegy: 3}]
+h: [{nev: Akac, pont: 5}, {nev: Bodza, pont: 3}]
 s: 8
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1854,62 +1825,62 @@ s: 8
 <p>A függvények igazi ereje a <strong>feladat felbontása</strong>. Ha egy feladatban az egyik
 tétel a másikba ágyazódik, tedd a belsőt egy függvénybe. Így az utófeltételben
 tisztán látszik a külső tétel, a függvényben pedig a belső.</p>
-<p>A táblázat a tárgyi anyagban leggyakrabban előforduló kombinációkat gyűjti
-össze. Mindegyik szerepel teljes példaként a könyv későbbi részében.</p>
+<p>A táblázat gyakori kombinációkat gyűjt össze. A legtöbb teljes példaként is
+szerepel a könyv későbbi részében.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Függvény</th><th>Belső tétel</th><th>Hol szerepel?</th></tr>
 </thead>
 <tbody>
-<tr><td><code>maxoszl:N-&gt;N x N, maxoszl(i)=MAX(j=1..m, terkep[i,j])</code></td><td>az <em>i</em>. sor maximuma</td><td><a href="#yossarian-térképe">Yossarian térképe</a></td></tr>
-<tr><td><code>ossz:N-&gt;N, ossz(i)=SUM(j=i-d..i-1, tr[j])</code></td><td>az előző <em>d</em> érték összege</td><td><a href="#trurl-robotjai">Trurl robotjai</a></td></tr>
-<tr><td><code>tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)</code></td><td>az <em>i</em>. sor minden eleme &gt; 5</td><td><a href="#catbert-kávészünetei">Catbert kávészünetei</a></td></tr>
-<tr><td><code>kev5:N-&gt;L, kev5(i)=EXISTS(j=1..4, kave[i,j]&lt;5)</code></td><td>az <em>i</em>. sor valamelyik eleme &lt; 5</td><td></td></tr>
-<tr><td><code>latog:N-&gt;N, latog(i)=DARAB(j=1..n, hely[j]=i)</code></td><td>hányszor fordul elő <em>i</em></td><td></td></tr>
-<tr><td><code>uj:N-&gt;L, uj(i)=FORALL(j=1..i-1, v[i].ido≠v[j].ido)</code></td><td>az <em>i</em>. érték nem fordult elő korábban</td><td><a href="#további-rövid-példák">További rövid példák</a></td></tr>
-<tr><td><code>kes:N-&gt;L, kes(j)=FORALL(i=1..n, kesesek[i,j]&gt;k)</code></td><td>a <em>j</em>. oszlop minden eleme &gt; k</td><td><a href="#további-rövid-példák">További rövid példák</a></td></tr>
+<tr><td><code>rossz:N-&gt;N x N, rossz(h)=MIN(w=1..m, y[h,w])</code></td><td>a <em>h</em>. sor minimuma</td><td><a href="#a-legmegbízhatóbb-kaptár">A legmegbízhatóbb kaptár</a></td></tr>
+<tr><td><code>hordas:N-&gt;N, hordas(i)=SUM(j=i-d+1..i, nektar[j])</code></td><td>az utolsó <em>d</em> érték összege</td><td><a href="#a-hordás">A hordás</a></td></tr>
+<tr><td><code>erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)</code></td><td>a <em>p</em>. oszlop minden eleme legalább 80</td><td><a href="#pergetés">Pergetés</a></td></tr>
+<tr><td><code>hiaba:N-&gt;L, hiaba(h)=EXISTS(w=1..m, nov[h,w]=0)</code></td><td>a <em>h</em>. sor valamelyik eleme 0</td><td>lentebb</td></tr>
+<tr><td><code>eladott:N-&gt;N, eladott(t)=SUM(i=1..n, db[i], fajta[i]=t)</code></td><td>a <em>t</em> kategória tételeinek összege</td><td>lentebb</td></tr>
+<tr><td><code>rek:N-&gt;L, rek(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])</code></td><td>az <em>i</em>. érték minden korábbinál nagyobb</td><td><a href="#további-rövid-példák">További rövid példák</a></td></tr>
+<tr><td><code>nott:N-&gt;L, nott(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])</code></td><td>a <em>h</em>. sor folyamatosan nő</td><td><a href="#további-rövid-példák">További rövid példák</a></td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="példa-tulajdonságú-sorok"><a class="header" href="#példa-tulajdonságú-sorok">Példa: tulajdonságú sorok</a></h2>
+<h2 id="példa-adott-tulajdonságú-sorok"><a class="header" href="#példa-adott-tulajdonságú-sorok">Példa: adott tulajdonságú sorok</a></h2>
 <blockquote>
-<p><em>Egy konferencia n napig tartott, naponta négy kávészünettel. Hány napon
-fogyott minden szünetben 5 liternél több kávé?</em></p>
+<p><em>Borbála n kaptár heti súlygyarapodását jegyezte fel 4 héten át. Hány kaptárnál
+volt legalább egy hét, amikor semmit sem gyarapodott?</em></p>
 </blockquote>
-<p>A külső tétel a <strong>megszámolás</strong> (hány nap?), a belső az <strong>eldöntés</strong> (minden
-szünet 5 felett volt?):</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<p>A külső tétel a <strong>megszámolás</strong> (hány kaptár?), a belső az <strong>eldöntés</strong> (van-e 0-s
+hét?):</p>
+<pre><code class="language-speci">Be: n∈N, nov∈N[1..n,1..4]
 Ki: c∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+Fv: hiaba:N-&gt;L, hiaba(h)=EXISTS(w=1..4, nov[h,w]=0)
 Ef: -
-Uf: c=DARAB(i=1..n, tobb5(i))
+Uf: c=DARAB(h=1..n, hiaba(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [6, 6, 7, 8]
+nov: [
+  [2, 0, 1, 3],
+  [1, 1, 2, 1],
+  [0, 0, 4, 2]
 ]
 c: 2
 </code></pre>
-<h2 id="példa-melyik-érték-hányszor-fordul-elő"><a class="header" href="#példa-melyik-érték-hányszor-fordul-elő">Példa: melyik érték hányszor fordul elő?</a></h2>
+<h2 id="példa-kategóriánkénti-összeg"><a class="header" href="#példa-kategóriánkénti-összeg">Példa: kategóriánkénti összeg</a></h2>
 <blockquote>
-<p><em>n látogatást jegyeztek fel, mindegyik az 1..k helyek egyikére történt.
-Melyik helyet látogatták a legtöbbször?</em></p>
+<p><em>Borbála n rendelést jegyzett fel, mindegyik néhány üveg 1..k fajtájú mézre szólt.
+Melyik fajtából fogyott a legtöbb üveg?</em></p>
 </blockquote>
-<p>A külső tétel egy <strong>maximum</strong> a helyeken. A függvény egy hely látogatásait
-számolja meg:</p>
-<pre><code class="language-speci">Be: n∈N, k∈N, hely∈N[1..n]
+<p>A külső tétel egy <strong>maximum</strong> a fajtákon. A függvény egy fajta üvegeit adja össze:</p>
+<pre><code class="language-speci">Be: n∈N, k∈N, fajta∈N[1..n], db∈N[1..n]
 Ki: legjobb∈N
-Fv: latog:N-&gt;N, latog(p)=DARAB(j=1..n, hely[j]=p)
-Ef: k≥1 és ∀i∈[1..n]:(1≤hely[i]≤k)
-Uf: (legjobb,)=MAX(p=1..k, latog(p))
+Fv: eladott:N-&gt;N, eladott(t)=SUM(i=1..n, db[i], fajta[i]=t)
+Ef: k≥1 és ∀i∈[1..n]:(1≤fajta[i]≤k)
+Uf: (legjobb,)=MAX(t=1..k, eladott(t))
 </code></pre>
-<pre><code class="language-yaml">n: 6
+<pre><code class="language-yaml">n: 4
 k: 3
-hely: [2, 3, 2, 1, 2, 3]
-legjobb: 2
+fajta: [2, 3, 2, 1]
+db: [1, 9, 2, 4]
+legjobb: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
@@ -1919,18 +1890,18 @@ elemekről feltett kérdés pedig a belső tételt, amiből függvény lesz.</p>
 </blockquote>
 <h2 id="lehet-függvény-nélkül-is"><a class="header" href="#lehet-függvény-nélkül-is">Lehet függvény nélkül is?</a></h2>
 <p>Igen. Egy tétel közvetlenül is állhat egy másik belsejében:</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<pre><code class="language-speci">Be: n∈N, nov∈N[1..n,1..4]
 Ki: c∈N
 Ef: -
-Uf: c=DARAB(i=1..n, FORALL(j=1..4, kave[i,j]&gt;5))
+Uf: c=DARAB(h=1..n, EXISTS(w=1..4, nov[h,w]=0))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-kave: [[6, 6, 6, 6], [6, 1, 6, 6]]
+nov: [[1, 1, 1, 1], [1, 0, 1, 1]]
 c: 1
 </code></pre>
-<p>A jelentés ugyanaz. A tárgyban mégis a függvényes változat a javasolt, mert
-megnevezi a belső tételt, és egyértelművé teszi az algoritmus tervezését
-(minden beágyazott tétel egy függvény lesz).</p>
+<p>A jelentés ugyanaz. A függvényes változat általában átláthatóbb, mert megnevezi a
+belső tételt, és egyértelművé teszi az algoritmus tervezését (minden beágyazott
+tétel egy függvény lesz).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="utófeltételek-és-tételek"><a class="header" href="#utófeltételek-és-tételek">Utófeltételek és tételek</a></h1>
 <p>Az <strong>utófeltétel</strong> (<code>Uf:</code>, angolul <code>Post:</code>) a specifikáció legfontosabb része.
@@ -1939,18 +1910,18 @@ kimenet helyes válasz a bemenetre. Minden bemeneti változót említenie kell
 (lásd <a href="#a-minden-változó-szabály">A minden-változó szabály</a>).</p>
 <p>Minden utófeltételt meg lehetne írni pusztán kvantorokkal, az
 <a href="#utófeltétel-tételek-nélkül">Utófeltétel tételek nélkül</a> fejezet meg is mutatja,
-hogyan. A tárgy feladatainak többsége azonban néhány szabványos <strong>programozási
+hogyan. A feladatok többsége azonban néhány szabványos <strong>programozási
 tétel</strong> példánya. Mindegyik egy algoritmikus minta, ismert és bizonyított
 algoritmussal. A szerkesztőben mindegyikhez tartozik egy makró, így az
 utófeltétel közvetlenül megnevezheti a mintát:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: osszeg∈N
 Ef: -
-Uf: osszeg=SUM(i=1..n, szamok[i])
+Uf: osszeg=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [5, 1, 4, 2]
-osszeg: 12
+kg: [12, 3, 9, 6]
+osszeg: 30
 </code></pre>
 <p>A tétel felismerése a feladatban maga az algoritmustervezés: ha az utófeltétel
 <code>SUM</code>-ot mond, az algoritmus az összegzés algoritmusa.</p>
@@ -2064,21 +2035,21 @@ kezdőpontja van, <code>i&gt;=e</code>.</p>
 
 </div>
 
-<p>Ha egy elem tulajdonsága <em>maga is</em> sok elemre vonatkozó kérdés (például „a
-nap minden kávészünetében 5 liternél több fogyott”), két egymásba ágyazott
+<p>Ha egy elem tulajdonsága <em>maga is</em> sok elemre vonatkozó kérdés (például „ez a
+kerethely minden fiókban érett”), két egymásba ágyazott
 tétel kell. Lásd <a href="#tételek-összeépítése">Tételek összeépítése</a>.</p>
 <h2 id="egy-tételmakró-olvasása"><a class="header" href="#egy-tételmakró-olvasása">Egy tételmakró olvasása</a></h2>
-<p>Vegyük a <code>db=DARAB(i=1..n, szamok[i] mod 2 = 1)</code> makrót:</p>
+<p>Vegyük a <code>konnyu=DARAB(i=1..n, uvegek[i]&lt;450)</code> makrót:</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Rész</th><th>Jelentés</th></tr>
 </thead>
 <tbody>
-<tr><td><code>db=</code></td><td>az eredmény a <code>db</code> kimeneti változóhoz kötődik</td></tr>
+<tr><td><code>konnyu=</code></td><td>az eredmény a <code>konnyu</code> kimeneti változóhoz kötődik</td></tr>
 <tr><td><code>DARAB</code></td><td>a tétel: megszámolás</td></tr>
 <tr><td><code>i=1..n</code></td><td>az <code>i</code> ciklusváltozó az 1, 2, …, n értékeken fut végig</td></tr>
-<tr><td><code>szamok[i] mod 2 = 1</code></td><td>minden <code>i</code>-re ellenőrzött feltétel</td></tr>
+<tr><td><code>uvegek[i]&lt;450</code></td><td>minden <code>i</code>-re ellenőrzött feltétel</td></tr>
 </tbody>
 </table>
 </div>
@@ -2112,20 +2083,20 @@ segédváltozót. Így írjuk le a többlépéses feladatokat. Lásd
 
 <h2 id="példa-egy-tömb-összege"><a class="header" href="#példa-egy-tömb-összege">Példa: egy tömb összege</a></h2>
 <blockquote>
-<p><em>Tudjuk, hogy n napon át mennyi pénzt költöttünk naponta. Mennyit költöttünk
-összesen?</em></p>
+<p><em>Tudjuk, hány kilogramm mézet pergetett Borbála az n nap mindegyikén. Mennyit
+pergetett összesen?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, koltes∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ossz∈N
 Ef: -
-Uf: ossz=SUM(i=1..n, koltes[i])
+Uf: ossz=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-koltes: [1200, 0, 3500, 800, 450]
-ossz: 5950
+kg: [12, 0, 35, 8, 4]
+ossz: 59
 </code></pre>
 <pre><code class="language-yaml">n: 0
-koltes: []
+kg: []
 ossz: 0
 </code></pre>
 <h2 id="az-összegzett-érték-bármilyen-kifejezés-lehet"><a class="header" href="#az-összegzett-érték-bármilyen-kifejezés-lehet">Az összegzett érték bármilyen kifejezés lehet</a></h2>
@@ -2140,44 +2111,49 @@ s: 30
 </code></pre>
 <h2 id="a-szűrt-alak"><a class="header" href="#a-szűrt-alak">A szűrt alak</a></h2>
 <p>Egy <strong>harmadik argumentummal</strong>, egy feltétellel, csak azok a tagok adódnak
-össze, amelyekre a feltétel teljesül. <em>A páros elemek összege:</em></p>
-<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
+össze, amelyekre a feltétel teljesül. <em>A legalább 4 pontos kaptárak mézének összege:</em></p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n], pont∈N[1..n]
 Ki: s∈N
 Ef: -
-Uf: s=SUM(i=1..n, x[i], x[i] mod 2 = 0)
+Uf: s=SUM(i=1..n, kg[i], pont[i]≥4)
 </code></pre>
-<pre><code class="language-yaml">n: 5
-x: [1, 2, 3, 4, 10]
-s: 16
+<pre><code class="language-yaml">n: 4
+kg: [10, 20, 30, 40]
+pont: [4, 2, 5, 3]
+s: 40
 </code></pre>
-<p>Az <em>n osztóinak összege</em> a szűrőt az oszthatósági relációval, a <code>|</code> jellel
-kombinálja:</p>
-<pre><code class="language-speci">Be: n∈N
+<p><em>A hatos csomagokat pontosan kitöltő rendelések üvegei</em>: a szűrőt az oszthatósági
+relációval, a <code>|</code> jellel kombináljuk:</p>
+<pre><code class="language-speci">Be: n∈N, q∈N[1..n]
 Ki: s∈N
-Ef: n≥1
-Uf: s=SUM(i=1..n, i, i|n)
+Ef: -
+Uf: s=SUM(i=1..n, q[i], 6|q[i])
 </code></pre>
-<pre><code class="language-yaml">n: 12
-s: 28
+<pre><code class="language-yaml">n: 4
+q: [12, 7, 6, 10]
+s: 18
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Minden megszorítás kerüljön a szűrőbe.</strong> Az „n <em>páratlan osztóinak</em>
-összege” két feltételt tartalmaz. A <code>SUM(i=1..n, i, i mod 2 = 1)</code> n-ig <em>minden</em>
-páratlan számot összead (n = 10-re 25-öt) a páratlan osztók (1 + 5 = 6)
-helyett. A helyes szűrő: <code>i mod 2 = 1 és i|n</code>.</p>
+<p><strong>Minden megszorítás kerüljön a szűrőbe.</strong> A „legalább 4 pontos, <em>nem kezelt</em>
+kaptárak méze” két feltételt tartalmaz. A <code>SUM(i=1..n, kg[i], pont[i]≥4)</code> a kezelt
+kaptárakat is hozzáadja (az alábbi tesztben 70), nem csak a többit (40). A helyes
+szűrő: <code>pont[i]≥4 és nem kezelt[i]</code>.</p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n], pont∈N[1..n], kezelt∈L[1..n]
 Ki: s∈N
-Ef: n≥1
-Uf: s=SUM(i=1..n, i, i mod 2 = 1 és i|n)
+Ef: -
+Uf: s=SUM(i=1..n, kg[i], pont[i]≥4 és nem kezelt[i])
 </code></pre>
-<pre><code class="language-yaml">n: 10
-s: 6
+<pre><code class="language-yaml">n: 3
+kg: [40, 30, 20]
+pont: [4, 5, 2]
+kezelt: [false, true, false]
+s: 40
 </code></pre>
 <h2 id="a-tömb-egy-ablaka"><a class="header" href="#a-tömb-egy-ablaka">A tömb egy ablaka</a></h2>
-<p>A tartománynak nem kell a teljes tömböt lefednie. <em>Az i index előtti d érték
-összege</em>: <code>SUM(j=i-d..i-1, x[j])</code>. Ez a <a href="#trurl-robotjai">Trurl robotjai</a>
+<p>A tartománynak nem kell a teljes tömböt lefednie. <em>Az utolsó d érték összege, az i
+indexszel bezárólag</em>: <code>SUM(j=i-d+1..i, x[j])</code>. Ez a <a href="#a-hordás">hordás</a>
 feladat belső része.</p>
 <h2 id="átlag"><a class="header" href="#átlag">Átlag</a></h2>
 <p>Átlagra nincs külön makró. Oszd el az összeget a darabszámmal:</p>
@@ -2208,50 +2184,51 @@ rossz. Elöl az érték, utána a feltétel, <em>fordítva</em>, mint a háromar
 <strong>Üres tartomány:</strong> 0</p>
 </div>
 
-<h2 id="példa-páratlan-számok"><a class="header" href="#példa-páratlan-számok">Példa: páratlan számok</a></h2>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: db∈N
+<h2 id="példa-könnyű-üvegek"><a class="header" href="#példa-könnyű-üvegek">Példa: könnyű üvegek</a></h2>
+<pre><code class="language-speci">Be: n∈N, uvegek∈N[1..n]
+Ki: konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 4, 6]
-db: 0
+uvegek: [450, 500, 480]
+konnyu: 0
 </code></pre>
-<p>Ez a hivatalos tárgyi példa, angol kulcsszavakkal
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=058de53d-56cd-4733-93f1-8f4cf2212a86">megnyitás a szerkesztőben</a>).</p>
+<p>A pontosan 450 g-os üveg nem számít, mert a feltétel <code>&lt;</code>.</p>
 <h2 id="darab-és-count"><a class="header" href="#darab-és-count">DARAB és COUNT</a></h2>
 <p>A <code>DARAB</code> („hány darab?”) pontosan ugyanazt jelenti, mint a <code>COUNT</code>.
-<em>Hány osztója van egy számnak?</em></p>
-<pre><code class="language-speci">Be: szam∈N
-Ki: osztok∈N
-Ef: szam&gt;=1
-Uf: osztok=DARAB(i=1..szam, i|szam)    // i osztója szam-nak
+<em>Az első d nap közül hányra esik ellenőrzés, ha minden a-adik napon van egy?</em></p>
+<pre><code class="language-speci">Be: d∈N, a∈N
+Ki: db∈N
+Ef: a&gt;=1
+Uf: db=DARAB(i=1..d, a|i)    // a osztója i-nek
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 3
+db: 4
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 10
+a: 11
+db: 0
 </code></pre>
 <h2 id="megszámolás-összetett-feltétellel"><a class="header" href="#megszámolás-összetett-feltétellel">Megszámolás összetett feltétellel</a></h2>
 <p>A feltétel tetszőleges logikai kifejezés lehet: összehasonlíthat
-szomszédokat, hívhat függvényt, tartalmazhat kvantort. <em>Hányszor emelkedett a
-hőmérséklet egyik napról a másikra?</em></p>
-<pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
+szomszédokat, hívhat függvényt, tartalmazhat kvantort. <em>Hányszor lett nehezebb a
+kaptár egyik estéről a másikra?</em></p>
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
 Ki: emel∈N
 Ef: -
-Uf: emel=DARAB(i=1..n-1, t[i]&lt;t[i+1])
+Uf: emel=DARAB(i=1..n-1, kg[i]&lt;kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [3, 5, 4, 4, 8, 9]
+kg: [30, 32, 31, 31, 35, 36]
 emel: 3
 </code></pre>
-<p>Figyeld meg az <code>1..n-1</code> tartományt: <code>i = n</code>-re a <code>t[i+1]</code> nem létezne.</p>
+<p>Figyeld meg az <code>1..n-1</code> tartományt: <code>i = n</code>-re a <code>kg[i+1]</code> nem létezne.</p>
 <h2 id="darab-vagy-sum"><a class="header" href="#darab-vagy-sum">DARAB vagy SUM?</a></h2>
 <p>A <code>DARAB(i=e..u, β(i))</code> ugyanaz, mint a <code>SUM(i=e..u, 1, β(i))</code>: minden
 illeszkedő indexre 1-et adunk hozzá. Mégis a <code>DARAB</code>-ot használd, mert
@@ -2277,23 +2254,24 @@ teszi a legkisebbel.</p>
 <strong>Üres tartomány:</strong> nem megengedett, az előfeltételnek garantálnia kell legalább egy elemet</p>
 </div>
 
-<h2 id="példa-a-legmelegebb-nap"><a class="header" href="#példa-a-legmelegebb-nap">Példa: a legmelegebb nap</a></h2>
+<h2 id="példa-a-legmelegebb-hajnal"><a class="header" href="#példa-a-legmelegebb-hajnal">Példa: a legmelegebb hajnal</a></h2>
 <pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
 Ki: nap∈N, hom∈Z
 Ef: n&gt;0
 Uf: (nap,hom)=MAX(i=1..n, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 nap: 2
-hom: 17
+hom: 13
 </code></pre>
-<p>A maximum, a 17, a 2. és a 4. napon fordul elő. A <code>MAX</code> az elsőt választja, a
+<p>Borbála minden hajnalban leolvassa a hőmérőt a röpnyílásnál. A maximum, a 13, a 2.
+és a 4. napon fordul elő. A <code>MAX</code> az elsőt választja, a
 2. napot.</p>
 <pre><code class="language-yaml red">n: 5
-t: [12, 17, 9, 17, 3]
+t: [8, 13, 5, 13, 2]
 nap: 4
-hom: 17
+hom: 13
 </code></pre>
 <h2 id="csak-az-egyik-eredmény-megtartása"><a class="header" href="#csak-az-egyik-eredmény-megtartása">Csak az egyik eredmény megtartása</a></h2>
 <p>Hagyj egy üres pozíciót a tuple-ben:</p>
@@ -2343,8 +2321,8 @@ Uf: v=MAX(i=1..n, t[i]).maxval
 t: [4, 9, 1]
 v: 9
 </code></pre>
-<p>A <a href="#yossarian-térképe">Yossarian térképe</a> ezzel keresi meg egy mátrix
-maximumát.</p>
+<p>A <a href="#a-legmegbízhatóbb-kaptár">legmegbízhatóbb kaptár</a> a <code>.minval</code> és a <code>.minind</code> részt
+ugyanígy használja, egy mátrixon.</p>
 <h2 id="gyakori-hibák-2"><a class="header" href="#gyakori-hibák-2">Gyakori hibák</a></h2>
 <ul>
 <li><strong>Hiányzó előfeltétel.</strong> A semmi maximuma nem létezik. <code>n∈N</code> esetén az
@@ -2368,40 +2346,40 @@ amelynek megvan egy tulajdonsága (<code>EXISTS</code>), vagy mindegyiknek megva
 
 <h2 id="exists-van-e"><a class="header" href="#exists-van-e">EXISTS: van-e…?</a></h2>
 <blockquote>
-<p><em>Van-e páratlan szám a számok között?</em></p>
+<p><em>Van-e olyan kaptár, amelyben 50-nél több atka van?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: paratlan∈L
+<pre><code class="language-speci">Be: n∈N, atka∈N[1..n]
+Ki: riaszt∈L
 Ef: -
-Uf: paratlan=EXISTS(i=1..n, szamok[i] mod 2 = 1)
+Uf: riaszt=EXISTS(i=1..n, atka[i]&gt;50)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [2, 8, 7, 4]
-paratlan: true
+atka: [12, 8, 70, 4]
+riaszt: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 8, 4]
-paratlan: false
+atka: [12, 50, 4]
+riaszt: false
 </code></pre>
 <h2 id="forall-minden"><a class="header" href="#forall-minden">FORALL: minden…?</a></h2>
 <blockquote>
-<p><em>Minden szám pozitív?</em></p>
+<p><em>Minden kaptár gyarapodott?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
-Ki: pozitiv∈L
+<pre><code class="language-speci">Be: n∈N, nov∈Z[1..n]
+Ki: mind∈L
 Ef: -
-Uf: pozitiv=FORALL(i=1..n, szamok[i]&gt;0)
+Uf: mind=FORALL(i=1..n, nov[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [5, 1, 9]
-pozitiv: true
+nov: [5, 1, 9]
+mind: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [5, 0, 9]
-pozitiv: false
+nov: [5, 0, 9]
+mind: false
 </code></pre>
 <h2 id="a-kettő-összefügg"><a class="header" href="#a-kettő-összefügg">A kettő összefügg</a></h2>
-<p>„Nem minden elem pozitív” ugyanaz, mint „van olyan elem, amely nem pozitív”:</p>
+<p>„Nem minden kaptár gyarapodott” ugyanaz, mint „van olyan kaptár, amely nem gyarapodott”:</p>
 <pre><code class="language-text">nem FORALL(i=1..n, β(i))   =   EXISTS(i=1..n, nem β(i))
 </code></pre>
 <p>Azt használd, amelyik természetesebben hangzik a feladatban.</p>
@@ -2421,18 +2399,18 @@ b: true
 kvantor tisztán logikai állítás. Az előfeltételekben általában a kvantort, a
 kimenetet definiáló utófeltételekben a makrót használjuk.</p>
 <h2 id="építőelemként"><a class="header" href="#építőelemként">Építőelemként</a></h2>
-<p>Az eldöntés gyakran egy összetett feladat <em>belső</em> része. <em>Keress egy napot,
-amikor minden kávészünetben 5 liternél több fogyott</em>: ez egy keresés, amelynek
-a feltétele egy <code>FORALL</code>. Lásd <a href="#catbert-kávészünetei">Catbert kávészünetei</a>.</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
-Ki: vanIlyenNap∈L
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+<p>Az eldöntés gyakran egy összetett feladat <em>belső</em> része. <em>Keress egy kerethelyet,
+amely minden fiókban érett</em>: ez egy keresés, amelynek
+a feltétele egy <code>FORALL</code>. Lásd <a href="#pergetés">Pergetés</a>.</p>
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
+Ki: vanErett∈L
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
 Ef: -
-Uf: vanIlyenNap=EXISTS(i=1..n, tobb5(i))
+Uf: vanErett=EXISTS(p=1..5, erett(p))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-kave: [[6, 6, 6, 5], [7, 8, 9, 6]]
-vanIlyenNap: true
+fedett: [[90, 70, 85, 10, 0], [85, 95, 20, 90, 0]]
+vanErett: true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiválasztás-select"><a class="header" href="#kiválasztás-select">Kiválasztás: SELECT</a></h1>
@@ -2452,49 +2430,49 @@ szintaktikai hiba („Expected “&gt;=” but “≥” found”), pedig másho
 <p>A többi tétellel ellentétben a <code>SELECT</code>-nek <strong>nincs felső határa</strong>, csak azt
 mondja meg, honnan induljon. Éppen ezért kell garantálni a létezést: nélküle a
 keresés soha nem érne véget.</p>
-<h2 id="példa-az-első-páratlan-szám"><a class="header" href="#példa-az-első-páratlan-szám">Példa: az első páratlan szám</a></h2>
-<p>Ez a hivatalos tárgyi példa
-(<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=ecacc1f7-a451-4d14-8444-8527ff11a613">megnyitás a szerkesztőben</a>):</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<h2 id="példa-az-első-40-kg-feletti-kaptár"><a class="header" href="#példa-az-első-40-kg-feletti-kaptár">Példa: az első 40 kg feletti kaptár</a></h2>
+<p>Borbála tudja, hogy legalább egy erős kaptára van:</p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ind∈N
-Ef: ∃i∈[1..n]:(szamok[i] mod 2 = 1)
-Uf: ind=SELECT(i&gt;=1, szamok[i] mod 2 = 1) és n=n
-</code></pre>
-<pre><code class="language-yaml">n: 5
-szamok: [23, 25, 26, 28, 29]
-ind: 1
+Ef: ∃i∈[1..n]:(kg[i]&gt;40)
+Uf: ind=SELECT(i&gt;=1, kg[i]&gt;40) és n=n
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [2, 4, 7, 9]
+kg: [23, 41, 26, 58]
+ind: 2
+</code></pre>
+<pre><code class="language-yaml">n: 3
+kg: [10, 20, 90]
 ind: 3
 </code></pre>
 <p>Két dolgot érdemes megfigyelni:</p>
 <ol>
-<li><strong>Az előfeltétel</strong>, az <code>∃i∈[1..n]:(szamok[i] mod 2 = 1)</code>, garantálja, hogy
-van páratlan szám. Nélküle a <code>SELECT</code> hibás lenne.</li>
+<li><strong>Az előfeltétel</strong>, az <code>∃i∈[1..n]:(kg[i]&gt;40)</code>, garantálja, hogy
+van ilyen kaptár. Nélküle a <code>SELECT</code> hibás lenne.</li>
 <li><strong><code>és n=n</code></strong>: az <code>n</code> nem szerepel a <code>SELECT</code>-ben (nincs felső határ), ezért
 kell az <code>n=n</code> azonosság a <a href="#a-minden-változó-szabály">minden-változó szabály</a>
 teljesítéséhez.</li>
 </ol>
-<p>A páratlan szám nélküli bemenet megsérti az előfeltételt, így a teszt piros:</p>
+<p>Az ilyen kaptár nélküli bemenet megsérti az előfeltételt, így a teszt piros:</p>
 <pre><code class="language-yaml red">n: 2
-szamok: [2, 4]
+kg: [23, 40]
 ind: 1
 </code></pre>
 <h2 id="kiválasztás-tömb-nélkül"><a class="header" href="#kiválasztás-tömb-nélkül">Kiválasztás tömb nélkül</a></h2>
 <p>A <code>SELECT</code> természetes választás az „első adott tulajdonságú szám” kérdésekre,
-ha a válasz matematikailag garantált. <em>n legkisebb 1-nél nagyobb osztója</em>
-(n ≥ 2 esetén maga az n mindig osztó):</p>
-<pre><code class="language-speci">Be: n∈N
-Ki: d∈N
-Ef: n≥2
-Uf: d=SELECT(i&gt;=2, i|n)
+ha a válasz matematikailag garantált. <em>Az üvegeket hatos csomagban adják el. Mi a
+legkisebb olyan üvegszám, amely nem kevesebb a meglévőnél, és pontosan kitölti a
+csomagokat?</em> A 6-nak mindig van ilyen többszöröse:</p>
+<pre><code class="language-speci">Be: uvegek∈N
+Ki: csomagolt∈N
+Ef: -
+Uf: csomagolt=SELECT(i&gt;=uvegek, 6|i)
 </code></pre>
-<pre><code class="language-yaml">n: 35
-d: 5
+<pre><code class="language-yaml">uvegek: 20
+csomagolt: 24
 </code></pre>
-<pre><code class="language-yaml">n: 13
-d: 13
+<pre><code class="language-yaml">uvegek: 24
+csomagolt: 24
 </code></pre>
 <h2 id="select-vagy-search"><a class="header" href="#select-vagy-search">SELECT vagy SEARCH?</a></h2>
 <div class="table-wrapper">
@@ -2542,8 +2520,8 @@ ind: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Ne nevezd el a jelzőt <code>exists</code>-nek.</strong> Régi segédletek és képernyőképek az
-<code>Aux: exists∈L</code> alakot használják, de az <code>exists</code> foglalt szó (a <code>∃</code> ASCII
+<p><strong>Ne nevezd el a jelzőt <code>exists</code>-nek.</strong> Régebbi anyagokban találkozhatsz az
+<code>Aux: exists∈L</code> alakkal, de az <code>exists</code> foglalt szó (a <code>∃</code> ASCII
 alakja), és a mostani szerkesztő elutasítja:
 <code>incomplite type for exists: undefined is not boolean</code>. Használd a <code>van</code> vagy
 <code>talalt</code> nevet.</p>
@@ -2564,24 +2542,25 @@ ind: 4
 </code></pre>
 <h2 id="a-kimenet-függjön-az-eredménytől"><a class="header" href="#a-kimenet-függjön-az-eredménytől">A kimenet függjön az eredménytől</a></h2>
 <p>Gyakran a feladat valami <em>származtatott</em> értéket kér a talált elemből, és csak
-akkor, ha van ilyen elem. Erre az implikáció való. Tedd zárójelbe:</p>
-<pre><code class="language-speci">Be: n∈N, nevek∈S[1..n], korok∈N[1..n]
+akkor, ha van ilyen elem. <em>Mi a neve az első kaptárnak, amelyben legalább 3 éves az
+anya?</em> Erre az implikáció való. Tedd zárójelbe:</p>
+<pre><code class="language-speci">Be: n∈N, nevek∈S[1..n], kor∈N[1..n]
 Sa: van∈L, ind∈N
 Ki: nev∈S
 Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, korok[i]&lt;18) és
+Uf: (van,ind)=SEARCH(i=1..n, kor[i]≥3) és
     (van -&gt; nev=nevek[ind])
 </code></pre>
 <pre><code class="language-yaml">n: 3
-nevek: [Anna, Bence, Cili]
-korok: [21, 17, 15]
+nevek: [Akac, Bodza, Repce]
+kor: [1, 3, 4]
 van: true
 ind: 2
-nev: Bence
+nev: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-nevek: [Anna, Dani]
-korok: [21, 30]
+nevek: [Akac, Hars]
+kor: [1, 2]
 van: false
 ind: 1
 nev: ""
@@ -2598,34 +2577,35 @@ hibás. Így rossz adatú teszt is átmehet. Mindig <code>és (van -&gt; …)</c
 <p>Egyes feladatok nem logikai értéket kérnek, hanem egy különleges kimenetet,
 általában −1-et, ha nincs találat:</p>
 <blockquote>
-<p><em>Írd ki az első K forintnál olcsóbb fa sorszámát, vagy −1-et, ha nincs ilyen.</em></p>
+<p><em>Írd ki az első olyan kaptár sorszámát, amelyben K-nál több atka van, vagy −1-et,
+ha nincs ilyen.</em></p>
 </blockquote>
 <p>Két dolgot kell változtatni. A kimenet <code>Z</code> legyen (a −1 nem természetes szám),
 és a −1-et magának az utófeltételnek kell előállítania:</p>
-<pre><code class="language-speci">Be: n∈N, k∈N, ar∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, k∈N, atka∈N[1..n]
 Sa: van∈L, ind∈N
 Ki: sorszam∈Z
 Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, ar[i]&lt;k) és
+Uf: (van,ind)=SEARCH(i=1..n, atka[i]&gt;k) és
     (van -&gt; sorszam=ind) és
     (nem van -&gt; sorszam=-1)
 </code></pre>
-<pre><code class="language-yaml">n: 6
-k: 2000
-ar: [2500, 5300, 1900, 2400, 8800, 5300]
+<pre><code class="language-yaml">n: 5
+k: 30
+atka: [12, 30, 45, 7, 60]
 van: true
 ind: 3
 sorszam: 3
 </code></pre>
 <pre><code class="language-yaml">n: 3
 k: 100
-ar: [2500, 5300, 1900]
+atka: [12, 30, 45]
 van: false
 ind: 1
 sorszam: -1
 </code></pre>
-<p>A <a href="#karácsonyfák">Karácsonyfák</a> kidolgozott példa ugyanezt a feladatot
-<code>SEARCH</code> nélkül is megoldja.</p>
+<p>A <a href="#a-túlfolyó-tartály">túlfolyó tartály</a> kidolgozott példa ugyanezt a −1-es technikát
+használja, és a feladatát <code>SEARCH</code> nélkül is megoldja.</p>
 <h2 id="keresés-hátulról"><a class="header" href="#keresés-hátulról">Keresés hátulról</a></h2>
 <p>Az <strong>utolsó</strong> illeszkedő index megkereséséhez visszafelé kell keresni. A trükk
 az indexek negálása: az <code>i</code> fusson <code>-n</code>-től <code>-1</code>-ig, nézzük az <code>x[-i]</code> elemet, az
@@ -2647,8 +2627,8 @@ vagyis a tömböt a végétől járjuk be. Az első találat az <code>i = -4</co
 <code>(van,-ind)=SEARCH(i=-u..-e, β(-i))</code>.</p>
 <h2 id="keresés-összetett-feltétellel"><a class="header" href="#keresés-összetett-feltétellel">Keresés összetett feltétellel</a></h2>
 <p>A feltétel gyakran egy másik tételt tartalmazó függvény, például <em>keress egy
-napot, amikor minden kávészünetben 5 liternél több fogyott</em>. Ez a
-<a href="#catbert-kávészünetei">Catbert kávészünetei</a> feladat.</p>
+kerethelyet, amely minden fiókban érett</em>. Ez a
+<a href="#pergetés">Pergetés</a> feladat.</p>
 <h2 id="search-select-exists"><a class="header" href="#search-select-exists">SEARCH, SELECT, EXISTS</a></h2>
 <div class="table-wrapper">
 <table>
@@ -2672,39 +2652,39 @@ alkalmaz egy átalakítást.</p>
 </div>
 
 <h2 id="példa-abszolút-értékek"><a class="header" href="#példa-abszolút-értékek">Példa: abszolút értékek</a></h2>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
+<pre><code class="language-speci">Be: n∈N, x∈Z[1..n]
 Ki: cel∈N[1..n]
 Ef: -
-Uf: cel=COPY(i=1..n, abs(szamok[i]))
+Uf: cel=COPY(i=1..n, abs(x[i]))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [3, -5, 0, -1]
+x: [3, -5, 0, -1]
 cel: [3, 5, 0, 1]
 </code></pre>
 <p>A kimeneti tömböt ugyanakkorának deklaráljuk, mint a bemenetet: <code>N[1..n]</code>.</p>
 <h2 id="példa-mértékegység-átváltás"><a class="header" href="#példa-mértékegység-átváltás">Példa: mértékegység-átváltás</a></h2>
 <blockquote>
-<p><em>n hőmérséklet adott Celsiusban. Add meg őket Fahrenheitben.</em></p>
+<p><em>n üveg súlya adott grammban. Add meg őket kilogrammban.</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, c∈R[1..n]
-Ki: f∈R[1..n]
+<pre><code class="language-speci">Be: n∈N, g∈R[1..n]
+Ki: kg∈R[1..n]
 Ef: -
-Uf: f=COPY(i=1..n, c[i]*9/5+32)
+Uf: kg=COPY(i=1..n, g[i]/1000)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-c: [0, 100, -40]
-f: [32, 212, -40]
+g: [1500, 250, 0]
+kg: [1.5, 0.25, 0]
 </code></pre>
 <h2 id="egy-mező-kiemelése"><a class="header" href="#egy-mező-kiemelése">Egy mező kiemelése</a></h2>
 <p>A <code>COPY</code> rekordok tömbjéből egyetlen mezőt is kiemelhet:</p>
-<pre><code class="language-speci">Be: n∈N, h∈Hallgato[1..n], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(nev:S x pont:N)
 Ki: nevek∈S[1..n]
 Ef: -
 Uf: nevek=COPY(i=1..n, h[i].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 2
-h: [{nev: Anna, jegy: 5}, {nev: Bence, jegy: 3}]
-nevek: [Anna, Bence]
+h: [{nev: Akac, pont: 5}, {nev: Bodza, pont: 3}]
+nevek: [Akac, Bodza]
 </code></pre>
 <h2 id="copy-vagy-mis"><a class="header" href="#copy-vagy-mis">COPY vagy MIS?</a></h2>
 <p>A <code>COPY</code> <strong>minden</strong> elemet megtart. Ha csak néhány elem kerülhet az
@@ -2725,7 +2705,7 @@ magukat az összegyűjtött elemeket is.</p>
 darabszám-változóval mint határral.</p>
 <h2 id="a-kétargumentumos-alak-illeszkedő-indexek"><a class="header" href="#a-kétargumentumos-alak-illeszkedő-indexek">A kétargumentumos alak: illeszkedő indexek</a></h2>
 <blockquote>
-<p><em>Melyik napokon volt fagypont alatt a hőmérséklet?</em></p>
+<p><em>Melyik hajnalokon volt fagypont alatt a hőmérséklet a röpnyílásnál?</em></p>
 </blockquote>
 <pre><code class="language-speci">Be: n∈N, t∈Z[1..n]
 Ki: db∈N, napok∈N[1..db]
@@ -2733,12 +2713,12 @@ Ef: -
 Uf: (db,napok)=MIS(i=1..n, t[i]&lt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 db: 3
 napok: [2, 3, 6]
 </code></pre>
 <pre><code class="language-yaml">n: 2
-t: [5, 7]
+t: [6, 9]
 db: 0
 napok: []
 </code></pre>
@@ -2757,9 +2737,9 @@ Ef: -
 Uf: (db,hideg)=MIS(i=1..n, t[i]&lt;0, t[i])
 </code></pre>
 <pre><code class="language-yaml">n: 6
-t: [2, -1, -4, 3, 0, -2]
+t: [4, -2, -5, 1, 0, -1]
 db: 3
-hideg: [-1, -4, -2]
+hideg: [-2, -5, -1]
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
@@ -2768,54 +2748,49 @@ az összegyűjtött érték a <em>harmadik</em>. A szűrt <code>SUM</code>-nál 
 <code>SUM(i=…, érték, feltétel)</code>.</p>
 </blockquote>
 <h3 id="példa-rekordok-mezői"><a class="header" href="#példa-rekordok-mezői">Példa: rekordok mezői</a></h3>
-<p>Gyűjtsük össze minden 30 percnél hosszabb futás helyszínét. Ez tárgyi példa
-(ezért angol nevekkel). Figyeld meg a megjegyzést, amely az általános alakot a
-feladatra illeszti:</p>
-<pre><code class="language-speci">In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]
-Out: cnt∈N, location∈S[1..cnt]
-Pre: -
-Post: (cnt,location)=MIS(i=1..n, runs[i].time&gt;30, runs[i].loc)
-/* (cnt,y)=MIS(i=b..e, A(i), f(i))
-   cnt, y ~ cnt, location
-   b..e   ~ 1..n
-   A(i)   ~ runs[i].time&gt;30
-   f(i)   ~ runs[i].loc
+<p>Gyűjtsük össze minden 30 kg-nál nehezebb kaptár nevét. Figyeld meg a megjegyzést,
+amely az általános alakot a feladatra illeszti:</p>
+<pre><code class="language-speci">Be: Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]
+Ki: c∈N, nevek∈S[1..c]
+Ef: -
+Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
+   e..u   ~ 1..n
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-runs:
-  - time: 15
-    loc: office
-  - time: 35
-    loc: restaurant
-  - time: 40
-    loc: gym
-  - time: 5
-    loc: shop
-cnt: 2
-location: [restaurant, gym]
+kaptarak:
+  - kg: 22
+    nev: Akac
+  - kg: 35
+    nev: Bodza
+  - kg: 41
+    nev: Repce
+  - kg: 30
+    nev: Hars
+c: 2
+nevek: [Bodza, Repce]
 </code></pre>
 <h2 id="más-tételekkel-kombinálva"><a class="header" href="#más-tételekkel-kombinálva">Más tételekkel kombinálva</a></h2>
-<p>Az összegyűjtött tömb egy másik tétel bemenete lehet. <em>A legtávolabbi városok
-közül mennyi a legolcsóbb jegy?</em> A <code>MAX</code> megtalálja a legnagyobb távolságot, a
-<code>MIS</code> összegyűjti az ekkora távolsághoz tartozó árakat, a <code>MIN</code> pedig kiválasztja
-a legolcsóbbat:</p>
-<pre><code class="language-speci">Be: n∈N, varos∈Varos[1..n], Varos=(tav:N x ar:N)
-Sa: leg∈N, db∈N, arak∈N[1..db]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: (,leg)=MAX(i=1..n, varos[i].tav) és
-    (db,arak)=MIS(i=1..n, varos[i].tav=leg, varos[i].ar) és
-    (,jegy)=MIN(i=1..db, arak[i])
+<p>Az összegyűjtött tömb egy másik tétel bemenete lehet. <em>Mennyi méz jött a legalább 4
+pontos kaptárakból?</em> A <code>MIS</code> összegyűjti a termésüket, a <code>SUM</code> pedig összeadja:</p>
+<pre><code class="language-speci">Be: n∈N, h∈Kaptar[1..n], Kaptar=(kg:N x pont:N)
+Sa: db∈N, termes∈N[1..db]
+Ki: ossz∈N
+Ef: -
+Uf: (db,termes)=MIS(i=1..n, h[i].pont≥4, h[i].kg) és
+    ossz=SUM(i=1..db, termes[i])
 </code></pre>
 <pre><code class="language-yaml">n: 4
-varos: [{tav: 500, ar: 90}, {tav: 900, ar: 120}, {tav: 900, ar: 80}, {tav: 300, ar: 20}]
-leg: 900
+h: [{kg: 50, pont: 2}, {kg: 90, pont: 4}, {kg: 80, pont: 5}, {kg: 30, pont: 1}]
 db: 2
-arak: [120, 80]
-jegy: 80
+termes: [90, 80]
+ossz: 170
 </code></pre>
-<p>A segédváltozóknak (<code>leg</code>, <code>db</code>, <code>arak</code>) is szerepelniük kell a tesztesetben, az
+<p>A segédváltozóknak (<code>db</code>, <code>termes</code>) is szerepelniük kell a tesztesetben, az
 elvárt értékükkel.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="feltételes-maximumkeresés-condmax-condmin"><a class="header" href="#feltételes-maximumkeresés-condmax-condmin">Feltételes maximumkeresés: CONDMAX, CONDMIN</a></h1>
@@ -2878,19 +2853,20 @@ legkisebbPoz: 2
 </code></pre>
 <p>(Itt a <code>CONDMIN</code> a <em>legkisebb</em> pozitív hőmérsékletet adja.)</p>
 <h2 id="feltétel-szomszédos-elemekre"><a class="header" href="#feltétel-szomszédos-elemekre">Feltétel szomszédos elemekre</a></h2>
-<p>A feltétel és az érték is nézhet több elemet. A <a href="#dogbert-csillaga">Dogbert csillaga</a>
-feladatban az érték két egymást követő mérés közötti változás, a feltétel
-pedig az, hogy mindkettő egy küszöb fölött legyen:</p>
-<pre><code class="language-speci">Be: k∈N, adat∈Z[1..]
-Ki: van∈L, maxert∈Z
-Ef: -
-Uf: (van,,maxert)=CONDMAX(i=1..length(adat)-1,
-    adat[i]-adat[i+1], adat[i]&gt;k és adat[i+1]&gt;k)
+<p>A feltétel és az érték is nézhet több elemet. <em>Mennyi volt a legnagyobb gyarapodás
+egyik estéről a másikra, csak az eső nélküli estéket számolva?</em> Az esős esték
+leolvasásai megbízhatatlanok. Két nyitott tömbnek azonos hosszúnak kell lennie, ezt
+az előfeltétel mondja ki:</p>
+<pre><code class="language-speci">Be: s∈N[], esos∈L[]
+Ki: van∈L, nov∈Z
+Ef: length(s)=length(esos)
+Uf: (van,,nov)=CONDMAX(i=2..length(s),
+    s[i]-s[i-1], nem esos[i])
 </code></pre>
-<pre><code class="language-yaml">k: 10
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
+<pre><code class="language-yaml">s: [30, 33, 40, 38, 41]
+esos: [false, false, true, false, false]
 van: true
-maxert: 6
+nov: 3
 </code></pre>
 <h2 id="ha-semmi-sem-illeszkedik"><a class="header" href="#ha-semmi-sem-illeszkedik">Ha semmi sem illeszkedik</a></h2>
 <p>Ha a <code>van</code> hamis, az <code>ind</code>-nek és az <code>ert</code>-nek nincs jelentése, a tesztesetben
@@ -2908,39 +2884,38 @@ bármilyen értékük átmegy. A 0 megadása a bevett szokás.</p>
 kombinálják a tételeket:</p>
 <ul>
 <li><strong>beágyazással</strong>: az egyik tétel feltétele vagy értéke maga is tétel
-(„keress egy napot, amikor <em>minden</em> szünetben…”),</li>
+(„keress egy helyet, amely <em>minden</em> fiókban…”),</li>
 <li><strong>egymásutánnal</strong>: az egyik tétel eredménye a következő bemenete
 („keresd meg a maximumot, aztán gyűjtsd ki az összes vele egyenlőt”).</li>
 </ul>
 <h2 id="beágyazás-1"><a class="header" href="#beágyazás-1">Beágyazás</a></h2>
 <p>Tedd a belső tételt a külső ciklusváltozó egy <a href="#tételek-függvényekben">függvényébe</a>.
-<em>Keress egy napot, amikor minden kávészünetben 5 liternél több fogyott:</em></p>
+<em>Keress egy kerethelyet, amely minden fiókban érett:</em></p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Szint</th><th>Kérdés</th><th>Tétel</th></tr>
 </thead>
 <tbody>
-<tr><td>külső</td><td>melyik nap?</td><td><code>SEARCH</code> a napokon</td></tr>
-<tr><td>belső</td><td>az <em>i</em>. nap minden szünetében 5 felett volt?</td><td><code>FORALL</code> a szüneteken</td></tr>
+<tr><td>külső</td><td>melyik hely?</td><td><code>SEARCH</code> a helyeken</td></tr>
+<tr><td>belső</td><td>a <em>p</em>. hely minden fiókban legalább 80?</td><td><code>FORALL</code> a fiókokon</td></tr>
 </tbody>
 </table>
 </div>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
 Sa: van∈L
-Ki: ind∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+Ki: hely∈N
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
 Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, tobb5(i))
+Uf: (van,hely)=SEARCH(p=1..5, erett(p))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-kave: [[4, 5, 7, 5], [6, 8, 7, 9], [4, 5, 7, 5]]
+<pre><code class="language-yaml">n: 2
+fedett: [[70, 85, 90, 0, 0], [90, 60, 80, 0, 0]]
 van: true
-ind: 2
+hely: 3
 </code></pre>
-<p>A tárgyi anyag ezt így írja le: <em>„compound pattern; search is the main pattern,
-and decision all is the nested pattern”</em>. Magyarul: összetett minta, a keresés
-a fő minta, az eldöntés (mind) a beágyazott.</p>
+<p>Az ilyen feladatot <em>összetett mintának</em> nevezhetjük: a keresés a fő minta, az
+eldöntés (mind) a beágyazott.</p>
 <h2 id="egymásután-segédváltozókkal"><a class="header" href="#egymásután-segédváltozókkal">Egymásután segédváltozókkal</a></h2>
 <p>Ha egy későbbi lépésnek szüksége van egy korábbi eredményre, tárold egy
 <strong>segédváltozóban</strong> (<code>Sa:</code>), és hivatkozz rá.</p>
@@ -2981,10 +2956,10 @@ amely csak a belső ellenőrzésen bukik meg, egy olyat, amelyik átmegy rajta,
 <tr><th>Feladat</th><th>Kombináció</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#yossarian-térképe">Yossarian térképe</a></td><td>sormaximumokat adó függvény <code>MAX</code>-a</td></tr>
-<tr><td><a href="#trurl-robotjai">Trurl robotjai</a></td><td><code>MIS</code> beágyazott <code>SUM</code>-mal</td></tr>
-<tr><td><a href="#catbert-kávészünetei">Catbert kávészünetei</a></td><td><code>SEARCH</code> beágyazott <code>FORALL</code>-lal</td></tr>
-<tr><td><a href="#az-utazási-iroda">Az utazási iroda</a></td><td><code>MAX</code>, aztán <code>MIS</code>, aztán <code>MIN</code></td></tr>
+<tr><td><a href="#a-legmegbízhatóbb-kaptár">A legmegbízhatóbb kaptár</a></td><td>sorminimumokat adó függvény <code>MAX</code>-a</td></tr>
+<tr><td><a href="#a-hordás">A hordás</a></td><td><code>MIS</code> beágyazott <code>SUM</code>-mal</td></tr>
+<tr><td><a href="#pergetés">Pergetés</a></td><td><code>SEARCH</code> beágyazott <code>FORALL</code>-lal</td></tr>
+<tr><td><a href="#a-mézvásár">A mézvásár</a></td><td><code>MAX</code> beágyazott szűrt <code>SUM</code>-mal</td></tr>
 <tr><td><a href="#további-rövid-példák">További rövid példák</a></td><td><code>DARAB</code> beágyazott <code>FORALL</code>-lal, <code>MIS</code> beágyazott <code>FORALL</code>-lal</td></tr>
 </tbody>
 </table>
@@ -2993,43 +2968,38 @@ amely csak a belső ellenőrzésen bukik meg, egy olyat, amelyik átmegy rajta,
 <h1 id="utófeltétel-tételek-nélkül"><a class="header" href="#utófeltétel-tételek-nélkül">Utófeltétel tételek nélkül</a></h1>
 <p>Az utófeltételnek nem <em>kell</em> tételmakrókat használnia. A bemenetről és a
 kimenetről szóló bármilyen logikai állítás érvényes, és a szerkesztő
-közvetlenül kiértékeli. Ez a <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>-&gt;</code> elemekből építkező
-<strong>relációs</strong> stílus az előadások jelölése, és egyes feladatok kifejezetten ezt
-kérik.</p>
+közvetlenül kiértékeli. A <code>∀</code>, <code>∃</code>, <code>és</code>, <code>vagy</code>, <code>-&gt;</code> elemekből építkező stílus
+neve <strong>relációs</strong>.</p>
 <h2 id="ugyanaz-a-feladat-mindkét-stílusban"><a class="header" href="#ugyanaz-a-feladat-mindkét-stílusban">Ugyanaz a feladat mindkét stílusban</a></h2>
 <blockquote>
-<p><em>Egy utazási iroda n városba árul repülőjegyet. Add meg a legtávolabbi
-városba szóló jegy árát. Ha több ugyanolyan messze van, a köztük legolcsóbbét.</em></p>
+<p><em>Borbála n üveget mért le egy sarzsból. Add meg a második legnagyobb súlyt: a
+maximum alatti értékek közül a legnagyobbat. Az üvegek nem mind egyforma súlyúak.</em></p>
 </blockquote>
-<p><strong>Tételekkel.</strong> Keresd meg a legnagyobb távolságot, gyűjtsd ki az ahhoz
-tartozó árakat, és vedd a minimumukat:</p>
-<pre><code class="language-speci">Be: n∈N, varos∈Varos[1..n], Varos=(tav:N x ar:N)
-Sa: leg∈N, db∈N, arak∈N[1..db]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: (,leg)=MAX(i=1..n, varos[i].tav) és
-    (db,arak)=MIS(i=1..n, varos[i].tav=leg, varos[i].ar) és
-    (,jegy)=MIN(i=1..db, arak[i])
+<p><strong>Tételekkel.</strong> Keresd meg a maximumot, aztán vedd a nála kisebb értékek legnagyobbikát:</p>
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
+Sa: leg∈N, van∈L
+Ki: masodik∈N
+Ef: ∃i∈[1..n]:(s[i]≠s[1])
+Uf: (,leg)=MAX(i=1..n, s[i]) és
+    (van,,masodik)=CONDMAX(i=1..n, s[i], s[i]&lt;leg)
 </code></pre>
-<pre><code class="language-yaml">n: 3
-varos: [{tav: 1000, ar: 500}, {tav: 1000, ar: 250}, {tav: 500, ar: 100}]
-leg: 1000
-db: 2
-arak: [500, 250]
-jegy: 250
+<pre><code class="language-yaml">n: 4
+s: [450, 480, 480, 465]
+leg: 480
+van: true
+masodik: 465
 </code></pre>
-<p><strong>Relációsan.</strong> <em>Létezik egy i város, amelynek az ára a válasz, és minden más
-j város vagy közelebb van, vagy ugyanolyan messze, de nem olcsóbb:</em></p>
-<pre><code class="language-speci">Be: n∈N, tav∈N[1..n], ar∈N[1..n]
-Ki: jegy∈N
-Ef: n&gt;0
-Uf: ∃i∈[1..n]:(ar[i]=jegy és
-      ∀j∈[1..n]:(tav[j]&lt;tav[i] vagy (tav[j]=tav[i] és ar[j]≥ar[i])))
+<p><strong>Relációsan.</strong> <em>A válasz előfordul a súlyok között, van nála nehezebb üveg, és minden
+üveg vagy nem nehezebb a válasznál, vagy a legnehezebbek egyike:</em></p>
+<pre><code class="language-speci">Be: n∈N, s∈N[1..n]
+Ki: masodik∈N
+Ef: ∃i∈[1..n]:(s[i]≠s[1])
+Uf: ∃i∈[1..n]:(s[i]=masodik) és ∃j∈[1..n]:(s[j]&gt;masodik) és
+    ∀k∈[1..n]:(s[k]≤masodik vagy ∀m∈[1..n]:(s[m]≤s[k]))
 </code></pre>
-<pre><code class="language-yaml">n: 3
-tav: [1000, 1000, 500]
-ar: [500, 250, 100]
-jegy: 250
+<pre><code class="language-yaml">n: 4
+s: [450, 480, 480, 465]
+masodik: 465
 </code></pre>
 <h2 id="hogyan-írjunk-relációs-utófeltételt"><a class="header" href="#hogyan-írjunk-relációs-utófeltételt">Hogyan írjunk relációs utófeltételt?</a></h2>
 <p>A tipikus szerkezet: <strong>egy <code>∃</code>, amely megnevez egy tanút, és <code>∀</code>-k, amelyek
@@ -3042,24 +3012,25 @@ elmondják, miért ő a jó tanú.</strong></p>
 <code>(ki=-1 és ∀i∈[…]:(nem P(i))) vagy ∃i∈[…]:(…)</code></li>
 </ul>
 <h3 id="példa-első-találat-vagy-1"><a class="header" href="#példa-első-találat-vagy-1">Példa: első találat vagy −1</a></h3>
-<pre><code class="language-speci">Be: n∈N, k∈N, ar∈N[1..n]
+<p><em>Az első k kilogrammnál könnyebb kaptár, vagy −1:</em></p>
+<pre><code class="language-speci">Be: n∈N, k∈N, kg∈N[1..n]
 Ki: sorszam∈Z
 Ef: -
-Uf: (sorszam=-1 és ∀i∈[1..n]:(ar[i]≥k)) vagy
-    ∃i∈[1..n]:(sorszam=i és ar[i]&lt;k és ∀j∈[1..i-1]:(ar[j]≥k))
+Uf: (sorszam=-1 és ∀i∈[1..n]:(kg[i]≥k)) vagy
+    ∃i∈[1..n]:(sorszam=i és kg[i]&lt;k és ∀j∈[1..i-1]:(kg[j]≥k))
 </code></pre>
 <pre><code class="language-yaml">n: 4
-k: 5000
-ar: [6000, 3000, 1000, 200]
+k: 30
+kg: [40, 25, 18, 10]
 sorszam: 2
 </code></pre>
 <pre><code class="language-yaml">n: 2
-k: 100
-ar: [2500, 5300]
+k: 10
+kg: [40, 25]
 sorszam: -1
 </code></pre>
 <p>A kimenetet <em>a tanún keresztül</em> kötjük meg (<code>sorszam=i</code>), így a formula soha nem
-olvassa az <code>ar[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. Ha <code>ar[sorszam]&lt;k</code>-t
+olvassa a <code>kg[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. Ha <code>kg[sorszam]&lt;k</code>-t
 írnánk, a sikertelen ágon tartományon kívüli olvasás történne.</p>
 <h2 id="melyik-stílust-válasszam"><a class="header" href="#melyik-stílust-válasszam">Melyik stílust válasszam?</a></h2>
 <div class="table-wrapper">
@@ -3069,7 +3040,7 @@ olvassa az <code>ar[sorszam]</code> elemet, amikor a <code>sorszam</code> −1. 
 </thead>
 <tbody>
 <tr><td>a <strong>tételeket</strong></td><td>ha a specifikációból algoritmusnak kell születnie: minden makróból egy ismert algoritmus lesz a tervezési szakaszban</td></tr>
-<tr><td>a <strong>relációs</strong> alakot</td><td>ha a kimenetet egy tulajdonság definiálja, a feladat a relációs alakot kéri, vagy a tételes változathoz sok segédváltozó kellene</td></tr>
+<tr><td>a <strong>relációs</strong> alakot</td><td>ha a kimenetet egy tulajdonság definiálja, vagy a tételes változathoz sok segédváltozó kellene</td></tr>
 </tbody>
 </table>
 </div>
@@ -3116,7 +3087,7 @@ ellenőrizd.</p>
 <li>egy fülre kattintva kiválasztod. A Visualization panel mindig a
 kiválasztott tesztet mutatja.</li>
 </ul>
-<p>A tárgy legalább <strong>három tesztesetet</strong> javasol minden specifikációhoz.</p>
+<p>Írj legalább <strong>három tesztesetet</strong> minden specifikációhoz.</p>
 <h2 id="a-fejezet-tartalma-3"><a class="header" href="#a-fejezet-tartalma-3">A fejezet tartalma</a></h2>
 <ul>
 <li><a href="#az-adatformátum">Az adatformátum</a>: hogyan írjunk számokat, szövegeket,
@@ -3146,7 +3117,7 @@ változóval, a megfelelő formátumban.</p>
 <tr><td><code>N</code>, <code>Z</code></td><td><code>n: 5</code>, <code>d: -3</code></td></tr>
 <tr><td><code>R</code></td><td><code>atlag: 2.75</code></td></tr>
 <tr><td><code>L</code></td><td><code>van: true</code>, <code>van: false</code></td></tr>
-<tr><td><code>S</code></td><td><code>nev: Anna</code>, <code>nev: "Kiss Anna"</code>, <code>ures: ""</code></td></tr>
+<tr><td><code>S</code></td><td><code>nev: Akac</code>, <code>nev: "Öreg Akac"</code>, <code>ures: ""</code></td></tr>
 <tr><td><code>C</code></td><td><code>c: 'x'</code></td></tr>
 </tbody>
 </table>
@@ -3155,48 +3126,48 @@ változóval, a megfelelő formátumban.</p>
 számára különleges karaktert tartalmaz (<code>:</code>, <code>#</code>, kezdő szóköz, …).</p>
 <h2 id="tömbök-1"><a class="header" href="#tömbök-1">Tömbök</a></h2>
 <p>Szögletes zárójelben, vesszővel elválasztva:</p>
-<pre><code class="language-yaml fragment">szamok: [3, 72, 81, 4, 5]
-nevek: [Anna, Bence, "Kovács Cili"]
+<pre><code class="language-yaml fragment">uvegek: [452, 438, 450, 447, 461]
+nevek: [Akac, Bodza, "Öreg Repce"]
 ures: []
 </code></pre>
 <p>A YAML listás alakja is működik, soronként egy elemmel, kötőjellel:</p>
-<pre><code class="language-yaml fragment">szamok:
-  - 3
-  - 72
-  - 81
+<pre><code class="language-yaml fragment">uvegek:
+  - 452
+  - 438
+  - 450
 </code></pre>
 <h2 id="mátrixok-1"><a class="header" href="#mátrixok-1">Mátrixok</a></h2>
 <p>Sorok listája. Az olvashatóság kedvéért több sorba írható, de egy sorban is
 lehet:</p>
-<pre><code class="language-yaml fragment">kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+<pre><code class="language-yaml fragment">fedett: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 </code></pre>
-<pre><code class="language-yaml fragment">kave: [[4,5,7,5],[6,8,7,9],[4,5,7,5]]
+<pre><code class="language-yaml fragment">fedett: [[75,70,85,40,95],[80,90,85,85,80],[88,65,90,90,81]]
 </code></pre>
 <p>Minden sornak a deklarált számú oszlopa kell legyen.</p>
 <h2 id="rekordok-1"><a class="header" href="#rekordok-1">Rekordok</a></h2>
 <p><strong>Többsoros alak.</strong> Minden mező külön sorban, a változó alá behúzva:</p>
 <pre><code class="language-yaml fragment">r:
-  nev: Anna
-  jegy: 5
+  nev: Akac
+  pont: 5
 </code></pre>
 <p><strong>Tömör alak</strong>, kapcsos zárójelben:</p>
-<pre><code class="language-yaml fragment">r: {nev: Anna, jegy: 5}
+<pre><code class="language-yaml fragment">r: {nev: Akac, pont: 5}
 </code></pre>
 <h2 id="rekordok-tömbje-1"><a class="header" href="#rekordok-tömbje-1">Rekordok tömbje</a></h2>
 <p>A többsoros alakban minden elem egy kötőjellel kezdődik, alá behúzva jönnek a
 mezői:</p>
-<pre><code class="language-yaml fragment">versenyek:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
+<pre><code class="language-yaml fragment">kaptarak:
+  - nev: Akac
+    kg: 37
+  - nev: Bodza
+    kg: 31
 </code></pre>
 <p>A tömör alakban <code>{…}</code> elemek listája:</p>
-<pre><code class="language-yaml fragment">versenyek: [{nev: AS, ido: 37}, {nev: BE, ido: 31}]
+<pre><code class="language-yaml fragment">kaptarak: [{nev: Akac, kg: 37}, {nev: Bodza, kg: 31}]
 </code></pre>
 <p>A kettő egyenértékű. A többsoros alakot könnyebb olvasni, a tömörrel a nagy
 adat kisebb helyen elfér.</p>
@@ -3206,32 +3177,32 @@ adat kisebb helyen elfér.</p>
 kell kezdődniük. Szóközt használj, ne tabulátort.</p>
 </blockquote>
 <h2 id="egy-teljes-példa"><a class="header" href="#egy-teljes-példa">Egy teljes példa</a></h2>
-<pre><code class="language-speci">Be: n∈N, versenyek∈Verseny[1..n], Verseny=(nev:S x ido:N), hatar∈R
+<pre><code class="language-speci">Be: n∈N, kaptarak∈Kaptar[1..n], Kaptar=(nev:S x kg:N), hatar∈R
 Sa: van∈L, ind∈N
-Ki: gyoztes∈S
+Ki: konnyu∈S
 Ef: n&gt;0
-Uf: (van,ind)=SEARCH(i=1..n, versenyek[i].ido&lt;hatar) és
-    (van -&gt; gyoztes=versenyek[ind].nev)
+Uf: (van,ind)=SEARCH(i=1..n, kaptarak[i].kg&lt;hatar) és
+    (van -&gt; konnyu=kaptarak[ind].nev)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-versenyek:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
-  - nev: FG
-    ido: 30
+kaptarak:
+  - nev: Akac
+    kg: 37
+  - nev: Bodza
+    kg: 31
+  - nev: Repce
+    kg: 30
 hatar: 31.5
 van: true
 ind: 2
-gyoztes: BE
+konnyu: Bodza
 </code></pre>
 <pre><code class="language-yaml">n: 2
-versenyek: [{nev: AS, ido: 37}, {nev: BE, ido: 41}]
+kaptarak: [{nev: Akac, kg: 37}, {nev: Bodza, kg: 41}]
 hatar: 30
 van: false
 ind: 0
-gyoztes: ""
+konnyu: ""
 </code></pre>
 <h2 id="gyakori-adathibák"><a class="header" href="#gyakori-adathibák">Gyakori adathibák</a></h2>
 <div class="table-wrapper">
@@ -3311,8 +3282,7 @@ másolatában változtasd meg az elvárt kimenetet, és nézd meg, piros lesz-e.
 nem, a specifikáció nem köti meg azt a kimenetet.</li>
 <li><strong>Teszteld az előfeltétel széleit.</strong> Ha <code>Ef: n&gt;0</code>, egy <code>n: 1</code> teszt
 érdekesebb, mint egy <code>n: 10</code>.</li>
-<li><strong>A feladat szövegében szereplő példa</strong> legyen az egyik teszt. Az oktatók
-általában ezt nézik meg először.</li>
+<li><strong>A feladat szövegében szereplő példa</strong> legyen az egyik teszt.</li>
 <li><strong>A pontosan a küszöbre eső értékek</strong> (a <code>k</code>-val egyenlő érték) a <code>&lt;</code> és <code>≤</code>
 összetévesztését fogják meg, ami az egyik leggyakoribb hiba.</li>
 </ul>
@@ -3373,25 +3343,18 @@ hibakereső a specifikációhoz. Ha egy teszt váratlanul piros, megmutatja,
 kiértékelésének megjelenítését.</p>
 <h2 id="a-lépések-olvasása"><a class="header" href="#a-lépések-olvasása">A lépések olvasása</a></h2>
 <p>Minden lépés az utófeltétel, amelyben egy részt az értéke váltott fel. Az adott
-lépésben megváltozott rész <strong>sárgával van kiemelve</strong>. Íme egy keresés
-lépéslistája („keress egy napot, amikor minden kávészünetben 5 felett
-fogyott”):</p>
-<figure>
-<img src="img/step-list.png" alt="Egy beágyazott függvényes SEARCH lépéslistája">
-<figcaption>A lépéslista. A sárga kiemelés jelzi az adott lépésben
-kiértékelt részt, a ↓/↑ pedig egy függvénybe való belépést és a kilépést
-belőle.</figcaption>
-</figure>
-<p>A lépések sorban:</p>
-<pre><code class="language-text">Post: (exists,ind)=SEARCH(i=1..n, more5(i))     az eredeti állítás
-Post: (true,2)=SEARCH(i=1..n, more5(i))         behelyettesíti a kimeneteket
-Post: (true,2)=SEARCH(i=1..n, more5(i))         az alsó határ: 1
-Post: (true,2)=SEARCH(i=1..3, more5(i))         a felső határ: n = 3
-Post: (true,2)=SEARCH(i=1..3, more5(1))         első iteráció: i = 1
-Post: (true,2)=SEARCH(i=1..3, ↓)                belép a more5(1)-be…
-Post: (true,2)=SEARCH(i=1..3, more5(2))         …hamis, következő iteráció: i = 2
-Post: (true,2)=SEARCH(i=1..3, ↑)                a more5(2) igazzal tért vissza
-Post: (true,2)=(true,2)                         a SEARCH eredménye (true, 2)
+lépésben megváltozott rész <strong>sárgával van kiemelve</strong>. Íme a
+<a href="#pergetés">Pergetés</a> első tesztjének lépéslistája („keress egy kerethelyet,
+amely minden fiókban érett”). Vázlatosan, a függvényeken belüli lépések nélkül:</p>
+<pre><code class="language-text">Post: (van,hely)=SEARCH(p=1..5, erett(p))       az eredeti állítás
+Post: (true,3)=SEARCH(p=1..5, erett(p))         behelyettesíti a kimeneteket
+Post: (true,3)=SEARCH(p=1..5, erett(p))         a tartomány határai: 1..5
+Post: (true,3)=SEARCH(p=1..5, erett(1))         első iteráció: p = 1
+Post: (true,3)=SEARCH(p=1..5, ↓)                belép az erett(1)-be…
+Post: (true,3)=SEARCH(p=1..5, erett(2))         …hamis, következő iteráció: p = 2
+Post: (true,3)=SEARCH(p=1..5, erett(3))         …hamis, következő iteráció: p = 3
+Post: (true,3)=SEARCH(p=1..5, ↑)                az erett(3) igazzal tért vissza
+Post: (true,3)=(true,3)                         a SEARCH eredménye (true, 3)
 Post: ↑                                         az összehasonlítás igaz
 </code></pre>
 <h2 id="belépés-függvénybe-és-kilépés--és-"><a class="header" href="#belépés-függvénybe-és-kilépés--és-">Belépés függvénybe és kilépés: ↓ és ↑</a></h2>
@@ -3424,7 +3387,7 @@ lehetőséget. A formulát a kiértékelt rész kiemelésével, az értékkel é
 aktuális ciklusváltozókkal mutatja. A ↓/↑ jelek és a lépéslista ugyanígy
 működnek. A hibaüzenetei azt is megmondják, az utófeltétel <em>melyik</em> része hamis,
 és mit számol ki a specifikáció, például:
-„<code>cnt</code>: the test case says 2, the specification gives 3”.</p>
+„<code>konnyu</code>: the test case says 3, the specification gives 2”.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="hibaüzenetek-és-gyakori-hibák"><a class="header" href="#hibaüzenetek-és-gyakori-hibák">Hibaüzenetek és gyakori hibák</a></h1>
 <h2 id="az-online-szerkesztő-üzenetei"><a class="header" href="#az-online-szerkesztő-üzenetei">Az online szerkesztő üzenetei</a></h2>
@@ -3461,7 +3424,7 @@ tesztesetekben.</p>
 <tbody>
 <tr><td style="text-align: right">1</td><td>nincs szóköz a fejléc után ugyanabban a sorban (<code>Be:n∈N</code>)</td><td>szintaktikai hiba az 1. sorban</td><td><code>Be: n∈N</code>, vagy tedd a fejlécet külön sorba</td></tr>
 <tr><td style="text-align: right">2</td><td>egy deklarált változó nincs az <code>Uf:</code>-ben</td><td>„… is missing from the post condition!”</td><td>használd, vagy <code>és n=n</code></td></tr>
-<tr><td style="text-align: right">3</td><td><code>:=</code> az <code>=</code> helyett</td><td>szintaktikai hiba az <code>Fv:</code>-ben vagy halmazdefinícióban</td><td><code>f(x)=x*2</code>, <code>Hallgato=(…)</code></td></tr>
+<tr><td style="text-align: right">3</td><td><code>:=</code> az <code>=</code> helyett</td><td>szintaktikai hiba az <code>Fv:</code>-ben vagy halmazdefinícióban</td><td><code>f(x)=x*2</code>, <code>Kaptar=(…)</code></td></tr>
 <tr><td style="text-align: right">4</td><td>mátrix és tömbök tömbje</td><td>indexelési hibák</td><td><code>Z[1..n,1..m]</code> → <code>m[i,j]</code>; <code>Z[1..n][1..m]</code> → <code>m[i][j]</code></td></tr>
 <tr><td style="text-align: right">5</td><td>eggyel elcsúszott indextartomány (<code>0..</code> vagy <code>1..</code>)</td><td>tartományon kívüli index</td><td>ellenőrizd a <code>from</code>/<code>to</code> értékét, vagy járd be a <code>from(x)..to(x)</code> tartományt</td></tr>
 <tr><td style="text-align: right">6</td><td>szomszédok összehasonlítása <code>n</code>-ig</td><td>az <code>x[i+1]</code> kilóg a tartományból</td><td>menj <code>n-1</code>-ig</td></tr>
@@ -3498,19 +3461,22 @@ Fix: Check the loop bounds; when you look at `x[i+1]`, the loop must stop at n-1
 </code></pre>
 <p>A piros tesztnél megmondja, <em>melyik</em> rész hamis, és mit számol ki a
 specifikáció:</p>
-<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `cnt=COUNT(i=1..n, nums[i] mod 2 = 1)` does not hold
- 4 | Post: cnt=COUNT(i=1..n, nums[i] mod 2 = 1)
+<pre><code class="language-text">Specification, line 4, column 7: The postcondition (Post) is false: `light=COUNT(i=1..n, jars[i]&lt;450)` does not hold
+ 4 | Post: light=COUNT(i=1..n, jars[i]&lt;450)
    |       ^
-Values used: cnt = 2, n = 5, nums = [3, 72, 81, 4, 5].
-`cnt`: the test case says 2, the specification gives 3
+Values used: light = 3, n = 5, jars = [452, 438, 450, 447, 461].
+`light`: the test case says 3, the specification gives 2
 Fix: Either the expected output in the test case is wrong, or the postcondition does not describe the task.
 </code></pre>
 <p>Ha egy online hibaüzenetet nehéz megérteni, másold be a specifikációt a
 speci-localba. A magyarázatából általában kiderül, mi a gond.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="feladatmegoldás-lépésről-lépésre"><a class="header" href="#feladatmegoldás-lépésről-lépésre">Feladatmegoldás lépésről lépésre</a></h1>
-<p>Ez a rész teljes feladatokat old meg, többségüket a tárgyi anyagból, a feladat
-szövegétől a zöld tesztkészletig. Mindegyik ugyanazt a módszert követi:</p>
+<p>Ez a rész teljes feladatokat old meg, a feladat szövegétől a zöld
+tesztkészletig. Minden feladat ehhez a könyvhöz készült. Mindegyik Borbála
+méhészetében, a Kaptár-völgyben játszódik, amely csak itt létezik, így az adatok
+ismerősek maradnak, és a specifikációra koncentrálhatsz. Mindegyik ugyanazt a
+módszert követi:</p>
 <ol>
 <li><strong>Olvasd el a feladatot</strong>, és húzd alá, mi adott és mi a kérdés.</li>
 <li><strong>Deklaráld az adatokat.</strong> Bemenetek, kimenetek, és ha az utófeltételnek
@@ -3530,747 +3496,771 @@ segítségével. Figyeld a beágyazást („minden egyes … minden …”) és 
 <tr><th>Feladat</th><th>Tételek</th><th>Adatok</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#a-korongvilág-könyvtárai">A Korongvilág könyvtárai</a></td><td><code>SEARCH</code> + implikáció</td><td>rekordok tömbje</td></tr>
-<tr><td><a href="#yossarian-térképe">Yossarian térképe</a></td><td><code>MAX</code>-ok <code>MAX</code>-a</td><td>mátrix</td></tr>
-<tr><td><a href="#trurl-robotjai">Trurl robotjai</a></td><td><code>MIS</code> + beágyazott <code>SUM</code></td><td>tömb</td></tr>
-<tr><td><a href="#catbert-kávészünetei">Catbert kávészünetei</a></td><td><code>SEARCH</code> + beágyazott <code>FORALL</code></td><td>mátrix</td></tr>
-<tr><td><a href="#dogbert-csillaga">Dogbert csillaga</a></td><td><code>CONDMAX</code>, pozíció kihagyása</td><td>nyitott tömb</td></tr>
-<tr><td><a href="#az-utazási-iroda">Az utazási iroda</a></td><td>relációs, vagy <code>MAX</code>+<code>MIS</code>+<code>MIN</code></td><td>párhuzamos tömbök</td></tr>
-<tr><td><a href="#osztók">Osztók</a></td><td><code>DARAB</code>, szűrt <code>SUM</code></td><td>egyetlen szám</td></tr>
-<tr><td><a href="#kártyaértékek">Kártyaértékek</a></td><td>relációs, keresőtábla</td><td>konstans tömbök</td></tr>
-<tr><td><a href="#karácsonyfák">Karácsonyfák</a></td><td><code>SEARCH</code> −1-es eredménnyel, relációs</td><td>tömb</td></tr>
+<tr><td><a href="#a-raj-a-mérlegen">A raj a mérlegen</a></td><td><code>SEARCH</code> + implikáció</td><td>rekordok tömbje</td></tr>
+<tr><td><a href="#a-legmegbízhatóbb-kaptár">A legmegbízhatóbb kaptár</a></td><td><code>MIN</code>-ek <code>MAX</code>-a</td><td>mátrix</td></tr>
+<tr><td><a href="#a-hordás">A hordás</a></td><td><code>MIS</code> + beágyazott <code>SUM</code></td><td>tömb</td></tr>
+<tr><td><a href="#pergetés">Pergetés</a></td><td><code>SEARCH</code> + beágyazott <code>FORALL</code> oszlopokon</td><td>mátrix</td></tr>
+<tr><td><a href="#a-leghidegebb-kijárás">A leghidegebb kijárás</a></td><td><code>CONDMIN</code>, pozíció kihagyása</td><td>rekordok nyitott tömbje</td></tr>
+<tr><td><a href="#a-mézvásár">A mézvásár</a></td><td><code>MAX</code> + szűrt <code>SUM</code>, vagy relációs</td><td>párhuzamos tömbök</td></tr>
+<tr><td><a href="#az-etetési-naptár">Az etetési naptár</a></td><td><code>DARAB</code>, szűrt <code>SUM</code></td><td>néhány szám</td></tr>
+<tr><td><a href="#a-virágzási-naptár">A virágzási naptár</a></td><td>relációs, keresőtábla</td><td>konstans tömbök</td></tr>
+<tr><td><a href="#a-túlfolyó-tartály">A túlfolyó tartály</a></td><td><code>SEARCH</code> −1-es eredménnyel, relációs</td><td>tömb</td></tr>
 <tr><td><a href="#további-rövid-példák">További rövid példák</a></td><td><code>DARAB</code>+<code>FORALL</code>, <code>MIS</code>+<code>FORALL</code>, …</td><td>vegyes</td></tr>
 </tbody>
 </table>
 </div>
-<p>A hivatalos angol segédlet feladatait magyarra fordítva, magyar kulcsszavakkal
-és nevekkel oldjuk meg. A hivatalos megoldások linkjei mindenhol szerepelnek.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="a-korongvilág-könyvtárai"><a class="header" href="#a-korongvilág-könyvtárai">A Korongvilág könyvtárai</a></h1>
+<h1 id="a-raj-a-mérlegen"><a class="header" href="#a-raj-a-mérlegen">A raj a mérlegen</a></h1>
 <blockquote>
-<p><em>A Láthatatlan Egyetem Könyvtárosa tárolja a Korongvilág minden könyvtárának
-nevét és koordinátáit. Add meg a lista első olyan könyvtárát, amely északabbra
-van (kisebb az y koordinátája), mint a következő.</em></p>
+<p><em>Borbála a legjobb kaptára alatt mérleget tart. Minden este felírja a súlyát
+kilogrammban, és egy rövid megjegyzést. Amikor egy család rajzik, a kaptár
+hirtelen könnyebb lesz. Add meg annak az első estének a megjegyzését, amikor a
+kaptár több mint 3 kg-mal könnyebb volt, mint előző este.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> keresés rekordok tömbjében.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=6117a7d1-fd33-48e3-8f5b-55bafbb65a64">Hivatalos megoldás</a>.</p>
+<p><strong>A feladat típusa:</strong> keresés rekordok tömbjében.</p>
 <h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> n könyvtár, mindegyiknek neve és két koordinátája van. Ehhez egy
-<code>Konyvtar=(nev:S x x:N x y:N)</code> rekord kell, és ezekből egy tömb.</li>
-<li><strong>Kérdés.</strong> <em>Az első olyan könyvtár, amely…</em> Egyetlen elemet keresünk, és
-lehet, hogy nincs ilyen. Ez <strong>keresés</strong>.</li>
-<li><strong>Feltétel.</strong> Az <em>i</em>. könyvtár északabbra van, mint az <em>i+1</em>. Vigyázat:
-„északabbra” <em>kisebb</em> y-t jelent. Vessük össze a hivatalos megoldás
-feltételével, a <code>pl[i].y&lt;pl[i+1].y</code>-nal, amely szerint az <em>i</em>. y-ja kisebb, mint
-az <em>i+1</em>.-é. A kisebb y az <em>i</em>. könyvtáré, tehát ő van északabbra. Rendben.</li>
-<li><strong>Tartomány.</strong> Mivel a következővel hasonlítunk össze, az <code>i</code> csak <code>n-1</code>-ig
-megy.</li>
-<li><strong>Kimenet.</strong> A könyvtár <em>neve</em>, ami csak sikeres keresés esetén létezik. Ehhez
+<li><strong>Adatok.</strong> n leolvasás, mindegyikben egy megjegyzés és egy súly. Ehhez egy
+<code>Meres=(megj:S x kg:N)</code> rekord és egy ilyenekből álló tömb kell.</li>
+<li><strong>Kérdés.</strong> <em>Az első este, amikor…</em> Egy elemet keresünk, és lehet, hogy
+nincs ilyen. Ez a <code>SEARCH</code>.</li>
+<li><strong>Feltétel.</strong> Az <code>i</code>. este az előző estéhez képest:
+<code>naplo[i-1].kg-naplo[i].kg&gt;3</code>. A „több mint 3” azt jelenti, hogy a pontosan 3
+kg-os esés nem számít.</li>
+<li><strong>Tartomány.</strong> Az <code>i</code>. este visszanéz az <code>i-1</code>.-re, ezért az <code>i</code> 2-től indul.
+(Ha előre néznénk, <code>n-1</code>-nél kellene megállni.)</li>
+<li><strong>Kimenet.</strong> A megjegyzés csak sikeres keresés esetén létezik. Ehhez
 implikáció kell.</li>
 </ul>
 <h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, kt∈Konyvtar[1..n], Konyvtar=(nev:S x x:N x y:N)
+<pre><code class="language-speci">Be: n∈N, naplo∈Meres[1..n], Meres=(megj:S x kg:N)
 Sa: van∈L, ind∈N
-Ki: nev∈S
-Ef: ∀i∈[1..n]:(kt[i].x≥0 és kt[i].y≥0)
-Uf: (van,ind)=SEARCH(i=1..n-1, kt[i].y&lt;kt[i+1].y) és
-    (van -&gt; nev=kt[ind].nev)
+Ki: uzenet∈S
+Ef: n≥1
+Uf: (van,ind)=SEARCH(i=2..n, naplo[i-1].kg-naplo[i].kg&gt;3) és
+    (van -&gt; uzenet=naplo[ind].megj)
 </code></pre>
 <h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>A feladat példája, ahol az L4-et (y = 4) az L5 (y = 47) követi:</p>
+<p>A szokásos eset. A súly a 3. estén 2 kg-ot esik, aztán a 4.-en 5-öt:</p>
 <pre><code class="language-yaml">n: 5
-kt: [
-  {nev: "L1", x: 12, y: 24},
-  {nev: "L2", x: 5, y: 15},
-  {nev: "L3", x: 69, y: 4},
-  {nev: "L4", x: 12, y: 4},
-  {nev: "L5", x: 212, y: 47}
-]
-nev: L4
+naplo:
+  - megj: nyugalom
+    kg: 41
+  - megj: nyugalom
+    kg: 42
+  - megj: eso
+    kg: 40
+  - megj: mindenhol mehek
+    kg: 35
+  - megj: csend
+    kg: 34
 van: true
 ind: 4
+uzenet: mindenhol mehek
 </code></pre>
-<p>Negatív eset, ahol minden könyvtár délebbre van az előzőnél:</p>
-<pre><code class="language-yaml">n: 4
-kt: [
-  {nev: "L1", x: 10, y: 50},
-  {nev: "L2", x: 20, y: 40},
-  {nev: "L3", x: 30, y: 30},
-  {nev: "L4", x: 40, y: 20}
-]
-nev: ""
+<p>Negatív eset, lassú csökkenés, amely sosem haladja meg az 1 kg-ot:</p>
+<pre><code class="language-yaml">n: 3
+naplo: [{megj: a, kg: 30}, {megj: b, kg: 29}, {megj: c, kg: 28}]
 van: false
 ind: 4
+uzenet: ""
 </code></pre>
-<p>Határeset, egyetlen könyvtárral (az <code>1..0</code> tartomány üres):</p>
-<pre><code class="language-yaml">n: 1
-kt: [{nev: "L1", x: 0, y: 10}]
-nev: ""
+<p>Határeset, pontosan 3 kg-os esés, ami nem <em>több mint</em> 3:</p>
+<pre><code class="language-yaml">n: 2
+naplo: [{megj: a, kg: 30}, {megj: b, kg: 27}]
 van: false
-ind: 1
+ind: 3
+uzenet: ""
 </code></pre>
-<p>A rossz elvárásnak le kell buknia:</p>
+<p>Határeset, egyetlen este (a <code>2..1</code> tartomány üres):</p>
+<pre><code class="language-yaml">n: 1
+naplo: [{megj: elso nap, kg: 20}]
+van: false
+ind: 2
+uzenet: ""
+</code></pre>
+<p>A rossz elvárást észre kell venni. Ez a 3. esti 2 kg-os esést jelöli meg:</p>
 <pre><code class="language-yaml red">n: 5
-kt: [
-  {nev: "L1", x: 12, y: 24},
-  {nev: "L2", x: 5, y: 15},
-  {nev: "L3", x: 69, y: 4},
-  {nev: "L4", x: 12, y: 4},
-  {nev: "L5", x: 212, y: 47}
-]
-nev: L3
+naplo: [{megj: nyugalom, kg: 41}, {megj: nyugalom, kg: 42}, {megj: eso, kg: 40}, {megj: mindenhol mehek, kg: 35}, {megj: csend, kg: 34}]
 van: true
 ind: 3
+uzenet: eso
 </code></pre>
 <h2 id="végigkövetés"><a class="header" href="#végigkövetés">Végigkövetés</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">y[i]</th><th style="text-align: right">y[i+1]</th><th style="text-align: center">y[i] &lt; y[i+1]?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center"><code>naplo[i-1].kg</code></th><th style="text-align: center"><code>naplo[i].kg</code></th><th style="text-align: center">esés</th><th style="text-align: center">több mint 3?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">24</td><td style="text-align: right">15</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">15</td><td style="text-align: right">4</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">47</td><td style="text-align: center"><strong>igen</strong></td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">41</td><td style="text-align: center">42</td><td style="text-align: center">−1</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">42</td><td style="text-align: center">40</td><td style="text-align: center">2</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">40</td><td style="text-align: center">35</td><td style="text-align: center">5</td><td style="text-align: center"><strong>igen</strong></td></tr>
 </tbody>
 </table>
 </div>
-<p>A keresés i = 4-nél áll meg, így <code>van = true</code> és <code>ind = 4</code>, az implikáció pedig
-megköveteli, hogy <code>nev = kt[4].nev = "L4"</code>.</p>
+<p>A keresés az <code>i = 4</code>-nél megáll, tehát <code>van = true</code> és <code>ind = 4</code>, az implikáció
+pedig az <code>uzenet = naplo[4].megj</code> egyenlőséget követeli meg.</p>
 <h2 id="a-zárójelekről"><a class="header" href="#a-zárójelekről">A zárójelekről</a></h2>
-<p>A hivatalos megoldás az utolsó sort zárójel nélkül írja:</p>
-<pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists -&gt; lib=pl[ind].name
+<p>Könnyű hiba, ha az implikáció körül elmarad a zárójel:</p>
+<pre><code class="language-speci fragment">Uf: (van,ind)=SEARCH(i=2..n, naplo[i-1].kg-naplo[i].kg&gt;3) és
+    van -&gt; uzenet=naplo[ind].megj
 </code></pre>
-<p>Mivel a <code>-&gt;</code> gyengébben köt, mint az <code>and</code>, ez azt jelenti:
-<code>(SEARCH… and exists) -&gt; lib=…</code>. Ha egy tesztesetben rossz az <code>exists</code> vagy az
-<code>ind</code> értéke, a bal oldal hamis, és az egész állítás <em>igaz</em>, így a hiba
-észrevétlen marad. A fenti zárójelezéssel a piros teszt helyesen piros. (A
-hivatalos megoldás a jelzőt is <code>exists</code>-nek nevezi, amit a mostani szerkesztő
-elutasít, lásd <a href="#keresés-search">Keresés</a>.)</p>
+<p>Mivel a <code>-&gt;</code> gyengébben köt, mint az <code>és</code>, ennek a jelentése
+<code>(SEARCH… és van) -&gt; uzenet=…</code>. Ha egy tesztesetben a <code>van</code> vagy az <code>ind</code> hibás, a
+bal oldal hamis, a teljes állítás pedig <strong>igaz</strong>, így a hiba észrevétlen marad.
+A fenti, zárójeles alakkal a piros teszt helyesen piros.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="yossarian-térképe"><a class="header" href="#yossarian-térképe">Yossarian térképe</a></h1>
+<h1 id="a-legmegbízhatóbb-kaptár"><a class="header" href="#a-legmegbízhatóbb-kaptár">A legmegbízhatóbb kaptár</a></h1>
 <blockquote>
-<p><em>Yossarian egy négyzethálós térképen (n × m) feljegyezte, hogy az egyes
-helyeken hányszor járt. Melyik helyen járt a legtöbbször? Add meg az első
-ilyen hely „koordinátáit”.</em></p>
+<p><em>Borbála n kaptárának mézét m héten át hetente leméri. Egyetlen remek hét keveset
+jelent neki: abban a kaptárban bízik, amelynek a <strong>legrosszabb</strong> hete volt a
+legjobb. Melyik kaptár ez, és melyik héten volt a legrosszabb eredménye? Ha több
+ilyen van, az elsőt add meg.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> maximumkiválasztás mátrixban.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=0ae47017-4755-40de-82b5-00ba484d7637">Hivatalos megoldás</a>.</p>
+<p><strong>A feladat típusa:</strong> minimumok maximuma egy mátrixban.</p>
 <h2 id="elemzés-1"><a class="header" href="#elemzés-1">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> Egy n × m-es, természetes számokból álló mátrix:
-<code>terkep∈N[1..n,1..m]</code>.</li>
-<li><strong>Kérdés.</strong> A legnagyobb érték helye: ez <strong>maximum</strong>, de két indexre.</li>
-<li><strong>Felbontás.</strong> Először minden sor maximumát keressük meg (belső <code>MAX</code> az
-oszlopokon), aztán azt a sort, amelynek a legnagyobb a sormaximuma (külső
-<code>MAX</code> a sorokon). A belsőből egy (oszlop, érték) párt visszaadó függvény lesz.</li>
-<li><strong>„Az első ilyen hely”</strong>: a <code>MAX</code> eleve az első maximumot veszi, a sorban és
-az oszlopban is.</li>
+<li><strong>Adatok.</strong> Egy n × m-es természetes számokból álló mátrix, <code>y∈N[1..n,1..m]</code>,
+kaptáronként egy sorral.</li>
+<li><strong>Kérdés.</strong> Két kérdés egymásba ágyazva. Minden kaptárra: melyik volt a
+legrosszabb hete? (<code>MIN</code> az oszlopokon.) Aztán: melyik kaptárnak a legjobb ez az
+értéke? (<code>MAX</code> a sorokon.)</li>
+<li><strong>Felbontás.</strong> A belső <code>MIN</code> a kaptár függvénye lesz. Egy (hét, érték) párt ad
+vissza, amelynek részei a <code>.minind</code> és a <code>.minval</code>.</li>
+<li><strong>„Az első.”</strong> A <code>MAX</code> és a <code>MIN</code> is az első indexet veszi egyenlőség esetén,
+így nem kell külön teendő.</li>
 </ul>
 <h2 id="specifikáció-1"><a class="header" href="#specifikáció-1">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, m∈N, terkep∈N[1..n,1..m]
-Ki: sor∈N, oszlop∈N
-Fv: maxoszl:N-&gt;N x N, maxoszl(i)=MAX(j=1..m, terkep[i,j])
+<pre><code class="language-speci">Be: n∈N, m∈N, y∈N[1..n,1..m]
+Ki: kaptar∈N, het∈N
+Fv: rossz:N-&gt;N x N, rossz(h)=MIN(w=1..m, y[h,w])
 Ef: n&gt;0 és m&gt;0
-Uf: (sor,)=MAX(i=1..n, maxoszl(i).maxval) és
-    oszlop=maxoszl(sor).maxind
+Uf: (kaptar,)=MAX(h=1..n, rossz(h).minval) és
+    het=rossz(kaptar).minind
 </code></pre>
 <ul>
-<li>A <code>maxoszl(i)</code> az <em>i</em>. sorra a (maximum oszlopa, maximum) pár.</li>
-<li>A <code>maxoszl(i).maxval</code> az <em>i</em>. sor maximuma. A külső <code>MAX</code> csak a sor indexét
-tartja meg: <code>(sor,)</code>.</li>
-<li>A <code>maxoszl(sor).maxind</code> a maximum oszlopa a kiválasztott sorban.</li>
+<li>A <code>rossz(h)</code> a <code>h</code> kaptár (a minimum hete, minimum) párja.</li>
+<li>A <code>rossz(h).minval</code> a <code>h</code> kaptár legrosszabb eredménye. A külső <code>MAX</code> csak a
+kaptár indexét tartja meg: <code>(kaptar,)</code>.</li>
+<li>A <code>rossz(kaptar).minind</code> a kiválasztott kaptár legrosszabb hete.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A hivatalos megoldás előfeltétele <code>∀i∈[1..n]:(∀j∈[1..m]:(map[i,j]≥0))</code>, ami
-<code>N</code> esetén mindig igaz. Amire a <code>MAX</code>-nak valójában szüksége van, az a nem
-üres mátrix, ezért ez a változat <code>n&gt;0 és m&gt;0</code>-t mond.</p>
+<p>A <code>MIN</code>-nek és a <code>MAX</code>-nak nem üres tartomány kell. Ezért követeli meg az
+előfeltétel az <code>n&gt;0 és m&gt;0</code> állítást. Az <code>n∈N</code> önmagában megengedné az <code>n: 0</code>-t.</p>
 </blockquote>
 <h2 id="tesztek-1"><a class="header" href="#tesztek-1">Tesztek</a></h2>
-<p>A feladat példája, ahol a 23-as maximum a 2. és a 4. sorban is előfordul (az
-első nyer):</p>
-<pre><code class="language-yaml">n: 6
-m: 4
-terkep: [
-  [12, 3, 1, 4],
-  [3, 2, 23, 5],
-  [4, 2, 2, 1],
-  [5, 2, 23, 0],
-  [0, 2, 4, 1],
-  [0, 0, 0, 1]
-]
-sor: 2
-oszlop: 3
-</code></pre>
-<p>A maximum a bal felső sarokban:</p>
+<p>A szokásos eset. A 3. kaptárnak vannak a legjobb hetei, de a 2.-nak a legjobb a
+legrosszabb hete:</p>
 <pre><code class="language-yaml">n: 3
-m: 3
-terkep: [[99, 10, 5], [20, 30, 40], [15, 25, 35]]
-sor: 1
-oszlop: 1
+m: 4
+y: [
+  [9, 2, 7, 8],
+  [5, 6, 4, 5],
+  [3, 9, 9, 9]
+]
+kaptar: 2
+het: 3
 </code></pre>
-<p>Minden mező egyenlő, így az első mezőt választja:</p>
+<p>Döntetlen a kaptárak között, így az első nyer:</p>
 <pre><code class="language-yaml">n: 2
 m: 2
-terkep: [[7, 7], [7, 7]]
-sor: 1
-oszlop: 1
+y: [[4, 5], [5, 4]]
+kaptar: 1
+het: 1
 </code></pre>
-<p>A második előfordulást <em>nem</em> fogadja el:</p>
-<pre><code class="language-yaml red">n: 2
-m: 2
-terkep: [[1, 9], [9, 1]]
-sor: 2
-oszlop: 1
+<p>Egyetlen kaptár két egyformán rossz héttel, így az első számít:</p>
+<pre><code class="language-yaml">n: 1
+m: 3
+y: [[6, 3, 3]]
+kaptar: 1
+het: 2
+</code></pre>
+<p>A legnagyobb egyedi értékű kaptár nem a válasz:</p>
+<pre><code class="language-yaml red">n: 3
+m: 4
+y: [[9, 2, 7, 8], [5, 6, 4, 5], [3, 9, 9, 9]]
+kaptar: 3
+het: 1
 </code></pre>
 <h2 id="végigkövetés-első-teszt"><a class="header" href="#végigkövetés-első-teszt">Végigkövetés (első teszt)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i. sor</th><th style="text-align: center"><code>maxoszl(i)</code></th><th style="text-align: right"><code>.maxval</code></th></tr>
+<tr><th style="text-align: center">h kaptár</th><th style="text-align: center"><code>rossz(h)</code></th><th style="text-align: center"><code>.minval</code></th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: center">(1, 12)</td><td style="text-align: right">12</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: center">(3, 23)</td><td style="text-align: right"><strong>23</strong></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: center">(1, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: center">(3, 23)</td><td style="text-align: right">23</td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: center">(3, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: center">(4, 1)</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">(2, 2)</td><td style="text-align: center">2</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">(3, 4)</td><td style="text-align: center"><strong>4</strong></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">(1, 3)</td><td style="text-align: center">3</td></tr>
 </tbody>
 </table>
 </div>
-<p>A külső <code>MAX</code> először a 2. sorban találja meg a 23-at, így <code>sor = 2</code>. Aztán
-<code>maxoszl(2).maxind = 3</code>, így <code>oszlop = 3</code>.</p>
+<p>A külső <code>MAX</code> a 2. sorban találja a 4-et, tehát <code>kaptar = 2</code>. Ezután
+<code>rossz(2).minind = 3</code>, tehát <code>het = 3</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="trurl-robotjai"><a class="header" href="#trurl-robotjai">Trurl robotjai</a></h1>
+<h1 id="a-hordás"><a class="header" href="#a-hordás">A hordás</a></h1>
 <blockquote>
-<p><em>Trurl n napon át feljegyezte, hány robotot épített. Sorold fel azokat a
-napokat, amikor több robotot épített, mint az előző d nap alatt összesen
-(1 &lt; d &lt; n)!</em></p>
+<p><em>Borbála feljegyzi, mennyi nektárt hordtak be a családjai n nap mindegyikén.
+<strong>Hordásnak</strong> nevez d egymást követő napot, ha közben legalább <code>cel</code> egység
+érkezett. Sorold fel minden hordás utolsó napját.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> összetett minta. A fő minta a kiválogatás, a beágyazott az
-összegzés.</p>
+<p><strong>A feladat típusa:</strong> összetett minta. A kiválogatás a fő minta, az összegzés a
+beágyazott.</p>
 <h2 id="elemzés-2"><a class="header" href="#elemzés-2">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> <code>n</code>, <code>d</code>, és a napi darabszámok: <code>tr∈N[1..n]</code>.</li>
-<li><strong>Kérdés.</strong> <em>Sorold fel azokat a napokat, amikor…</em>: több index
-összegyűjtése, tehát <strong>MIS</strong>.</li>
-<li><strong>Feltétel az i. napra.</strong> A <code>tr[i]</code> nagyobb, mint az előző <em>d</em> nap összege,
-<code>tr[i-d] + … + tr[i-1]</code>. Ez egy <strong>SUM</strong>, amiből függvény lesz.</li>
-<li><strong>Tartomány.</strong> Az <em>i</em>. naphoz <em>d</em> előző nap kell, ezért az <code>i</code> <code>d+1</code>-től
-indul.</li>
-<li><strong>Előfeltétel.</strong> A feladat szerint <code>1 &lt; d &lt; n</code>.</li>
+<li><strong>Adatok.</strong> <code>n</code>, <code>d</code>, <code>cel</code>, és a napi mennyiségek: <code>nektar∈N[1..n]</code>.</li>
+<li><strong>Kérdés.</strong> <em>Sorold fel a napokat, amikor…</em>: több index összegyűjtése, tehát <code>MIS</code>.</li>
+<li><strong>Feltétel az i. napra.</strong> Az <code>i</code>. nappal végződő utolsó d nap összege legalább
+<code>cel</code>. Ez egy <code>SUM</code>, amiből függvény lesz:
+<code>nektar[i-d+1] + … + nektar[i]</code>.</li>
+<li><strong>Tartomány.</strong> Az <code>i</code>. naphoz d nap kell, amely önmagával végződik, tehát a
+legelső lehetséges utolsó nap a <code>d</code>.</li>
+<li><strong>Előfeltétel.</strong> A szakasznak el kell férnie: <code>1≤d≤n</code>.</li>
 </ul>
 <h2 id="specifikáció-2"><a class="header" href="#specifikáció-2">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, d∈N, tr∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, d∈N, cel∈N, nektar∈N[1..n]
 Ki: db∈N, napok∈N[1..db]
-Fv: ossz:N-&gt;N, ossz(i)=SUM(j=i-d..i-1, tr[j])
-Ef: 1&lt;d&lt;n
-Uf: (db,napok)=MIS(i=d+1..n, ossz(i)&lt;tr[i], i)
+Fv: hordas:N-&gt;N, hordas(i)=SUM(j=i-d+1..i, nektar[j])
+Ef: 1≤d≤n
+Uf: (db,napok)=MIS(i=d..n, hordas(i)≥cel)
 </code></pre>
-<p>A <code>MIS</code> harmadik argumentuma, az <code>i</code>, a napok sorszámát gyűjti össze. Két
-argumentummal is ugyanez lenne az eredmény, mert a kétargumentumos <code>MIS</code> eleve
-az indexeket gyűjti. A tárgyi megoldás kiírja.</p>
+<p>Az ablak helyes megadásán áll vagy bukik a feladat. <code>d = 3</code> és <code>i = 7</code> esetén az
+<code>i-d+1..i</code> tartomány az <code>5..7</code>, vagyis pontosan három nap.</p>
 <h2 id="tesztek-2"><a class="header" href="#tesztek-2">Tesztek</a></h2>
-<p>Tipikus eset, két megfelelő nappal:</p>
-<pre><code class="language-yaml">n: 10
+<p>A szokásos eset, két hordással:</p>
+<pre><code class="language-yaml">n: 7
 d: 3
-tr: [2, 4, 5, 1, 13, 1, 1, 1, 4, 5]
+cel: 20
+nektar: [5, 9, 8, 1, 0, 12, 9]
 db: 2
-napok: [5, 9]
+napok: [3, 7]
 </code></pre>
-<p>Negatív eset, csökkenő termeléssel:</p>
-<pre><code class="language-yaml">n: 5
+<p>Negatív eset, gyenge hét:</p>
+<pre><code class="language-yaml">n: 4
 d: 2
-tr: [100, 50, 20, 10, 5]
+cel: 100
+nektar: [1, 2, 3, 4]
 db: 0
 napok: []
 </code></pre>
-<p>Határeset, <code>d = n-1</code>, így csak az utolsó nap jöhet szóba:</p>
-<pre><code class="language-yaml">n: 4
+<p>Határeset, <code>d = n</code>, és az összeg pontosan <code>cel</code>, ami számít:</p>
+<pre><code class="language-yaml">n: 3
 d: 3
-tr: [1, 1, 1, 10]
+cel: 6
+nektar: [1, 2, 3]
 db: 1
-napok: [4]
+napok: [3]
 </code></pre>
-<p>Az előfeltétel kizárja a <code>d = 1</code> esetet:</p>
-<pre><code class="language-yaml red">n: 4
-d: 1
-tr: [1, 2, 3, 4]
-db: 3
-napok: [2, 3, 4]
+<p>Az előfeltétel kizárja a <code>d = 0</code> esetet:</p>
+<pre><code class="language-yaml red">n: 3
+d: 0
+cel: 1
+nektar: [1, 2, 3]
+db: 0
+napok: []
 </code></pre>
 <h2 id="végigkövetés-első-teszt-d--3"><a class="header" href="#végigkövetés-első-teszt-d--3">Végigkövetés (első teszt, d = 3)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i. nap</th><th>előző napok</th><th style="text-align: right">ossz(i)</th><th style="text-align: right">tr[i]</th><th style="text-align: center">ossz(i) &lt; tr[i]?</th></tr>
+<tr><th style="text-align: center">i. nap</th><th style="text-align: center">ablak</th><th style="text-align: center"><code>hordas(i)</code></th><th style="text-align: center">legalább 20?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">4</td><td>2 + 4 + 5</td><td style="text-align: right">11</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">5</td><td>4 + 5 + 1</td><td style="text-align: right">10</td><td style="text-align: right">13</td><td style="text-align: center"><strong>igen</strong></td></tr>
-<tr><td style="text-align: right">6</td><td>5 + 1 + 13</td><td style="text-align: right">19</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">7</td><td>1 + 13 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">8</td><td>13 + 1 + 1</td><td style="text-align: right">15</td><td style="text-align: right">1</td><td style="text-align: center">nem</td></tr>
-<tr><td style="text-align: right">9</td><td>1 + 1 + 1</td><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: center"><strong>igen</strong></td></tr>
-<tr><td style="text-align: right">10</td><td>1 + 1 + 4</td><td style="text-align: right">6</td><td style="text-align: right">5</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">5 + 9 + 8</td><td style="text-align: center">22</td><td style="text-align: center"><strong>igen</strong></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">9 + 8 + 1</td><td style="text-align: center">18</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">8 + 1 + 0</td><td style="text-align: center">9</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">1 + 0 + 12</td><td style="text-align: center">13</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">0 + 12 + 9</td><td style="text-align: center">21</td><td style="text-align: center"><strong>igen</strong></td></tr>
 </tbody>
 </table>
 </div>
-<p>Az 5. és a 9. nap felel meg, így <code>db = 2</code> és <code>napok = [5, 9]</code>.</p>
+<p>A 3. és a 7. nap illeszkedik, tehát <code>db = 2</code> és <code>napok = [3, 7]</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="catbert-kávészünetei"><a class="header" href="#catbert-kávészünetei">Catbert kávészünetei</a></h1>
+<h1 id="pergetés"><a class="header" href="#pergetés">Pergetés</a></h1>
 <blockquote>
-<p><em>Catbert többnapos konferenciát szervezett, naponta négy kávészünettel. Minden
-szünetben feljegyezte, mennyi kávé fogyott. Keress egy olyan napot, amikor a
-résztvevők minden kávészünetben 5 liternél több kávét ittak!</em></p>
+<p><em>Borbála n kaptárfiókjának mindegyikében öt keret van, az 1–5. helyeken.
+Feljegyzi, hogy az egyes keretek hány százaléka fedett viasszal. A pergetője
+minden fiókból egyszerre ugyanazt a helyet emeli ki, és a méz csak 80%-tól érett.
+Keress egy helyet, ahol minden fiók kerete érett.</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> összetett minta. A fő minta a keresés, a beágyazott az
-eldöntés (mind).
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=96a3095f-cd78-482b-91cf-89e8a92229ab">Hivatalos megoldás</a>.</p>
+<p><strong>A feladat típusa:</strong> összetett minta. A keresés a fő minta, az eldöntés (mind) a
+beágyazott.</p>
 <h2 id="elemzés-3"><a class="header" href="#elemzés-3">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> n nap × 4 szünet, egy <code>kave∈N[1..n,1..4]</code> mátrix. (A hivatalos
-megoldásban <code>coffe</code> a neve.)</li>
-<li><strong>Kérdés.</strong> <em>Keress egy napot</em>, ami lehet, hogy nem létezik. Ez <strong>keresés</strong>.</li>
-<li><strong>Feltétel az i. napra.</strong> A négy szünet <em>mindegyikében</em> 5 felett, ez
-<strong>FORALL</strong>, a nap függvényeként.</li>
+<li><strong>Adatok.</strong> n fiók × 5 hely, egy <code>fedett∈N[1..n,1..5]</code> mátrix.</li>
+<li><strong>Kérdés.</strong> <em>Keress egy helyet</em>, ami lehet, hogy nem létezik, tehát <code>SEARCH</code>.</li>
+<li><strong>A külső ciklus az oszlopokon fut.</strong> Helyekről kérdezünk, ezért a külső <code>p</code>
+változó a második indexen halad. A legtöbb mátrixos feladat soronként megy,
+így ezt könnyű eltéveszteni.</li>
+<li><strong>Feltétel a p. helyre.</strong> Ott minden fiókban legalább 80 van, tehát <code>FORALL</code> a
+sorokon, a hely függvényeként.</li>
+<li><strong>Előfeltétel.</strong> A százalék legfeljebb 100. És <code>n≥1</code>: fiókok nélkül a <code>FORALL</code>
+igaz az üres tartományon, így az 1. hely érettnek számítana.</li>
 </ul>
 <h2 id="specifikáció-3"><a class="header" href="#specifikáció-3">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
 Sa: van∈L
-Ki: ind∈N
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
-Ef: -
-Uf: (van,ind)=SEARCH(i=1..n, tobb5(i))
+Ki: hely∈N
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
+Ef: n≥1 és ∀b∈[1..n]:(∀p∈[1..5]:(fedett[b,p]≤100))
+Uf: (van,hely)=SEARCH(p=1..5, erett(p))
 </code></pre>
 <h2 id="tesztek-3"><a class="header" href="#tesztek-3">Tesztek</a></h2>
-<p>A 2. az egyetlen nap, amikor mind a négy szünet 5 felett volt:</p>
+<p>A 3. hely az első, ahol minden fiók eléri a 80-at:</p>
 <pre><code class="language-yaml">n: 3
-kave: [
-  [4, 5, 7, 5],
-  [6, 8, 7, 9],
-  [4, 5, 7, 5]
+fedett: [
+  [75, 70, 85, 40, 95],
+  [80, 90, 85, 85, 80],
+  [88, 65, 90, 90, 81]
 ]
 van: true
-ind: 2
+hely: 3
 </code></pre>
-<p>Nincs ilyen nap. A 2. napon van egy pontosan 5-ös szünet, az pedig nem <em>több</em>
-5-nél:</p>
-<pre><code class="language-yaml">n: 3
-kave: [
-  [4, 3, 5, 6],
-  [6, 7, 5, 6],
-  [5, 6, 5, 6]
+<p>Nincs ilyen hely. A 79 nem elég, és minden hely elbukik valamelyik fiókban:</p>
+<pre><code class="language-yaml">n: 2
+fedett: [
+  [79, 90, 90, 10, 90],
+  [90, 79, 10, 90, 79]
 ]
 van: false
-ind: 0
+hely: 6
 </code></pre>
-<p>A hivatalos sikertelen keresés példája. Ez <code>ind: 4</code>-et (n + 1) ír, mert a
-lépéslista ezt mutatja:</p>
-<pre><code class="language-yaml">n: 3
-kave: [
-  [5, 6, 7, 4],
-  [6, 4, 6, 8],
-  [1, 2, 3, 4]
-]
-van: false
-ind: 4
-</code></pre>
-<p>Több jó nap, így az elsőt kell választani:</p>
-<pre><code class="language-yaml">n: 3
-kave: [[1, 1, 1, 1], [6, 6, 6, 6], [9, 9, 9, 9]]
+<p>Határeset, a pontosan 80 számít:</p>
+<pre><code class="language-yaml">n: 1
+fedett: [[10, 80, 100, 0, 0]]
 van: true
-ind: 2
+hely: 2
+</code></pre>
+<p>Minden hely érett, tehát az elsőt kell választani:</p>
+<pre><code class="language-yaml">n: 2
+fedett: [[85, 85, 85, 85, 85], [85, 85, 85, 85, 85]]
+van: true
+hely: 1
 </code></pre>
 <h2 id="a-lépéslistában"><a class="header" href="#a-lépéslistában">A lépéslistában</a></h2>
-<p>A hivatalos megoldás lépéslistáját soronként a
-<a href="#léptető-és-lépéslista">Léptető és lépéslista</a> fejezet magyarázza el. Látszik
-benne, ahogy a kiértékelés minden napra belép a <code>more5</code> függvénybe (↓), és az
-eredménnyel visszatér (↑).</p>
+<p>Az első teszt kiértékelését soronként a
+<a href="#léptető-és-lépéslista">Léptető és lépéslista</a> fejezet magyarázza el. Azt mutatja,
+hogyan lép be a kiértékelés minden helyre az <code>erett</code> függvénybe (↓), és hogyan tér
+vissza (↑) az eredménnyel.</p>
 <h2 id="változatok"><a class="header" href="#változatok">Változatok</a></h2>
 <ul>
-<li><em>Hány napon</em> volt minden szünet 5 felett? <code>SEARCH</code> helyett <code>DARAB</code>:
-<code>c=DARAB(i=1..n, tobb5(i))</code>.</li>
-<li><em>Volt-e olyan nap</em>, amikor valamelyik szünet 5 alatt maradt? <code>EXISTS</code>
-beágyazott <code>EXISTS</code>-szel: <code>l=EXISTS(i=1..n, EXISTS(j=1..4, kave[i,j]&lt;5))</code>.</li>
-<li><em>Melyik</em> napokon? <code>MIS</code>: <code>(db,napok)=MIS(i=1..n, tobb5(i))</code>.</li>
+<li><em>Hány hely érett?</em> A <code>SEARCH</code> helyett <code>DARAB</code>:
+<code>c=DARAB(p=1..5, erett(p))</code>.</li>
+<li><em>Van-e valahol 20% alatti keret?</em> <code>EXISTS</code> beágyazott <code>EXISTS</code>-szel:
+<code>l=EXISTS(b=1..n, EXISTS(p=1..5, fedett[b,p]&lt;20))</code>.</li>
+<li><em>Melyik helyek?</em> <code>MIS</code>: <code>(c,hk)=MIS(p=1..5, erett(p))</code>.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="dogbert-csillaga"><a class="header" href="#dogbert-csillaga">Dogbert csillaga</a></h1>
+<h1 id="a-leghidegebb-kijárás"><a class="header" href="#a-leghidegebb-kijárás">A leghidegebb kijárás</a></h1>
 <blockquote>
-<p><em>Dogbert rendszeres időközönként megmérte egy csillag fényességét. A k alatti
-mérések felhős eget jeleznek. Határozd meg a fényesség legnagyobb változását
-két, derült égnél (felhő nélkül) végzett, egymást követő mérés között!</em></p>
+<p><em>Borbála a kaptár röpnyílásánál ül hőmérővel és számlálóval. Minden méréskor
+feljegyzi a hőmérsékletet, és hogy hány méh repült ki egy perc alatt. Valódi
+kijárásnak számítja, ha k-nál több méh repült ki. Mi a legalacsonyabb hőmérséklet,
+amelyen volt valódi kijárás?</em></p>
 </blockquote>
-<p><strong>Feladattípus:</strong> feltételes maximumkeresés sorozatban.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=e0d5b6d7-8231-455d-aed5-e8a7f5420c5e">Hivatalos megoldás</a>.</p>
+<p><strong>A feladat típusa:</strong> feltételes minimumkeresés.</p>
 <h2 id="elemzés-4"><a class="header" href="#elemzés-4">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> A <code>k</code> küszöb és a mérések. A számuk nincs külön megadva, ezért a
-tömb nyitott: <code>adat∈Z[1..]</code>, a mérete <code>length(adat)</code>.</li>
-<li><strong>Kérdés.</strong> <em>A legnagyobb változás</em>, de csak olyan pároknál, ahol <strong>mindkét</strong>
-mérés derült. Ez feltételes maximum, tehát <strong>CONDMAX</strong>.</li>
-<li><strong>Érték az i. párra.</strong> <code>adat[i]-adat[i+1]</code>.</li>
-<li><strong>Feltétel az i. párra.</strong> <code>adat[i]&gt;k és adat[i+1]&gt;k</code>.</li>
-<li><strong>Tartomány.</strong> (i, i+1) párok, ezért az <code>i</code> <code>length(adat)-1</code>-ig megy.</li>
-<li><strong>Kimenet.</strong> Volt-e egyáltalán derült pár, és a maximum. Az indexet nem kérdezi
-a feladat, ezért a helyét kihagyjuk: <code>(van,,maxert)</code>.</li>
+<li><strong>Adatok.</strong> A <code>k</code> küszöb és a mérések. A számukat nem adják meg külön, így a tömb
+nyitott: <code>m∈Meres[]</code>, a mérete <code>length(m)</code>. A hőmérséklet negatív is lehet, ezért
+a mező <code>Z</code>.</li>
+<li><strong>Kérdés.</strong> A legkisebb hőmérséklet, de csak a valódi kijárások között. Ez
+feltételes minimum, tehát <code>CONDMIN</code>. Egy sima <code>MIN</code> a leghidegebb mérést találná
+meg, amikor általában egyetlen méh sem repül.</li>
+<li><strong>Érték az i-re.</strong> <code>m[i].hom</code>.</li>
+<li><strong>Feltétel az i-re.</strong> <code>m[i].meh&gt;k</code>.</li>
+<li><strong>Kimenet.</strong> Volt-e kijárás, és a hőmérséklet. Az indexet nem kérdezik, ezért
+azt a pozíciót kihagyjuk: <code>(volt,,leghidegebb)</code>.</li>
 </ul>
 <h2 id="specifikáció-4"><a class="header" href="#specifikáció-4">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: k∈N, adat∈Z[1..]
-Ki: van∈L, maxert∈Z
+<pre><code class="language-speci">Be: k∈N, m∈Meres[], Meres=(hom:Z x meh:N)
+Ki: volt∈L, leghidegebb∈Z
 Ef: -
-Uf: (van,,maxert)=CONDMAX(i=1..length(adat)-1,
-    adat[i]-adat[i+1], adat[i]&gt;k és adat[i+1]&gt;k)
+Uf: (volt,,leghidegebb)=CONDMIN(i=1..length(m), m[i].hom, m[i].meh&gt;k)
 </code></pre>
 <h2 id="tesztek-4"><a class="header" href="#tesztek-4">Tesztek</a></h2>
-<p>Tipikus eset, több derült párral, 6-os legnagyobb változással:</p>
-<pre><code class="language-yaml">k: 10
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-van: true
-maxert: 6
-</code></pre>
-<p>Ugyanez az adat sűrűbb felhőzettel, egyetlen derült pár nélkül:</p>
+<p>A szokásos eset. A −1 °C-os és a 3 °C-os mérés nem számít kijárásnak:</p>
 <pre><code class="language-yaml">k: 50
-adat: [34, 30, 1, 2, 1, 30, 33, 27, 30, 32]
-van: false
-maxert: 0
+m:
+  - hom: 14
+    meh: 120
+  - hom: 6
+    meh: 60
+  - hom: 3
+    meh: 10
+  - hom: -1
+    meh: 0
+  - hom: 9
+    meh: 80
+volt: true
+leghidegebb: 6
 </code></pre>
-<p>Pontosan két mérés, mindkettő derült:</p>
-<pre><code class="language-yaml">k: 10
-adat: [45, 20]
-van: true
-maxert: 25
+<p>Határeset, ugyanez az adat <code>k: 60</code>-nal, amikor a pontosan 60 méh már nem kijárás:</p>
+<pre><code class="language-yaml">k: 60
+m: [{hom: 14, meh: 120}, {hom: 6, meh: 60}, {hom: 3, meh: 10}, {hom: -1, meh: 0}, {hom: 9, meh: 80}]
+volt: true
+leghidegebb: 9
 </code></pre>
-<h2 id="végigkövetés-első-teszt-k--10"><a class="header" href="#végigkövetés-első-teszt-k--10">Végigkövetés (első teszt, k = 10)</a></h2>
+<p>Negatív eset, egyáltalán nincs kijárás:</p>
+<pre><code class="language-yaml">k: 500
+m: [{hom: 14, meh: 120}, {hom: 6, meh: 60}]
+volt: false
+leghidegebb: 0
+</code></pre>
+<p>Valódi kijárás fagypont alatt, annak ellenőrzésére, hogy a kimenet tényleg <code>Z</code>:</p>
+<pre><code class="language-yaml">k: 0
+m: [{hom: 2, meh: 5}, {hom: -3, meh: 1}]
+volt: true
+leghidegebb: -3
+</code></pre>
+<h2 id="végigkövetés-első-teszt-k--50"><a class="header" href="#végigkövetés-első-teszt-k--50">Végigkövetés (első teszt, k = 50)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">adat[i]</th><th style="text-align: right">adat[i+1]</th><th style="text-align: center">mindkettő &gt; 10?</th><th style="text-align: right">változás</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">hom</th><th style="text-align: center">meh</th><th style="text-align: center">több mint 50?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">34</td><td style="text-align: right">30</td><td style="text-align: center">igen</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">30</td><td style="text-align: right">1</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">1</td><td style="text-align: right">2</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">2</td><td style="text-align: right">1</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: right">1</td><td style="text-align: right">30</td><td style="text-align: center">nem</td><td style="text-align: right"></td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: right">30</td><td style="text-align: right">33</td><td style="text-align: center">igen</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">7</td><td style="text-align: right">33</td><td style="text-align: right">27</td><td style="text-align: center">igen</td><td style="text-align: right"><strong>6</strong></td></tr>
-<tr><td style="text-align: right">8</td><td style="text-align: right">27</td><td style="text-align: right">30</td><td style="text-align: center">igen</td><td style="text-align: right">−3</td></tr>
-<tr><td style="text-align: right">9</td><td style="text-align: right">30</td><td style="text-align: right">32</td><td style="text-align: center">igen</td><td style="text-align: right">−2</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">14</td><td style="text-align: center">120</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">6</td><td style="text-align: center">60</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">3</td><td style="text-align: center">10</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">−1</td><td style="text-align: center">0</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">9</td><td style="text-align: center">80</td><td style="text-align: center">igen</td></tr>
 </tbody>
 </table>
 </div>
-<p>A derült párok közül a legnagyobb változás 6 (i = 7-nél).</p>
+<p>Az illeszkedő sorok közül a legalacsonyabb hőmérséklet a 6.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>Ez a specifikáció a változást <code>adat[i]-adat[i+1]</code>-ként, <em>előjeles</em>
-különbségként méri, pontosan úgy, mint a hivatalos megoldás. Ha a „változás”
-bármelyik irányú változás nagyságát jelenti, használd az
-<code>abs(adat[i]-adat[i+1])</code> alakot. Az első tesztre a válasz így is 6, de az
-<code>adat: [20, 45]</code> esetén −25 helyett 25 lenne.</p>
+<p>Ha a <code>volt</code> hamis, a <code>leghidegebb</code>-nek nincs jelentése, bármilyen értéke
+átmegy, így a 0 csak szokás. Ha a feladat konkrét „nincs válasz” értéket kérne, az
+utófeltételnek kellene előállítania, ahogy <a href="#a-túlfolyó-tartály">A túlfolyó tartály</a>
+feladatban.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="az-utazási-iroda"><a class="header" href="#az-utazási-iroda">Az utazási iroda</a></h1>
+<h1 id="a-mézvásár"><a class="header" href="#a-mézvásár">A mézvásár</a></h1>
 <blockquote>
-<p><em>Egy utazási iroda tárolja, mely városokba árul repülőjegyet, azok milyen
-messze vannak, és mennyibe kerül a jegy. Írj programot, amely megadja a
-legtávolabbi városba szóló jegy árát! Ha több város ugyanolyan messze van, a
-köztük legolcsóbbét.</em></p>
-<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100), majd N sorban a távolság (1 ≤ T ≤ 20 000) és az
-ár (1 ≤ Á ≤ 2 000 000).
-<strong>Kimenet:</strong> egy egész szám, az ár.</p>
+<p><em>A kaptár-völgyi mézvásáron Borbála N eladást jegyzett fel. Mindegyikhez felírta
+a méz fajtáját (1-től K-ig számozva), az üvegek számát és egy üveg árát. Melyik
+fajta hozta a legtöbb bevételt? Ha több is ugyanannyit, a legkisebb sorszámút add
+meg.</em></p>
+<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100) és K (1 ≤ K ≤ 10), aztán N sorban a fajta
+(1 ≤ F ≤ K), az üvegek (1 ≤ D ≤ 50) és az ár (1 ≤ Á ≤ 9000).
+<strong>Kimenet:</strong> egy egész szám, a fajta.</p>
 </blockquote>
-<p>Ezt a magyar tárgyi feladatot az élő szerkesztőben ellenőriztük. A kanonikus
-magyar stílusban készült: magyar fejlécek és nevek, soronként egy deklaráció,
-üres sor a blokkok között.</p>
+<p>A feladatot magyar stílusban írjuk: magyar fejlécek és nevek, soronként egy
+deklaráció, a blokkok között üres sor.</p>
 <h2 id="elemzés-5"><a class="header" href="#elemzés-5">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> A bemenet N darab (távolság, ár) sor. Két párhuzamos tömb, a
-<code>tav</code> és az <code>ar</code>, közvetlenül ezt tükrözi.</li>
-<li><strong>Kérdés.</strong> Egyetlen ár, amelyet egy tulajdonság határoz meg: egy olyan város
-ára, amely a legtávolabbi, és a legtávolabbiak közül a legolcsóbb.</li>
-<li><strong>Stílus.</strong> A tulajdonság közvetlenül relációs utófeltétellé fordítható.
-Lent a tételes változat is szerepel.</li>
+<li><strong>Adatok.</strong> A bemenet N sor (fajta, üvegek, ár). Ezt három párhuzamos tömb
+követi közvetlenül. A <code>k</code> megmondja, hány fajta van.</li>
+<li><strong>Kérdés.</strong> A külső tétel egy maximum a <strong>fajtákon</strong>, nem az eladásokon. Ez a
+legfontosabb lépés: a <code>t</code> ciklusváltozó az <code>1..k</code> tartományon fut.</li>
+<li><strong>Belső tétel.</strong> A <code>t</code> fajta bevétele a <code>db[i]*ar[i]</code> összege az adott fajta
+eladásain, tehát egy szűrt <code>SUM</code>, amiből függvény lesz.</li>
+<li><strong>Döntetlen.</strong> A <code>MAX</code> az első indexet veszi, ez a legkisebb fajtaszám.</li>
 </ul>
-<h2 id="specifikáció-relációs"><a class="header" href="#specifikáció-relációs">Specifikáció (relációs)</a></h2>
+<h2 id="specifikáció-tételekkel"><a class="header" href="#specifikáció-tételekkel">Specifikáció (tételekkel)</a></h2>
 <pre><code class="language-speci">Be:
 n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
 Ki:
-max∈N
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
 Ef:
-1&lt;=n and n&lt;=100 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=2000000 and 1&lt;=tav[i] and tav[i]&lt;=20000)
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
 
 Uf:
-∃i∈[1..n]:(∀j∈[1..n]:(tav[j]&lt;tav[i] vagy (tav[j]=tav[i] és ar[j]&gt;=ar[i])) és ar[i]=max)
+(legjobb,)=MAX(t=1..k, bev(t))
 </code></pre>
-<p>Az utófeltétel jelentése: <em>van olyan i város, hogy minden j város vagy közelebb
-van i-nél, vagy ugyanolyan messze, de nem olcsóbb, és a válasz az i ára.</em> (Az
-ellenőrzött megoldás az <code>Ef:</code>-ben angol <code>and</code>-et, az <code>Uf:</code>-ben magyar <code>és</code>-t
-használ. Mindkettő működik, de saját munkában maradj egy nyelvnél.)</p>
+<p>Figyeld meg, hogy az <code>n</code>, a <code>db</code> és az <code>ar</code> csak a <code>bev</code> függvényen keresztül
+szerepel az utófeltételben. Ez teljesíti a
+<a href="#a-minden-változó-szabály">minden-változó szabályt</a>.</p>
 <h2 id="tesztek-5"><a class="header" href="#tesztek-5">Tesztek</a></h2>
-<p>A feladat példája. A legtávolabbi a 6. város (2100), 30 000-ért:</p>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-max: 30000
+<p>A szokásos eset. Az 1. fajta 9000-et, a 2. 10 000-et, a 3. 4000-et hoz:</p>
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<p>Holtverseny a legnagyobb távolságon, így a kettő közül az olcsóbb a válasz:</p>
-<pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 250
+<p>Döntetlen, így a kisebb fajtaszám a válasz:</p>
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>Egyetlen város:</p>
+<p>Ugyanez a döntetlen a nagyobb számmal piros kell legyen:</p>
+<pre><code class="language-yaml red">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 2
+</code></pre>
+<p>Az eladás nélküli fajták bevétele 0, és nem nyerhetnek:</p>
 <pre><code class="language-yaml">n: 1
-ar: [1]
-tav: [1]
-max: 1
-</code></pre>
-<p>Minden város ugyanolyan messze van, és a legolcsóbb az utolsó:</p>
-<pre><code class="language-yaml">n: 4
-ar: [100, 100, 2000000, 1]
-tav: [20000, 20000, 20000, 20000]
-max: 1
-</code></pre>
-<p>Nem a legtávolabbiak közül a legolcsóbb:</p>
-<pre><code class="language-yaml red">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-max: 500
+k: 3
+fajta: [3]
+db: [1]
+ar: [5]
+legjobb: 3
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Minden határt ellenőrizz.</strong> Könnyű az ár korlátját (2 000 000) a
-távolságra is átmásolni. Az ilyen előfeltétel túl laza, és emiatt egyetlen
-teszt sem lesz piros. Az <code>Ef:</code> minden határát vesd össze a feladattal.</p>
+<p><strong>Ellenőrizz minden határt.</strong> Könnyű az árkorlátot (9000) az üvegekre is
+rámásolni. Az ilyen előfeltétel túl laza, és egyetlen teszt sem lesz miatta
+piros. Az <code>Ef:</code> minden határát vesd össze a feladat szövegével.</p>
 </blockquote>
-<h2 id="specifikáció-tételekkel"><a class="header" href="#specifikáció-tételekkel">Specifikáció (tételekkel)</a></h2>
-<p>Ugyanez a feladat három lépésben: a legnagyobb távolság (<code>MAX</code>), az ekkora
-távolsághoz tartozó árak (<code>MIS</code>), és ezek közül a legkisebb (<code>MIN</code>):</p>
+<h2 id="specifikáció-relációs"><a class="header" href="#specifikáció-relációs">Specifikáció (relációs)</a></h2>
+<p>Ugyanez a feladat tulajdonságként: <em>létezik egy t fajta, amely a válasz, egyik
+fajta sem hozott nála többet, és minden előtte lévő fajta szigorúan kevesebbet
+hozott.</em></p>
 <pre><code class="language-speci">Be:
 n∈N,
-ar∈N[1..n],
-tav∈N[1..n]
-
-Sa:
-legtav∈N,
-db∈N,
-arak∈N[1..db]
+k∈N,
+fajta∈N[1..n],
+db∈N[1..n],
+ar∈N[1..n]
 
 Ki:
-max∈N
+legjobb∈N
+
+Fv:
+bev:N-&gt;N,
+bev(t)=SUM(i=1..n, db[i]*ar[i], fajta[i]=t)
 
 Ef:
-1&lt;=n és n&lt;=100 és ∀i∈[1..n]:(1&lt;=ar[i] és ar[i]&lt;=2000000 és 1&lt;=tav[i] és tav[i]&lt;=20000)
+1&lt;=n és n&lt;=100 és 1&lt;=k és k&lt;=10 és ∀i∈[1..n]:(1&lt;=fajta[i] és fajta[i]&lt;=k és 1&lt;=db[i] és db[i]&lt;=50 és 1&lt;=ar[i] és ar[i]&lt;=9000)
 
 Uf:
-(,legtav)=MAX(i=1..n, tav[i]) és
-(db,arak)=MIS(i=1..n, tav[i]=legtav, ar[i]) és
-(,max)=MIN(i=1..db, arak[i])
+∃t∈[1..k]:(legjobb=t és ∀u∈[1..k]:(bev(u)&lt;=bev(t)) és ∀u∈[1..t-1]:(bev(u)&lt;bev(t)))
 </code></pre>
-<pre><code class="language-yaml">n: 6
-ar: [30000, 200000, 150000, 38000, 150000, 30000]
-tav: [50, 1900, 2000, 900, 600, 2100]
-legtav: 2100
-db: 1
-arak: [30000]
-max: 30000
+<pre><code class="language-yaml">n: 5
+k: 3
+fajta: [1, 2, 1, 3, 2]
+db: [2, 3, 1, 4, 1]
+ar: [3000, 2500, 3000, 1000, 2500]
+legjobb: 2
 </code></pre>
-<pre><code class="language-yaml">n: 3
-ar: [500, 250, 100]
-tav: [1000, 1000, 500]
-legtav: 1000
-db: 2
-arak: [500, 250]
-max: 250
+<pre><code class="language-yaml">n: 2
+k: 2
+fajta: [1, 2]
+db: [2, 1]
+ar: [1000, 2000]
+legjobb: 1
 </code></pre>
-<p>A kimeneti változó neve <code>max</code>, és ez rendben van: a <code>MAX</code> tétel nagybetűs, így a
-kettő nem ütközik.</p>
+<p>Az utolsó <code>∀</code> nélkül a döntetlen mindkét fajtája elfogadható lenne. Mindig
+legyen olyan teszt, amelyben számít a döntetlen feloldása.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="osztók"><a class="header" href="#osztók">Osztók</a></h1>
-<p>Három rövid magyar tárgyi feladat egy szám osztóiról. A <code>DARAB</code> megszámoló
-makrót, a <code>|</code> oszthatósági relációt és a szűrt <code>SUM</code>-ot mutatják be.</p>
-<h2 id="az-osztók-száma"><a class="header" href="#az-osztók-száma">Az osztók száma</a></h2>
+<h1 id="az-etetési-naptár"><a class="header" href="#az-etetési-naptár">Az etetési naptár</a></h1>
+<p>Három rövid feladat Borbála őszi naptáráról. Az 1. naptól kezdve a családokat
+minden a-adik napon eteti, és minden b-edik napon ellenőrzi. A feladatok a <code>DARAB</code>
+megszámolást, az oszthatósági relációt (<code>|</code>) és a szűrt <code>SUM</code>-ot mutatják be.</p>
+<h2 id="sűrű-napok"><a class="header" href="#sűrű-napok">Sűrű napok</a></h2>
 <blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki az osztóinak a számát!</em></p>
+<p><em>Az első d nap közül hányon eteti és ellenőrzi is a családokat?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: szam∈N
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: osztok∈N
+Ki: db∈N
 
-Ef: szam&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: osztok=DARAB(i=1..szam, i|szam)    // szam mod i = 0
+Uf: db=DARAB(i=1..d, a|i és b|i)    // i mindkettő többszöröse
 </code></pre>
-<pre><code class="language-yaml">szam: 12
-osztok: 6
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+db: 2
 </code></pre>
-<pre><code class="language-yaml">szam: 1
-osztok: 1
+<pre><code class="language-yaml">d: 10
+a: 4
+b: 7
+db: 0
 </code></pre>
-<pre><code class="language-yaml">szam: 13
-osztok: 2
+<pre><code class="language-yaml">d: 7
+a: 1
+b: 7
+db: 1
 </code></pre>
 <ul>
 <li>A <code>DARAB</code> a <code>COUNT</code> magyar alakja.</li>
-<li>Az <code>i|szam</code> jelentése „i osztója szam-nak”, ami ugyanaz, mint a
-<code>szam mod i = 0</code>. A sorvégi megjegyzés ki is mondja.</li>
-<li>Az előfeltétel kizárja a 0-t, amelynek végtelen sok osztója lenne.</li>
+<li>Az <code>a|i</code> jelentése „a osztója i-nek”, ugyanaz, mint az <code>i mod a = 0</code>.</li>
+<li>Az előfeltétel kizárja a 0-t: „minden 0. napon” nem lehet semmit csinálni.</li>
 </ul>
-<h2 id="az-osztók-összege"><a class="header" href="#az-osztók-összege">Az osztók összege</a></h2>
+<h2 id="szirup-az-egész-őszre"><a class="header" href="#szirup-az-egész-őszre">Szirup az egész őszre</a></h2>
 <blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki az osztóinak az összegét!</em></p>
+<p><em>Az i. napon egy család i deciliter szirupot kap, mert a hideg közeledtével egyre
+többre van szüksége. Mennyi szirupot kap egy család az első d napon?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N
+<pre><code class="language-speci">Be: d∈N, a∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1
 
-Uf: sum=SUM(i=1..n, i, i|n)
+Uf: szirup=SUM(i=1..d, i, a|i)
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 28
+<pre><code class="language-yaml">d: 12
+a: 3
+szirup: 30
 </code></pre>
-<pre><code class="language-yaml">n: 1
-sum: 1
+<pre><code class="language-yaml">d: 2
+a: 3
+szirup: 0
 </code></pre>
-<p>A <code>SUM</code> harmadik argumentuma a szűrő: csak az osztókat adja össze.</p>
-<h2 id="a-páratlan-osztók-összege"><a class="header" href="#a-páratlan-osztók-összege">A páratlan osztók összege</a></h2>
+<p>A <code>SUM</code> harmadik argumentuma a szűrő: csak az etetési napok adódnak össze.</p>
+<h2 id="ellenőrzéskor-nincs-etetés"><a class="header" href="#ellenőrzéskor-nincs-etetés">Ellenőrzéskor nincs etetés</a></h2>
 <blockquote>
-<p><em>Kérj be egy egész számot, majd írd ki a páratlan osztóinak az összegét!</em></p>
+<p><em>A kaptár kinyitása megzavarja a méheket, ezért ellenőrzési napokon elmarad az
+etetés. Mennyi szirupot kap így egy család?</em></p>
 </blockquote>
-<p>Egy, a tárgyban terjedő megoldás:</p>
-<pre><code class="language-speci">Be: n∈N
+<p>Egy csábító megoldás, rossz művelettel:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: sum = SUM(i=1..n,i,i%2=1)
+Uf: szirup=SUM(i=1..d, i, a|i vagy nem (b|i))
 </code></pre>
-<pre><code class="language-yaml red">n: 10
-sum: 6
+<pre><code class="language-yaml red">d: 12
+a: 2
+b: 3
+szirup: 24
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>Ez nem oldja meg a feladatot. Az <code>i%2=1</code> szűrő n-ig <em>minden páratlan számot</em>
-megtart. n = 10-re 1+3+5+7+9 = 25-öt ad, nem a páratlan osztók 1+5 = 6
-összegét. A helyes választ tartalmazó teszt piros, és ez leleplezi a hibát.</p>
+<p>Ez nem oldja meg a feladatot. A <code>vagy</code> minden olyan napot is megtart, amely
+egyszerűen nem ellenőrzési nap, akkor is, ha nincs is etetés. d = 12-re
+1+2+4+5+6+7+8+10+11+12 = 66-ot ad össze, nem a kívánt 2+4+8+10 = 24-et. A helyes
+választ tartalmazó teszt piros, és ez leleplezi a hibát.</p>
 </blockquote>
-<p>A helyes szűrőben mindkét feltétel szerepel:</p>
-<pre><code class="language-speci">Be: n∈N
+<p>A helyes szűrőben a két feltételnek egyszerre kell teljesülnie:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
 
-Ki: sum∈N
+Ki: szirup∈N
 
-Ef: n&gt;=1
+Ef: a&gt;=1 és b&gt;=1
 
-Uf: sum=SUM(i=1..n, i, i%2=1 és i|n)
+Uf: szirup=SUM(i=1..d, i, a|i és nem (b|i))
 </code></pre>
-<pre><code class="language-yaml">n: 10
-sum: 6
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+szirup: 24
 </code></pre>
-<pre><code class="language-yaml">n: 12
-sum: 4
+<pre><code class="language-yaml">d: 6
+a: 3
+b: 3
+szirup: 0
 </code></pre>
-<p>A <code>%</code> és a <code>mod</code> felcserélhető.</p>
+<p>A második teszt jó határeset: minden etetési nap egyben ellenőrzési nap is.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="kártyaértékek"><a class="header" href="#kártyaértékek">Kártyaértékek</a></h1>
+<h1 id="a-virágzási-naptár"><a class="header" href="#a-virágzási-naptár">A virágzási naptár</a></h1>
 <blockquote>
-<p><em>Írj programot, amely megmondja, mennyit ér egy magyar kártya a huszonegyes
-játékban!</em> A lapok: <code>also, felso, kiraly, VII, VIII, IX, X, asz</code>, az értékük
-<code>2, 3, 4, 7, 8, 9, 10, 11</code>.</p>
+<p><em>Írj programot, amely megmondja Borbálának, melyik hónapban kezd virágozni egy
+mézelő növény! A növények: <code>repce</code>, <code>akac</code>, <code>hars</code>, <code>napraforgo</code> és <code>aranyvessző</code>,
+a kezdő hónapjuk sorban 4, 5, 6, 7 és 8.</em></p>
 </blockquote>
 <h2 id="elemzés-6"><a class="header" href="#elemzés-6">Elemzés</a></h2>
 <ul>
-<li>A lapnevek és az értékeik <strong>rögzített adatok</strong>: a feladat részei, nem a
-bemenetéi. Ezekből az értékeikkel együtt deklarált <strong>konstans tömbök</strong> lesznek.</li>
-<li>A valódi bemenet egyetlen lapnév, a <code>lap</code>.</li>
+<li>A növénynevek és a hónapjaik rögzített adatok, a feladat részei, nem a
+bemeneté. <strong>Konstans tömbök</strong> lesznek, kezdőértékkel deklarálva.</li>
+<li>Az igazi bemenet egyetlen növénynév, a <code>virag</code>.</li>
 <li>A válasz „az érték azon a helyen, ahol a név egyezik”. Egy <code>∃</code>-es relációs
-utófeltétel egyszerre megtalálja a helyet és megköti az értéket.</li>
+utófeltétel egyszerre találja meg a helyet és köti meg az értéket.</li>
 </ul>
 <h2 id="specifikáció-5"><a class="header" href="#specifikáció-5">Specifikáció</a></h2>
 <pre><code class="language-speci">Be:
 
-lapok∈S[1..8]=["also","felso","kiraly","VII","VIII","IX","X","asz"],
+nevek∈S[1..5]=["repce","akac","hars","napraforgo","aranyvessző"],
 
-ertekek∈N[1..8]=[2,3,4,7,8,9,10,11], lap∈S
+honapok∈N[1..5]=[4,5,6,7,8], virag∈S
 
 Ki:
 
-ertek∈N
+honap∈N
 
 Ef:
 
-lap!="" and ∃i∈[1..8]:(lapok[i]=lap)
+virag!="" és ∃i∈[1..5]:(nevek[i]=virag)
 
 Uf:
 
-∃i∈[1..8]:(lapok[i]=lap and ertek=ertekek[i])
+∃i∈[1..5]:(nevek[i]=virag és honap=honapok[i])
 </code></pre>
 <ul>
-<li>A <code>Be:</code> blokkon belül is lehetnek <strong>üres sorok</strong>.</li>
-<li>Az előfeltétel garantálja, hogy a lap létezik, így az utófeltétel <code>∃</code>-e
+<li>A <code>Be:</code> blokkon belül lehetnek üres sorok.</li>
+<li>Az előfeltétel garantálja, hogy a növény létezik, így az utófeltétel <code>∃</code>-e
 mindig teljesíthető.</li>
-<li>Nem kell sem <code>Sa:</code>, sem <code>Fv:</code>: a hozzárendelés adat, nem logika.</li>
+<li>Nem kell <code>Sa:</code> és <code>Fv:</code> sem: a megfeleltetés adat, nem logika.</li>
 </ul>
 <h2 id="tesztek-6"><a class="header" href="#tesztek-6">Tesztek</a></h2>
-<p>A konstans tömbök a deklarációból kapják az értéküket, ezért a tesztadat csak
-a <code>lap</code>-ot és az <code>ertek</code>-et adja meg:</p>
-<pre><code class="language-yaml">lap: "asz"
-ertek: 11
+<p>A konstans tömbök a deklarációból kapják az értéküket, ezért a tesztadat csak a
+<code>virag</code>-ot és a <code>honap</code>-ot adja meg:</p>
+<pre><code class="language-yaml">virag: "hars"
+honap: 6
 </code></pre>
-<pre><code class="language-yaml">lap: "also"
-ertek: 2
+<pre><code class="language-yaml">virag: "repce"
+honap: 4
 </code></pre>
-<p>Nem létező lap megsérti az előfeltételt:</p>
-<pre><code class="language-yaml red">lap: "joker"
-ertek: 0
+<p>A rossz hónapot észreveszi:</p>
+<pre><code class="language-yaml red">virag: "akac"
+honap: 6
+</code></pre>
+<p>A táblázatban nem szereplő növény megsérti az előfeltételt:</p>
+<pre><code class="language-yaml red">virag: "tulipan"
+honap: 0
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> által generált sablon
-a konstans tömböket is felsorolhatja. Töröld azt a két sort: az a teszt, amely
-megismétli őket, piros lesz („data cannot contain item with the same name:
-lapok”).</p>
+<p>A <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Tab</kbd> által készített sablon a
+konstans tömböket is felsorolhatja. Azt a két sort töröld: az őket megismétlő
+teszt piros lesz, ezzel az üzenettel: „data cannot contain item with the same
+name: nevek”.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="karácsonyfák"><a class="header" href="#karácsonyfák">Karácsonyfák</a></h1>
+<h1 id="a-túlfolyó-tartály"><a class="header" href="#a-túlfolyó-tartály">A túlfolyó tartály</a></h1>
 <blockquote>
-<p><em>Egy karácsonyi vásáron N fenyőfát árulnak. Írj programot, amely megad egy K
-forintnál olcsóbb fát!</em></p>
-<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100) és K (1 ≤ K ≤ 10 000), majd az N ár
-(1 ≤ Ár ≤ 10 000).
-<strong>Kimenet:</strong> egy K-nál olcsóbb fa sorszáma; <strong>−1</strong>, ha nincs ilyen; több ilyen
-esetén a <strong>legkisebb</strong> sorszám.</p>
+<p><em>Borbála N vödör mézet önt egymás után egy ülepítőtartályba. A tartályba K liter
+fér. Melyik vödör az első, amelytől túlfolyik?</em></p>
+<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100) és K (1 ≤ K ≤ 10 000), aztán az N vödör mérete
+(1 ≤ V ≤ 500).
+<strong>Kimenet:</strong> az első olyan vödör sorszáma, amely után K liternél több van a
+tartályban; −1, ha ez sosem történik meg.</p>
+<p><strong>Minta:</strong> N = 5, K = 40, vödrök: 10, 15, 10, 8, 20 → 4.</p>
 </blockquote>
-<p>Példa: N = 6, K = 2000, az árak 2500, 5300, 1900, 2400, 8800, 5300 → <strong>3</strong>.</p>
 <h2 id="elemzés-7"><a class="header" href="#elemzés-7">Elemzés</a></h2>
 <ul>
-<li>A kérdés <em>az első adott tulajdonságú index, amely lehet, hogy nem létezik</em>,
-tehát <strong>keresés</strong>.</li>
-<li>A kimenet viszont nem egy van/nincs jelző, hanem egy index <strong>vagy −1</strong>. Ezért:
+<li>A kérdés az <em>első adott tulajdonságú index</em>, amely lehet, hogy nem létezik,
+tehát keresés.</li>
+<li>A tulajdonság nem egy elemről szól, hanem az eddigi összes vödörről, ezért a
+feltételben egy <code>SUM</code> van az <code>1..i</code> <strong>kezdőszeleten</strong>.</li>
+<li>A kimenet nem van/nincs jelző, hanem egy index vagy −1. Ezért:
 <ul>
-<li>a kimenet <code>Z</code> legyen (a −1 nincs <code>N</code>-ben),</li>
+<li>a kimenet <code>Z</code> kell legyen (a −1 nincs az <code>N</code>-ben),</li>
 <li>a −1-et magának az utófeltételnek kell előállítania.</li>
 </ul>
 </li>
 </ul>
-<p>Mindkét alábbi megoldást az élő szerkesztőben ellenőriztük.</p>
 <h2 id="1-megoldás-relációs"><a class="header" href="#1-megoldás-relációs">1. megoldás: relációs</a></h2>
 <pre><code class="language-speci">Be:
 
-n∈N, k∈N, ar∈N[1..n]
+n∈N, k∈N, v∈N[1..n]
 
 Ki:
 
@@ -4278,64 +4268,63 @@ sorszam∈Z
 
 Ef:
 
-1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=10000)
+1&lt;=n&lt;=100 és 1&lt;=k&lt;=10000 és ∀i∈[1..n]:(1&lt;=v[i] és v[i]&lt;=500)
 
 Uf:
 
-(sorszam=-1 and ∀i∈[1..n]:(ar[i]&gt;=k)) or ∃i∈[1..n]:(sorszam=i and ar[i]&lt;k and ∀j∈[1..i-1]:(ar[j]&gt;=k))
+(sorszam=-1 és SUM(j=1..n, v[j])&lt;=k) vagy ∃i∈[1..n]:(sorszam=i és SUM(j=1..i, v[j])&gt;k és SUM(j=1..i-1, v[j])&lt;=k)
 </code></pre>
 <p>A <code>vagy</code> két oldala kizárja egymást:</p>
 <ul>
-<li><strong>bal:</strong> egyik fa sem elég olcsó, és a válasz −1,</li>
-<li><strong>jobb:</strong> az <em>i</em>. fa elég olcsó, egyik korábbi sem (<code>∀j∈[1..i-1]</code>), és a
-válasz <em>i</em>.</li>
+<li>bal: az összes vödör együtt is belefér, és a válasz −1,</li>
+<li>jobb: az <code>i</code>. vödörtől túlfolyik a tartály, közvetlenül előtte még nem folyt
+túl, és a válasz <code>i</code>.</li>
 </ul>
-<p>A kimenetet a tanún keresztül kötjük meg (<code>sorszam=i</code>), így a formula soha nem
-olvassa az <code>ar[-1]</code> elemet.</p>
-<pre><code class="language-yaml">n: 6
-k: 2000
-ar: [2500, 5300, 1900, 2400, 8800, 5300]
-sorszam: 3
+<p>Minden vödör legalább 1 literes, tehát az összeg csak nő. Ezért elég az <code>i</code> előtti
+egyetlen lépést ellenőrizni.</p>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 4
 </code></pre>
-<pre><code class="language-yaml">n: 3
+<p>A pontosan tele tartály nem folyik túl:</p>
+<pre><code class="language-yaml">n: 2
 k: 100
-ar: [2500, 5300, 1900]
+v: [50, 50]
 sorszam: -1
 </code></pre>
-<p>A <em>legkisebb</em> sorszám, nem a legolcsóbb fa: a 2. helyen álló 3000 megelőzi a 4.
-helyen álló 200-at.</p>
-<pre><code class="language-yaml">n: 4
-k: 5000
-ar: [6000, 3000, 1000, 200]
-sorszam: 2
+<p>Már a legelső vödörtől túlfolyik (az <code>1..0</code> kezdőszelet üres, az összege 0):</p>
+<pre><code class="language-yaml">n: 2
+k: 5
+v: [9, 1]
+sorszam: 1
 </code></pre>
-<p>A <code>k = 1</code> nem üthető, mert minden ár legalább 1:</p>
-<pre><code class="language-yaml">n: 4
-k: 1
-ar: [1, 1, 10000, 7]
-sorszam: -1
-</code></pre>
-<p>Egyetlen fa, amely megfelel:</p>
+<p>Egyetlen vödör, amely belefér:</p>
 <pre><code class="language-yaml">n: 1
 k: 3000
-ar: [2500]
-sorszam: 1
+v: [500]
+sorszam: -1
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>A <code>∀j∈[1..i-1]:(ar[j]&gt;=k)</code> nélkül <em>bármelyik</em> megfelelő indexet elfogadná. A
-példa akkor is átmenne, de a harmadik teszten a <code>sorszam: 4</code> is zöld lenne.
-Mindig legyen olyan teszt, ahol több elem is megfelel.</p>
+<p>A <code>SUM(j=1..i-1, v[j])&lt;=k</code> nélkül bármelyik túlfolyató vödör elfogadható lenne.
+A minta a helyes válasszal átmenne, de a <code>sorszam: 5</code> is zöld lenne rá. Mindig
+legyen olyan teszt, ahol több elem is illeszkedik, és próbálj ki rossz választ is:</p>
 </blockquote>
+<pre><code class="language-yaml red">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 5
+</code></pre>
 <h2 id="2-megoldás-search-csel-minden-magyar-blokkal"><a class="header" href="#2-megoldás-search-csel-minden-magyar-blokkal">2. megoldás: SEARCH-csel, minden magyar blokkal</a></h2>
-<p>Ez a változat mind a hat magyar blokkot egyszerre használja. Az <code>egyeb</code> extra
-bemenet és a <code>db</code> kimenet csak azért van benne, hogy minden lehetőség
-látszódjon:</p>
+<p>Ez a változat egyszerre használja mind a hat magyar blokkot. Azt is megmondja,
+hány vödör fér bele (<code>db</code>), és van egy szabad szöveges <code>megj</code> megjegyzése, amely
+csak az azonosság trükkjét mutatja be:</p>
 <pre><code class="language-speci">Be:
 n∈N,
 k∈N,
-ar∈N[1..n],
-egyeb∈N
+v∈N[1..n],
+megj∈S
 
 Sa:
 van∈L,
@@ -4346,196 +4335,170 @@ sorszam∈Z,
 db∈N
 
 Fv:
-kisebb:N-&gt;L,
-kisebb(i)=ar[i]&lt;k
+osszes:N-&gt;N,
+osszes(i)=SUM(j=1..i, v[j])
 
 Ef:
-1&lt;=n&lt;=100 and 1&lt;=k&lt;=10000 and egyeb&gt;=0 and ∀i∈[1..n]:(1&lt;=ar[i] and ar[i]&lt;=10000)
+1&lt;=n&lt;=100 és 1&lt;=k&lt;=10000 és ∀i∈[1..n]:(1&lt;=v[i] és v[i]&lt;=500)
 
 Uf:
-(van,ind)=SEARCH(i=1..n, kisebb(i)) and
-(van -&gt; sorszam=ind) and
-(not van -&gt; sorszam=-1) and
-db=DARAB(i=1..n, ar[i]&lt;k) and
-egyeb=egyeb
+(van,ind)=SEARCH(i=1..n, osszes(i)&gt;k) és
+(van -&gt; sorszam=ind) és
+(nem van -&gt; sorszam=-1) és
+db=DARAB(i=1..n, osszes(i)&lt;=k) és
+megj=megj
 </code></pre>
-<pre><code class="language-yaml">n: 6
-k: 2000
-ar: [2500, 5300, 1900, 2400, 8800, 1000]
-egyeb: 0
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+megj: "hars"
 van: true
+ind: 4
+sorszam: 4
+db: 3
+</code></pre>
+<pre><code class="language-yaml">n: 2
+k: 100
+v: [50, 50]
+megj: ""
+van: false
 ind: 3
-sorszam: 3
+sorszam: -1
 db: 2
 </code></pre>
-<pre><code class="language-yaml">n: 3
-k: 100
-ar: [2500, 5300, 1900]
-egyeb: 5
-van: false
-ind: 4
-sorszam: -1
-db: 0
-</code></pre>
-<p>Mit mutat meg ez az egy zöld futás?</p>
+<p>Amit ez az egy zöld futás megmutat:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Elem</th><th>Mit mutat</th></tr>
+<tr><th>Elem</th><th>Mit mutat?</th></tr>
 </thead>
 <tbody>
-<tr><td><code>Be:</code> <code>Sa:</code> <code>Ki:</code> <code>Fv:</code> <code>Ef:</code> <code>Uf:</code></td><td>mind a hat magyar fejlécet, a tartalommal a következő sorokban</td></tr>
-<tr><td><code>kisebb:N-&gt;L,</code>, a törzs a következő sorban</td><td>magyar függvényblokk, ASCII nyíl</td></tr>
-<tr><td><code>kisebb(i)</code> a <code>SEARCH</code> feltételeként</td><td>saját függvény hajt egy tételt</td></tr>
-<tr><td><code>van∈L</code></td><td>a jelző neve <code>van</code>, soha nem <code>exists</code></td></tr>
-<tr><td><code>-&gt;</code> és <code>not</code></td><td>implikáció és tagadás</td></tr>
-<tr><td><code>egyeb=egyeb</code></td><td>az azonosság, amely teljesíti a <a href="#a-minden-változó-szabály">minden-változó szabályt</a></td></tr>
+<tr><td><code>Be:</code> <code>Sa:</code> <code>Ki:</code> <code>Fv:</code> <code>Ef:</code> <code>Uf:</code></td><td>mind a hat magyar fejléc, a tartalom a következő sorokban</td></tr>
+<tr><td><code>osszes:N-&gt;N,</code>, a törzs a következő sorban</td><td>magyar függvényblokk, ASCII nyíl</td></tr>
+<tr><td><code>osszes(i)</code> a <code>SEARCH</code> feltételében</td><td>saját függvény egy tételben</td></tr>
+<tr><td><code>van∈L</code></td><td>a jelző neve <code>van</code>, sosem <code>exists</code></td></tr>
+<tr><td><code>-&gt;</code> és <code>nem</code></td><td>implikáció és tagadás</td></tr>
+<tr><td><code>megj=megj</code></td><td>az azonosság, amely teljesíti a <a href="#a-minden-változó-szabály">minden-változó szabályt</a></td></tr>
 </tbody>
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="további-rövid-példák"><a class="header" href="#további-rövid-példák">További rövid példák</a></h1>
-<h2 id="különböző-értékek"><a class="header" href="#különböző-értékek">Különböző értékek</a></h2>
+<h2 id="új-súlyrekordok"><a class="header" href="#új-súlyrekordok">Új súlyrekordok</a></h2>
 <blockquote>
-<p><em>Adott versenyeredmények listája (név és idő). Hány különböző célidőt
-jegyeztek fel?</em></p>
+<p><em>A listán a kaptár esti súlyai vannak. Hány este volt a kaptár nehezebb, mint az
+összes korábbi estén?</em></p>
 </blockquote>
-<p>Egy idő akkor „új”, ha korábban nem fordult elő a listában. Számoljuk meg az
-újakat: <code>DARAB</code>, beágyazott, <strong>visszafelé</strong> néző <code>FORALL</code>-lal.</p>
-<pre><code class="language-speci">Be: n∈N, v∈Verseny[1..n], Verseny=(nev:S x ido:N)
-Ki: db∈N
-Fv: uj:N-&gt;L, uj(i)=FORALL(j=1..i-1, v[i].ido≠v[j].ido)
+<p>Egy este akkor rekord, ha minden korábbi könnyebb volt. Ezeket számoljuk meg:
+<code>DARAB</code> beágyazott, visszafelé néző <code>FORALL</code>-lal.</p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
+Ki: c∈N
+Fv: rek:N-&gt;L, rek(i)=FORALL(j=1..i-1, kg[j]&lt;kg[i])
 Ef: -
-Uf: db=DARAB(i=1..n, uj(i))
+Uf: c=DARAB(i=1..n, rek(i))
 </code></pre>
-<pre><code class="language-yaml">n: 4
-v:
-  - nev: AS
-    ido: 37
-  - nev: BE
-    ido: 31
-  - nev: FG
-    ido: 30
-  - nev: PS
-    ido: 37
-db: 3
+<pre><code class="language-yaml">n: 5
+kg: [30, 28, 33, 33, 40]
+c: 3
 </code></pre>
-<pre><code class="language-yaml">n: 2
-v: [{nev: AS, ido: 37}, {nev: BE, ido: 31}]
-db: 2
+<pre><code class="language-yaml">n: 3
+kg: [50, 50, 50]
+c: 1
 </code></pre>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">idő</th><th>korábbi idők</th><th style="text-align: center">új?</th></tr>
+<tr><th style="text-align: center">i</th><th style="text-align: center">kg</th><th style="text-align: center">korábbi értékek</th><th style="text-align: center">rekord?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">37</td><td>(nincs: az 1..0 tartomány üres, így a <code>FORALL</code> igaz)</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">31</td><td>37</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">30</td><td>37, 31</td><td style="text-align: center">igen</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">37</td><td>37, 31, 30</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">30</td><td style="text-align: center">(nincs: az <code>1..0</code> tartomány üres, így a <code>FORALL</code> igaz)</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">28</td><td style="text-align: center">30</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">33</td><td style="text-align: center">30, 28</td><td style="text-align: center">igen</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">33</td><td style="text-align: center">30, 28, 33</td><td style="text-align: center">nem</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">40</td><td style="text-align: center">30, 28, 33, 33</td><td style="text-align: center">igen</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="hosszú-futások"><a class="header" href="#hosszú-futások">Hosszú futások</a></h2>
+<h2 id="nehéz-kaptárak"><a class="header" href="#nehéz-kaptárak">Nehéz kaptárak</a></h2>
 <blockquote>
-<p><em>Egy futónaplóból (idő, helyszín) sorold fel a 30 percnél hosszabb futások
-helyszíneit.</em></p>
+<p><em>A kaptárak listájából (súly, név) sorold fel a 30 kg-nál nehezebbek nevét.</em></p>
 </blockquote>
-<p>Háromargumentumos <code>MIS</code>, egy mezőt gyűjtve. A megjegyzés az általános alakot a
-feladatra illeszti:</p>
-<pre><code class="language-speci">Be: Futas=(ido:N x hely:S), n∈N, f∈Futas[1..n]
-Ki: db∈N, helyek∈S[1..db]
+<p>Háromargumentumos <code>MIS</code>, amely egy mezőt gyűjt össze. A megjegyzés az általános
+alakot illeszti a feladatra:</p>
+<pre><code class="language-speci">Be: Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]
+Ki: c∈N, nevek∈S[1..c]
 Ef: -
-Uf: (db,helyek)=MIS(i=1..n, f[i].ido&gt;30, f[i].hely)
-/* (db,y)=MIS(i=e..u, T(i), g(i))
-   db, y  ~ db, helyek
+Uf: (c,nevek)=MIS(i=1..n, kaptarak[i].kg&gt;30, kaptarak[i].nev)
+/* (c,y)=MIS(i=e..u, T(i), f(i))
+   c, y   ~ c, nevek
    e..u   ~ 1..n
-   T(i)   ~ f[i].ido&gt;30
-   g(i)   ~ f[i].hely
+   T(i)   ~ kaptarak[i].kg&gt;30
+   f(i)   ~ kaptarak[i].nev
 */
 </code></pre>
 <pre><code class="language-yaml">n: 4
-f:
-  - ido: 15
-    hely: iroda
-  - ido: 35
-    hely: étterem
-  - ido: 40
-    hely: edzőterem
-  - ido: 5
-    hely: bolt
-db: 2
-helyek: [étterem, edzőterem]
+kaptarak:
+  - kg: 22
+    nev: Akac
+  - kg: 35
+    nev: Bodza
+  - kg: 41
+    nev: Repce
+  - kg: 30
+    nev: Hars
+c: 2
+nevek: [Bodza, Repce]
 </code></pre>
-<h2 id="órák-amelyekről-mindenki-késett"><a class="header" href="#órák-amelyekről-mindenki-késett">Órák, amelyekről mindenki késett</a></h2>
+<h2 id="minden-héten-gyarapodó-kaptárak"><a class="header" href="#minden-héten-gyarapodó-kaptárak">Minden héten gyarapodó kaptárak</a></h2>
 <blockquote>
-<p><em>Egy mátrix rögzíti, hogy n hallgató közül ki hány percet késett m óra
-mindegyikéről. Sorold fel azokat az órákat, amelyekről minden hallgató k
-percnél többet késett.</em></p>
+<p><em>Egy mátrix az n kaptár súlyát tartalmazza az m hét mindegyikén. Sorold fel azokat
+a kaptárakat, amelyek minden egyes héten nehezebbek lettek.</em></p>
 </blockquote>
-<p>Ez <strong>oszlopokat</strong> jár be. A külső <code>MIS</code> az órákon (<code>j</code>) fut, a belső <code>FORALL</code> a
-hallgatókon (<code>i</code>):</p>
-<pre><code class="language-speci">Be: n∈N, m∈N, k∈N, kesesek∈N[1..n,1..m]
-Ki: db∈N, orak∈N[1..db]
-Fv: kes:N-&gt;L, kes(j)=FORALL(i=1..n, kesesek[i,j]&gt;k)
+<p>A külső <code>MIS</code> a kaptárakon fut, a belső <code>FORALL</code> pedig szomszédos oszlopokat
+hasonlít össze, ezért a 2. héttől indul:</p>
+<pre><code class="language-speci">Be: n∈N, m∈N, y∈N[1..n,1..m]
+Ki: c∈N, kaptarak∈N[1..c]
+Fv: nott:N-&gt;L, nott(h)=FORALL(w=2..m, y[h,w]&gt;y[h,w-1])
 Ef: -
-Uf: (db,orak)=MIS(j=1..m, kes(j))
+Uf: (c,kaptarak)=MIS(h=1..n, nott(h))
 </code></pre>
 <pre><code class="language-yaml">n: 3
-m: 4
-k: 5
-kesesek: [
-  [6, 8, 2, 7],
-  [7, 9, 4, 8],
-  [6, 6, 1, 9]
+m: 3
+y: [
+  [1, 2, 3],
+  [3, 3, 4],
+  [2, 5, 9]
 ]
-db: 3
-orak: [1, 2, 4]
+c: 2
+kaptarak: [1, 3]
 </code></pre>
-<h2 id="a-leglátogatottabb-hely"><a class="header" href="#a-leglátogatottabb-hely">A leglátogatottabb hely</a></h2>
-<blockquote>
-<p><em>n látogatást jegyeztek fel, mindegyik az 1..k helyek egyikére történt.
-Melyik helyet látogatták a legtöbbször?</em></p>
-</blockquote>
-<pre><code class="language-speci">Be: n∈N, k∈N, hely∈N[1..n]
-Ki: legjobb∈N
-Fv: latog:N-&gt;N, latog(p)=DARAB(j=1..n, hely[j]=p)
-Ef: k≥1 és ∀i∈[1..n]:(1≤hely[i]≤k)
-Uf: (legjobb,)=MAX(p=1..k, latog(p))
-</code></pre>
-<pre><code class="language-yaml">n: 7
-k: 4
-hely: [4, 1, 4, 2, 1, 4, 3]
-legjobb: 4
-</code></pre>
-<h2 id="az-utolsó-páratlan-elem"><a class="header" href="#az-utolsó-páratlan-elem">Az utolsó páratlan elem</a></h2>
-<p>Visszafelé keresés:</p>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
+<h2 id="az-utolsó-kezelt-kaptár"><a class="header" href="#az-utolsó-kezelt-kaptár">Az utolsó kezelt kaptár</a></h2>
+<p>Visszafelé keresés egy logikai tömbben:</p>
+<pre><code class="language-speci">Be: n∈N, kezelt∈L[1..n]
 Sa: van∈L
 Ki: ind∈N
 Ef: -
-Uf: (van,-ind)=SEARCH(i=-n..-1, szamok[-i] mod 2 = 1)
+Uf: (van,-ind)=SEARCH(i=-n..-1, kezelt[-i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-szamok: [3, 4, 7, 8, 10]
+kezelt: [true, false, true, false, false]
 van: true
 ind: 3
 </code></pre>
-<h2 id="rendezett-e-a-tömb"><a class="header" href="#rendezett-e-a-tömb">Rendezett-e a tömb?</a></h2>
+<h2 id="csökkent-e-valaha-a-súly"><a class="header" href="#csökkent-e-valaha-a-súly">Csökkent-e valaha a súly?</a></h2>
 <p>Relációs utófeltétel. Elég a szomszédokat összehasonlítani:</p>
-<pre><code class="language-speci">Be: n∈N, x∈Z[1..n]
-Ki: rendezett∈L
+<pre><code class="language-speci">Be: n∈N, kg∈Z[1..n]
+Ki: stabil∈L
 Ef: -
-Uf: rendezett=∀i∈[1..n-1]:(x[i]≤x[i+1])
+Uf: stabil=∀i∈[1..n-1]:(kg[i]≤kg[i+1])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-x: [-2, 0, 0, 3, 9]
-rendezett: true
+kg: [12, 12, 15, 19, 40]
+stabil: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-x: [1, 5, 4]
-rendezett: false
+kg: [12, 18, 17]
+stabil: false
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="speci-local-az-offline-szerkesztő"><a class="header" href="#speci-local-az-offline-szerkesztő">speci-local: az offline szerkesztő</a></h1>
@@ -4554,7 +4517,7 @@ határidő előtti éjszakán, amikor lassú a szerver.</li>
 <li><strong>Részletesebbek a hibaüzenetei.</strong> Minden üzenet megmutatja a sort, egy
 kalapjelet a hiba alatt, egy magyarázatot és egy konkrét javítást. Ha egy
 utófeltétel hamis, megmondja, <em>melyik része</em> bukott meg, és mit számol ki a
-specifikáció, például: „<code>cnt</code>: the test case says 2, the specification gives 3”.</li>
+specifikáció, például: „<code>light</code>: the test case says 3, the specification gives 2”.</li>
 <li><strong>Ugyanazokat a szabályokat ellenőrzi, mint az ELTE-s szerkesztő</strong>: a
 minden-változó szabályt, a foglalt neveket (pl. <code>exists</code>), a blokkok
 sorrendjét és a fejlécek írásmódját. Ami itt zöld, annak ott is zöldnek kell
@@ -4710,25 +4673,25 @@ link a megosztás módja, lásd <a href="#mentés-és-megosztás">Mentés és me
 húzhatod. Megnyitás után azonnal kiértékelődik.</p>
 <p>A <code>.sp</code> fájl sima szöveg: a cím megjegyzésként, a specifikáció, és minden
 teszteset blokkmegjegyzésként:</p>
-<pre><code class="language-speci">// title: Páratlan számok
+<pre><code class="language-speci">// title: Könnyű üvegek
 Be:
 n∈N,
-szamok∈N[1..n]
+uvegek∈N[1..n]
 Ki:
-db∈N
+konnyu∈N
 Ef: -
-Uf: db=DARAB(i=1..n, szamok[i] mod 2 = 1)
+Uf: konnyu=DARAB(i=1..n, uvegek[i]&lt;450)
 
 /*--- test ---
 n: 5
-szamok: [3, 72, 81, 4, 5]
-db: 3
+uvegek: [452, 438, 450, 447, 461]
+konnyu: 2
 ---*/
 
 /*--- test ---
 n: 0
-szamok: []
-db: 0
+uvegek: []
+konnyu: 0
 ---*/
 </code></pre>
 <p>A <code>.sp</code> fájl és a <code>SPECI1:</code> sor a speci-local saját formátuma: <strong>csak a
@@ -5041,8 +5004,8 @@ Egyébként <code>SEARCH</code>. Lásd <a href="#kiválasztás-select">Kiválasz
 meg egy harmadik argumentumot: <code>MIS(i=1..n, β(i), x[i])</code>. Lásd <a href="#kiválogatás-mis">MIS</a>.</p>
 <h3 id="be-vagy-in"><a class="header" href="#be-vagy-in"><code>Be:</code> vagy <code>In:</code>?</a></h3>
 <p>Mindkettő érvényes, és pontosan ugyanazt jelentik. Egy fájlban egy nyelvet
-használj következetesen. A magyar tárgyi feladatokat általában <code>Be:</code>, <code>Ki:</code>,
-<code>Ef:</code>, <code>Uf:</code> alakkal oldjuk meg.</p>
+használj következetesen. A magyar nyelvű feladatoknál általában a <code>Be:</code>, <code>Ki:</code>,
+<code>Ef:</code>, <code>Uf:</code> alak a szokásos.</p>
 <h3 id="kell-szóköz-a-kettőspont-után"><a class="header" href="#kell-szóköz-a-kettőspont-után">Kell szóköz a kettőspont után?</a></h3>
 <p>Ha a tartalom ugyanabban a sorban van, igen: <code>Be: n∈N</code>. Ha a fejléc külön
 sorban áll, a tartalom egyszerűen a következő sorban kezdődik.</p>

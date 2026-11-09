@@ -180,7 +180,7 @@
                         <h1 id="saját-halmaznevek"><a class="header" href="#saját-halmaznevek">Saját halmaznevek</a></h1>
 <p>Bármelyik halmaznak nevet adhatunk <code>Nev=Halmaz</code> alakban. A név <strong>nagybetűvel</strong>
 kezdődik, és a definíció a változók mellé, egy deklarációs blokkba kerül:</p>
-<pre><code class="language-speci">Be: j∈Jegy, Jegy=[1..5]
+<pre><code class="language-speci">Be: j∈Pont, Pont=[1..5]
 Ki: jo∈L
 Ef: -
 Uf: jo=(j≥2)
@@ -191,18 +191,18 @@ jo: true
 <p>A definícióhoz <code>=</code>-t használj, ne <code>:=</code>-t.</p>
 <h2 id="miért-adjunk-nevet"><a class="header" href="#miért-adjunk-nevet">Miért adjunk nevet?</a></h2>
 <p>A nevek olvashatóvá teszik a bonyolult adatokat. Hasonlítsd össze ezt:</p>
-<pre><code class="language-speci fragment">h1∈(nev:S x jegy:N)[1..]
+<pre><code class="language-speci fragment">h1∈(nev:S x pont:N)[1..]
 </code></pre>
 <p>ezzel:</p>
-<pre><code class="language-speci fragment">h2∈Hallgato[1..], Hallgato=(nev:S x jegy:N)
+<pre><code class="language-speci fragment">h2∈Kaptar[1..], Kaptar=(nev:S x pont:N)
 </code></pre>
 <p>A második elmondja, <em>mi</em> az adat. Az elnevezett halmazt több helyen is
 használhatod: más deklarációkban, függvényszignatúrákban
-(<code>jegy:Hallgato-&gt;N</code>), és más elnevezett halmazok belsejében.</p>
+(<code>pont:Kaptar-&gt;N</code>), és más elnevezett halmazok belsejében.</p>
 <h2 id="láncok-és-beágyazás"><a class="header" href="#láncok-és-beágyazás">Láncok és beágyazás</a></h2>
 <p>A nevek más nevekre is hivatkozhatnak, így akár hosszú átnevezési láncok is
 készülhetnek:</p>
-<pre><code class="language-speci">Be: j2∈Erdemjegy, Erdemjegy=EgytolOtig, EgytolOtig=[1..5]
+<pre><code class="language-speci">Be: j2∈Minosites, Minosites=EgytolOtig, EgytolOtig=[1..5]
 Ki: jo∈L
 Ef: -
 Uf: jo=(j2=j2)
@@ -211,22 +211,21 @@ Uf: jo=(j2=j2)
 jo: true
 </code></pre>
 <p>Egymásba is ágyazhatók, így mély szerkezetek is leírhatók. Ebben a példában
-minden hallgatónak jegylistája van:</p>
-<pre><code class="language-speci">Be: csop∈Csoport, Csoport=Hallgato[], Hallgato=(nev:S x jegyek:Jegy[]), Jegy=[1..5]
+minden kaptárnak pontlistája van:</p>
+<pre><code class="language-speci">Be: mehes∈Mehes, Mehes=Kaptar[], Kaptar=(nev:S x pontok:Pont[]), Pont=[1..5]
 Ki: c∈N
 Ef: -
-Uf: c=DARAB(i=1..length(csop), length(csop[i].jegyek)&gt;0)
+Uf: c=DARAB(i=1..length(mehes), length(mehes[i].pontok)&gt;0)
 </code></pre>
-<pre><code class="language-yaml">csop:
-  - nev: Anna
-    jegyek: [5, 4, 5]
-  - nev: Bence
-    jegyek: []
+<pre><code class="language-yaml">mehes:
+  - nev: Akac
+    pontok: [5, 4, 5]
+  - nev: Bodza
+    pontok: []
 c: 1
 </code></pre>
-<p>A definíció állhat az első használat előtt és után is. A beépített
-dokumentáció a <code>j∈Jegy, Jegy=[1..5]</code> alakot használja. Egyes tárgyi megoldások
-előre veszik a rekord definícióját: <code>In: Trun=(time:N x loc:S), n∈N, runs∈Trun[1..n]</code>.</p>
+<p>A definíció állhat az első használat előtt és után is: a <code>j∈Pont, Pont=[1..5]</code> és
+a <code>Tkaptar=(kg:N x nev:S), n∈N, kaptarak∈Tkaptar[1..n]</code> alak is jó.</p>
 <h2 id="hová-kerülnek-a-definíciók"><a class="header" href="#hová-kerülnek-a-definíciók">Hová kerülnek a definíciók?</a></h2>
 <p>A definíciók a deklarációs blokkokba (<code>Be:</code>, <code>Sa:</code>, <code>Ki:</code>) kerülnek, a
 változóktól vesszővel elválasztva. Szokás szerint abba a blokkba tesszük őket,

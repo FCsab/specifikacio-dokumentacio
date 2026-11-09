@@ -198,27 +198,27 @@ target: [3, 5, 0, 1]
 <p>The output array is declared with the same size as the input: <code>N[1..n]</code>.</p>
 <h2 id="example-converting-units"><a class="header" href="#example-converting-units">Example: converting units</a></h2>
 <blockquote>
-<p><em>We have n temperatures in Celsius. Give them in Fahrenheit.</em></p>
+<p><em>We have the weights of n jars in grams. Give them in kilograms.</em></p>
 </blockquote>
-<pre><code class="language-speci">In: n∈N, c∈R[1..n]
-Out: f∈R[1..n]
+<pre><code class="language-speci">In: n∈N, g∈R[1..n]
+Out: kg∈R[1..n]
 Pre: -
-Post: f=COPY(i=1..n, c[i]*9/5+32)
+Post: kg=COPY(i=1..n, g[i]/1000)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-c: [0, 100, -40]
-f: [32, 212, -40]
+g: [1500, 250, 0]
+kg: [1.5, 0.25, 0]
 </code></pre>
 <h2 id="extracting-a-field"><a class="header" href="#extracting-a-field">Extracting a field</a></h2>
 <p><code>COPY</code> can also pick one field out of an array of records:</p>
-<pre><code class="language-speci">In: n∈N, st∈Student[1..n], Student=(name:S x grade:N)
+<pre><code class="language-speci">In: n∈N, hv∈Hive[1..n], Hive=(name:S x rating:N)
 Out: names∈S[1..n]
 Pre: -
-Post: names=COPY(i=1..n, st[i].name)
+Post: names=COPY(i=1..n, hv[i].name)
 </code></pre>
 <pre><code class="language-yaml">n: 2
-st: [{name: Anna, grade: 5}, {name: Bence, grade: 3}]
-names: [Anna, Bence]
+hv: [{name: Akac, rating: 5}, {name: Bodza, rating: 3}]
+names: [Akac, Bodza]
 </code></pre>
 <h2 id="copy-versus-mis"><a class="header" href="#copy-versus-mis">COPY versus MIS</a></h2>
 <p><code>COPY</code> keeps <strong>every</strong> element. When only some elements should go into the

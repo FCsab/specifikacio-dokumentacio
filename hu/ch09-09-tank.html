@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Yossarian térképe - A Specifikációszerkesztő könyve</title>
+        <title>A túlfolyó tartály - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
@@ -177,110 +177,164 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="yossarian-térképe"><a class="header" href="#yossarian-térképe">Yossarian térképe</a></h1>
+                        <h1 id="a-túlfolyó-tartály"><a class="header" href="#a-túlfolyó-tartály">A túlfolyó tartály</a></h1>
 <blockquote>
-<p><em>Yossarian egy négyzethálós térképen (n × m) feljegyezte, hogy az egyes
-helyeken hányszor járt. Melyik helyen járt a legtöbbször? Add meg az első
-ilyen hely „koordinátáit”.</em></p>
+<p><em>Borbála N vödör mézet önt egymás után egy ülepítőtartályba. A tartályba K liter
+fér. Melyik vödör az első, amelytől túlfolyik?</em></p>
+<p><strong>Bemenet:</strong> N (1 ≤ N ≤ 100) és K (1 ≤ K ≤ 10 000), aztán az N vödör mérete
+(1 ≤ V ≤ 500).
+<strong>Kimenet:</strong> az első olyan vödör sorszáma, amely után K liternél több van a
+tartályban; −1, ha ez sosem történik meg.</p>
+<p><strong>Minta:</strong> N = 5, K = 40, vödrök: 10, 15, 10, 8, 20 → 4.</p>
 </blockquote>
-<p><strong>Feladattípus:</strong> maximumkiválasztás mátrixban.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=0ae47017-4755-40de-82b5-00ba484d7637">Hivatalos megoldás</a>.</p>
 <h2 id="elemzés"><a class="header" href="#elemzés">Elemzés</a></h2>
 <ul>
-<li><strong>Adatok.</strong> Egy n × m-es, természetes számokból álló mátrix:
-<code>terkep∈N[1..n,1..m]</code>.</li>
-<li><strong>Kérdés.</strong> A legnagyobb érték helye: ez <strong>maximum</strong>, de két indexre.</li>
-<li><strong>Felbontás.</strong> Először minden sor maximumát keressük meg (belső <code>MAX</code> az
-oszlopokon), aztán azt a sort, amelynek a legnagyobb a sormaximuma (külső
-<code>MAX</code> a sorokon). A belsőből egy (oszlop, érték) párt visszaadó függvény lesz.</li>
-<li><strong>„Az első ilyen hely”</strong>: a <code>MAX</code> eleve az első maximumot veszi, a sorban és
-az oszlopban is.</li>
-</ul>
-<h2 id="specifikáció"><a class="header" href="#specifikáció">Specifikáció</a></h2>
-<pre><code class="language-speci">Be: n∈N, m∈N, terkep∈N[1..n,1..m]
-Ki: sor∈N, oszlop∈N
-Fv: maxoszl:N-&gt;N x N, maxoszl(i)=MAX(j=1..m, terkep[i,j])
-Ef: n&gt;0 és m&gt;0
-Uf: (sor,)=MAX(i=1..n, maxoszl(i).maxval) és
-    oszlop=maxoszl(sor).maxind
-</code></pre>
+<li>A kérdés az <em>első adott tulajdonságú index</em>, amely lehet, hogy nem létezik,
+tehát keresés.</li>
+<li>A tulajdonság nem egy elemről szól, hanem az eddigi összes vödörről, ezért a
+feltételben egy <code>SUM</code> van az <code>1..i</code> <strong>kezdőszeleten</strong>.</li>
+<li>A kimenet nem van/nincs jelző, hanem egy index vagy −1. Ezért:
 <ul>
-<li>A <code>maxoszl(i)</code> az <em>i</em>. sorra a (maximum oszlopa, maximum) pár.</li>
-<li>A <code>maxoszl(i).maxval</code> az <em>i</em>. sor maximuma. A külső <code>MAX</code> csak a sor indexét
-tartja meg: <code>(sor,)</code>.</li>
-<li>A <code>maxoszl(sor).maxind</code> a maximum oszlopa a kiválasztott sorban.</li>
+<li>a kimenet <code>Z</code> kell legyen (a −1 nincs az <code>N</code>-ben),</li>
+<li>a −1-et magának az utófeltételnek kell előállítania.</li>
 </ul>
-<blockquote class="blockquote-tag blockquote-tag-note">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>A hivatalos megoldás előfeltétele <code>∀i∈[1..n]:(∀j∈[1..m]:(map[i,j]≥0))</code>, ami
-<code>N</code> esetén mindig igaz. Amire a <code>MAX</code>-nak valójában szüksége van, az a nem
-üres mátrix, ezért ez a változat <code>n&gt;0 és m&gt;0</code>-t mond.</p>
-</blockquote>
-<h2 id="tesztek"><a class="header" href="#tesztek">Tesztek</a></h2>
-<p>A feladat példája, ahol a 23-as maximum a 2. és a 4. sorban is előfordul (az
-első nyer):</p>
-<pre><code class="language-yaml">n: 6
-m: 4
-terkep: [
-  [12, 3, 1, 4],
-  [3, 2, 23, 5],
-  [4, 2, 2, 1],
-  [5, 2, 23, 0],
-  [0, 2, 4, 1],
-  [0, 0, 0, 1]
-]
-sor: 2
-oszlop: 3
+</li>
+</ul>
+<h2 id="1-megoldás-relációs"><a class="header" href="#1-megoldás-relációs">1. megoldás: relációs</a></h2>
+<pre><code class="language-speci">Be:
+
+n∈N, k∈N, v∈N[1..n]
+
+Ki:
+
+sorszam∈Z
+
+Ef:
+
+1&lt;=n&lt;=100 és 1&lt;=k&lt;=10000 és ∀i∈[1..n]:(1&lt;=v[i] és v[i]&lt;=500)
+
+Uf:
+
+(sorszam=-1 és SUM(j=1..n, v[j])&lt;=k) vagy ∃i∈[1..n]:(sorszam=i és SUM(j=1..i, v[j])&gt;k és SUM(j=1..i-1, v[j])&lt;=k)
 </code></pre>
-<p>A maximum a bal felső sarokban:</p>
-<pre><code class="language-yaml">n: 3
-m: 3
-terkep: [[99, 10, 5], [20, 30, 40], [15, 25, 35]]
-sor: 1
-oszlop: 1
+<p>A <code>vagy</code> két oldala kizárja egymást:</p>
+<ul>
+<li>bal: az összes vödör együtt is belefér, és a válasz −1,</li>
+<li>jobb: az <code>i</code>. vödörtől túlfolyik a tartály, közvetlenül előtte még nem folyt
+túl, és a válasz <code>i</code>.</li>
+</ul>
+<p>Minden vödör legalább 1 literes, tehát az összeg csak nő. Ezért elég az <code>i</code> előtti
+egyetlen lépést ellenőrizni.</p>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 4
 </code></pre>
-<p>Minden mező egyenlő, így az első mezőt választja:</p>
+<p>A pontosan tele tartály nem folyik túl:</p>
 <pre><code class="language-yaml">n: 2
-m: 2
-terkep: [[7, 7], [7, 7]]
-sor: 1
-oszlop: 1
+k: 100
+v: [50, 50]
+sorszam: -1
 </code></pre>
-<p>A második előfordulást <em>nem</em> fogadja el:</p>
-<pre><code class="language-yaml red">n: 2
-m: 2
-terkep: [[1, 9], [9, 1]]
-sor: 2
-oszlop: 1
+<p>Már a legelső vödörtől túlfolyik (az <code>1..0</code> kezdőszelet üres, az összege 0):</p>
+<pre><code class="language-yaml">n: 2
+k: 5
+v: [9, 1]
+sorszam: 1
 </code></pre>
-<h2 id="végigkövetés-első-teszt"><a class="header" href="#végigkövetés-első-teszt">Végigkövetés (első teszt)</a></h2>
+<p>Egyetlen vödör, amely belefér:</p>
+<pre><code class="language-yaml">n: 1
+k: 3000
+v: [500]
+sorszam: -1
+</code></pre>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>A <code>SUM(j=1..i-1, v[j])&lt;=k</code> nélkül bármelyik túlfolyató vödör elfogadható lenne.
+A minta a helyes válasszal átmenne, de a <code>sorszam: 5</code> is zöld lenne rá. Mindig
+legyen olyan teszt, ahol több elem is illeszkedik, és próbálj ki rossz választ is:</p>
+</blockquote>
+<pre><code class="language-yaml red">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+sorszam: 5
+</code></pre>
+<h2 id="2-megoldás-search-csel-minden-magyar-blokkal"><a class="header" href="#2-megoldás-search-csel-minden-magyar-blokkal">2. megoldás: SEARCH-csel, minden magyar blokkal</a></h2>
+<p>Ez a változat egyszerre használja mind a hat magyar blokkot. Azt is megmondja,
+hány vödör fér bele (<code>db</code>), és van egy szabad szöveges <code>megj</code> megjegyzése, amely
+csak az azonosság trükkjét mutatja be:</p>
+<pre><code class="language-speci">Be:
+n∈N,
+k∈N,
+v∈N[1..n],
+megj∈S
+
+Sa:
+van∈L,
+ind∈N
+
+Ki:
+sorszam∈Z,
+db∈N
+
+Fv:
+osszes:N-&gt;N,
+osszes(i)=SUM(j=1..i, v[j])
+
+Ef:
+1&lt;=n&lt;=100 és 1&lt;=k&lt;=10000 és ∀i∈[1..n]:(1&lt;=v[i] és v[i]&lt;=500)
+
+Uf:
+(van,ind)=SEARCH(i=1..n, osszes(i)&gt;k) és
+(van -&gt; sorszam=ind) és
+(nem van -&gt; sorszam=-1) és
+db=DARAB(i=1..n, osszes(i)&lt;=k) és
+megj=megj
+</code></pre>
+<pre><code class="language-yaml">n: 5
+k: 40
+v: [10, 15, 10, 8, 20]
+megj: "hars"
+van: true
+ind: 4
+sorszam: 4
+db: 3
+</code></pre>
+<pre><code class="language-yaml">n: 2
+k: 100
+v: [50, 50]
+megj: ""
+van: false
+ind: 3
+sorszam: -1
+db: 2
+</code></pre>
+<p>Amit ez az egy zöld futás megmutat:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th style="text-align: right">i. sor</th><th style="text-align: center"><code>maxoszl(i)</code></th><th style="text-align: right"><code>.maxval</code></th></tr>
+<tr><th>Elem</th><th>Mit mutat?</th></tr>
 </thead>
 <tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: center">(1, 12)</td><td style="text-align: right">12</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: center">(3, 23)</td><td style="text-align: right"><strong>23</strong></td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: center">(1, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: center">(3, 23)</td><td style="text-align: right">23</td></tr>
-<tr><td style="text-align: right">5</td><td style="text-align: center">(3, 4)</td><td style="text-align: right">4</td></tr>
-<tr><td style="text-align: right">6</td><td style="text-align: center">(4, 1)</td><td style="text-align: right">1</td></tr>
+<tr><td><code>Be:</code> <code>Sa:</code> <code>Ki:</code> <code>Fv:</code> <code>Ef:</code> <code>Uf:</code></td><td>mind a hat magyar fejléc, a tartalom a következő sorokban</td></tr>
+<tr><td><code>osszes:N-&gt;N,</code>, a törzs a következő sorban</td><td>magyar függvényblokk, ASCII nyíl</td></tr>
+<tr><td><code>osszes(i)</code> a <code>SEARCH</code> feltételében</td><td>saját függvény egy tételben</td></tr>
+<tr><td><code>van∈L</code></td><td>a jelző neve <code>van</code>, sosem <code>exists</code></td></tr>
+<tr><td><code>-&gt;</code> és <code>nem</code></td><td>implikáció és tagadás</td></tr>
+<tr><td><code>megj=megj</code></td><td>az azonosság, amely teljesíti a <a href="ch02-03-all-variables.html">minden-változó szabályt</a></td></tr>
 </tbody>
 </table>
 </div>
-<p>A külső <code>MAX</code> először a 2. sorban találja meg a 23-at, így <code>sor = 2</code>. Aztán
-<code>maxoszl(2).maxind = 3</code>, így <code>oszlop = 3</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-01-discworld.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-08-bloom.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-03-trurl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-10-more.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -290,11 +344,11 @@ oszlop: 1
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-01-discworld.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-08-bloom.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-03-trurl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-10-more.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

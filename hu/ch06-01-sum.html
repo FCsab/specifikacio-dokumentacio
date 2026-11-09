@@ -188,20 +188,20 @@
 
 <h2 id="példa-egy-tömb-összege"><a class="header" href="#példa-egy-tömb-összege">Példa: egy tömb összege</a></h2>
 <blockquote>
-<p><em>Tudjuk, hogy n napon át mennyi pénzt költöttünk naponta. Mennyit költöttünk
-összesen?</em></p>
+<p><em>Tudjuk, hány kilogramm mézet pergetett Borbála az n nap mindegyikén. Mennyit
+pergetett összesen?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, koltes∈N[1..n]
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n]
 Ki: ossz∈N
 Ef: -
-Uf: ossz=SUM(i=1..n, koltes[i])
+Uf: ossz=SUM(i=1..n, kg[i])
 </code></pre>
 <pre><code class="language-yaml">n: 5
-koltes: [1200, 0, 3500, 800, 450]
-ossz: 5950
+kg: [12, 0, 35, 8, 4]
+ossz: 59
 </code></pre>
 <pre><code class="language-yaml">n: 0
-koltes: []
+kg: []
 ossz: 0
 </code></pre>
 <h2 id="az-összegzett-érték-bármilyen-kifejezés-lehet"><a class="header" href="#az-összegzett-érték-bármilyen-kifejezés-lehet">Az összegzett érték bármilyen kifejezés lehet</a></h2>
@@ -216,44 +216,49 @@ s: 30
 </code></pre>
 <h2 id="a-szűrt-alak"><a class="header" href="#a-szűrt-alak">A szűrt alak</a></h2>
 <p>Egy <strong>harmadik argumentummal</strong>, egy feltétellel, csak azok a tagok adódnak
-össze, amelyekre a feltétel teljesül. <em>A páros elemek összege:</em></p>
-<pre><code class="language-speci">Be: n∈N, x∈N[1..n]
+össze, amelyekre a feltétel teljesül. <em>A legalább 4 pontos kaptárak mézének összege:</em></p>
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n], pont∈N[1..n]
 Ki: s∈N
 Ef: -
-Uf: s=SUM(i=1..n, x[i], x[i] mod 2 = 0)
+Uf: s=SUM(i=1..n, kg[i], pont[i]≥4)
 </code></pre>
-<pre><code class="language-yaml">n: 5
-x: [1, 2, 3, 4, 10]
-s: 16
+<pre><code class="language-yaml">n: 4
+kg: [10, 20, 30, 40]
+pont: [4, 2, 5, 3]
+s: 40
 </code></pre>
-<p>Az <em>n osztóinak összege</em> a szűrőt az oszthatósági relációval, a <code>|</code> jellel
-kombinálja:</p>
-<pre><code class="language-speci">Be: n∈N
+<p><em>A hatos csomagokat pontosan kitöltő rendelések üvegei</em>: a szűrőt az oszthatósági
+relációval, a <code>|</code> jellel kombináljuk:</p>
+<pre><code class="language-speci">Be: n∈N, q∈N[1..n]
 Ki: s∈N
-Ef: n≥1
-Uf: s=SUM(i=1..n, i, i|n)
+Ef: -
+Uf: s=SUM(i=1..n, q[i], 6|q[i])
 </code></pre>
-<pre><code class="language-yaml">n: 12
-s: 28
+<pre><code class="language-yaml">n: 4
+q: [12, 7, 6, 10]
+s: 18
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Minden megszorítás kerüljön a szűrőbe.</strong> Az „n <em>páratlan osztóinak</em>
-összege” két feltételt tartalmaz. A <code>SUM(i=1..n, i, i mod 2 = 1)</code> n-ig <em>minden</em>
-páratlan számot összead (n = 10-re 25-öt) a páratlan osztók (1 + 5 = 6)
-helyett. A helyes szűrő: <code>i mod 2 = 1 és i|n</code>.</p>
+<p><strong>Minden megszorítás kerüljön a szűrőbe.</strong> A „legalább 4 pontos, <em>nem kezelt</em>
+kaptárak méze” két feltételt tartalmaz. A <code>SUM(i=1..n, kg[i], pont[i]≥4)</code> a kezelt
+kaptárakat is hozzáadja (az alábbi tesztben 70), nem csak a többit (40). A helyes
+szűrő: <code>pont[i]≥4 és nem kezelt[i]</code>.</p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N
+<pre><code class="language-speci">Be: n∈N, kg∈N[1..n], pont∈N[1..n], kezelt∈L[1..n]
 Ki: s∈N
-Ef: n≥1
-Uf: s=SUM(i=1..n, i, i mod 2 = 1 és i|n)
+Ef: -
+Uf: s=SUM(i=1..n, kg[i], pont[i]≥4 és nem kezelt[i])
 </code></pre>
-<pre><code class="language-yaml">n: 10
-s: 6
+<pre><code class="language-yaml">n: 3
+kg: [40, 30, 20]
+pont: [4, 5, 2]
+kezelt: [false, true, false]
+s: 40
 </code></pre>
 <h2 id="a-tömb-egy-ablaka"><a class="header" href="#a-tömb-egy-ablaka">A tömb egy ablaka</a></h2>
-<p>A tartománynak nem kell a teljes tömböt lefednie. <em>Az i index előtti d érték
-összege</em>: <code>SUM(j=i-d..i-1, x[j])</code>. Ez a <a href="ch09-03-trurl.html">Trurl robotjai</a>
+<p>A tartománynak nem kell a teljes tömböt lefednie. <em>Az utolsó d érték összege, az i
+indexszel bezárólag</em>: <code>SUM(j=i-d+1..i, x[j])</code>. Ez a <a href="ch09-03-flow.html">hordás</a>
 feladat belső része.</p>
 <h2 id="átlag"><a class="header" href="#átlag">Átlag</a></h2>
 <p>Átlagra nincs külön makró. Oszd el az összeget a darabszámmal:</p>

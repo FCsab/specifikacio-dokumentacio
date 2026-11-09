@@ -190,40 +190,40 @@ amelynek megvan egy tulajdonsága (<code>EXISTS</code>), vagy mindegyiknek megva
 
 <h2 id="exists-van-e"><a class="header" href="#exists-van-e">EXISTS: van-e…?</a></h2>
 <blockquote>
-<p><em>Van-e páratlan szám a számok között?</em></p>
+<p><em>Van-e olyan kaptár, amelyben 50-nél több atka van?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, szamok∈N[1..n]
-Ki: paratlan∈L
+<pre><code class="language-speci">Be: n∈N, atka∈N[1..n]
+Ki: riaszt∈L
 Ef: -
-Uf: paratlan=EXISTS(i=1..n, szamok[i] mod 2 = 1)
+Uf: riaszt=EXISTS(i=1..n, atka[i]&gt;50)
 </code></pre>
 <pre><code class="language-yaml">n: 4
-szamok: [2, 8, 7, 4]
-paratlan: true
+atka: [12, 8, 70, 4]
+riaszt: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [2, 8, 4]
-paratlan: false
+atka: [12, 50, 4]
+riaszt: false
 </code></pre>
 <h2 id="forall-minden"><a class="header" href="#forall-minden">FORALL: minden…?</a></h2>
 <blockquote>
-<p><em>Minden szám pozitív?</em></p>
+<p><em>Minden kaptár gyarapodott?</em></p>
 </blockquote>
-<pre><code class="language-speci">Be: n∈N, szamok∈Z[1..n]
-Ki: pozitiv∈L
+<pre><code class="language-speci">Be: n∈N, nov∈Z[1..n]
+Ki: mind∈L
 Ef: -
-Uf: pozitiv=FORALL(i=1..n, szamok[i]&gt;0)
+Uf: mind=FORALL(i=1..n, nov[i]&gt;0)
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [5, 1, 9]
-pozitiv: true
+nov: [5, 1, 9]
+mind: true
 </code></pre>
 <pre><code class="language-yaml">n: 3
-szamok: [5, 0, 9]
-pozitiv: false
+nov: [5, 0, 9]
+mind: false
 </code></pre>
 <h2 id="a-kettő-összefügg"><a class="header" href="#a-kettő-összefügg">A kettő összefügg</a></h2>
-<p>„Nem minden elem pozitív” ugyanaz, mint „van olyan elem, amely nem pozitív”:</p>
+<p>„Nem minden kaptár gyarapodott” ugyanaz, mint „van olyan kaptár, amely nem gyarapodott”:</p>
 <pre><code class="language-text">nem FORALL(i=1..n, β(i))   =   EXISTS(i=1..n, nem β(i))
 </code></pre>
 <p>Azt használd, amelyik természetesebben hangzik a feladatban.</p>
@@ -243,18 +243,18 @@ b: true
 kvantor tisztán logikai állítás. Az előfeltételekben általában a kvantort, a
 kimenetet definiáló utófeltételekben a makrót használjuk.</p>
 <h2 id="építőelemként"><a class="header" href="#építőelemként">Építőelemként</a></h2>
-<p>Az eldöntés gyakran egy összetett feladat <em>belső</em> része. <em>Keress egy napot,
-amikor minden kávészünetben 5 liternél több fogyott</em>: ez egy keresés, amelynek
-a feltétele egy <code>FORALL</code>. Lásd <a href="ch09-04-catbert.html">Catbert kávészünetei</a>.</p>
-<pre><code class="language-speci">Be: n∈N, kave∈N[1..n,1..4]
-Ki: vanIlyenNap∈L
-Fv: tobb5:N-&gt;L, tobb5(i)=FORALL(j=1..4, kave[i,j]&gt;5)
+<p>Az eldöntés gyakran egy összetett feladat <em>belső</em> része. <em>Keress egy kerethelyet,
+amely minden fiókban érett</em>: ez egy keresés, amelynek
+a feltétele egy <code>FORALL</code>. Lásd <a href="ch09-04-harvest.html">Pergetés</a>.</p>
+<pre><code class="language-speci">Be: n∈N, fedett∈N[1..n,1..5]
+Ki: vanErett∈L
+Fv: erett:N-&gt;L, erett(p)=FORALL(b=1..n, fedett[b,p]≥80)
 Ef: -
-Uf: vanIlyenNap=EXISTS(i=1..n, tobb5(i))
+Uf: vanErett=EXISTS(p=1..5, erett(p))
 </code></pre>
 <pre><code class="language-yaml">n: 2
-kave: [[6, 6, 6, 5], [7, 8, 9, 6]]
-vanIlyenNap: true
+fedett: [[90, 70, 85, 10, 0], [85, 95, 20, 90, 0]]
+vanErett: true
 </code></pre>
 
                     </main>

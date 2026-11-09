@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="hu" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>The Discworld libraries - The Specification Editor Book</title>
+        <title>Az etetési naptár - A Specifikációszerkesztő könyve</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="A complete guide to the ELTE Specification Editor and speci-local">
+        <meta name="description" content="Teljes útmutató az ELTE Specifikációszerkesztőhöz és a speci-localhoz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Specification Editor Book</h1>
+                    <h1 class="menu-title">A Specifikációszerkesztő könyve</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,119 +177,120 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="the-discworld-libraries"><a class="header" href="#the-discworld-libraries">The Discworld libraries</a></h1>
+                        <h1 id="az-etetési-naptár"><a class="header" href="#az-etetési-naptár">Az etetési naptár</a></h1>
+<p>Három rövid feladat Borbála őszi naptáráról. Az 1. naptól kezdve a családokat
+minden a-adik napon eteti, és minden b-edik napon ellenőrzi. A feladatok a <code>DARAB</code>
+megszámolást, az oszthatósági relációt (<code>|</code>) és a szűrt <code>SUM</code>-ot mutatják be.</p>
+<h2 id="sűrű-napok"><a class="header" href="#sűrű-napok">Sűrű napok</a></h2>
 <blockquote>
-<p><em>The Librarian of the Unseen University stores the name and the coordinates
-of each Library in the Discworld. Give the first library in the list that is
-further north (its y coordinate is smaller) than the next one.</em></p>
+<p><em>Az első d nap közül hányon eteti és ellenőrzi is a családokat?</em></p>
 </blockquote>
-<p><strong>Task type:</strong> search over an array of records.
-<a href="https://progalap.elte.hu/specifikacio/v1/?uuid=6117a7d1-fd33-48e3-8f5b-55bafbb65a64">Official solution</a>.</p>
-<h2 id="analysis"><a class="header" href="#analysis">Analysis</a></h2>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
+
+Ki: db∈N
+
+Ef: a&gt;=1 és b&gt;=1
+
+Uf: db=DARAB(i=1..d, a|i és b|i)    // i mindkettő többszöröse
+</code></pre>
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+db: 2
+</code></pre>
+<pre><code class="language-yaml">d: 10
+a: 4
+b: 7
+db: 0
+</code></pre>
+<pre><code class="language-yaml">d: 7
+a: 1
+b: 7
+db: 1
+</code></pre>
 <ul>
-<li><strong>Data.</strong> n libraries, each with a name and two coordinates. That calls for
-a record <code>Tpl=(name:S x x:N x y:N)</code> and an array of them.</li>
-<li><strong>Question.</strong> <em>The first library that…</em> We look for one element, and there may
-be none. That’s <strong>search</strong>.</li>
-<li><strong>Condition.</strong> Library <em>i</em> is further north than library <em>i+1</em>. Wait:
-“further north” means a <em>smaller</em> y. Compare that with the official
-solution’s condition, <code>pl[i].y&lt;pl[i+1].y</code>, which says y of <em>i</em> is smaller than y
-of <em>i+1</em>. Library <em>i</em> has the smaller y, so it is the one further north. Good.</li>
-<li><strong>Range.</strong> Because we compare with the next one, <code>i</code> runs only to <code>n-1</code>.</li>
-<li><strong>Output.</strong> The library’s <em>name</em>, which only exists if the search
-succeeds. That calls for an implication.</li>
+<li>A <code>DARAB</code> a <code>COUNT</code> magyar alakja.</li>
+<li>Az <code>a|i</code> jelentése „a osztója i-nek”, ugyanaz, mint az <code>i mod a = 0</code>.</li>
+<li>Az előfeltétel kizárja a 0-t: „minden 0. napon” nem lehet semmit csinálni.</li>
 </ul>
-<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<pre><code class="language-speci">In: n∈N, pl∈Tpl[1..n], Tpl=(name:S x x:N x y:N)
-Aux: found∈L, ind∈N
-Out: lib∈S
-Pre: ∀i∈[1..n]:(pl[i].x≥0 and pl[i].y≥0)
-Post: (found,ind)=SEARCH(i=1..n-1, pl[i].y&lt;pl[i+1].y) and
-      (found -&gt; lib=pl[ind].name)
+<h2 id="szirup-az-egész-őszre"><a class="header" href="#szirup-az-egész-őszre">Szirup az egész őszre</a></h2>
+<blockquote>
+<p><em>Az i. napon egy család i deciliter szirupot kap, mert a hideg közeledtével egyre
+többre van szüksége. Mennyi szirupot kap egy család az első d napon?</em></p>
+</blockquote>
+<pre><code class="language-speci">Be: d∈N, a∈N
+
+Ki: szirup∈N
+
+Ef: a&gt;=1
+
+Uf: szirup=SUM(i=1..d, i, a|i)
 </code></pre>
-<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
-<p>The statement’s example, where L4 (y = 4) is followed by L5 (y = 47):</p>
-<pre><code class="language-yaml">n: 5
-pl: [
-  {name: "L1", x: 12, y: 24},
-  {name: "L2", x: 5, y: 15},
-  {name: "L3", x: 69, y: 4},
-  {name: "L4", x: 12, y: 4},
-  {name: "L5", x: 212, y: 47}
-]
-lib: L4
-found: true
-ind: 4
+<pre><code class="language-yaml">d: 12
+a: 3
+szirup: 30
 </code></pre>
-<p>Negative, where every library is further south than the previous one:</p>
-<pre><code class="language-yaml">n: 4
-pl: [
-  {name: "L1", x: 10, y: 50},
-  {name: "L2", x: 20, y: 40},
-  {name: "L3", x: 30, y: 30},
-  {name: "L4", x: 40, y: 20}
-]
-lib: ""
-found: false
-ind: 4
+<pre><code class="language-yaml">d: 2
+a: 3
+szirup: 0
 </code></pre>
-<p>Boundary, with a single library (the range <code>1..0</code> is empty):</p>
-<pre><code class="language-yaml">n: 1
-pl: [{name: "L1", x: 0, y: 10}]
-lib: ""
-found: false
-ind: 1
+<p>A <code>SUM</code> harmadik argumentuma a szűrő: csak az etetési napok adódnak össze.</p>
+<h2 id="ellenőrzéskor-nincs-etetés"><a class="header" href="#ellenőrzéskor-nincs-etetés">Ellenőrzéskor nincs etetés</a></h2>
+<blockquote>
+<p><em>A kaptár kinyitása megzavarja a méheket, ezért ellenőrzési napokon elmarad az
+etetés. Mennyi szirupot kap így egy család?</em></p>
+</blockquote>
+<p>Egy csábító megoldás, rossz művelettel:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
+
+Ki: szirup∈N
+
+Ef: a&gt;=1 és b&gt;=1
+
+Uf: szirup=SUM(i=1..d, i, a|i vagy nem (b|i))
 </code></pre>
-<p>A wrong expectation must be caught:</p>
-<pre><code class="language-yaml red">n: 5
-pl: [
-  {name: "L1", x: 12, y: 24},
-  {name: "L2", x: 5, y: 15},
-  {name: "L3", x: 69, y: 4},
-  {name: "L4", x: 12, y: 4},
-  {name: "L5", x: 212, y: 47}
-]
-lib: L3
-found: true
-ind: 3
+<pre><code class="language-yaml red">d: 12
+a: 2
+b: 3
+szirup: 24
 </code></pre>
-<h2 id="walkthrough"><a class="header" href="#walkthrough">Walkthrough</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th style="text-align: right">i</th><th style="text-align: right">y[i]</th><th style="text-align: right">y[i+1]</th><th style="text-align: center">y[i] &lt; y[i+1]?</th></tr>
-</thead>
-<tbody>
-<tr><td style="text-align: right">1</td><td style="text-align: right">24</td><td style="text-align: right">15</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">2</td><td style="text-align: right">15</td><td style="text-align: right">4</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">3</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: center">no</td></tr>
-<tr><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">47</td><td style="text-align: center"><strong>yes</strong></td></tr>
-</tbody>
-</table>
-</div>
-<p>The search stops at i = 4, so <code>found = true</code> and <code>ind = 4</code>, and the
-implication requires <code>lib = pl[4].name = "L4"</code>.</p>
-<h2 id="about-the-parentheses"><a class="header" href="#about-the-parentheses">About the parentheses</a></h2>
-<p>The official solution writes the last line without parentheses:</p>
-<pre><code class="language-speci fragment">Post: (exists,ind)=SEARCH(i=1..n-1,pl[i].y&lt;pl[i+1].y) and
-      exists -&gt; lib=pl[ind].name
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>Ez nem oldja meg a feladatot. A <code>vagy</code> minden olyan napot is megtart, amely
+egyszerűen nem ellenőrzési nap, akkor is, ha nincs is etetés. d = 12-re
+1+2+4+5+6+7+8+10+11+12 = 66-ot ad össze, nem a kívánt 2+4+8+10 = 24-et. A helyes
+választ tartalmazó teszt piros, és ez leleplezi a hibát.</p>
+</blockquote>
+<p>A helyes szűrőben a két feltételnek egyszerre kell teljesülnie:</p>
+<pre><code class="language-speci">Be: d∈N, a∈N, b∈N
+
+Ki: szirup∈N
+
+Ef: a&gt;=1 és b&gt;=1
+
+Uf: szirup=SUM(i=1..d, i, a|i és nem (b|i))
 </code></pre>
-<p>Because <code>-&gt;</code> binds more weakly than <code>and</code>, this means
-<code>(SEARCH… and exists) -&gt; lib=…</code>. If a test case has wrong values for <code>exists</code> or
-<code>ind</code>, the left side is false and the whole statement is <em>true</em>, so
-the error goes unnoticed. With the parentheses, as above, the red test is
-correctly red. (The official solution also names the flag <code>exists</code>, which the
-current editor rejects. See <a href="ch06-06-search.html">Search</a>.)</p>
+<pre><code class="language-yaml">d: 12
+a: 2
+b: 3
+szirup: 24
+</code></pre>
+<pre><code class="language-yaml">d: 6
+a: 3
+b: 3
+szirup: 0
+</code></pre>
+<p>A második teszt jó határeset: minden etetési nap egyben ellenőrzési nap is.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ch09-00-examples.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ch09-06-fair.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ch09-02-yossarian.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="ch09-08-bloom.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -299,11 +300,11 @@ current editor rejects. See <a href="ch06-06-search.html">Search</a>.)</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ch09-00-examples.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ch09-06-fair.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ch09-02-yossarian.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="ch09-08-bloom.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
